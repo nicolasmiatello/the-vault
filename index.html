@@ -1,17 +1,20 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="es">
+<head>
 <meta charset="utf-8">
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>The NBA Card Vault</title>
 <meta name="description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas, fotografiadas en mano. Consultas directas por WhatsApp.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The NBA Card Vault">
 <meta property="og:description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas, fotografiadas en mano.">
-<meta property="og:image" content="img/intro-poster.jpg">
+<!-- Cuando tengas la URL definitiva, reemplazá TU-DOMINIO en las dos líneas de imagen (WhatsApp y redes necesitan la dirección completa) -->
+<meta property="og:image" content="https://TU-DOMINIO/img/intro-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The NBA Card Vault">
 <meta name="twitter:description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas, fotografiadas en mano.">
-<meta name="twitter:image" content="img/intro-poster.jpg">
+<meta name="twitter:image" content="https://TU-DOMINIO/img/intro-poster.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap">
@@ -640,6 +643,38 @@ select.sortsel{background:var(--field); border:1px solid var(--hair); padding:9p
 }
 .tabs button.on{color:var(--bone); border-bottom-color:var(--gold)}
 .tabs button:hover{color:var(--bone)}
+/* selector de formato del inicio: tres tarjetas, la elegida en dorado */
+.fmt-pick{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-bottom:clamp(24px,3vw,36px)}
+.fmt{
+  position:relative; display:flex; align-items:center; gap:14px; text-align:left; min-width:0; overflow:hidden;
+  padding:14px 16px; border:1px solid var(--hair-strong); border-radius:3px;
+  background:linear-gradient(180deg,var(--charcoal),var(--ink)); color:var(--bone-dim);
+  transition:border-color .25s var(--ease), background .25s var(--ease), transform .25s var(--ease);
+}
+.fmt:hover{border-color:var(--gold-hair); transform:translateY(-2px)}
+.fmt.on{border-color:var(--gold); background:linear-gradient(160deg, rgba(201,162,39,.17), rgba(201,162,39,.03) 62%), var(--ink)}
+.fmt.on::before{content:""; position:absolute; left:0; right:0; top:0; height:2px; background:linear-gradient(90deg,var(--gold-soft),var(--gold))}
+.fmt-thumbs{display:flex; padding-left:10px; flex:0 0 auto}
+.fmt-thumbs img{
+  width:36px; aspect-ratio:1086/1448; object-fit:cover; object-position:top center; border-radius:2px; margin-left:-10px; background:#0a0b0d;
+  box-shadow:0 6px 12px -6px #000, 0 0 0 1px rgba(244,243,239,.14); transition:filter .25s var(--ease);
+}
+.fmt:not(.on) .fmt-thumbs img{filter:saturate(.7) brightness(.78)}
+.fmt:hover .fmt-thumbs img{filter:none}
+.fmt-txt{display:flex; flex-direction:column; gap:3px; min-width:0; flex:1}
+.fmt-txt b{font-variation-settings:"wdth" 82,"wght" 800; text-transform:uppercase; font-size:clamp(13px,1.5vw,17px); letter-spacing:.02em; line-height:1.1; color:var(--bone)}
+.fmt-n{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-soft); font-variant-numeric:tabular-nums}
+.fmt-sub{font-size:12px; color:var(--silver); line-height:1.35}
+.fmt-go{font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--silver); white-space:nowrap}
+.fmt.on .fmt-go{color:var(--gold-soft)}
+@media(max-width:900px){ .fmt-go{display:none} }
+@media(max-width:620px){
+  .fmt-pick{gap:6px}
+  .fmt{flex-direction:column; align-items:flex-start; gap:10px; padding:12px 10px}
+  .fmt-sub{display:none}
+  .fmt-thumbs img{width:28px}
+  .fmt-n{font-size:9.5px; letter-spacing:.1em}
+}
 .teams-grid{display:grid; gap:1px; background:var(--hair); grid-template-columns:repeat(2,1fr)}
 @media(min-width:700px){.teams-grid{grid-template-columns:repeat(3,1fr)}}
 @media(min-width:1050px){.teams-grid{grid-template-columns:repeat(5,1fr)}}
@@ -2410,6 +2445,8 @@ html, body{overflow-x:clip}
 .share-acts .btn[hidden]{display:none}
 .wa-note{font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--silver-dim); line-height:1.6; text-align:center}
 </style>
+</head>
+<body>
 <header class="site-header" id="siteHeader">
   <div class="wrap-wide hdr">
     <a class="brand" href="#/">
@@ -3502,6 +3539,14 @@ async function shareModal(id){
           try { await dlApi.save({ filename: "the-vault-" + c.slug + ".png", data: blob }); toast("Imagen descargada"); }
           catch(err){ if (err && err.code !== "declined") toast("No se pudo descargar · mantené apretada la imagen para guardarla"); }
         };
+      } else if (dl){
+        // sitio propio: descarga directa del navegador
+        dl.hidden = false;
+        dl.onclick = () => {
+          const u = URL.createObjectURL(blob), a = document.createElement("a");
+          a.href = u; a.download = "the-vault-" + c.slug + ".png"; document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(() => URL.revokeObjectURL(u), 4000); toast("Imagen descargada");
+        };
       }
       const file = new File([blob], "the-vault-" + c.slug + ".png", { type:"image/png" });
       if (navigator.canShare && navigator.canShare({ files:[file] })){
@@ -4151,7 +4196,7 @@ function pageHome(){
     ${(() => {
       const homeSets = {
         rookies: {
-          label: "Rookie Center", list: rookies, href: "#/rookies", cta: "Abrir el Rookie Center",
+          label: "Rookie Center", pick: "El primer año del jugador", list: rookies, href: "#/rookies", cta: "Abrir el Rookie Center",
           h2: "Cartas rookie", sub: "Primeras cartas y tinta de año rookie: se compran antes del salto y después ya no se consiguen calladas.",
           eyebrow: "Sala 06 · Rookie Center",
           blurb: "Todo lo del primer año de cartas de un jugador, contado por formato. Los ceros son reales: es lo que la bóveda todavía no tiene.",
@@ -4165,7 +4210,7 @@ function pageHome(){
           wanted: ["RPA", "Rookies /25", "PSA 10"]
         },
         worn: {
-          label: "Game-Worn", list: worn, href: "#/game-worn", cta: "Abrir la sala de memorabilia",
+          label: "Game-Worn", pick: "Con un pedazo de camiseta", list: worn, href: "#/game-worn", cta: "Abrir la sala de memorabilia",
           h2: "Pedazos de camiseta", sub: "Swatches, patches y prime cuts, con la firma al lado cuando el producto lo permite.",
           eyebrow: "Sala 07 · Memorabilia",
           blurb: "Los formatos de memorabilia, uno por uno. Hoy la sala está flaca y se nota: los patch autos son justamente lo que la bóveda está comprando.",
@@ -4180,7 +4225,7 @@ function pageHome(){
           wanted: ["Patch auto", "Prime patch", "Logoman"]
         },
         low: {
-          label: "Numeradas bajo", list: lowNo, href: "#/collections/low-numbered", cta: "Ver todas las numeradas",
+          label: "Numeradas bajo", pick: "49 copias o menos", list: lowNo, href: "#/collections/low-numbered", cta: "Ver todas las numeradas",
           h2: "Numeradas cortas", sub: "Ordenadas por tirada. Cuanto más bajo el número, más corta la lista de gente que puede tener una.",
           eyebrow: "Sala 08 · Numeradas bajo",
           blurb: "Tiradas de 49 copias o menos, de la más escasa a la más común.",
@@ -4196,13 +4241,18 @@ function pageHome(){
       const homeTab = homeSets[S.tab] ? S.tab : "rookies";
       const hs = homeSets[homeTab];
       return `
-      ${sec("07 — La bóveda por formato", plural(hs.list.length, "carta", "cartas"))}
+      ${sec("07 — La bóveda por formato", "Elegí un formato")}
+      <div class="fmt-pick" role="tablist" aria-label="Formatos de la bóveda">
+        ${Object.keys(homeSets).map(k => { const h = homeSets[k], n = h.list.length, on = k === homeTab; return `
+        <button class="fmt${on ? " on" : ""}" data-tab="${k}" role="tab" aria-selected="${on}">
+          <span class="fmt-thumbs">${h.list.slice(0,3).map(c => `<img src="${c.imgs[0]}" alt="" loading="lazy">`).join("")}</span>
+          <span class="fmt-txt"><b>${esc(h.label)}</b><span class="fmt-n">${n ? plural(n, "carta", "cartas") : "Próximamente"}</span><span class="fmt-sub">${esc(h.pick)}</span></span>
+          <span class="fmt-go">${on ? "Viendo" : "Ver →"}</span>
+        </button>`; }).join("")}
+      </div>
       <div class="section-head"><div><h2>${esc(hs.h2)}</h2>
         <p class="sub">${esc(hs.sub)}</p></div>
         <a class="btn btn-sm" href="${hs.href}">${esc(hs.label)}</a></div>
-      <div class="tabs" style="margin-bottom:22px">
-        ${Object.keys(homeSets).map(k => `<button data-tab="${k}" class="${k===homeTab?"on":""}">${esc(homeSets[k].label)}</button>`).join("")}
-      </div>
       ${hs.list.length ? room(hs.list, {
         eyebrow: hs.eyebrow, title: "Qué hay en la sala", blurb: hs.blurb, rows: hs.rows,
         wanted: hs.wanted, href: hs.href, cta: hs.cta
@@ -7422,6 +7472,5 @@ wire();
 render();
 playIntro();
 </script>
-
-</body></html>
-</body></html>
+</body>
+</html>
