@@ -5,15 +5,15 @@
 <style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>The NBA Card Vault</title>
-<meta name="description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas, fotografiadas en mano. Consultas directas por WhatsApp.">
+<meta name="description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas. Consultas directas por WhatsApp.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The NBA Card Vault">
-<meta property="og:description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas, fotografiadas en mano.">
+<meta property="og:description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas, de cualquier equipo y cualquier época.">
 <!-- Cuando tengas la URL definitiva, reemplazá TU-DOMINIO en las dos líneas de imagen (WhatsApp y redes necesitan la dirección completa) -->
 <meta property="og:image" content="https://TU-DOMINIO/img/intro-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The NBA Card Vault">
-<meta name="twitter:description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas, fotografiadas en mano.">
+<meta name="twitter:description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas, de cualquier equipo y cualquier época.">
 <meta name="twitter:image" content="https://TU-DOMINIO/img/intro-poster.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2517,7 +2517,7 @@ html, body{overflow-x:clip}
       </div>
       <div class="mega-col mega-feature">
         <h4 class="eyebrow gold">La bóveda, carta por carta</h4>
-        <p style="color:var(--bone-dim); font-size:13.5px; margin:10px 0 16px">Autógrafos, parches, rookies y numeradas bajas. Todo fotografiado en mano, de cualquier equipo y cualquier época.</p>
+        <p style="color:var(--bone-dim); font-size:13.5px; margin:10px 0 16px">Autógrafos, parches, rookies y numeradas bajas, de cualquier equipo y cualquier época.</p>
         <a class="btn btn-sm" href="#/teams">Buscar por equipo</a>
         <a class="btn btn-sm" href="#" data-sala style="margin-top:8px">Recorrer la sala 3D</a>
       </div>
@@ -2571,7 +2571,7 @@ html, body{overflow-x:clip}
     <div class="foot-grid">
       <div class="foot-col">
         <span class="brand"><span class="mark">THE NBA CARD <em>VAULT</em></span></span>
-        <p style="color:var(--silver); font-size:13.5px; margin-top:14px; max-width:38ch">Quedate con una parte del juego. Una bóveda de autógrafos, rookies, patches y numeradas bajas, fotografiadas de a una carta por vez.</p>
+        <p style="color:var(--silver); font-size:13.5px; margin-top:14px; max-width:38ch">Quedate con una parte del juego. Una bóveda de autógrafos, rookies, patches y numeradas bajas, elegidas de a una carta por vez.</p>
       </div>
       <div class="foot-col">
         <h5>Tienda</h5>
@@ -3944,7 +3944,7 @@ function pageHome(){
     { n: String(pool.length), l: "Cartas en la bóveda" },
     { n: String(new Set(pool.map(c => c.playerSlug)).size), l: "Jugadores" },
     { n: runs.length ? "/" + Math.min(...runs) : "—", l: "Tirada más baja" },
-    { n: "100%", l: "Fotos de la carta real" }
+    { n: String(pool.filter(c => c.auto).length), l: "Autografiadas" }
   ];
   const stageCards = [byId("c3"), byId("c1"), byId("c4"), byId("c2"), byId("c10")].filter(Boolean);
   const rookies = pool.filter(c => c.rookie);
@@ -3978,7 +3978,7 @@ function pageHome(){
       `<span class="tk"><span class="tdot"></span>Nueva en la bóveda <b>${esc(c.player)}</b> ${esc(c.set)} <span class="tprice">${money(c.price)}</span></span>`)
     .concat(soldCards().map(c =>
       `<span class="tk"><span class="tdot sold"></span>Vendida <b>${esc(c.player)}</b> ${serialOf(c)||""} <span class="tprice">${money(c.soldPrice||c.price)}</span></span>`))
-    .concat([`<span class="tk"><span class="tdot"></span>Ofertas respondidas en menos de <b>24 horas</b></span>`,
+    .concat([`<span class="tk"><span class="tdot"></span>Consultas directas por <b>WhatsApp</b></span>`,
              `<span class="tk"><span class="tdot"></span>Envíos a todo el país desde <b>Buenos Aires</b></span>`]);
 
   return `
@@ -4163,7 +4163,7 @@ function pageHome(){
       ${sec("05 — Colección destacada", plural(topTeamCount, "carta", "cartas"))}
       <div class="garden-head">
         <h2 class="display">${esc(topTeamName)}</h2>
-        <p>La franquicia con más piezas en la bóveda hoy. Cada carta se compró para quedársela, se fotografió en mano y se vende solo porque el estante tiene límites.</p>
+        <p>La franquicia con más piezas en la bóveda hoy. Cada carta se compró para quedársela y se vende solo porque el estante tiene límites.</p>
       </div>
       <div class="garden-cards">
         ${garden.map(c => `
@@ -4184,7 +4184,7 @@ function pageHome(){
     ${sec("06 — Leyendas NBA", "Dorado = está en la bóveda")}
     <div class="section-head">
       <div><h2>Los nombres que mueven el mercado</h2>
-      <p class="sub">Lo que hay en la bóveda y lo que se está buscando. Nada figura como stock hasta que la carta está en mano y fotografiada.</p></div>
+      <p class="sub">Lo que hay en la bóveda y lo que se está buscando. Nada figura como stock hasta que la carta está en mano.</p></div>
       <a class="btn btn-sm" href="#/collections/legends">Colección leyendas</a>
     </div>
     <div class="legend-wall">
@@ -4304,20 +4304,13 @@ function pageHome(){
     <div class="section-head"><div><h2>Cómo funciona la bóveda</h2></div></div>
     <div class="trust-grid">
       ${[
-        ["Fotos de la carta real","Cada publicación está fotografiada con la carta en mano: frente, serial, autógrafo y cualquier defecto. Nada es imagen de catálogo."],
+        ["Imágenes de cada carta","Cada publicación muestra la carta que se vende, con imágenes en calidad profesional. Si querés verla tal cual es en mano, pedí fotos por WhatsApp antes de comprar."],
         ["Ficha completa","Producto, set, subset, número de carta, tirada, tipo de autógrafo y estado quedan registrados para cada carta."],
         ["Autenticidad a la vista","Si la carta viene gradeada, se publica con su número de certificación para que lo puedas verificar."],
         ["Envíos con tracking","A todo el país, siempre con seguimiento y cotizados antes de pagar."],
-        ["Ofertas bienvenidas","Toda oferta razonable se responde el mismo día."],
+        ["Ofertas, según la carta","Algunas cartas y combos aceptan ofertas y otros no. Se consulta por WhatsApp."],
         ["Trato directo","Listas de búsqueda, canjes y consignación los contesta la persona que tiene la colección."]
       ].map(([h,p],i) => `<div class="trust"><span class="t-n">${String(i+1).padStart(2,"0")}</span><h4>${h}</h4><p>${p}</p></div>`).join("")}
-    </div>
-    <div class="pack" style="margin-top:1px">
-      ${[["Sleeve","Primero el penny sleeve, siempre, antes de que nada toque la superficie."],
-         ["Toploader / One Touch","Los slabs y las One Touch viajan en su estuche; las raw van en toploader nuevo."],
-         ["Embalaje rígido","Team bag, sobre rígido y envoltorio con burbuja. Nada se mueve en el camino."],
-         ["Envío con tracking","Seguimiento en todos los pedidos."]]
-        .map(([t,p],i) => `<div class="pack-step"><span class="ps-n">PASO ${i+1}</span><b>${t}</b><p>${p}</p></div>`).join("")}
     </div>
   </section>
 
@@ -4732,7 +4725,7 @@ function pagePlayers(){
       </section>` : ""}
       <section>
         <p class="eyebrow gold" style="margin-bottom:6px">Leyendas NBA</p>
-        <p class="muted" style="font-size:13px; margin-bottom:14px">Lista de búsqueda. Nada figura como stock hasta tener la carta en mano y fotografiada.</p>
+        <p class="muted" style="font-size:13px; margin-bottom:14px">Lista de búsqueda. Nada figura como stock hasta tener la carta en mano.</p>
         <div class="player-grid">${WANTED.legends.map(wantTile).join("")}</div>
       </section>
     </div>
@@ -4818,7 +4811,7 @@ function pageCollection(slug){
     <div class="section-head"><div><p class="eyebrow gold">Colección</p><h2>${esc(col.name)}</h2><p class="sub">${esc(col.sub)}</p></div>
       <p class="eyebrow">${plural(list.length, "carta", "cartas")}</p></div>
     ${wanted ? `<div class="panel" style="margin-bottom:26px"><h3>Lista de búsqueda</h3>
-        <p class="muted" style="margin-bottom:14px">Acá no se publica nada hasta tener la carta en mano y fotografiada. Estos son los nombres que se están buscando.</p>
+        <p class="muted" style="margin-bottom:14px">Acá no se publica nada hasta tener la carta en mano. Estos son los nombres que se están buscando.</p>
         <div class="badges">${wanted.map(n => `<span class="badge">${esc(n)}</span>`).join("")}</div>
         <p style="margin-top:18px"><a class="btn btn-sm" href="#/contact">¿Tenés una para vender?</a></p></div>` : ""}
     ${list.length ? cardGrid(list, S.view) : (wanted ? "" : emptyState())}
@@ -5032,14 +5025,14 @@ function pageSell(){
 }
 function pageStatic(kind){
   const content = {
-    about: ["Quiénes somos", "Una bóveda, no un local", `<p>The Vault empezó como empiezan casi todas las colecciones: una carta, y después una segunda que tenía que ir al lado. Todo lo que está publicado se compró para quedárselo, se fotografió en mano, y se vende solamente porque el estante tiene límites.</p>
+    about: ["Quiénes somos", "Una bóveda, no un local", `<p>The Vault empezó como empiezan casi todas las colecciones: una carta, y después una segunda que tenía que ir al lado. Todo lo que está publicado se compró para quedárselo y se vende solamente porque el estante tiene límites.</p>
       <p>Las cartas se describen como un coleccionista quiere leerlas: producto, set, subset, número de carta, tirada, tipo de autógrafo, estado, y una foto que muestra los defectos con la misma claridad que el brillo. Nada se publica hasta que está físicamente acá.</p>`],
-    shipping: ["Envíos", "Cómo viajan las cartas", `<p>Cada carta sale en penny sleeve, adentro de un toploader o One Touch, adentro de un sobre rígido, adentro de un envoltorio con burbuja.</p>
+    shipping: ["Envíos", "Cómo viajan las cartas", `<p>Cada carta se embala correctamente para que viaje protegida.</p>
       <p>El costo y el tiempo dependen del destino: se cotizan por WhatsApp junto con la carta.</p>
       <p>El envío se confirma por WhatsApp junto con la carta, antes de pagar.</p>`],
     payments: ["Pagos", "Cómo se compra", `<p>Cada carta tiene un botón “Consultar por WhatsApp” que abre un chat directo con quien la tiene, con el mensaje ya armado. Ahí se confirma la disponibilidad y se acuerdan el pago y el envío.</p>`],
-    faq: ["Preguntas", "Lo que más se pregunta", `<p><b>¿Las fotos son de la carta real?</b> Sí. Cada imagen es la carta que vas a recibir, fotografiada con la misma luz.</p>
-      <p><b>¿Aceptás ofertas?</b> En casi todas. Escribí desde “Consultar por WhatsApp” en la ficha de la carta y se responde el mismo día.</p>
+    faq: ["Preguntas", "Lo que más se pregunta", `<p><b>¿Las fotos son de la carta real?</b> Las imágenes muestran la carta que se vende, con tratamiento profesional de imagen, así que el color y el brillo pueden variar respecto de la carta en mano. Si querés verla tal cual es, pedí fotos por WhatsApp antes de comprar.</p>
+      <p><b>¿Aceptás ofertas?</b> Depende de la carta o del combo: en algunos sí y en otros no. Consultá desde “Consultar por WhatsApp” en la ficha.</p>
       <p><b>¿Gradeás antes de vender?</b> Algunas. Las raw se describen con honestidad y se cotizan como raw: el grado lo vas a buscar vos.</p>`],
     contact: ["Contacto", "Hablar con la bóveda", `<p>Ofertas, listas de búsqueda, consignación y canjes: contesta la persona que tiene la colección, por WhatsApp.</p>
       <p style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">${waLink("Hola! Te escribo desde The Vault.", "Escribir por WhatsApp")}<a class="btn" href="#/sell">Vender una carta</a></p>`],
