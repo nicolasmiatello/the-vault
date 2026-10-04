@@ -644,7 +644,8 @@ select.sortsel{background:var(--field); border:1px solid var(--hair); padding:9p
 .tabs button.on{color:var(--bone); border-bottom-color:var(--gold)}
 .tabs button:hover{color:var(--bone)}
 /* selector de formato del inicio: tres tarjetas, la elegida en dorado */
-.fmt-pick{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-bottom:clamp(24px,3vw,36px)}
+.fmt-pick{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:clamp(24px,3vw,36px)}
+@media(max-width:1040px){ .fmt-pick{grid-template-columns:repeat(2,minmax(0,1fr))} }
 .fmt{
   position:relative; display:flex; align-items:center; gap:14px; text-align:left; min-width:0; overflow:hidden;
   padding:14px 16px; border:1px solid var(--hair-strong); border-radius:3px;
@@ -667,7 +668,7 @@ select.sortsel{background:var(--field); border:1px solid var(--hair); padding:9p
 .fmt-sub{font-size:12px; color:var(--silver); line-height:1.35}
 .fmt-go{font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--silver); white-space:nowrap}
 .fmt.on .fmt-go{color:var(--gold-soft)}
-@media(max-width:900px){ .fmt-go{display:none} }
+@media(max-width:1500px){ .fmt-go{display:none} }
 @media(max-width:620px){
   .fmt-pick{gap:6px}
   .fmt{flex-direction:column; align-items:flex-start; gap:10px; padding:12px 10px}
@@ -4194,7 +4195,21 @@ function pageHome(){
 
   <section class="section-tight wrap rv">
     ${(() => {
+      const autos = pool.filter(c => c.auto).sort((a,b) => b.price - a.price);
       const homeSets = {
+        autos: {
+          label: "Autógrafos", pick: "Firmadas por el jugador", list: autos, href: "#/autographs", cta: "Abrir la sala de autógrafos",
+          h2: "Cartas autografiadas", sub: "La firma del jugador sobre la carta. Es lo más buscado de la bóveda, de leyendas del Hall of Fame a rookies.",
+          eyebrow: "Sala de autógrafos",
+          blurb: "Todas las firmadas, contadas por tipo de firma.",
+          rows: [
+            ["Firma on-card", autos.filter(c => c.autoType === "On-Card").length],
+            ["Firma en sticker", autos.filter(c => c.autoType === "Sticker").length],
+            ["Hall of Fame", autos.filter(c => c.hof).length],
+            ["Rookie autos", autos.filter(c => c.rookie).length],
+            ["Numeradas /25 o menos", autos.filter(c => c.printRun && c.printRun <= 25).length]
+          ]
+        },
         rookies: {
           label: "Rookie Center", pick: "El primer año del jugador", list: rookies, href: "#/rookies", cta: "Abrir el Rookie Center",
           h2: "Cartas rookie", sub: "Primeras cartas y tinta de año rookie: se compran antes del salto y después ya no se consiguen calladas.",
@@ -4238,7 +4253,7 @@ function pageHome(){
           wanted: ["1/1", "/5", "/10"]
         }
       };
-      const homeTab = homeSets[S.tab] ? S.tab : "rookies";
+      const homeTab = homeSets[S.tab] ? S.tab : "autos";
       const hs = homeSets[homeTab];
       return `
       ${sec("07 — La bóveda por formato", "Elegí un formato")}
