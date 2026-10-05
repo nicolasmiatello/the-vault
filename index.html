@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>The NBA Card Vault</title>
+<title>Final Cards · The NBA Vault</title>
 <meta name="description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas. Consultas directas por WhatsApp.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="The NBA Card Vault">
+<meta property="og:title" content="Final Cards · The NBA Vault">
 <meta property="og:description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas, de cualquier equipo y cualquier época.">
 <!-- Cuando tengas la URL definitiva, reemplazá TU-DOMINIO en las dos líneas de imagen (WhatsApp y redes necesitan la dirección completa) -->
 <meta property="og:image" content="https://TU-DOMINIO/img/intro-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The NBA Card Vault">
+<meta name="twitter:title" content="Final Cards · The NBA Vault">
 <meta name="twitter:description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas, de cualquier equipo y cualquier época.">
 <meta name="twitter:image" content="https://TU-DOMINIO/img/intro-poster.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -220,6 +220,24 @@ section{position:relative}
 .mnav .mnav-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:26px}
 .mnav a{display:block; padding:13px 0; border-bottom:1px solid var(--hair); font-family:var(--ui); font-variation-settings:"wdth" 82,"wght" 700; text-transform:uppercase; font-size:19px; letter-spacing:.02em}
 .mnav a:hover{color:var(--gold-soft)}
+.mnav-h{margin:26px 0 4px; font-family:var(--mono); font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold-soft)}
+.mnav-sub{display:grid; grid-template-columns:1fr 1fr; gap:0 18px}
+.mnav .mnav-sub a{font-family:var(--mono); font-variation-settings:normal; font-size:11.5px; letter-spacing:.12em; padding:12px 0; color:var(--bone-dim)}
+.mnav .mnav-sub a span{color:var(--silver-dim)}
+/* buscador a la vista en la cabecera */
+.search-pill{display:flex; align-items:center; gap:10px; height:38px; padding:0 10px; border:1px solid transparent; border-radius:2px; color:var(--bone-dim); transition:.2s var(--ease)}
+.search-pill svg{width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:1.5; flex:0 0 auto}
+.search-pill .sp-txt, .search-pill kbd{display:none}
+.search-pill:hover{color:var(--bone); background:var(--field)}
+@media(min-width:1024px){
+  .search-pill{border-color:var(--hair-strong); background:var(--field); padding:0 12px; width:clamp(210px,22vw,330px); margin-right:6px}
+  .search-pill:hover{border-color:var(--gold-hair)}
+  .search-pill .sp-txt{display:block; flex:1; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--silver); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .search-pill kbd{display:block; font-family:var(--mono); font-size:10px; color:var(--silver-dim); border:1px solid var(--hair-strong); border-radius:2px; padding:1px 6px}
+}
+.nav button.navlink svg{width:10px; height:10px; stroke:currentColor; fill:none; stroke-width:1.4; margin-left:3px; vertical-align:middle}
+.mega-n{font-family:var(--mono); font-size:10px; color:var(--silver-dim); margin-left:6px; font-variant-numeric:tabular-nums}
+.mega-col a.mega-vault{color:var(--gold-soft)}
 
 /* ---------- search overlay ---------- */
 .search-overlay{position:fixed; inset:0; z-index:95; background:rgba(4,4,5,.96); backdrop-filter:blur(10px); display:none; padding-top:clamp(50px,10vh,120px)}
@@ -231,6 +249,7 @@ section{position:relative}
   color:var(--bone); padding:0;
 }
 .search-field input::placeholder{color:var(--silver-dim)}
+.search-field input::-webkit-search-cancel-button{-webkit-appearance:none; display:none}
 .search-hints{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px}
 .chip{
   font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--silver);
@@ -246,6 +265,12 @@ section{position:relative}
 .sresult .r-name{font-variation-settings:"wdth" 88,"wght" 700; text-transform:uppercase; font-size:13.5px; letter-spacing:.03em}
 .sresult .r-meta{font-size:11.5px; color:var(--silver); font-family:var(--mono); letter-spacing:.04em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .sresult .r-price{font-family:var(--mono); font-size:13px; font-variant-numeric:tabular-nums}
+.sr-h{font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold-soft); padding:16px 12px 6px}
+.sresult.sr-group{background:rgba(201,162,39,.05)}
+.sresult .sr-n{color:var(--gold-soft); font-size:11px; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap}
+.sr-dot{width:46px; height:46px; border-radius:50%; flex:0 0 auto; box-shadow:inset 0 0 0 1px rgba(244,243,239,.2)}
+.sr-all{display:block; padding:16px 12px; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-soft)}
+.sr-all:hover{color:var(--bone)}
 
 /* ---------- hero ---------- */
 .hero{position:relative; overflow:hidden; background:var(--black); border-bottom:1px solid var(--hair)}
@@ -568,6 +593,31 @@ select.sortsel{background:var(--field); border:1px solid var(--hair); padding:9p
 .active-filters{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px}
 .afilter{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; border:1px solid var(--gold-hair); color:var(--gold-soft); padding:5px 9px; border-radius:2px}
 .mobile-filter-bar{display:flex; gap:8px; margin-bottom:16px}
+/* combos: tarjetas grandes, distintas de una carta suelta */
+.combo-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%,300px), 1fr)); gap:16px}
+.combo-card{display:flex; flex-direction:column; border:1px solid var(--gold-hair); border-radius:3px; overflow:hidden; background:linear-gradient(180deg,#0f0c05,var(--ink)); transition:transform .3s var(--ease), border-color .3s var(--ease)}
+.combo-card:hover{transform:translateY(-4px); border-color:var(--gold)}
+.combo-card.nomatch{display:none}
+.cc-img{position:relative; display:block; aspect-ratio:4/3; background:#050506; overflow:hidden}
+.cc-img img{width:100%; height:100%; object-fit:cover; transition:transform .5s var(--ease)}
+.combo-card:hover .cc-img img{transform:scale(1.04)}
+.combo-card.is-sold .cc-img img{filter:grayscale(.6) brightness(.6)}
+.cc-n{position:absolute; left:10px; bottom:10px; font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#1a1405; background:linear-gradient(140deg,var(--gold-soft),var(--gold)); padding:5px 9px; border-radius:2px; font-weight:600}
+.cc-img .flag{position:absolute; top:10px; left:10px}
+.cc-body{display:flex; flex-direction:column; gap:8px; padding:16px 16px 18px; flex:1}
+.cc-body b{font-variation-settings:"wdth" 84,"wght" 800; text-transform:uppercase; font-size:clamp(15px,1.6vw,18px); line-height:1.15; letter-spacing:.02em}
+.cc-desc{font-size:13px; color:var(--silver); line-height:1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.cc-foot{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-top:auto; padding-top:12px; border-top:1px solid var(--hair)}
+.cc-price{font-family:var(--mono); font-size:20px; font-variant-numeric:tabular-nums}
+.cc-price small{font-size:10px; color:var(--silver); letter-spacing:.14em; margin-right:5px}
+.cc-go{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-soft)}
+.shop-more{text-align:center; margin-top:34px}
+.shop-more .btn span{color:var(--gold-soft); margin-left:8px}
+@media(max-width:760px){
+  .shop-toolbar .viewtabs{display:none}
+  .shop-toolbar .sortsel{flex:1}
+  .shop-count{width:100%}
+}
 @media(min-width:1024px){.mobile-filter-bar{display:none}}
 
 /* ---------- product page ---------- */
@@ -2362,6 +2412,13 @@ html, body{overflow-x:clip}
 .fbody.all .fmore{color:var(--silver)}
 .fbody{max-height:340px; overflow-y:auto; scrollbar-width:thin}
 .team-tile.nomatch, .player-tile.nomatch, .cat.nomatch{display:none}
+/* grillas: la línea la dibuja cada mosaico, así una fila incompleta no deja un bloque gris */
+.player-grid, .teams-grid, .cat-grid{background:none}
+.player-tile, .team-tile, .cat{box-shadow:0 0 0 1px var(--hair)}
+.tsec-rest summary{cursor:pointer; list-style:none; padding:14px 0; border-top:1px solid var(--hair); color:var(--silver)}
+.tsec-rest summary::-webkit-details-marker{display:none}
+.tsec-rest summary span{color:var(--gold-soft); margin-left:8px}
+.tsec-rest[open] summary span{display:none}
 </style>
 <style>
 /* la grilla de equipos ya no muestra el fondo cuando la fila queda incompleta */
@@ -2399,6 +2456,28 @@ html, body{overflow-x:clip}
 .fd-chip.on b, .fd-chip.on .n{color:#1a1405}
 /* acceso rápido del inicio: Equipos / Jugadores / Combos */
 .fd-simple{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--hair)}
+/* buscador grande del inicio */
+.fd-search{
+  display:flex; align-items:center; gap:16px; width:100%; text-align:left; margin-block:22px 14px; padding:18px 20px;
+  border:1px solid var(--gold-hair); border-radius:3px; background:linear-gradient(160deg, rgba(201,162,39,.10), rgba(201,162,39,.02) 60%), var(--ink);
+  color:var(--bone); transition:border-color .25s var(--ease), background .25s var(--ease);
+}
+.fd-search:hover{border-color:var(--gold)}
+.fd-search svg{width:24px; height:24px; stroke:var(--gold-soft); fill:none; stroke-width:1.5; flex:0 0 auto}
+.fd-s-txt{display:flex; flex-direction:column; gap:3px; flex:1; min-width:0}
+.fd-s-txt b{font-family:var(--display); font-weight:500; font-size:clamp(19px,2.6vw,28px); line-height:1.15}
+.fd-s-txt span{font-size:13px; color:var(--silver)}
+.fd-s-go{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:#1a1405; background:linear-gradient(140deg,var(--gold-soft),var(--gold)); padding:12px 18px; border-radius:2px; font-weight:600; white-space:nowrap}
+@media(max-width:620px){ .fd-s-go{display:none} .fd-search{padding:14px 14px; gap:12px} .fd-s-txt span{font-size:12px} }
+/* explorá por jugador / equipo */
+.xp-h{margin:18px 0 10px}
+.xp-row{display:flex; flex-wrap:wrap; gap:8px}
+.xp{display:inline-flex; align-items:center; gap:9px; padding:10px 13px; border:1px solid var(--hair-strong); border-radius:2px; font-size:13.5px; color:var(--bone); transition:.2s var(--ease)}
+.xp:hover{border-color:var(--gold-hair); color:var(--gold-soft); background:rgba(201,162,39,.05)}
+.xp span{font-family:var(--mono); font-size:10.5px; color:var(--gold-soft); font-variant-numeric:tabular-nums}
+.xp i{width:8px; height:8px; border-radius:50%; flex:0 0 auto}
+.arg-want{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:22px}
+.arg-want .eyebrow{margin-right:6px}
 @media(max-width:760px){.fd-simple{grid-template-columns:1fr}}
 .fd-tile{
   position:relative; display:flex; align-items:center; gap:16px; background:#050506;
@@ -2444,6 +2523,9 @@ html, body{overflow-x:clip}
 .share-prev img{max-height:46vh; width:auto; border-radius:2px}
 .share-acts{display:grid; gap:8px}
 .share-acts .btn[hidden]{display:none}
+.pdp-trust{display:grid; gap:6px; margin-top:6px; padding-top:14px; border-top:1px solid var(--hair)}
+.pdp-trust li{display:flex; gap:9px; align-items:baseline; font-size:13px; color:var(--bone-dim)}
+.pdp-trust li::before{content:"✓"; color:var(--gold-soft); font-size:12px}
 .wa-note{font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--silver-dim); line-height:1.6; text-align:center}
 </style>
 </head>
@@ -2451,28 +2533,24 @@ html, body{overflow-x:clip}
 <header class="site-header" id="siteHeader">
   <div class="wrap-wide hdr">
     <a class="brand" href="#/">
-      <span class="mark">THE <em>VAULT</em></span>
-      <span class="tag">NBA Card Vault</span>
+      <span class="mark">FINAL <em>CARDS</em></span>
+      <span class="tag">The NBA Vault</span>
     </a>
     <button class="sala-chip" data-lobby aria-label="Cambiar de sala">Sala NBA <svg viewBox="0 0 12 12"><path d="M3 4.5l3 3 3-3"/></svg></button>
     <nav class="nav" id="mainNav">
-      <button class="navlink" id="shopTrigger" aria-haspopup="true" aria-expanded="false">Tienda</button>
-      <a href="#/cards?sort=new">Nuevas</a>
-      <a href="#/the-vault" class="vaultlink">La Bóveda</a>
+      <button class="navlink" id="shopTrigger" aria-haspopup="true" aria-expanded="false">Tienda <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3"/></svg></button>
       <a href="#/players">Jugadores</a>
       <a href="#/teams">Equipos</a>
-      <a href="#/rookies">Rookies</a>
-      <a href="#/autographs">Autógrafos</a>
-      <a href="#/game-worn">Game-Worn</a>
       <a href="#/collections">Colecciones</a>
       <a href="#/combos">Combos</a>
     </nav>
     <div class="hdr-actions">
+      <button class="search-pill" id="searchBtn" aria-label="Buscar" title="Buscar (/)">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <span class="sp-txt">Buscá jugador, equipo o set</span><kbd>/</kbd>
+      </button>
       <button class="icon-btn" id="vitrinaBtn" aria-label="Abrir modo vitrina" title="Modo vitrina (V)">
         <svg viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="17" rx="1.5"/><path d="M3 20.5h18"/></svg>
-      </button>
-      <button class="icon-btn" id="searchBtn" aria-label="Buscar" title="Buscar (/)">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
       </button>
       <a class="icon-btn" href="#/watchlist" aria-label="Guardadas">
         <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9.2A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7 2.8C19 15.6 12 20 12 20z"/></svg>
@@ -2487,67 +2565,34 @@ html, body{overflow-x:clip}
   <span class="progress" id="progress" aria-hidden="true"></span>
 
   <div class="mega" id="megaMenu">
-    <div class="wrap-wide mega-grid">
-      <div class="mega-col">
-        <h4 class="eyebrow gold">Por tipo de carta</h4>
-        <a href="#/autographs">Autógrafos</a>
-        <a href="#/rookies">Rookies</a>
-        <a href="#/cards?f=patch">Patches</a>
-        <a href="#/game-worn">Game-Worn</a>
-        <a href="#/cards?f=numbered">Numeradas</a>
-        <a href="#/cards?f=graded">Graded</a>
-        <a href="#/cards?f=oneofone">1/1</a>
-      </div>
-      <div class="mega-col">
-        <h4 class="eyebrow gold">Por época</h4>
-        <a href="#/collections/vintage">Vintage</a>
-        <a href="#/collections/80s">Los 80</a>
-        <a href="#/collections/90s">Los 90</a>
-        <a href="#/collections/2000s">2000s</a>
-        <a href="#/collections/modern">Modernas</a>
-      </div>
-      <div class="mega-col">
-        <h4 class="eyebrow gold">Por producto</h4>
-        <a href="#/collections/national-treasures">National Treasures</a>
-        <a href="#/collections/immaculate">Immaculate Collection</a>
-        <a href="#/collections/origins">Origins</a>
-        <a href="#/collections/impeccable">Impeccable</a>
-        <a href="#/collections/elite">Elite</a>
-        <a href="#/collections/paramount">Paramount</a>
-      </div>
-      <div class="mega-col mega-feature">
-        <h4 class="eyebrow gold">La bóveda, carta por carta</h4>
-        <p style="color:var(--bone-dim); font-size:13.5px; margin:10px 0 16px">Autógrafos, parches, rookies y numeradas bajas, de cualquier equipo y cualquier época.</p>
-        <a class="btn btn-sm" href="#/teams">Buscar por equipo</a>
-        <a class="btn btn-sm" href="#" data-sala style="margin-top:8px">Recorrer la sala 3D</a>
-      </div>
-    </div>
+    <div class="wrap-wide mega-grid" id="megaGrid"></div>
   </div>
 </header>
 
 <div class="mnav" id="mobileNav">
   <div class="mnav-head">
-    <span class="brand"><span class="mark">THE <em>VAULT</em></span></span>
+    <span class="brand"><span class="mark">FINAL <em>CARDS</em></span></span>
     <button class="icon-btn" id="mnavClose" aria-label="Cerrar menú">
       <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
   </div>
-  <a href="#" data-lobby>Cambiar de sala</a>
-  <a href="#" data-pack>Abrí un sobre</a>
-  <a href="#" data-sala>Recorré la sala</a>
-  <a href="#/cards">Todas las cartas</a>
-  <a href="#/the-vault">La Bóveda</a>
-  <a href="#/cards?sort=new">Recién llegadas</a>
-  <a href="#/teams">Por equipo</a>
+  <a href="#/cards">Tienda</a>
   <a href="#/players">Jugadores</a>
   <a href="#/teams">Equipos</a>
-  <a href="#/rookies">Rookie Center</a>
-  <a href="#/autographs">Sala de autógrafos</a>
-  <a href="#/game-worn">Game-Worn</a>
   <a href="#/collections">Colecciones</a>
   <a href="#/combos">Combos</a>
-  <a href="#/watchlist">Mis guardadas</a>
-  <a href="#/sell">Vendé tu carta</a>
+  <p class="mnav-h">Por tipo de carta</p>
+  <div class="mnav-sub" id="mnavTypes"></div>
+  <p class="mnav-h">Más</p>
+  <div class="mnav-sub">
+    <a href="#/premium">Premium</a>
+    <a href="#/cards?sort=new">Recién llegadas</a>
+    <a href="#" data-pack>Abrí un sobre</a>
+    <a href="#" data-sala>Recorré la sala</a>
+    <a href="#/watchlist">Mis guardadas</a>
+    <a href="#/sell">Vendé tu carta</a>
+    <a href="#" data-lobby>Cambiar de sala</a>
+  </div>
 </div>
 
 <div class="search-overlay" id="searchOverlay">
@@ -2570,14 +2615,14 @@ html, body{overflow-x:clip}
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-col">
-        <span class="brand"><span class="mark">THE NBA CARD <em>VAULT</em></span></span>
+        <span class="brand"><span class="mark">FINAL <em>CARDS</em></span></span>
         <p style="color:var(--silver); font-size:13.5px; margin-top:14px; max-width:38ch">Quedate con una parte del juego. Una bóveda de autógrafos, rookies, patches y numeradas bajas, elegidas de a una carta por vez.</p>
       </div>
       <div class="foot-col">
         <h5>Tienda</h5>
         <a href="#/cards">Todas las cartas</a>
         <a href="#/cards?sort=new">Recién llegadas</a>
-        <a href="#/the-vault">La Bóveda</a>
+        <a href="#/premium">Premium</a>
         <a href="#/rookies">Rookies</a>
         <a href="#/autographs">Autógrafos</a>
         <a href="#/game-worn">Game-worn</a>
@@ -2587,14 +2632,12 @@ html, body{overflow-x:clip}
         <h5>Explorar</h5>
         <a href="#/players">Jugadores</a>
         <a href="#/teams">Equipos</a>
-        <a href="#/combos">Combos</a>
         <a href="#/collections">Colecciones</a>
         <a href="#/collections/argentina">Argentina</a>
-        <a href="#/collections/legends">Leyendas</a>
         <a href="#/compare">Comparar cartas</a>
       </div>
       <div class="foot-col">
-        <h5>La bóveda</h5>
+        <h5>Final Cards</h5>
         <a href="#/about">Quiénes somos</a>
         <a href="#/shipping">Envíos</a>
         <a href="#/payments">Pagos</a>
@@ -2604,7 +2647,7 @@ html, body{overflow-x:clip}
       </div>
     </div>
     <div class="foot-bottom">
-      <p class="disclaimer">The NBA Card Vault es un marketplace independiente de cartas coleccionables y no está afiliado ni respaldado por la NBA, los equipos de la NBA ni los fabricantes de cartas.</p>
+      <p class="disclaimer">Final Cards es un marketplace independiente de cartas coleccionables y no está afiliado ni respaldado por la NBA, los equipos de la NBA ni los fabricantes de cartas.</p>
       <div style="display:flex; gap:18px" class="eyebrow">
         <a href="#/terms">Términos</a><a href="#/privacy">Privacidad</a>
       </div>
@@ -2810,6 +2853,8 @@ const DEFAULT_OWNER = "nico";
 
 const SETTINGS = {
   demo: true,
+  roomFilm: false,          // video largo al entrar a la Sala NBA: apagado. Poner true para volver a mostrarlo
+  vaultOver: 60,            // una carta es "Premium" cuando su precio supera este valor (USD)
   auctions: false,          // subastas apagadas por ahora: poner true para volver a mostrarlas
   heroStats: null,          // se calculan solas con el stock (ver heroStatsLive)
   currency: "USD",
@@ -3234,7 +3279,7 @@ const COLLECTIONS = [
   { slug:"immaculate", name:"Immaculate Collection", sub:"Immaculate Ink y patch autographs", test:c=>c.product==="Immaculate Collection" },
   { slug:"origins", name:"Origins", sub:"Rookie autographs sobre tinta en agua", test:c=>c.product==="Origins" },
   { slug:"impeccable", name:"Impeccable", sub:"Canvas Creations y stock de lienzo", test:c=>c.product==="Impeccable" },
-  { slug:"elite", name:"Elite", sub:"Los inserts firmados de Donruss Elite", test:c=>c.product==="Elite" },
+  { slug:"elite", name:"Elite", sub:"Los inserts firmados de Donruss Elite", test:c=>/Elite/.test(c.product) },
   { slug:"paramount", name:"Paramount", sub:"Penmanship y diseños grabados", test:c=>c.product==="Paramount" },
   { slug:"one-of-one", name:"Colección 1/1", sub:"Cartas únicas, una sola copia en el mundo", test:c=>c.printRun===1 },
   { slug:"argentina", name:"Argentina", sub:"Ginóbili, Scola, Campazzo y la Generación Dorada", test:c=>ARGENTINA_SLUGS.includes(c.playerSlug), wanted:"argentina" },
@@ -3391,7 +3436,7 @@ const store = {
 };
 
 const S = {
-  inventory: CARDS.concat(ARCHIVE).map(c => ({...c})),
+  inventory: CARDS.concat(ARCHIVE).map(c => ({...c, vault: Number(c.price) > SETTINGS.vaultOver})),
   watchlist: store.get("watchlist", []),
   cart: store.get("cart", []),
   compare: store.get("compare", []),
@@ -3437,8 +3482,8 @@ function ownerOf(c){ return OWNERS[c && c.owner] || OWNERS[DEFAULT_OWNER]; }
 function waMsg(cards){
   const line = c => `• ${c.player} — ${c.season} ${c.set.startsWith(c.product) ? c.set : c.product + " " + c.set}${serialOf(c) ? " · " + serialOf(c) : ""} · ${money(c.price)}`;
   return cards.length === 1
-    ? `Hola! Vi esta carta en The Vault y me interesa:\n${line(cards[0])}\n¿Sigue disponible?`
-    : `Hola! Vi estas cartas en The Vault y me interesan:\n${cards.map(line).join("\n")}\n¿Siguen disponibles?`;
+    ? `Hola! Vi esta carta en Final Cards y me interesa:\n${line(cards[0])}\n¿Sigue disponible?`
+    : `Hola! Vi estas cartas en Final Cards y me interesan:\n${cards.map(line).join("\n")}\n¿Siguen disponibles?`;
 }
 function waHref(cards){
   cards = [].concat(cards).filter(Boolean);
@@ -3464,7 +3509,7 @@ function waLink(text, label, cls){ return `<a class="btn btn-wa ${cls || ""}" hr
 /* ---------- combos ---------- */
 function comboWaMsg(combo){
   const items = (combo.includes || []).map(t => `• ${t}`).join("\n");
-  return `Hola! Vi el combo "${combo.title}" en The Vault y me interesa:\n${items}\nPrecio del combo: ${money(combo.price)}\n¿Sigue disponible?`;
+  return `Hola! Vi el combo "${combo.title}" en Final Cards y me interesa:\n${items}\nPrecio del combo: ${money(combo.price)}\n¿Sigue disponible?`;
 }
 function comboWaBtn(combo, cls){
   if (combo.status === "sold") return "";
@@ -3475,7 +3520,7 @@ function comboWaBtn(combo, cls){
 /* COMPARTIR — texto para WhatsApp y una imagen armada para Instagram */
 function shareText(c){
   const set = c.set.startsWith(c.product) ? c.set : c.product + " " + c.set;
-  return `${c.player} — ${c.season} ${set}${serialOf(c) ? " · " + serialOf(c) : ""} · ${money(c.price)}\nDisponible en The Vault. Consultas por WhatsApp: wa.me/${ownerOf(c).wa}`;
+  return `${c.player} — ${c.season} ${set}${serialOf(c) ? " · " + serialOf(c) : ""} · ${money(c.price)}\nDisponible en Final Cards. Consultas por WhatsApp: wa.me/${ownerOf(c).wa}`;
 }
 function loadImg(src){ return new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; }); }
 async function shareImage(c){
@@ -3491,7 +3536,7 @@ async function shareImage(c){
   g.strokeStyle = "rgba(201,162,39,.45)"; g.lineWidth = 2; g.strokeRect(36, 36, W - 72, H - 72);
   g.textAlign = "center"; g.textBaseline = "alphabetic";
   g.fillStyle = "#F4F3EF"; g.font = '600 44px "Bodoni Moda", Didot, serif';
-  g.fillText("THE VAULT", W/2, 120);
+  g.fillText("FINAL CARDS", W/2, 120);
   const img = await loadImg(c.imgs[0]);
   const boxW = 620, boxH = 800, sc = Math.min(boxW / img.naturalWidth, boxH / img.naturalHeight);
   const iw = img.naturalWidth * sc, ih = img.naturalHeight * sc, ix = (W - iw) / 2, iy = 170 + (boxH - ih) / 2;
@@ -3537,7 +3582,7 @@ async function shareModal(id){
       if (dlApi && dl){
         dl.hidden = false;
         dl.onclick = async () => {
-          try { await dlApi.save({ filename: "the-vault-" + c.slug + ".png", data: blob }); toast("Imagen descargada"); }
+          try { await dlApi.save({ filename: "final-cards-" + c.slug + ".png", data: blob }); toast("Imagen descargada"); }
           catch(err){ if (err && err.code !== "declined") toast("No se pudo descargar · mantené apretada la imagen para guardarla"); }
         };
       } else if (dl){
@@ -3545,11 +3590,11 @@ async function shareModal(id){
         dl.hidden = false;
         dl.onclick = () => {
           const u = URL.createObjectURL(blob), a = document.createElement("a");
-          a.href = u; a.download = "the-vault-" + c.slug + ".png"; document.body.appendChild(a); a.click(); a.remove();
+          a.href = u; a.download = "final-cards-" + c.slug + ".png"; document.body.appendChild(a); a.click(); a.remove();
           setTimeout(() => URL.revokeObjectURL(u), 4000); toast("Imagen descargada");
         };
       }
-      const file = new File([blob], "the-vault-" + c.slug + ".png", { type:"image/png" });
+      const file = new File([blob], "final-cards-" + c.slug + ".png", { type:"image/png" });
       if (navigator.canShare && navigator.canShare({ files:[file] })){
         const b = $("#shareNative"); if (!b) return; b.hidden = false;
         b.onclick = () => navigator.share({ files:[file], text }).catch(() => {});
@@ -3624,7 +3669,7 @@ function cardTile(c){
   const flags = [];
   if (sold) flags.push('<span class="flag flag-sold">Vendida</span>');
   else {
-    if (c.vault) flags.push('<span class="flag flag-vault">Pieza de bóveda</span>');
+    if (c.vault) flags.push('<span class="flag flag-vault">Premium</span>');
     if (isNew(c)) flags.push('<span class="flag flag-new">Nueva</span>');
     if (auctionFor(c.id)) flags.push('<span class="flag">Subasta</span>');
   }
@@ -3668,10 +3713,10 @@ function packMarkup(id){
     <div class="pk-body">
       <span class="pk-crimp"></span>
       <div class="pk-label">
-        <span class="pk-series">Serie 01 · The Vault</span>
+        <span class="pk-series">Serie 01 · Final Cards</span>
         <span class="pk-seal"><span class="pk-mono">V</span></span>
-        <span class="pk-brand">THE NBA CARD <em>VAULT</em></span>
-        <span class="pk-count">5 cartas · 1 pieza de bóveda</span>
+        <span class="pk-brand">THE NBA <em>VAULT</em></span>
+        <span class="pk-count">5 cartas · 1 premium</span>
       </div>
     </div>
   </div>`;
@@ -3699,20 +3744,20 @@ function catTile(o){
 }
 /* texto plano de un combo, para buscarlo y filtrarlo */
 function comboBlob(combo){
-  return [combo.title, combo.desc, ...(combo.includes||[])].filter(Boolean).join(" ").toLowerCase();
+  return norm([combo.title, combo.desc, ...(combo.includes||[])].filter(Boolean).join(" "));
 }
 function comboTile(combo){
-  const n = (combo.includes || []).length;
-  return catTile({
-    title: combo.title,
-    href: "#/combos/" + combo.slug,
-    imgSrcs: combo.imgs || [],
-    sub: combo.desc,
-    cta: combo.status === "sold" ? "Combo vendido" : "Ver combo",
-    count: n,
-    countLabel: (n ? plural(n, "carta", "cartas") : "combo") + " · " + money(combo.price),
-    attrs: ` data-combo-name="${esc(comboBlob(combo))}" data-combo-price="${combo.price}"`
-  });
+  const n = (combo.includes || []).length, sold = combo.status === "sold";
+  return `<a class="combo-card${sold ? " is-sold" : ""}" href="#/combos/${combo.slug}" data-combo-name="${esc(comboBlob(combo))}" data-combo-price="${combo.price}">
+    <span class="cc-img">${combo.imgs && combo.imgs[0] ? `<img src="${combo.imgs[0]}" alt="" loading="lazy">` : ""}
+      <span class="cc-n">${n ? plural(n, "carta", "cartas") : "Lote"}</span>
+      ${sold ? `<span class="flag flag-sold">Vendido</span>` : ""}</span>
+    <span class="cc-body">
+      <b>${esc(combo.title)}</b>
+      ${combo.desc ? `<span class="cc-desc">${esc(combo.desc)}</span>` : ""}
+      <span class="cc-foot"><span class="cc-price">${sold ? "Vendido" : `<small>USD</small>${Number(combo.price).toLocaleString("es-AR")}`}</span><span class="cc-go">Ver combo →</span></span>
+    </span>
+  </a>`;
 }
 function emptyState(msg){
   return '<div class="empty"><h3>Este cajón todavía está vacío</h3><p>'+
@@ -3721,8 +3766,10 @@ function emptyState(msg){
 }
 
 /* ---------- búsqueda ---------- */
+/* sin acentos y en minúsculas: "ginobili" encuentra a Ginóbili */
+const norm = t => String(t == null ? "" : t).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 function parseQuery(q){
-  const raw = q.toLowerCase().trim();
+  const raw = norm(q).trim();
   const out = { text:[], run:null, maxPrice:null, minPrice:null, rookie:false, auto:false, onCard:false, patch:false, grade:null, graded:false };
   if (!raw) return out;
   let s = raw;
@@ -3745,7 +3792,7 @@ function parseQuery(q){
 }
 function blob(c){
   return [c.player, c.team, c.season, c.brand, c.product, c.set, c.subset, c.cardNo, c.condition,
-    c.gradeCompany, c.grade, c.playerEra, c.era, runLabel(c), c.autoType, c.memType].filter(Boolean).join(" ").toLowerCase();
+    c.gradeCompany, c.grade, c.playerEra, c.era, runLabel(c), c.autoType, c.memType].filter(Boolean).map(norm).join(" ");
 }
 function searchCards(q, pool){
   const p = parseQuery(q);
@@ -3778,6 +3825,19 @@ const SORTS = {
   year:     (a,b) => b.year - a.year
 };
 const FILTER_DEFS = [
+  { key:"cardType", label:"Tipo de carta",      get:c => {
+      const t = [];
+      if (c.auto) t.push("Autógrafo");
+      if (c.rookie) t.push("Rookie");
+      if (c.rookie && c.auto) t.push("Rookie auto");
+      if (c.memorabilia) t.push("Game-Worn");
+      if (c.printRun && c.printRun <= 49) t.push("Numerada bajo");
+      if (c.vault) t.push("Premium");
+      if (c.hof) t.push("Hall of Fame");
+      if (ARGENTINA_SLUGS.includes(c.playerSlug)) t.push("Argentina");
+      if (!t.length) t.push("Base");
+      return t;
+    }},
   { key:"player",   label:"Jugador",            get:c => c.player },
   { key:"team",     label:"Equipo",             get:c => c.team },
   { key:"season",   label:"Temporada",          get:c => c.season },
@@ -3786,14 +3846,6 @@ const FILTER_DEFS = [
   { key:"product",  label:"Producto",           get:c => c.product },
   { key:"set",      label:"Set",                get:c => c.set },
   { key:"subset",   label:"Subset",             get:c => c.subset },
-  { key:"cardType", label:"Tipo de carta",      get:c => {
-      const t = [];
-      if (c.rookie && c.auto) t.push("Rookie auto"); else if (c.rookie) t.push("Rookie");
-      if (c.auto) t.push("Autógrafo");
-      if (c.memorabilia) t.push(c.memType === "Patch" ? "Patch auto" : "Game used");
-      if (!t.length) t.push("Base");
-      return t;
-    }},
   { key:"autoType", label:"Tipo de autógrafo",  get:c => c.auto ? c.autoType : "Sin autógrafo" },
   { key:"memType",  label:"Tipo de memorabilia",get:c => c.memorabilia ? c.memType : "Sin memorabilia" },
   { key:"printRun", label:"Tirada",             get:c => runLabel(c) || "Sin numerar" },
@@ -3828,20 +3880,26 @@ function activeFilterCount(){
 }
 
 /* tienda: equipo y jugador como botones a la vista, arriba de las cartas */
+const SHOP_PAGE = 24;   // cartas por tanda en el listado; el resto aparece con "Ver más"
+const KIND_ORDER = ["Autógrafo","Rookie","Game-Worn","Numerada bajo","Premium","Hall of Fame","Argentina"];
+const KIND_LABEL = { "Autógrafo":"Autógrafos", "Rookie":"Rookies", "Numerada bajo":"Numeradas bajo" };
+const PRICE_BANDS = [["Hasta USD 50", "", "50"], ["USD 50 a 100", "50", "100"], ["Más de USD 100", "100", ""]];
 function quickFilters(pool){
-  const row = (key, label, get, fmt) => {
-    const vals = facetValues(pool, { get });
-    if (!vals.length) return "";
-    const sel = S.filters[key] || [];
-    return `<div class="fd-row"><span class="fd-label">${label}</span><div class="fd-scroll" data-qf-row>
-      <button class="fd-chip${sel.length ? "" : " on"}" data-qf="${key}" data-qf-val="">Todos</button>
-      ${vals.map(([v, n]) => `<button class="fd-chip${sel.includes(String(v)) ? " on" : ""}" data-qf="${key}" data-qf-val="${esc(v)}">${fmt(v)}<span class="n">${n}</span></button>`).join("")}
-    </div></div>`;
-  };
-  const abbr = name => { const t = TEAMS.find(x => x[0] === name); return t ? `<span class="sw" style="background:linear-gradient(135deg,${t[3]} 50%,${t[4]} 50%)"></span><b>${t[1]}</b>` : `<b>${esc(name)}</b>`; };
+  const def = FILTER_DEFS.find(d => d.key === "cardType");
+  const count = {}; pool.forEach(c => def.get(c).forEach(k => { count[k] = (count[k] || 0) + 1; }));
+  const kinds = KIND_ORDER.filter(k => count[k]);
+  const sel = S.filters.cardType || [];
+  const pMin = S.filters.priceMin || "", pMax = S.filters.priceMax || "";
+  const inBand = ([, lo, hi]) => pool.filter(c => (!lo || c.price >= +lo) && (!hi || c.price <= +hi)).length;
   return `<div class="qf">
-    ${row("team", "Equipo", c => c.team, abbr)}
-    ${row("player", "Jugador", c => c.player, v => `<b>${esc(v)}</b>`)}
+    ${kinds.length ? `<div class="fd-row"><span class="fd-label">Tipo</span><div class="fd-scroll" data-qf-row>
+      <button class="fd-chip${sel.length ? "" : " on"}" data-qf="cardType" data-qf-val="" data-qf-one>Todas</button>
+      ${kinds.map(k => `<button class="fd-chip${sel.includes(k) ? " on" : ""}" data-qf="cardType" data-qf-val="${esc(k)}" data-qf-one><b>${esc(KIND_LABEL[k] || k)}</b><span class="n">${count[k]}</span></button>`).join("")}
+    </div></div>` : ""}
+    <div class="fd-row"><span class="fd-label">Precio</span><div class="fd-scroll">
+      <button class="fd-chip${pMin || pMax ? "" : " on"}" data-price="-">Todos</button>
+      ${PRICE_BANDS.filter(b => inBand(b)).map(b => `<button class="fd-chip${pMin === b[1] && pMax === b[2] ? " on" : ""}" data-price="${b[1]}-${b[2]}"><b>${b[0]}</b><span class="n">${inBand(b)}</span></button>`).join("")}
+    </div></div>
   </div>`;
 }
 
@@ -3868,7 +3926,7 @@ function soldSiblings(c){
 }
 function runMap(c){
   if (!c.printRun){
-    return `<div class="panel runmap"><h3>Mapa de la tirada</h3>
+    return `<div class="panel runmap"><h3>La tirada</h3>
       <div class="rm-unnum"><b>Sin numerar</b>
       <span>El fabricante no numeró esta carta, así que no se sabe cuántas copias existen. No se estima.</span></div></div>`;
   }
@@ -3894,25 +3952,18 @@ function runMap(c){
   else if (mine === run) notes.push(`<p class="rm-note"><b>La última</b><span>Es la copia ${run}/${run}: la última de la tirada.</span></p>`);
   else if (mine && mine < 10 && run >= 25) notes.push(`<p class="rm-note"><b>Un dígito</b><span>Los seriales de un solo dígito suelen buscarse aparte dentro de la misma tirada.</span></p>`);
   if (c.jersey && c.jersey <= run && mine !== c.jersey)
-    notes.push(`<p class="rm-note blue"><b>Camiseta #${c.jersey}</b><span>La copia ${pad(c.jersey)}/${run}, la que coincide con su número, está marcada en la grilla. Su paradero no se conoce.</span></p>`);
+    notes.push(`<p class="rm-note blue"><b>Camiseta #${c.jersey}</b><span>La copia ${pad(c.jersey)}/${run} es la que coincide con su número de camiseta.</span></p>`);
   sold.forEach(x => notes.push(`<p class="rm-note"><b>Pasó por acá</b><span>La ${pad(x.serialNum)}/${run} se vendió desde la bóveda el ${esc(x.soldDate)} en ${money(x.soldPrice)}. <a href="#/cards/${x.slug}" style="color:var(--gold-soft)">Ver en el archivo →</a></span></p>`));
   return `<div class="panel runmap">
-    <h3>Mapa de la tirada</h3>
+    <h3>La tirada</h3>
     <div class="rm-head">
       <p class="rm-big">1 de ${run}<small>copias en el mundo</small></p>
-      <p class="rm-pct">El ${pctTxt} de la tirada<span>${run - 1 - sold.size} con paradero desconocido${sold.size ? " · " + sold.size + " vendida" + (sold.size > 1 ? "s" : "") + " acá" : ""}</span></p>
-    </div>
-    <div class="rm-grid${run > 50 ? " dense" : ""}" data-scan="${mine || 0}" aria-label="Las ${run} copias de la tirada; esta es la ${pad(mine)}">${cells.join("")}</div>
-    <div class="rm-legend">
-      <span class="l1"><i></i>Esta carta</span>
-      ${sold.size ? '<span class="l2"><i></i>Vendida por la bóveda</span>' : ""}
-      ${c.jersey && c.jersey <= run ? '<span class="l3"><i></i>Número de camiseta</span>' : ""}
-      <span><i></i>Paradero desconocido</span>
+      <p class="rm-pct">${mine ? "Esta es la " + pad(mine) + "/" + run : "El " + pctTxt + " de la tirada"}${sold.size ? "<span>" + sold.size + " vendida" + (sold.size > 1 ? "s" : "") + " acá</span>" : ""}</p>
     </div>
     ${notes.length ? `<div class="rm-notes">${notes.join("")}</div>` : ""}
   </div>`;
 }
-/* versión mínima: una fila de puntitos para las piezas de bóveda */
+/* versión mínima: una fila de puntitos para las cartas premium */
 function runMini(c){
   if (!c.printRun || c.printRun > 99) return "";
   const sold = new Set(soldSiblings(c).map(x => x.serialNum));
@@ -3928,9 +3979,10 @@ function runMini(c){
 function pageHome(){
   const pool = live();
   const fresh = pool.slice().sort(SORTS.new).slice(0, 8);
-  const vaultPieces = pool.slice()
-    .sort((a,b) => (b.vault?1:0) - (a.vault?1:0) || (a.printRun || 9999) - (b.printRun || 9999))
-    .slice(0, 3);
+  const vaultPieces = pool.filter(c => c.vault).sort((a,b) => b.price - a.price).slice(0, 3);
+  const argCards = pool.filter(c => ARGENTINA_SLUGS.includes(c.playerSlug)).sort((a,b) => b.price - a.price);
+  const argHave = new Set(argCards.map(c => c.player));
+  const argWanted = WANTED.argentina.filter(n => !argHave.has(n));
   const spot = pool.find(c => c.spotlight) || pool[0];
   // el equipo destacado sale del stock: el que más cartas tiene hoy
   const _tc = {}; live().forEach(c => { _tc[c.teamSlug] = (_tc[c.teamSlug] || 0) + 1; });
@@ -3946,7 +3998,7 @@ function pageHome(){
     { n: runs.length ? "/" + Math.min(...runs) : "—", l: "Tirada más baja" },
     { n: String(pool.filter(c => c.auto).length), l: "Autografiadas" }
   ];
-  const stageCards = [byId("c3"), byId("c1"), byId("c4"), byId("c2"), byId("c10")].filter(Boolean);
+  const stageCards = pool.slice().sort((a,b) => b.price - a.price).slice(0, 5);   // las cinco más importantes del stock
   const rookies = pool.filter(c => c.rookie);
   const worn = pool.filter(c => c.memorabilia);
   const lowNo = pool.filter(c => c.printRun && c.printRun <= 49).sort((a,b) => a.printRun - b.printRun);
@@ -3954,6 +4006,10 @@ function pageHome(){
   const legendNames = Array.from(new Set(Object.values(PLAYERS_META).map(m => m.name).concat(WANTED.legends)));
   const teamCounts = {}; pool.forEach(c => teamCounts[c.teamSlug] = (teamCounts[c.teamSlug]||0)+1);
   const playerCounts = {}; pool.forEach(c => playerCounts[c.playerSlug] = (playerCounts[c.playerSlug]||0)+1);
+  const topPlayers = Object.keys(playerCounts).map(slug => { const c = pool.find(x => x.playerSlug === slug); return [slug, c.player, playerCounts[slug], Math.max(...pool.filter(x => x.playerSlug === slug).map(x => x.price))]; })
+    .sort((a,b) => b[2] - a[2] || b[3] - a[3]).slice(0, 14);
+  const topTeams = Object.keys(teamCounts).map(slug => { const t = TEAMS.find(x => x[2] === slug); return [slug, t ? t[0] : slug, teamCounts[slug], t ? t[3] : "#888"]; })
+    .sort((a,b) => b[2] - a[2] || a[1].localeCompare(b[1])).slice(0, 14);
   const sec = (ix, right) => `<div class="sec-rule"><span class="ix">${ix}</span><span class="ln"></span>${right?`<span class="rt">${esc(right)}</span>`:""}</div>`;
   const rail = list => `<div class="rail">${list.map(c => `<div>${cardTile(c)}</div>`).join("")}</div>`;
   // una sala con menos de cuatro cartas muestra al lado el inventario real de esa sala:
@@ -3966,7 +4022,7 @@ function pageHome(){
         <h3>${esc(o.title)}</h3>
         <p class="rp-blurb">${esc(o.blurb)}</p>
         <ul class="rp-rows">
-          ${o.rows.map(([l, n]) => `<li><span>${esc(l)}</span><b class="${n ? "" : "zero"}">${n}</b></li>`).join("")}
+          ${o.rows.filter(r => r[1]).map(([l, n]) => `<li><span>${esc(l)}</span><b>${n}</b></li>`).join("")}
         </ul>
         ${o.wanted ? `<p class="rp-want"><span class="eyebrow">Se busca</span>${o.wanted.map(w => `<span class="badge">${esc(w)}</span>`).join("")}</p>` : ""}
         <a class="btn btn-sm" href="${o.href}">${esc(o.cta)}</a>
@@ -3987,7 +4043,7 @@ function pageHome(){
     <canvas id="heroCanvas" aria-hidden="true"></canvas>
     <div class="wrap hero-inner">
       <div class="hero-top">
-        <p class="hero-word display">THE NBA CARD <em>VAULT</em></p>
+        <p class="hero-word display">THE NBA <em>VAULT</em></p>
         <p class="hero-tagline">Quedate con una parte del juego</p>
       </div>
 
@@ -4007,11 +4063,11 @@ function pageHome(){
       <div class="hero-copy">
         <span class="kicker"><i></i>${plural(pool.length, "carta en la vitrina", "cartas en la vitrina")}</span>
         <h1 class="hero-h1 impact">Cada carta<span class="line2">tiene su historia.</span></h1>
-        <p class="hero-sub">Autógrafos · Rookies · Game-Worn · 1/1 · Leyendas</p>
+        <p class="hero-sub">Autógrafos · Rookies · Game-Worn · Numeradas</p>
         <div class="hero-cta">
-          <button class="btn btn-gold" data-pack>Abrí un sobre</button>
-          <a class="btn btn-solid" href="#/cards">Explorar la bóveda</a>
-          <button class="btn" data-vitrina="all">◈ Modo vitrina</button>
+          <a class="btn btn-gold" href="#/cards">Explorar cartas</a>
+          <a class="btn btn-solid" href="#/premium">Cartas Premium</a>
+          <button class="btn" data-pack>Abrí un sobre</button>
         </div>
       </div>
 
@@ -4025,8 +4081,13 @@ function pageHome(){
     <div class="ticker-track">${tickerItems.join("")}${tickerItems.join("")}</div>
   </div>
 
-  <section class="finder" aria-label="Buscá por equipo, jugador o combo">
+  <section class="finder" aria-label="Buscá en la tienda">
     <div class="wrap">
+      <button class="fd-search" data-open-search aria-label="Abrir el buscador">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <span class="fd-s-txt"><b>¿Qué carta estás buscando?</b><span>Jugador, equipo, set o tirada. Por ejemplo: Frazier, Knicks, National Treasures, /25</span></span>
+        <span class="fd-s-go">Buscar</span>
+      </button>
       <div class="fd-simple">
         <a class="fd-tile" href="#/teams">
           <span class="fd-tile-icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/></svg></span>
@@ -4047,150 +4108,16 @@ function pageHome(){
     </div>
   </section>
 
-  <section class="pack-band">
-    <div class="wrap pack-band-in">
-      <div class="pk-wrap" data-pack data-tilt-pack role="button" tabindex="0" aria-label="Abrir un sobre de la bóveda">
-        ${packMarkup()}
-      </div>
-      <div>
-        <p class="eyebrow gold">Serie 01 · Sobres de la bóveda</p>
-        <h2 style="margin-top:12px">Abrí un sobre<br>de <em>la bóveda.</em></h2>
-        <p class="pb-sub">Rasgalo con el dedo, dá vuelta las cartas de a una y guardate la última para el final: siempre es una pieza de bóveda, con el serial apareciendo número por número.</p>
-        <div class="pb-steps">
-          <div class="pb-step"><b>01</b><span>Rasgá la tira de arriba</span></div>
-          <div class="pb-step"><b>02</b><span>Dá vuelta cuatro cartas</span></div>
-          <div class="pb-step"><b>03</b><span>La quinta es el hit</span></div>
-        </div>
-        <p style="margin-top:24px"><button class="btn btn-gold" data-pack>Abrir el sobre</button></p>
-        <p class="pb-note">Es una forma de recorrer la bóveda: las cinco cartas salen del stock real y se compran a su precio de lista. Nada se sortea ni se cobra por abrir.</p>
-      </div>
-    </div>
-  </section>
-
   <section class="section wrap rv">
-    ${sec("01 — Ingresos", plural(fresh.length, "carta", "cartas"))}
+    ${sec("01 — Recién llegadas", plural(fresh.length, "carta", "cartas"))}
     <div class="section-head">
       <div>
         <h2>Recién llegadas</h2>
-        <p class="sub">Lo último que entró a la bóveda. Cada foto es la carta exacta que vas a recibir: frente, serial y firma.</p>
+        <p class="sub">Lo último que entró a la bóveda.</p>
       </div>
       <a class="btn btn-sm" href="#/cards?sort=new">Ver todas</a>
     </div>
     ${cardGrid(fresh)}
-  </section>
-
-  ${COMBOS.length ? `<section class="vault-band" style="background:linear-gradient(180deg,#0b0904,#000)">
-    <div class="wrap section rv">
-      ${sec("02 — Combos", plural(COMBOS.length, "combo armado", "combos armados"))}
-      <div class="vault-hero">
-        <h2 class="display">Lotes que se venden<br><em style="font-style:italic; color:var(--gold-soft)">enteros</em>, a mejor precio.</h2>
-        <p>Varias cartas juntas por menos de lo que saldrían por separado. Se arman y se agotan: lo que ves acá es lo que hay ahora.</p>
-      </div>
-      <div class="vault-row">
-        ${COMBOS.map((co,i) => `
-          <div class="vault-piece">
-            <a class="tilt" data-tilt href="#/combos/${co.slug}"><img src="${co.imgs[0]}" alt="${esc(co.title)}"></a>
-            <div class="plaque">
-              <span class="pl-t">Combo ${String(i+1).padStart(2,"0")}</span>
-              <span class="pl-s">${plural((co.includes||[]).length, "carta", "cartas")}</span>
-            </div>
-            <h3>${esc(co.title)}</h3>
-            <p class="vp-set">${esc(co.desc || "")}</p>
-            <p class="vp-price">${co.status==="sold" ? "Vendido" : money(co.price)}</p>
-            <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
-              <a class="btn btn-sm btn-gold" href="#/combos/${co.slug}">Ver combo</a>
-            </p>
-          </div>`).join("")}
-      </div>
-      <p style="text-align:center; margin-top:44px">
-        <a class="btn btn-gold" href="#/combos">Ver todos los combos</a>
-      </p>
-    </div>
-  </section>` : ""}
-
-  <section class="vault-band">
-    <div class="wrap section rv">
-      ${sec("03 — La Bóveda", "Las tiradas más bajas")}
-      <div class="vault-hero">
-        <h2 class="display">Cartas excepcionales para<br>colecciones excepcionales.</h2>
-        <p>Tiradas cortas, tinta de Hall of Fame y productos premium, guardados bajo su propia luz.</p>
-      </div>
-      <div class="vault-row">
-        ${vaultPieces.map((c,i) => `
-          <div class="vault-piece">
-            <a class="tilt" data-tilt href="#/cards/${c.slug}"><img src="${c.imgs[0]}" alt="${esc(c.player)}"></a>
-            <div class="plaque">
-              <span class="pl-t">Pieza de bóveda ${String(i+1).padStart(2,"0")}</span>
-              <span class="pl-s">${esc(c.season)} · ${esc(c.product)}</span>
-            </div>
-            <h3>${esc(c.player)}</h3>
-            <p class="vp-set">${esc(c.set)}</p>
-            <p class="vp-serial serial">${serialOf(c) || "SIN NUMERAR"}</p>
-            ${runMini(c)}
-            <p class="vp-price">${money(c.price)}</p>
-            <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
-              <a class="btn btn-sm" href="#/cards/${c.slug}">Ver carta</a>
-              <button class="btn btn-sm" data-vitrina="${c.id}">◈ Vitrina</button>
-            </p>
-          </div>`).join("")}
-      </div>
-      <p style="text-align:center; margin-top:44px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
-        <a class="btn btn-gold" href="#/the-vault">Entrar a la bóveda</a>
-        <button class="btn" data-sala>Recorrer la sala en 3D</button>
-      </p>
-    </div>
-  </section>
-
-  <section class="section-tight wrap rv">
-    ${sec("04 — Por categoría")}
-    <div class="section-head"><div><h2>Encontrala rápido</h2></div></div>
-    <div class="cat-grid cat-grid-3">
-      ${[
-        ["Autógrafos","#/autographs", pool.filter(c=>c.auto)],
-        ["Rookies","#/rookies", rookies],
-        ["Game-worn","#/game-worn", worn],
-        ["Numeradas bajo","#/collections/low-numbered", lowNo],
-        ["Hall of Fame","#/collections/hall-of-fame", pool.filter(c=>c.hof)],
-        ["Los 90","#/collections/90s", pool.filter(c=>c.playerEra==="1990s")]
-      ].map(([title,href,cards]) => catTile({ title, href, cards })).join("")}
-    </div>
-  </section>
-
-  <section class="garden">
-    <canvas id="gardenCanvas" aria-hidden="true"></canvas>
-    <div class="garden-rings" aria-hidden="true"><span></span><span></span><span></span></div>
-    <div class="wrap section garden-inner rv">
-      ${sec("05 — Colección destacada", plural(topTeamCount, "carta", "cartas"))}
-      <div class="garden-head">
-        <h2 class="display">${esc(topTeamName)}</h2>
-        <p>La franquicia con más piezas en la bóveda hoy. Cada carta se compró para quedársela y se vende solo porque el estante tiene límites.</p>
-      </div>
-      <div class="garden-cards">
-        ${garden.map(c => `
-          <a class="garden-card" href="#/cards/${c.slug}">
-            <img src="${c.imgs[0]}" alt="${esc(c.player)}" loading="lazy">
-            <p class="gc-name">${esc(c.player)}</p>
-            <p class="gc-meta">${esc(c.set)} · ${serialOf(c) || "Sin numerar"}</p>
-          </a>`).join("")}
-      </div>
-      <p style="margin-top:34px; display:flex; gap:10px; flex-wrap:wrap">
-        <a class="btn btn-gold" href="#/teams/${topTeamSlug}">Ver la colección completa</a>
-        <button class="btn" data-vitrina="team:${topTeamSlug}">◈ Ver en vitrina</button>
-      </p>
-    </div>
-  </section>
-
-  <section class="section wrap rv">
-    ${sec("06 — Leyendas NBA", "Dorado = está en la bóveda")}
-    <div class="section-head">
-      <div><h2>Los nombres que mueven el mercado</h2>
-      <p class="sub">Lo que hay en la bóveda y lo que se está buscando. Nada figura como stock hasta que la carta está en mano.</p></div>
-      <a class="btn btn-sm" href="#/collections/legends">Colección leyendas</a>
-    </div>
-    <div class="legend-wall">
-      ${legendNames.map(n => `<span class="${ownedNames.has(n) ? "have" : ""}">${esc(n)}</span>`).join("")}
-    </div>
-    <div class="legend-key"><span class="k1"><i></i>En la bóveda</span><span class="k2"><i></i>En la lista de búsqueda</span></div>
   </section>
 
   <section class="section-tight wrap rv">
@@ -4214,7 +4141,7 @@ function pageHome(){
           label: "Rookie Center", pick: "El primer año del jugador", list: rookies, href: "#/rookies", cta: "Abrir el Rookie Center",
           h2: "Cartas rookie", sub: "Primeras cartas y tinta de año rookie: se compran antes del salto y después ya no se consiguen calladas.",
           eyebrow: "Sala 06 · Rookie Center",
-          blurb: "Todo lo del primer año de cartas de un jugador, contado por formato. Los ceros son reales: es lo que la bóveda todavía no tiene.",
+          blurb: "Todo lo del primer año de cartas de un jugador, contado por formato.",
           rows: [
             ["Rookie auto on-card", rookies.filter(c => c.autoType === "On-Card").length],
             ["Rookie auto sticker", rookies.filter(c => c.autoType === "Sticker").length],
@@ -4228,7 +4155,7 @@ function pageHome(){
           label: "Game-Worn", pick: "Con un pedazo de camiseta", list: worn, href: "#/game-worn", cta: "Abrir la sala de memorabilia",
           h2: "Pedazos de camiseta", sub: "Swatches, patches y prime cuts, con la firma al lado cuando el producto lo permite.",
           eyebrow: "Sala 07 · Memorabilia",
-          blurb: "Los formatos de memorabilia, uno por uno. Hoy la sala está flaca y se nota: los patch autos son justamente lo que la bóveda está comprando.",
+          blurb: "Los formatos de memorabilia, uno por uno.",
           rows: [
             ["Jersey", worn.filter(c => c.memType === "Jersey").length],
             ["Patch", worn.filter(c => c.memType === "Patch").length],
@@ -4256,7 +4183,7 @@ function pageHome(){
       const homeTab = homeSets[S.tab] ? S.tab : "autos";
       const hs = homeSets[homeTab];
       return `
-      ${sec("07 — La bóveda por formato", "Elegí un formato")}
+      ${sec("02 — Por formato", "Elegí un formato")}
       <div class="fmt-pick" role="tablist" aria-label="Formatos de la bóveda">
         ${Object.keys(homeSets).map(k => { const h = homeSets[k], n = h.list.length, on = k === homeTab; return `
         <button class="fmt${on ? " on" : ""}" data-tab="${k}" role="tab" aria-selected="${on}">
@@ -4275,32 +4202,109 @@ function pageHome(){
     })()}
   </section>
 
-  <section class="section wrap rv">
-    ${sec("08 — Carta de la semana", "Cambia cada semana")}
-    <div class="section-head"><div><h2>Esta semana en la vitrina</h2></div></div>
-    <div class="spotlight">
-      <div class="spot-visual"><a class="tilt" data-tilt href="#/cards/${spot.slug}"><img src="${spot.imgs[0]}" alt="${esc(spot.player)}"></a></div>
-      <div class="spot-body">
-        <p class="eyebrow" style="color:var(--knicks-orange)">${esc(spot.team)}</p>
-        <h3 class="display">${esc(spot.player)}</h3>
-        <p class="spot-meta">${esc(spot.season + " " + spot.product + " · " + spot.set)} · <span class="serial">${serialOf(spot) || "Sin numerar"}</span></p>
-        <div class="spot-blocks">
-          <div class="spot-block"><h4>El jugador</h4><p>${esc(PLAYERS_META[spot.playerSlug] ? PLAYERS_META[spot.playerSlug].note + ". " + PLAYERS_META[spot.playerSlug].years + ", " + PLAYERS_META[spot.playerSlug].teams + "." : "")}</p></div>
-          <div class="spot-block"><h4>La carta</h4><p>${esc(spot.story.split(". ").slice(0,2).join(". ") + ".")}</p></div>
-          <div class="spot-block"><h4>Por qué la quieren los coleccionistas</h4><p>${esc(spot.why.join(" · "))}</p></div>
-          <div class="spot-block"><h4>Los detalles</h4><p>${esc([spot.season + " " + spot.brand + " " + spot.product, spot.set, serialOf(spot) ? "Serial " + serialOf(spot) : "Sin numerar", "autógrafo " + spot.autoType, spot.condition].join(" · "))}</p></div>
+  ${argCards.length ? `<section class="section-tight wrap rv arg-band">
+    ${sec("03 — Argentina", plural(argCards.length, "carta", "cartas"))}
+    <div class="section-head"><div><h2>Argentina en la NBA</h2>
+      <p class="sub">Las cartas de los nuestros, juntas en un solo lugar.</p></div>
+      <a class="btn btn-sm" href="#/collections/argentina">Ver la colección</a></div>
+    ${argCards.length >= 5 ? rail(argCards) : cardGrid(argCards.slice(0, 4))}
+    ${argWanted.length ? `<p class="arg-want"><span class="eyebrow">En la lista de búsqueda</span>${argWanted.map(n => `<span class="badge">${esc(n)}</span>`).join("")}</p>` : ""}
+  </section>` : ""}
+
+  <section class="vault-band">
+    <div class="wrap section rv">
+      ${sec("04 — Premium", "Más de " + money(SETTINGS.vaultOver))}
+      <div class="vault-hero">
+        <h2 class="display">Cartas excepcionales para colecciones excepcionales.</h2>
+        <p>Las cartas más importantes de la bóveda. Hay ${plural(pool.filter(c => c.vault).length, "carta premium", "cartas premium")} en stock.</p>
+      </div>
+      <div class="vault-row">
+        ${vaultPieces.map((c,i) => `
+          <div class="vault-piece">
+            <a class="tilt" data-tilt href="#/cards/${c.slug}"><img src="${c.imgs[0]}" alt="${esc(c.player)}"></a>
+            <div class="plaque">
+              <span class="pl-t">Premium ${String(i+1).padStart(2,"0")}</span>
+              <span class="pl-s">${esc(c.season)} · ${esc(c.product)}</span>
+            </div>
+            <h3>${esc(c.player)}</h3>
+            <p class="vp-set">${esc(c.set)}</p>
+            <p class="vp-serial serial">${serialOf(c) || "SIN NUMERAR"}</p>
+            ${runMini(c)}
+            <p class="vp-price">${money(c.price)}</p>
+            <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
+              <a class="btn btn-sm" href="#/cards/${c.slug}">Ver carta</a>
+              <button class="btn btn-sm" data-vitrina="${c.id}">◈ Vitrina</button>
+            </p>
+          </div>`).join("")}
+      </div>
+      <p style="text-align:center; margin-top:44px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
+        <a class="btn btn-gold" href="#/premium">Ver todas las cartas premium</a>
+        <button class="btn" data-sala>Recorrer la sala en 3D</button>
+      </p>
+    </div>
+  </section>
+
+  ${COMBOS.length ? `<section class="vault-band" style="background:linear-gradient(180deg,#0b0904,#000)">
+    <div class="wrap section rv">
+      ${sec("05 — Combos", plural(COMBOS.length, "combo armado", "combos armados"))}
+      <div class="vault-hero">
+        <h2 class="display">Lotes que se venden<br><em style="font-style:italic; color:var(--gold-soft)">enteros</em>, a mejor precio.</h2>
+        <p>Varias cartas juntas por menos de lo que saldrían por separado. Se arman y se agotan: lo que ves acá es lo que hay ahora.</p>
+      </div>
+      <div class="vault-row">
+        ${COMBOS.slice().reverse().slice(0, 3).map((co,i) => `
+          <div class="vault-piece">
+            <a class="tilt" data-tilt href="#/combos/${co.slug}"><img src="${co.imgs[0]}" alt="${esc(co.title)}"></a>
+            <div class="plaque">
+              <span class="pl-t">Combo ${String(i+1).padStart(2,"0")}</span>
+              <span class="pl-s">${plural((co.includes||[]).length, "carta", "cartas")}</span>
+            </div>
+            <h3>${esc(co.title)}</h3>
+            <p class="vp-set">${esc(co.desc || "")}</p>
+            <p class="vp-price">${co.status==="sold" ? "Vendido" : money(co.price)}</p>
+            <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
+              <a class="btn btn-sm btn-gold" href="#/combos/${co.slug}">Ver combo</a>
+            </p>
+          </div>`).join("")}
+      </div>
+      <p style="text-align:center; margin-top:44px">
+        <a class="btn btn-gold" href="#/combos">Ver todos los combos</a>
+      </p>
+    </div>
+  </section>` : ""}
+
+  <section class="pack-band">
+    <div class="wrap pack-band-in">
+      <div class="pk-wrap" data-pack data-tilt-pack role="button" tabindex="0" aria-label="Abrir un sobre de la bóveda">
+        ${packMarkup()}
+      </div>
+      <div>
+        <p class="eyebrow gold">Serie 01 · Sobres de la bóveda</p>
+        <h2 style="margin-top:12px">Abrí un sobre<br>de <em>la bóveda.</em></h2>
+        <p class="pb-sub">Rasgalo con el dedo, dá vuelta las cartas de a una y guardate la última para el final: siempre es una carta premium, con el serial apareciendo número por número.</p>
+        <div class="pb-steps">
+          <div class="pb-step"><b>01</b><span>Rasgá la tira de arriba</span></div>
+          <div class="pb-step"><b>02</b><span>Dá vuelta cuatro cartas</span></div>
+          <div class="pb-step"><b>03</b><span>La quinta es el hit</span></div>
         </div>
-        <p style="margin-top:28px; display:flex; gap:10px; flex-wrap:wrap; align-items:center">
-          <a class="btn btn-solid" href="#/cards/${spot.slug}">Ver carta</a>
-          <button class="btn" data-vitrina="${spot.id}">◈ Vitrina</button>
-          <span class="pdp-price" style="font-size:22px"><small>USD</small>${Number(spot.price).toLocaleString("es-AR")}</span>
-        </p>
+        <p style="margin-top:24px"><button class="btn btn-gold" data-pack>Abrir el sobre</button></p>
+        <p class="pb-note">Es una forma de recorrer la bóveda: las cinco cartas salen del stock real y se compran a su precio de lista. Nada se sortea ni se cobra por abrir.</p>
       </div>
     </div>
   </section>
 
   <section class="section-tight wrap rv">
-    ${sec("10 — Confianza")}
+    ${sec("06 — Explorá", "Solo lo que hay en stock")}
+    <div class="section-head"><div><h2>Por jugador y por equipo</h2></div>
+      <p style="display:flex; gap:8px; flex-wrap:wrap"><a class="btn btn-sm" href="#/players">Todos los jugadores</a><a class="btn btn-sm" href="#/teams">Todos los equipos</a></p></div>
+    <p class="eyebrow xp-h">Jugadores</p>
+    <div class="xp-row">${topPlayers.map(([slug, name, n]) => `<a class="xp" href="#/players/${slug}">${esc(name)}<span>${n}</span></a>`).join("")}</div>
+    <p class="eyebrow xp-h">Equipos</p>
+    <div class="xp-row">${topTeams.map(([slug, name, n, c1]) => `<a class="xp" href="#/teams/${slug}"><i style="background:${c1}"></i>${esc(name)}<span>${n}</span></a>`).join("")}</div>
+  </section>
+
+  <section class="section-tight wrap rv">
+    ${sec("07 — Confianza")}
     <div class="section-head"><div><h2>Cómo funciona la bóveda</h2></div></div>
     <div class="trust-grid">
       ${[
@@ -4329,7 +4333,7 @@ function pageHome(){
 /* ---------- tienda ---------- */
 function pageShop(params){
   let pool = live();
-  let title = "Todas las cartas", eyebrow = "Tienda", sub = "La bóveda completa: filtrala hasta llegar a la carta que viniste a buscar.";
+  let title = "Todas las cartas", eyebrow = "Tienda", sub = "";
 
   if (params.preset === "rookies"){ pool = pool.filter(c => c.rookie); title = "Rookie Center"; eyebrow = "Rookies"; sub = "Rookie cards, rookie autographs y RPA. Solo cartas de primer año."; }
   if (params.preset === "autographs"){ pool = pool.filter(c => c.auto); title = "La sala de autógrafos"; eyebrow = "Autógrafos"; sub = "On-card, sticker, tinta rookie y firmas de Hall of Fame."; }
@@ -4357,15 +4361,15 @@ function pageShop(params){
       <div>
         <p class="eyebrow gold">${esc(eyebrow)}</p>
         <h2>${esc(title)}</h2>
-        <p class="sub">${esc(sub)}</p>
+        ${sub ? `<p class="sub">${esc(sub)}</p>` : ""}
       </div>
-      <p class="eyebrow">${plural(list.length, "carta", "cartas")}${activeFilterCount()?" · "+plural(activeFilterCount(), "filtro", "filtros"):""}</p>
+      <p class="eyebrow shop-count">${plural(list.length, "carta", "cartas")}${activeFilterCount()?" · "+plural(activeFilterCount(), "filtro", "filtros"):""}</p>
     </div>
     ${subTabs ? `<div class="tabs">${subTabs.map(([l,v]) => `<button data-sub="${v}" class="${(params.sub||"all")===v?"on":""}">${l}</button>`).join("")}</div>` : ""}
 
     <div class="mobile-filter-bar">
-      <button class="btn btn-sm" id="openFilters" style="flex:1">Filtros${activeFilterCount()?" ("+activeFilterCount()+")":""}</button>
-      <button class="btn btn-sm" id="openSearch2" style="flex:1">Buscar</button>
+      <button class="btn btn-sm" id="openFilters" style="flex:1">Más filtros${activeFilterCount()?" ("+activeFilterCount()+")":""}</button>
+      ${activeFilterCount() ? `<button class="btn btn-sm btn-ghost" data-clear-all>Limpiar</button>` : ""}
     </div>
 
     <div class="shop-layout">
@@ -4381,9 +4385,9 @@ function pageShop(params){
           const vals = facetValues(basePool, def);
           if (!vals.length) return "";
           const sel = S.filters[def.key] || [];
-          const open = sel.length ? " open" : (["player","product","cardType"].includes(def.key) ? " open" : "");
+          const open = sel.length ? " open" : (["cardType","team"].includes(def.key) ? " open" : "");
           // listas largas (jugadores, equipos, sets): buscador adentro del grupo y sólo 8 a la vista
-          const many = vals.length > 8;
+          const many = vals.length > 10;
           return `<details class="fgroup"${open}><summary>${def.label}${sel.length?' <span style="color:var(--gold-soft)">'+sel.length+'</span>':''}</summary>
             <div class="fbody">
               ${many ? `<div class="fsearch"><input type="search" data-facet-q placeholder="Buscar ${def.label.toLowerCase()}..." aria-label="Buscar en ${def.label}"></div>` : ""}
@@ -4424,7 +4428,8 @@ function pageShop(params){
           FILTER_DEFS.flatMap(d => (S.filters[d.key]||[]).map(v =>
             `<span class="afilter">${esc(v)} <button data-remove="${d.key}" data-val="${esc(v)}" aria-label="Quitar filtro">×</button></span>`)).join("")
         }${S.filters.priceMin?`<span class="afilter">mín ${S.filters.priceMin} <button data-remove="priceMin" aria-label="Quitar">×</button></span>`:""}${S.filters.priceMax?`<span class="afilter">máx ${S.filters.priceMax} <button data-remove="priceMax" aria-label="Quitar">×</button></span>`:""}</div>` : ""}
-        ${cardGrid(list, S.view)}
+        ${cardGrid(list.slice(0, S.shopLimit || SHOP_PAGE), S.view)}
+        ${list.length > (S.shopLimit || SHOP_PAGE) ? `<p class="shop-more"><button class="btn" data-more>Ver más cartas <span>${list.length - (S.shopLimit || SHOP_PAGE)} más</span></button></p>` : ""}
       </div>
     </div>
   </div>`;
@@ -4472,7 +4477,7 @@ function pageProduct(slug){
           ${hasBackPhoto(c) ? "" : `<span class="pdp-thumb empty">DORSO<br>aún sin<br>fotografiar</span>`}
         </div>
         <div class="media-tools">
-          <button class="btn btn-sm btn-gold" data-vitrina="${c.id}">◈ Modo vitrina</button>
+          <button class="btn btn-sm" data-vitrina="${c.id}">◈ Modo vitrina</button>
           <button class="btn btn-sm btn-holo" data-gyro hidden>✦ Foil con movimiento</button>
           <button class="btn btn-sm" data-playbook="${c.id}">✎ Ver la jugada</button>
           <button class="btn btn-sm" data-lightbox="${c.id}">Pantalla completa · zoom 4×</button>
@@ -4489,7 +4494,7 @@ function pageProduct(slug){
         ${ser ? `<p class="pdp-serial serial">${ser}</p>` : `<p class="pdp-serial muted" style="font-size:18px">Sin numerar</p>`}
         <div class="badges" style="margin-top:18px">
           ${(c.badges||[]).map(b => `<span class="badge ${badgeClass(b)}">${esc(b)}</span>`).join("")}
-          ${c.vault ? '<span class="badge badge-vault">Pieza de bóveda</span>' : ""}
+          ${c.vault ? '<span class="badge badge-vault">Premium</span>' : ""}
         </div>
 
         <div style="margin-top:26px; display:flex; align-items:baseline; gap:18px; flex-wrap:wrap">
@@ -4516,7 +4521,12 @@ function pageProduct(slug){
                  <button class="btn" data-watch-btn="${c.id}">${S.watchlist.includes(c.id)?"♥ Guardada":"♡ Guardar"}</button>
                  <button class="btn" data-share="${c.id}">↗ Compartir</button>
                </div>
-               <p class="wa-note">Te abre un chat con el mensaje listo: precio, envío y ofertas se hablan directo.</p>`}
+               <p class="wa-note">Te abre un chat con el mensaje listo: precio, envío y ofertas se hablan directo.</p>
+               <ul class="pdp-trust">
+                 <li>Unidad única: es la carta que ves publicada${ser ? ", con su número de serie" : ""}.</li>
+                 <li>Trato directo con quien tiene la carta.</li>
+                 <li>Podés pedir más fotos antes de comprar.</li>
+               </ul>`}
         </div>
 
         ${runMap(c)}
@@ -4526,15 +4536,15 @@ function pageProduct(slug){
           ${meters(c)}
         </div>
 
-        <div class="panel">
+        ${(c.why||[]).length ? `<div class="panel">
           <h3>Por qué importa esta carta</h3>
-          <ul class="why-list">${(c.why||[]).map(w => `<li>${esc(w)}</li>`).join("") || '<li>Notas en preparación</li>'}</ul>
-        </div>
+          <ul class="why-list">${c.why.map(w => `<li>${esc(w)}</li>`).join("")}</ul>
+        </div>` : ""}
 
-        <div class="panel story">
+        ${c.story ? `<div class="panel story">
           <h3>La historia</h3>
-          ${c.story ? `<p>${esc(c.story)}</p>` : '<p class="muted">Todavía no está escrita para esta carta.</p>'}
-        </div>
+          <p>${esc(c.story)}</p>
+        </div>` : ""}
 
         <div class="panel">
           <h3>Ficha de la carta</h3>
@@ -4562,24 +4572,25 @@ function pageProduct(slug){
 
 /* ---------- la bóveda ---------- */
 function pageVault(){
-  const pieces = live().filter(c => c.vault || (c.printRun && c.printRun <= 49) || c.hof)
-    .sort((a,b) => (a.printRun||9999) - (b.printRun||9999));
+  const pieces = live().filter(c => c.vault).sort((a,b) => b.price - a.price);
+  const top = pieces.slice(0, 5), rest = pieces.slice(5);
   return `
   <section class="page-hero"><div class="wrap ph-inner" style="text-align:center">
-    <p class="eyebrow gold">Selección</p>
-    <h1 class="display" style="font-size:clamp(40px,8vw,96px); font-variation-settings:normal; text-transform:none">La Bóveda</h1>
-    <p class="ph-sub" style="margin-inline:auto">Cartas excepcionales para colecciones excepcionales. Tiradas cortas, tinta de Hall of Fame y productos premium, de a una y bajo su propia luz.</p>
+    <p class="eyebrow gold">Selección · ${plural(pieces.length, "carta", "cartas")}</p>
+    <h1 class="display" style="font-size:clamp(40px,8vw,96px); font-variation-settings:normal; text-transform:none">Premium</h1>
+    <p class="ph-sub" style="margin-inline:auto">Las cartas más importantes de The NBA Vault: las de más de ${money(SETTINGS.vaultOver)}, ordenadas de mayor a menor.</p>
     <p style="margin-top:24px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
-      <button class="btn btn-gold" data-sala>Entrar a la sala</button>
-      <button class="btn" data-vitrina="vault">◈ Recorrer en modo vitrina</button>
+      <button class="btn btn-gold" data-vitrina="vault">◈ Recorrer en modo vitrina</button>
+      <button class="btn" data-sala>Entrar a la sala</button>
     </p>
   </div></section>
   <div class="wrap section">
-    ${pieces.map((c,i) => `
+    ${pieces.length ? "" : emptyState("Todavía no hay cartas premium publicadas.")}
+    ${top.map((c,i) => `
       <div class="spotlight" style="padding-block:clamp(30px,5vw,60px); ${i?"border-top:1px solid var(--hair)":""}">
         <div class="spot-visual"><a class="tilt" data-tilt href="#/cards/${c.slug}"><img src="${c.imgs[0]}" alt="${esc(c.player)}"></a></div>
         <div class="spot-body">
-          <span class="badge badge-vault">Pieza de bóveda ${String(i+1).padStart(2,"0")}</span>
+          <span class="badge badge-vault">Premium ${String(i+1).padStart(2,"0")}</span>
           <h3 class="display">${esc(c.player)}</h3>
           <p class="spot-meta">${esc(c.season+" "+c.product)} · ${esc(c.set)}</p>
           <p class="pdp-serial serial" style="font-size:clamp(26px,3.4vw,38px); margin-top:14px">${serialOf(c) || "SIN NUMERAR"}</p>
@@ -4593,6 +4604,8 @@ function pageVault(){
           </p>
         </div>
       </div>`).join("")}
+    ${rest.length ? `<div class="section-head" style="margin-top:clamp(30px,5vw,60px)"><div><h2>Más cartas premium</h2></div><p class="eyebrow">${plural(rest.length, "carta", "cartas")}</p></div>
+      <div class="grid-cards">${rest.map(cardTile).join("")}</div>` : ""}
   </div>`;
 }
 
@@ -4602,7 +4615,7 @@ function pageTeams(){
   S.inventory.forEach(c => counts[c.teamSlug] = (counts[c.teamSlug]||0) + (c.status==="sold"?0:1));
   const tile = ([name,abbr,slug,c1,c2]) => {
     const n = counts[slug] || 0;
-    return `<a class="team-tile${n?" live":""}" href="#/teams/${slug}" data-name="${esc((name + " " + abbr).toLowerCase())}">
+    return `<a class="team-tile${n?" live":""}" href="#/teams/${slug}" data-name="${esc(norm(name + " " + abbr))}">
       <span class="bar" style="background:linear-gradient(180deg,${c1},${c2})"></span>
       <span class="abbr impact">${abbr}</span>
       <span class="tname">${esc(name)}</span>
@@ -4614,8 +4627,8 @@ function pageTeams(){
   return `
   <div class="wrap" id="teamsPage">
     <p class="crumbs"><a href="#/">Inicio</a> / Equipos</p>
-    <div class="section-head"><div><p class="eyebrow gold">Por equipo</p><h2>Los 30 equipos</h2>
-      <p class="sub">Arriba, las franquicias con cartas en la bóveda. Abajo, el resto: se llenan a medida que entran cartas.</p></div></div>
+    <div class="section-head"><div><p class="eyebrow gold">Por equipo</p><h2>Equipos</h2>
+      <p class="sub">${plural(withCards.length, "equipo", "equipos")} con cartas en stock, ordenados por cantidad.</p></div></div>
     <div class="search-field" style="border-color:var(--hair); margin-bottom:28px">
       <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--silver);fill:none;stroke-width:1.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
       <input id="teamSearch" type="search" placeholder="Buscá un equipo..." aria-label="Buscar equipos" style="font-size:clamp(16px,2.4vw,22px)">
@@ -4624,10 +4637,10 @@ function pageTeams(){
       <p class="eyebrow gold" style="margin-bottom:14px">Con cartas en la bóveda · ${withCards.length}</p>
       <div class="teams-grid">${withCards.map(tile).join("") || `<p class="muted">Todavía no hay cartas cargadas.</p>`}</div>
     </section>
-    <section class="tsec" data-sec="rest">
-      <p class="eyebrow gold" style="margin-bottom:14px">Todavía sin cartas · ${rest.length}</p>
-      <div class="teams-grid">${rest.map(tile).join("")}</div>
-    </section>
+    ${rest.length ? `<details class="tsec tsec-rest" data-sec="rest">
+      <summary class="eyebrow">Todavía sin cartas · ${rest.length} <span>ver</span></summary>
+      <div class="teams-grid" style="margin-top:14px">${rest.map(tile).join("")}</div>
+    </details>` : ""}
     <p class="muted" id="teamsEmpty" hidden style="padding:30px 0">Ningún equipo con ese nombre.</p>
   </div>`;
 }
@@ -4654,12 +4667,12 @@ function pageTeam(slug){
     <div class="wrap ph-inner">
       <p class="eyebrow gold">Colección de equipo</p>
       <h1>${esc(name)}</h1>
-      <p class="ph-sub">Cartas de esta franquicia a medida que entran a la bóveda.</p>
+      <p class="ph-sub">${sets.all.length ? "Todas las cartas de esta franquicia en stock." : "Todavía no hay cartas de esta franquicia. Si buscás una, escribinos y la salimos a buscar."}</p>
       <p style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap; align-items:center">
         <span class="badge badge-num">${plural(sets.all.length, "disponible", "disponibles")}</span>
-        <span class="badge">${plural(sets.autos.length, "autógrafo", "autógrafos")}</span>
-        <span class="badge">${sets.low.length} numeradas /49 o menos</span>
-        <span class="badge badge-sold">${plural(sets.sold.length, "vendida", "vendidas")}</span>
+        ${sets.autos.length ? `<span class="badge">${plural(sets.autos.length, "autógrafo", "autógrafos")}</span>` : ""}
+        ${sets.low.length ? `<span class="badge">${sets.low.length} numeradas /49 o menos</span>` : ""}
+        ${sets.sold.length ? `<span class="badge badge-sold">${plural(sets.sold.length, "vendida", "vendidas")}</span>` : ""}
         ${sets.all.length ? `<button class="btn btn-sm btn-gold" data-vitrina="team:${slug}">◈ Vitrina</button>` : ""}
       </p>
     </div>
@@ -4667,6 +4680,7 @@ function pageTeam(slug){
   <div class="wrap section-tight">
     <div class="tabs">
       ${[["Todas","all"],["Leyendas","legends"],["Plantel actual","current"],["Rookies","rookies"],["Autógrafos","autos"],["Patches","patches"],["Numeradas bajo","low"],["Vendidas","sold"]]
+        .filter(([l,v]) => v === "all" || sets[v].length)
         .map(([l,v]) => `<button data-tab="${v}" class="${tab===v?"on":""}">${l} <span style="color:var(--silver-dim)">${sets[v].length}</span></button>`).join("")}
     </div>
     ${cardGrid(sets[tab] || [], S.view)}
@@ -4675,59 +4689,53 @@ function pageTeam(slug){
 
 /* ---------- jugadores ---------- */
 function pagePlayers(){
-  const counts = {};
-  S.inventory.forEach(c => { if (c.status !== "sold") counts[c.playerSlug] = (counts[c.playerSlug]||0)+1; });
-  const owned = Object.keys(PLAYERS_META);
-  const groups = [
-    ["Los más buscados", owned.filter(s => (counts[s]||0) > 0).sort((a,b) => (counts[b]||0)-(counts[a]||0)).slice(0,6)],
-    ["Leyendas", owned.filter(s => ["1970s","1980s","1990s"].includes(PLAYERS_META[s].era))],
-    ["Jugadores actuales", owned.filter(s => PLAYERS_META[s].era === "2020s")],
-    ["Hall of Fame", owned.filter(s => PLAYERS_META[s].hof)]
-  ];
-  const tile = s => {
-    const m = PLAYERS_META[s], n = counts[s] || 0;
-    return `<a class="player-tile" href="#/players/${s}"><b>${esc(m.name)}</b><span>${esc(m.pos)} · ${esc(m.years)}</span>
-      <span class="pt-n ${n?"":"zero"}">${n ? plural(n, "carta", "cartas") : "Agotado"}</span></a>`;
+  // sale del inventario: cualquier jugador con cartas aparece solo, tenga o no ficha escrita
+  const pl = {};
+  live().forEach(c => {
+    const p = pl[c.playerSlug] = pl[c.playerSlug] || { slug:c.playerSlug, name:c.player, teams:new Set(), n:0, hof:false };
+    p.n++; p.teams.add(c.team); if (c.hof) p.hof = true;
+  });
+  const have = Object.values(pl);
+  const byCount = have.slice().sort((a,b) => b.n - a.n || a.name.localeCompare(b.name, "es"));
+  const byName = have.slice().sort((a,b) => a.name.localeCompare(b.name, "es"));
+  const tile = p => {
+    const m = PLAYERS_META[p.slug];
+    return `<a class="player-tile" href="#/players/${p.slug}" data-name="${esc(norm(p.name + " " + Array.from(p.teams).join(" ")))}"><b>${esc(p.name)}</b>
+      <span>${esc(m ? m.pos + " · " + m.years : Array.from(p.teams).join(" · "))}</span>
+      <span class="pt-n">${plural(p.n, "carta", "cartas")}${p.hof ? " · HOF" : ""}</span></a>`;
   };
-  const wantTile = n => `<div class="player-tile" style="opacity:.75"><b>${esc(n)}</b><span>Se busca</span><span class="pt-n zero">En la lista</span></div>`;
+  const haveNames = new Set(have.map(p => p.name));
+  const wanted = Array.from(new Set(WANTED.argentina.concat(WANTED.legends))).filter(n => !haveNames.has(n));
+  const wantTile = n => `<div class="player-tile" data-name="${esc(norm(n))}" style="opacity:.7"><b>${esc(n)}</b><span>Se busca</span><span class="pt-n zero">En la lista</span></div>`;
+  const arg = byCount.filter(p => ARGENTINA_SLUGS.includes(p.slug));
   return `
   <div class="wrap">
     <p class="crumbs"><a href="#/">Inicio</a> / Jugadores</p>
     <div class="section-head"><div><p class="eyebrow gold">Por jugador</p><h2>Jugadores</h2>
-      <p class="sub">Buscá cualquier jugador. Hoy la bóveda es profunda en Nueva York; abajo están las listas de lo que se sale a buscar.</p></div></div>
+      <p class="sub">${plural(have.length, "jugador", "jugadores")} con cartas en stock. Escribí un nombre o un equipo para filtrar.</p></div></div>
     <div class="search-field" style="border-color:var(--hair); margin-bottom:34px">
       <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--silver);fill:none;stroke-width:1.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      <input id="playerSearch" type="search" placeholder="Buscá cualquier jugador..." aria-label="Buscar jugadores" style="font-size:clamp(18px,3vw,28px)">
+      <input id="playerSearch" type="search" placeholder="Buscá un jugador o un equipo..." aria-label="Buscar jugadores" style="font-size:clamp(18px,3vw,28px)">
     </div>
     <div id="playerResults">
-      ${groups.filter(g => g[1].length).map(([label, list]) => `
-        <section style="margin-bottom:40px">
-          <p class="eyebrow gold" style="margin-bottom:14px">${label}</p>
-          <div class="player-grid">${list.map(tile).join("")}</div>
-        </section>`).join("")}
-      <section style="margin-bottom:40px">
-        <p class="eyebrow gold" style="margin-bottom:6px">Argentina</p>
-        ${(() => {
-          const argOwned = ARGENTINA_SLUGS.filter(s => (counts[s] || 0) > 0);
-          const introText = argOwned.length
-            ? "La Generación Dorada, de a poco: estos ya están en la bóveda, el resto se sigue buscando."
-            : "Todavía no hay cartas argentinas en la bóveda: estas son las que se están buscando.";
-          return `<p class="muted" style="font-size:13px; margin-bottom:14px">${introText}</p>
-        <div class="player-grid">
-          ${argOwned.map(tile).join("")}
-          ${WANTED.argentina.map(wantTile).join("")}
-        </div>`;
-        })()}
-      </section>
-      ${owned.length > 12 ? `<section style="margin-bottom:40px">
-        <p class="eyebrow gold" style="margin-bottom:14px">Todos, de la A a la Z</p>
-        <div class="player-grid">${owned.slice().sort((a,b) => PLAYERS_META[a].name.localeCompare(PLAYERS_META[b].name, "es")).map(tile).join("")}</div>
+      ${byCount.length > 8 ? `<section class="psec" style="margin-bottom:40px">
+        <p class="eyebrow gold" style="margin-bottom:14px">Con más cartas</p>
+        <div class="player-grid">${byCount.slice(0, 8).map(tile).join("")}</div>
       </section>` : ""}
-      <section>
-        <p class="eyebrow gold" style="margin-bottom:6px">Leyendas NBA</p>
-        <p class="muted" style="font-size:13px; margin-bottom:14px">Lista de búsqueda. Nada figura como stock hasta tener la carta en mano.</p>
-        <div class="player-grid">${WANTED.legends.map(wantTile).join("")}</div>
+      ${arg.length ? `<section class="psec" style="margin-bottom:40px">
+        <p class="eyebrow gold" style="margin-bottom:14px">Argentina · ${arg.length}</p>
+        <div class="player-grid">${arg.map(tile).join("")}</div>
+      </section>` : ""}
+      <section class="psec" style="margin-bottom:40px">
+        <p class="eyebrow gold" style="margin-bottom:14px">Todos, de la A a la Z · ${byName.length}</p>
+        <div class="player-grid">${byName.map(tile).join("") || `<p class="muted">Todavía no hay cartas cargadas.</p>`}</div>
       </section>
+      ${wanted.length ? `<section class="psec">
+        <p class="eyebrow gold" style="margin-bottom:6px">En la lista de búsqueda</p>
+        <p class="muted" style="font-size:13px; margin-bottom:14px">Todavía no están en stock. Si te interesa alguno, escribinos y lo buscamos.</p>
+        <div class="player-grid">${wanted.map(wantTile).join("")}</div>
+      </section>` : ""}
+      <p class="muted" id="playersEmpty" hidden style="padding:30px 0">Ningún jugador con ese nombre.</p>
     </div>
   </div>`;
 }
@@ -4748,11 +4756,11 @@ function pagePlayer(slug){
   const hero = (sets.cards[0] || all[0]);
   return `
   <div class="wrap">
-    <p class="crumbs"><a href="#/">Inicio</a> / <a href="#/players">Jugadores</a> / ${esc(m ? m.name : slug)}</p>
+    <p class="crumbs"><a href="#/">Inicio</a> / <a href="#/players">Jugadores</a> / ${esc(m ? m.name : (all[0] ? all[0].player : slug))}</p>
     <div class="player-head section-tight">
       <div>
         <p class="eyebrow" style="color:var(--knicks-orange)">${esc(all[0] ? all[0].team : "")}</p>
-        <h1 class="impact" style="font-size:clamp(34px,6.4vw,78px); margin-top:8px">${esc(m ? m.name : slug)}</h1>
+        <h1 class="impact" style="font-size:clamp(34px,6.4vw,78px); margin-top:8px">${esc(m ? m.name : (all[0] ? all[0].player : slug))}</h1>
         ${m ? `<p style="margin-top:16px; color:var(--bone-dim); max-width:56ch">${esc(m.note)}.</p>` : ""}
         ${m ? `<div class="badges" style="margin-top:18px">
           <span class="badge">${esc(m.pos)}</span><span class="badge">${esc(m.years)}</span>
@@ -4772,6 +4780,7 @@ function pagePlayer(slug){
     </div>
     <div class="tabs">
       ${[["Cartas","cards"],["Autógrafos","autographs"],["Rookies","rookies"],["Patches","patches"],["Numeradas","numbered"],["Vendidas","sold"]]
+        .filter(([l,v]) => v === "cards" || sets[v].length)
         .map(([l,v]) => `<button data-tab="${v}" class="${tab===v?"on":""}">${l} <span style="color:var(--silver-dim)">${sets[v].length}</span></button>`).join("")}
     </div>
     ${cardGrid(sets[tab] || [], S.view)}
@@ -4780,23 +4789,25 @@ function pagePlayer(slug){
 
 /* ---------- colecciones ---------- */
 function pageCollections(){
+  // solo se muestran las colecciones que tienen cartas; los productos salen del stock
+  const pool = live();
+  const PRODUCT_SLUGS = ["national-treasures","immaculate","origins","impeccable","elite","paramount"];
+  const cols = COLLECTIONS.filter(c => !PRODUCT_SLUGS.includes(c.slug)).map(col => ({ col, found: pool.filter(col.test) }))
+    .filter(x => x.found.length).sort((a,b) => b.found.length - a.found.length);
+  const prod = {}; pool.forEach(c => { (prod[c.product] = prod[c.product] || []).push(c); });
+  const products = Object.entries(prod).sort((a,b) => b[1].length - a[1].length || a[0].localeCompare(b[0], "es"));
   return `
   <div class="wrap">
     <p class="crumbs"><a href="#/">Inicio</a> / Colecciones</p>
-    <div class="section-head"><div><p class="eyebrow gold">Colecciones</p><h2>Estantes curados</h2>
-      <p class="sub">Agrupaciones editoriales que cruzan equipos y productos, como realmente piensan las cartas los coleccionistas.</p></div></div>
+    <div class="section-head"><div><p class="eyebrow gold">Colecciones</p><h2>Colecciones</h2>
+      <p class="sub">Las cartas agrupadas por tema y por producto. Solo aparece lo que hay en stock.</p></div></div>
+    <p class="eyebrow gold" style="margin-bottom:14px">Por tema · ${cols.length}</p>
     <div class="cat-grid">
-      ${COLLECTIONS.map(col => {
-        const found = live().filter(col.test);
-        return catTile({
-          title: col.name,
-          href: "#/collections/" + col.slug,
-          cards: found,
-          sub: col.sub,
-          countLabel: col.wanted && !found.length ? "lista de búsqueda" : null,
-          count: found.length
-        });
-      }).join("")}
+      ${cols.map(({ col, found }) => catTile({ title: col.name, href: "#/collections/" + col.slug, cards: found, sub: col.sub, count: found.length })).join("")}
+    </div>
+    <p class="eyebrow gold" style="margin:40px 0 14px">Por producto · ${products.length}</p>
+    <div class="cat-grid">
+      ${products.map(([name, list]) => catTile({ title: name, href: "#/cards?q=" + encodeURIComponent(name), cards: list, sub: list[0].brand + " · " + Array.from(new Set(list.map(c => c.season))).sort().join(", "), count: list.length, cta: "Ver cartas" })).join("")}
     </div>
   </div>`;
 }
@@ -4844,7 +4855,7 @@ function pageCombos(){
         <option value="price-asc"${sortKey==="price-asc"?" selected":""}>Precio: menor a mayor</option>
       </select>
     </div>
-    <div class="cat-grid" id="comboGrid">${list.map(comboTile).join("")}</div>
+    <div class="combo-grid" id="comboGrid">${list.map(comboTile).join("")}</div>
     <p class="muted" id="comboEmpty" hidden style="padding:30px 0">Ningún combo coincide con esa búsqueda.</p>`
       : emptyState("Todavía no armamos ningún combo. Mientras tanto, mirá la bóveda completa.")}
   </div>`;
@@ -5025,7 +5036,7 @@ function pageSell(){
 }
 function pageStatic(kind){
   const content = {
-    about: ["Quiénes somos", "Una bóveda, no un local", `<p>The Vault empezó como empiezan casi todas las colecciones: una carta, y después una segunda que tenía que ir al lado. Todo lo que está publicado se compró para quedárselo y se vende solamente porque el estante tiene límites.</p>
+    about: ["Quiénes somos", "Una bóveda, no un local", `<p>Final Cards empezó como empiezan casi todas las colecciones: una carta, y después una segunda que tenía que ir al lado. Todo lo que está publicado se compró para quedárselo y se vende solamente porque el estante tiene límites.</p>
       <p>Las cartas se describen como un coleccionista quiere leerlas: producto, set, subset, número de carta, tirada, tipo de autógrafo, estado, y una foto que muestra los defectos con la misma claridad que el brillo. Nada se publica hasta que está físicamente acá.</p>`],
     shipping: ["Envíos", "Cómo viajan las cartas", `<p>Cada carta se embala correctamente para que viaje protegida.</p>
       <p>El costo y el tiempo dependen del destino: se cotizan por WhatsApp junto con la carta.</p>
@@ -5035,7 +5046,7 @@ function pageStatic(kind){
       <p><b>¿Aceptás ofertas?</b> Depende de la carta o del combo: en algunos sí y en otros no. Consultá desde “Consultar por WhatsApp” en la ficha.</p>
       <p><b>¿Gradeás antes de vender?</b> Algunas. Las raw se describen con honestidad y se cotizan como raw: el grado lo vas a buscar vos.</p>`],
     contact: ["Contacto", "Hablar con la bóveda", `<p>Ofertas, listas de búsqueda, consignación y canjes: contesta la persona que tiene la colección, por WhatsApp.</p>
-      <p style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">${waLink("Hola! Te escribo desde The Vault.", "Escribir por WhatsApp")}<a class="btn" href="#/sell">Vender una carta</a></p>`],
+      <p style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">${waLink("Hola! Te escribo desde Final Cards.", "Escribir por WhatsApp")}<a class="btn" href="#/sell">Vender una carta</a></p>`],
     terms: ["Términos", "Términos de venta", `<p>Las ventas son finales una vez despachada la carta, salvo que la carta difiera de su descripción o de sus fotos. Las cartas se venden como coleccionables; no se promete ni se sugiere ningún retorno de inversión.</p>`],
     privacy: ["Privacidad", "Qué guarda la bóveda", `<p>El sitio no pide cuentas ni datos personales. Las cartas que guardás con el corazón quedan solamente en tu navegador. Cuando consultás por una carta, la conversación sigue por WhatsApp.</p>`]
   }[kind];
@@ -5142,8 +5153,7 @@ const scIsBack = () => Math.abs(((SC.base % 360) + 360) % 360 - 180) < 1;
 
 function showcaseList(sel){
   if (sel === "all") return live();
-  if (sel === "vault") return live().filter(c => c.vault || (c.printRun && c.printRun <= 49) || c.hof)
-    .sort((a,b) => (a.printRun||9999) - (b.printRun||9999));
+  if (sel === "vault") return live().filter(c => c.vault).sort((a,b) => b.price - a.price);
   if (sel === "knicks") return live().filter(c => c.teamSlug === "new-york-knicks");
   if (sel === "results"){
     let p = applyFilters(live());
@@ -5263,8 +5273,6 @@ function paintShowcaseTools(){
     ${hasBackPhoto(c) ? `<button class="btn btn-sm" data-sc-tool="playbook">${scIsBack() && SC.playbook ? "Ver el dorso" : "✎ Ver la jugada"}</button>` : ""}
     ${scIsBack() && showingPz ? `<button class="btn btn-sm" data-sc-tool="replay">↻ Repetir jugada</button>` : ""}
     <button class="btn btn-sm" data-share="${c.id}">↗ Compartir</button>
-    <button class="btn btn-sm" data-sc-tool="center">Enderezar</button>
-    <button class="btn btn-sm" data-sc-tool="spin">${SC.spin ? "Luz fija" : "Girar luz"}</button>
     <button class="btn btn-sm" data-sc-tool="zoom">${SC.zoom ? "Alejar" : "Acercar"}</button>
     <button class="btn btn-sm" data-watch-btn="${c.id}">${S.watchlist.includes(c.id) ? "♥ Guardada" : "♡ Guardar"}</button>
     <a class="btn btn-sm" href="#/cards/${c.slug}" data-sc-tool="close">Ver ficha</a>`;
@@ -5491,7 +5499,7 @@ function openPack(){
   $("#pkDeck").innerHTML = PK.cards.map((c, i) => `
     <div class="pkc${i === 4 ? " is-hit" : ""}" data-pkc="${i}" style="--i:${i}; z-index:${20 - i}">
       <div class="pkc-in">
-        <div class="pkc-face pkc-back"><span class="bm">V</span><span class="bt">${i === 4 ? "Pieza de bóveda" : "The NBA Card Vault"}</span></div>
+        <div class="pkc-face pkc-back"><span class="bm">V</span><span class="bt">${i === 4 ? "Premium" : "The NBA Vault"}</span></div>
         <div class="pkc-face pkc-front"><img src="${c.imgs[0]}" alt="${esc(c.player)}" draggable="false"></div>
       </div>
     </div>`).join("");
@@ -5566,7 +5574,7 @@ function pkOpen(){
 
 function pkInfo(c, i){
   const hit = i === 4;
-  return `<span class="pi-tag">${hit ? "◆ Pieza de bóveda" : "Carta " + (i + 1) + " de 5"}</span>
+  return `<span class="pi-tag">${hit ? "◆ Premium" : "Carta " + (i + 1) + " de 5"}</span>
     <span class="pi-name">${esc(c.player)}</span>
     <span class="pi-set">${esc(c.season + " " + c.product + " · " + c.set)} · ${money(c.price)}</span>
     <span class="pi-serial serial" id="pkSerial">${serialOf(c) || (hit ? "" : "Sin numerar")}</span>`;
@@ -5602,7 +5610,7 @@ function pkReveal(){
     PK.state = "charging";
     ov.classList.add("charging");
     $("#pkInfo").classList.remove("show");
-    $("#pkHint").innerHTML = "<b>Pieza de bóveda</b>…";
+    $("#pkHint").innerHTML = "<b>Carta premium</b>…";
     setTimeout(flip, 1500);
   } else flip();
 }
@@ -5638,7 +5646,7 @@ function pkSummary(){
   const total = PK.cards.reduce((s, c) => s + c.price, 0);
   $("#pkSummary").innerHTML = `
     <div class="pks-head">
-      <p class="eyebrow gold">Serie 01 · The Vault</p>
+      <p class="eyebrow gold">Serie 01 · Final Cards</p>
       <h2 style="margin-top:10px">Tu sobre de <em>la bóveda.</em></h2>
       <p>Cinco cartas reales del stock, ${money(total)} en total si te llevás todas. Consultá por la que quieras, o por las cinco juntas.</p>
     </div>
@@ -6657,7 +6665,7 @@ function introMarkup(){
         <span class="in-mark"></span>
       </div>
     </div>
-    <div class="in-caption"><span class="in-step" id="inStep">Paso 1 de 3</span><b>THE <em>VAULT</em></b><span id="inCombo">La bóveda está cerrada</span></div>
+    <div class="in-caption"><span class="in-step" id="inStep">Paso 1 de 3</span><b>FINAL <em>CARDS</em></b><span id="inCombo">La bóveda está cerrada</span></div>
     <button class="in-skip" id="inSkip">Saltar intro</button>`;
 }
 function playIntro(force){
@@ -6764,7 +6772,7 @@ function playIntro(force){
    ============================================================ */
 const FILM = { vid:null, ready:false, played:false };
 function filmPrime(){
-  if (FILM.vid || REDUCED) return;
+  if (!SETTINGS.roomFilm || FILM.vid || REDUCED) return;
   const v = document.createElement("video");
   v.muted = true; v.playsInline = true; v.preload = "auto";
   v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.setAttribute("aria-hidden", "true");
@@ -6792,7 +6800,7 @@ function playRoomFilm(after, startAt){
   if (half - t0 < 2.2) t0 = 0;                       // si queda poco, arranca de nuevo desde el principio
   try { v.currentTime = t0; } catch(e){}
   FILM.dur = Math.max(2200, (half - t0 - .12) * 1000);
-  box.insertAdjacentHTML("beforeend", `<div class="rf-cap"><span>Sala 01</span><b>THE NBA CARD <em>VAULT</em></b><i>Own a piece of the game</i></div><button class="rf-skip">Saltar</button>`);
+  box.insertAdjacentHTML("beforeend", `<div class="rf-cap"><span>Final Cards · Sala 01</span><b>THE NBA <em>VAULT</em></b><i>Quedate con una parte del juego</i></div><button class="rf-skip">Saltar</button>`);
   box.hidden = false;                      // aparece en el mismo cuadro que ya muestra la puerta
   document.body.classList.add("intro-cover");
   const p = v.play(); if (p && p.catch) p.catch(() => {});
@@ -6871,8 +6879,8 @@ function lobbyMarkupRaw(){
   const n = live().length;
   const lock = `<svg viewBox="0 0 12 12"><rect x="2.5" y="5.5" width="7" height="5" rx="1"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5"/></svg>`;
   return `<div class="lb-head">
-      <div class="lb-brand">THE <em>VAULT</em></div>
-      <div class="lb-ask">La bóveda tiene cuatro salas<b>¿A cuál entrás?</b></div>
+      <div class="lb-brand">FINAL <em>CARDS</em></div>
+      <div class="lb-ask">Cuatro bóvedas, una por colección<b>¿A cuál entrás?</b></div>
     </div>
     <div class="lb-doors">
       ${LOBBY_ROOMS.map((r, i) => `
@@ -6932,16 +6940,17 @@ function wireLongLists(){
       return;
     }
     if (e.target.id === "teamSearch"){
-      const t = e.target.value.trim().toLowerCase();
+      const t = norm(e.target.value).trim();
+      const restBox = $("#teamsPage .tsec-rest"); if (restBox && t) restBox.open = true;
       $$("#teamsPage .team-tile").forEach(a => a.classList.toggle("nomatch", !!t && !(a.dataset.name || "").includes(t)));
       $$("#teamsPage .tsec").forEach(sec => { sec.hidden = !$$(".team-tile:not(.nomatch)", sec).length; });
       const none = !$$("#teamsPage .team-tile:not(.nomatch)").length;
       const em = $("#teamsEmpty"); if (em) em.hidden = !none;
     }
     if (e.target.id === "comboSearch"){
-      const t = e.target.value.trim().toLowerCase();
+      const t = norm(e.target.value).trim();
       const grid = $("#comboGrid"); if (!grid) return;
-      const tiles = $$(".cat", grid);
+      const tiles = $$(".combo-card", grid);
       tiles.forEach(a => a.classList.toggle("nomatch", !!t && !(a.dataset.comboName || "").includes(t)));
       const none = !tiles.some(a => !a.classList.contains("nomatch"));
       const em = $("#comboEmpty"); if (em) em.hidden = !none;
@@ -6976,7 +6985,7 @@ function render(){
   const { parts, params, path } = parseHash();
   const pathChanged = path !== lastPath;
   const section = parts[0] || "";
-  if (pathChanged){ S.tab = null; lastPath = path; }
+  if (pathChanged){ S.tab = null; lastPath = path; S.shopLimit = SHOP_PAGE; }
   if (section !== lastSection){ S.filters = {}; S.filtersOpen = false; lastSection = section; }
   if (params.sort) S.sort = params.sort;
   S.q = params.q || "";
@@ -6989,7 +6998,7 @@ function render(){
   else if (p0 === "rookies") html = pageShop({ ...params, preset:"rookies" });
   else if (p0 === "autographs") html = pageShop({ ...params, preset:"autographs" });
   else if (p0 === "game-worn") html = pageShop({ ...params, preset:"game-worn" });
-  else if (p0 === "the-vault") html = pageVault();
+  else if (p0 === "premium" || p0 === "the-vault") html = pageVault();
   else if (p0 === "teams") html = parts[1] ? pageTeam(parts[1]) : pageTeams();
   else if (p0 === "players") html = parts[1] ? pagePlayer(parts[1]) : pagePlayers();
   else if (p0 === "collections") html = parts[1] ? pageCollection(parts[1]) : pageCollections();
@@ -7007,8 +7016,43 @@ function render(){
   afterRender(parts, pathChanged);
 }
 
+/* menú Tienda y menú del celular: se arman con el stock, así nunca muestran un formato vacío */
+const SHOP_TYPES = [
+  ["Autógrafos", "#/autographs", c => c.auto],
+  ["Rookies", "#/rookies", c => c.rookie],
+  ["Game-Worn y patches", "#/game-worn", c => c.memorabilia],
+  ["Numeradas", "#/cards?f=numbered", c => c.printRun],
+  ["Numeradas bajo", "#/collections/low-numbered", c => c.printRun && c.printRun <= 49],
+  ["Gradeadas", "#/cards?f=graded", c => c.gradeCompany && c.gradeCompany !== "RAW"],
+  ["1/1", "#/cards?f=oneofone", c => c.printRun === 1],
+  ["Hall of Fame", "#/collections/hall-of-fame", c => c.hof]
+];
+function shopTypes(){ const pool = live(); return SHOP_TYPES.map(([l,h,f]) => [l, h, pool.filter(f).length]).filter(x => x[2]); }
+function paintMenus(){
+  const pool = live(), types = shopTypes();
+  const prod = {}; pool.forEach(c => { prod[c.product] = (prod[c.product] || 0) + 1; });
+  const products = Object.entries(prod).sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 7);
+  const eras = ["vintage","80s","90s","2000s","modern"].map(sl => COLLECTIONS.find(c => c.slug === sl)).filter(Boolean)
+    .map(c => [c.name, "#/collections/" + c.slug, pool.filter(c.test).length]).filter(x => x[2]);
+  const argN = pool.filter(c => ARGENTINA_SLUGS.includes(c.playerSlug)).length;
+  const li = ([l,h,n]) => `<a href="${h}">${esc(l)}<span class="mega-n">${n}</span></a>`;
+  const mg = $("#megaGrid");
+  if (mg) mg.innerHTML = `
+    <div class="mega-col"><h4 class="eyebrow gold">Por tipo de carta</h4>${types.map(li).join("")}</div>
+    <div class="mega-col"><h4 class="eyebrow gold">Por producto</h4>${products.map(([p,n]) => li([p, "#/cards?q=" + encodeURIComponent(p), n])).join("")}</div>
+    <div class="mega-col"><h4 class="eyebrow gold">Por época</h4>${eras.map(li).join("")}</div>
+    <div class="mega-col mega-feature"><h4 class="eyebrow gold">Atajos</h4>
+      <a href="#/cards">Todas las cartas<span class="mega-n">${pool.length}</span></a>
+      <a href="#/cards?sort=new">Recién llegadas</a>
+      <a href="#/premium" class="mega-vault">Premium<span class="mega-n">${pool.filter(c => c.vault).length}</span></a>
+      ${argN ? `<a href="#/collections/argentina">Argentina en la NBA<span class="mega-n">${argN}</span></a>` : ""}
+      <a class="btn btn-sm" href="#" data-sala style="margin-top:14px">Recorrer la sala 3D</a></div>`;
+  const mt = $("#mnavTypes");
+  if (mt) mt.innerHTML = types.map(([l,h,n]) => `<a href="${h}">${esc(l)} <span>${n}</span></a>`).join("");
+}
 function afterRender(parts, pathChanged){
   paintPips();
+  paintMenus();
   $$("#mainNav a").forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + parseHash().path));
   $$(".bottom-nav a[data-bn]").forEach(a => a.classList.toggle("on", a.dataset.bn === parseHash().path));
 
@@ -7120,10 +7164,10 @@ function afterRender(parts, pathChanged){
   const ps = $("#playerSearch");
   if (ps){
     ps.addEventListener("input", () => {
-      const q = ps.value.toLowerCase().trim();
-      $$("#playerResults .player-tile").forEach(t => {
-        t.style.display = !q || t.textContent.toLowerCase().includes(q) ? "" : "none";
-      });
+      const q = norm(ps.value).trim();
+      $$("#playerResults .player-tile").forEach(t => t.classList.toggle("nomatch", !!q && !(t.dataset.name || "").includes(q)));
+      $$("#playerResults .psec").forEach(sec => { sec.hidden = !$$(".player-tile:not(.nomatch)", sec).length; });
+      const em = $("#playersEmpty"); if (em) em.hidden = !!$$("#playerResults .player-tile:not(.nomatch)").length;
     });
   }
 
@@ -7173,7 +7217,7 @@ function wire(){
 
   // búsqueda
   const so = $("#searchOverlay"), si = $("#searchInput");
-  const openSearch = () => { so.classList.add("open"); si.focus(); renderSearch(); };
+  const openSearch = () => { so.classList.add("open"); si.focus(); paintHints(); renderSearch(); };
   const closeSearch = () => { so.classList.remove("open"); };
   $("#searchBtn").addEventListener("click", openSearch);
   $("#bnSearch").addEventListener("click", e => { e.preventDefault(); openSearch(); });
@@ -7186,10 +7230,16 @@ function wire(){
       location.hash = v ? "#/cards?q=" + encodeURIComponent(v) : "#/cards";
     }
   });
-  const HINTS = ["Frazier /25","autos on-card","rookie menos de 100","National Treasures","/49","patch auto","Immaculate","1990s"];
-  $("#searchHints").innerHTML = HINTS.map(h => `<button class="chip" data-hint="${esc(h)}">${esc(h)}</button>`).join("");
+  // sugerencias sacadas del stock, para que siempre devuelvan algo
+  const paintHints = () => {
+    const pool = live(), cnt = (k) => { const m = {}; pool.forEach(c => { m[c[k]] = (m[c[k]] || 0) + 1; }); return Object.entries(m).sort((a,b) => b[1] - a[1]).map(x => x[0]); };
+    const players = cnt("player").slice(0, 3).map(n => n.split(" ").slice(-1)[0]);
+    const HINTS = players.concat(cnt("team").slice(0, 1), cnt("product").slice(0, 2), ["autógrafos", "rookie", "/25", "menos de 50"]);
+    $("#searchHints").innerHTML = Array.from(new Set(HINTS)).map(h => `<button class="chip" data-hint="${esc(h)}">${esc(h)}</button>`).join("");
+  };
+  paintHints();
   function searchCombos(q){
-    const t = q.trim().toLowerCase();
+    const t = norm(q).trim();
     if (!t) return [];
     const terms = t.split(/\s+/).filter(Boolean);
     return COMBOS.filter(combo => {
@@ -7199,18 +7249,45 @@ function wire(){
   }
   function renderSearch(){
     const q = si.value.trim();
-    const cardRes = q ? searchCards(q).slice(0, 8) : live().slice(0, 5);
+    const all = q ? searchCards(q).filter(c => c.status !== "sold") : [];
+    const cardRes = q ? all.slice(0, 6) : live().slice().sort(SORTS.new).slice(0, 5);
     const comboRes = q ? searchCombos(q).slice(0, 3) : [];
-    const cardHtml = cardRes.map(c => `
+    const head = t => `<p class="sr-h">${t}</p>`;
+    let html = "";
+    if (q){
+      const terms = parseQuery(q).text;
+      const hitAll = txt => terms.length && terms.every(t => norm(txt).includes(t));
+      // jugadores y equipos que coinciden con lo escrito: van primero, con cuántas cartas tienen
+      const pl = {}, tm = {};
+      live().forEach(c => {
+        if (hitAll(c.player)) (pl[c.playerSlug] = pl[c.playerSlug] || { name:c.player, teams:new Set(), n:0, img:c.imgs[0] }, pl[c.playerSlug].teams.add(c.team), pl[c.playerSlug].n++);
+        if (hitAll(c.team)) (tm[c.teamSlug] = tm[c.teamSlug] || { name:c.team, n:0 }, tm[c.teamSlug].n++);
+      });
+      const players = Object.entries(pl).sort((a,b) => b[1].n - a[1].n).slice(0, 3);
+      const teams = Object.entries(tm).sort((a,b) => b[1].n - a[1].n).slice(0, 2);
+      if (players.length) html += head("Jugadores") + players.map(([slug, p]) => `
+        <a class="sresult sr-group" href="#/players/${slug}" data-close-search>
+          <img src="${p.img}" alt="">
+          <span class="r-main"><span class="r-name">${esc(p.name)}</span><span class="r-meta">${esc(Array.from(p.teams).join(" · "))}</span></span>
+          <span class="r-price sr-n">${plural(p.n, "carta", "cartas")} →</span>
+        </a>`).join("");
+      if (teams.length) html += head("Equipos") + teams.map(([slug, t]) => `
+        <a class="sresult sr-group" href="#/teams/${slug}" data-close-search>
+          <span class="sr-dot" style="background:${(TEAMS.find(x => x[2] === slug) || [])[3] || "#888"}"></span>
+          <span class="r-main"><span class="r-name">${esc(t.name)}</span></span>
+          <span class="r-price sr-n">${plural(t.n, "carta", "cartas")} →</span>
+        </a>`).join("");
+    }
+    if (cardRes.length) html += head(q ? "Cartas" : "Recién llegadas") + cardRes.map(c => `
       <a class="sresult" href="#/cards/${c.slug}" data-close-search>
         <img src="${c.imgs[0]}" alt="">
         <span class="r-main">
           <span class="r-name">${esc(c.player)}</span>
           <span class="r-meta">${esc(c.season+" "+c.product+" · "+c.set)} · ${serialOf(c)||"sin numerar"}</span>
         </span>
-        <span class="r-price">${c.status==="sold" ? "VENDIDA" : money(c.price)}</span>
+        <span class="r-price">${money(c.price)}</span>
       </a>`).join("");
-    const comboHtml = comboRes.map(combo => `
+    if (comboRes.length) html += head("Combos") + comboRes.map(combo => `
       <a class="sresult" href="#/combos/${combo.slug}" data-close-search>
         <img src="${(combo.imgs && combo.imgs[0]) || ""}" alt="">
         <span class="r-main">
@@ -7219,8 +7296,8 @@ function wire(){
         </span>
         <span class="r-price">${combo.status==="sold" ? "VENDIDO" : money(combo.price)}</span>
       </a>`).join("");
-    const html = cardHtml + comboHtml;
-    $("#searchResults").innerHTML = html || `<p class="muted" style="padding:20px 12px">Nada coincide con “${esc(q)}”. Probá un jugador, un set, una tirada como /25, o “rookie menos de 100”.</p>`;
+    if (q && all.length > cardRes.length) html += `<a class="sr-all" href="#/cards?q=${encodeURIComponent(q)}" data-close-search>Ver las ${all.length} cartas que coinciden →</a>`;
+    $("#searchResults").innerHTML = html || `<p class="muted" style="padding:20px 12px">Nada coincide con “${esc(q)}”. Probá un jugador, un equipo, un set o una tirada como /25.</p>`;
   }
 
   // newsletter
@@ -7282,6 +7359,7 @@ function wire(){
     const hit = sel => t.closest(sel);
 
     if (hit("[data-close-search]")) $("#searchOverlay").classList.remove("open");
+    if (hit("[data-open-search]")){ e.preventDefault(); $("#searchBtn").click(); return; }
     if (hit("[data-close-modal]")){ closeModal(); }
     if (t === modal.el) closeModal();
 
@@ -7355,9 +7433,18 @@ function wire(){
     const qf = hit("[data-qf]");
     if (qf){
       const k = qf.dataset.qf, v = qf.dataset.qfVal, cur = S.filters[k] || [];
-      S.filters[k] = !v ? [] : (cur.includes(v) ? cur.filter(x => x !== v) : cur.concat(v));
-      render(); return;
+      if (qf.hasAttribute("data-qf-one")) S.filters[k] = (!v || (cur.length === 1 && cur[0] === v)) ? [] : [v];   // de a uno: tocar otro reemplaza
+      else S.filters[k] = !v ? [] : (cur.includes(v) ? cur.filter(x => x !== v) : cur.concat(v));
+      S.shopLimit = SHOP_PAGE; render(); return;
     }
+    const pb = hit("[data-price]");
+    if (pb){
+      const [lo, hi] = pb.dataset.price.split("-");
+      const same = (S.filters.priceMin || "") === lo && (S.filters.priceMax || "") === hi;
+      S.filters.priceMin = same ? "" : lo; S.filters.priceMax = same ? "" : hi;
+      S.shopLimit = SHOP_PAGE; render(); return;
+    }
+    if (hit("[data-more]")){ S.shopLimit = (S.shopLimit || SHOP_PAGE) + SHOP_PAGE; render(); return; }
     const view = hit("[data-view]"); if (view){ S.view = view.dataset.view; save.view(); render(); return; }
     const tab = hit("[data-tab]"); if (tab){ S.tab = tab.dataset.tab; render(); return; }
     const sub = hit("[data-sub]"); if (sub){
@@ -7370,7 +7457,7 @@ function wire(){
       if (v === "auto") S.filters.cardType = ["Rookie auto"];
       render(); return;
     }
-    if (hit("#clearFilters")){ S.filters = {}; if (S.q) location.hash = "#" + parseHash().path; else render(); return; }
+    if (hit("#clearFilters") || hit("[data-clear-all]")){ S.filters = {}; if (S.q) location.hash = "#" + parseHash().path; else render(); return; }
     if (hit("#openFilters")){ S.filtersOpen = true; $("#filterPanel").classList.add("open"); $("#closeFilters").style.display = "inline-flex"; document.body.style.overflow = "hidden"; return; }
     if (hit("#closeFilters")){ S.filtersOpen = false; $("#filterPanel").classList.remove("open"); document.body.style.overflow = ""; return; }
     if (hit("#openSearch2")){ $("#searchBtn").click(); return; }
