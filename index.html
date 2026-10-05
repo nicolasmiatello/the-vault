@@ -1286,14 +1286,17 @@ body.has-bottom-nav{padding-bottom:62px}
   .sc-meta{gap:8px}
   /* abajo compacto: la carta es la protagonista */
   .sc-bottom{gap:8px; padding-top:34px}
-  .sc-meta > div{width:100%}
+  .sc-bottom{grid-template-columns:minmax(0,1fr)}
+  .sc-meta{min-width:0}
+  .sc-meta > div{width:100%; min-width:0}
   .sc-meta > div[style]{text-align:left!important}
   .sc-meta .sc-set{font-size:10px; margin-top:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   .sc-meta .sc-serial{font-size:18px; margin-top:4px}
   .sc-price{font-size:17px}
-  .sc-tools{flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; justify-content:flex-start!important; margin-top:8px!important; margin-inline:-16px; padding-inline:16px; -webkit-mask:linear-gradient(90deg,transparent,#000 16px,#000 calc(100% - 24px),transparent)}
-  .sc-tools::-webkit-scrollbar{display:none}
-  .sc-tools .btn{flex:0 0 auto; padding:9px 12px; font-size:9.5px}
+  /* todas las opciones a la vista, en una grilla de tres por fila (sin tener que deslizar ni girar el celular) */
+  .sc-tools{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:6px; margin-top:8px!important}
+  .sc-tools .btn{padding:10px 4px; font-size:9px; letter-spacing:.08em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0}
+  .sc-tools .btn[hidden]{display:none}
   .sc-thumb{width:26px}
   /* al acercar, el nombre se corre para no quedar debajo de la carta */
   .showcase .sc-meta > div:first-child{transition:opacity .35s var(--ease)}
@@ -5276,7 +5279,7 @@ function paintShowcaseTools(){
     <button class="btn btn-sm btn-holo" data-gyro${GYRO.needsPerm && !GYRO.granted && !GYRO.active ? "" : " hidden"}>✦ Foil con movimiento</button>
     <button class="btn btn-sm" data-sc-tool="flip">${scIsBack() ? "Ver el frente" : "Dar vuelta"}</button>
     ${hasBackPhoto(c) ? `<button class="btn btn-sm" data-sc-tool="playbook">${scIsBack() && SC.playbook ? "Ver el dorso" : "✎ Ver la jugada"}</button>` : ""}
-    ${scIsBack() && showingPz ? `<button class="btn btn-sm" data-sc-tool="replay">↻ Repetir jugada</button>` : ""}
+    ${scIsBack() && showingPz ? `<button class="btn btn-sm" data-sc-tool="replay">↻ Repetir</button>` : ""}
     <button class="btn btn-sm" data-share="${c.id}">↗ Compartir</button>
     <button class="btn btn-sm" data-sc-tool="zoom">${SC.zoom ? "Alejar" : "Acercar"}</button>
     <a class="btn btn-sm" href="#/cards/${c.slug}" data-sc-tool="close">Ver ficha</a>`;
