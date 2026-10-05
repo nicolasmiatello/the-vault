@@ -220,6 +220,14 @@ section{position:relative}
 .mnav .mnav-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:26px}
 .mnav a{display:block; padding:13px 0; border-bottom:1px solid var(--hair); font-family:var(--ui); font-variation-settings:"wdth" 82,"wght" 700; text-transform:uppercase; font-size:19px; letter-spacing:.02em}
 .mnav a:hover{color:var(--gold-soft)}
+/* celular: tira de accesos por tipo de carta, siempre a la vista debajo de la cabecera */
+.mstrip{display:flex; gap:7px; overflow-x:auto; padding:8px var(--gutter) 10px; border-top:1px solid var(--hair); scrollbar-width:none; -webkit-overflow-scrolling:touch}
+.mstrip::-webkit-scrollbar{display:none}
+.mstrip a{flex:0 0 auto; display:inline-flex; align-items:center; gap:6px; white-space:nowrap; font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; padding:8px 12px; border:1px solid var(--hair-strong); border-radius:20px; color:var(--bone-dim)}
+.mstrip a span{color:var(--gold-soft); font-variant-numeric:tabular-nums}
+.mstrip a.on{background:linear-gradient(140deg,var(--gold-soft),var(--gold)); border-color:transparent; color:#1a1405; font-weight:600}
+.mstrip a.on span{color:#1a1405}
+@media(min-width:1024px){ .mstrip{display:none} }
 .mnav-h{margin:26px 0 4px; font-family:var(--mono); font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold-soft)}
 .mnav-sub{display:grid; grid-template-columns:1fr 1fr; gap:0 18px}
 .mnav .mnav-sub a{font-family:var(--mono); font-variation-settings:normal; font-size:11.5px; letter-spacing:.12em; padding:12px 0; color:var(--bone-dim)}
@@ -611,6 +619,14 @@ select.sortsel{background:var(--field); border:1px solid var(--hair); padding:9p
 .cc-price{font-family:var(--mono); font-size:20px; font-variant-numeric:tabular-nums}
 .cc-price small{font-size:10px; color:var(--silver); letter-spacing:.14em; margin-right:5px}
 .cc-go{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-soft)}
+.only-m{display:none}
+@media(max-width:1023px){
+  .only-m{display:inline-flex}
+  .qf .fd-row.qf-kind{display:none!important}   /* en celular los tipos ya están en la tira de arriba */
+  .shop-head .sub, .shop-head + .tabs{display:none}
+  .shop-head{margin-bottom:12px!important}
+  .shop-toolbar [data-vitrina]{display:none}
+}
 .shop-more{text-align:center; margin-top:34px}
 .shop-more .btn span{color:var(--gold-soft); margin-left:8px}
 @media(max-width:760px){
@@ -2315,6 +2331,7 @@ html, body{overflow-x:clip}
 .site-header .brand .tag{display:none}
 .sala-chip{margin-left:12px; flex:0 0 auto}
 @media(max-width:1280px){ .sala-chip{display:none} .site-header .brand .tag{display:inline} }
+@media(max-width:560px){ .site-header .brand .tag{display:none} }
 </style>
 <style>
 /* video de entrada a la sala NBA: pantalla completa, sin máscaras ni recortes animados */
@@ -2549,18 +2566,13 @@ html, body{overflow-x:clip}
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
         <span class="sp-txt">Buscá jugador, equipo o set</span><kbd>/</kbd>
       </button>
-      <button class="icon-btn" id="vitrinaBtn" aria-label="Abrir modo vitrina" title="Modo vitrina (V)">
-        <svg viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="17" rx="1.5"/><path d="M3 20.5h18"/></svg>
-      </button>
-      <a class="icon-btn" href="#/watchlist" aria-label="Guardadas">
-        <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9.2A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7 2.8C19 15.6 12 20 12 20z"/></svg>
-        <span class="pip" id="wlPip" hidden>0</span>
-      </a>
       <button class="icon-btn burger" id="burger" aria-label="Menú">
         <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
   </div>
+
+  <nav class="mstrip" id="mstrip" aria-label="Accesos rápidos"></nav>
 
   <span class="progress" id="progress" aria-hidden="true"></span>
 
@@ -2589,7 +2601,6 @@ html, body{overflow-x:clip}
     <a href="#/cards?sort=new">Recién llegadas</a>
     <a href="#" data-pack>Abrí un sobre</a>
     <a href="#" data-sala>Recorré la sala</a>
-    <a href="#/watchlist">Mis guardadas</a>
     <a href="#/sell">Vendé tu carta</a>
     <a href="#" data-lobby>Cambiar de sala</a>
   </div>
@@ -2666,7 +2677,7 @@ html, body{overflow-x:clip}
   <a href="#/" data-bn="/"><svg viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v8H4z"/></svg><span>Inicio</span></a>
   <a href="#/cards" data-bn="/cards"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg><span>Tienda</span></a>
   <a href="#" id="bnSearch"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>Buscar</span></a>
-  <a href="#/watchlist" data-bn="/watchlist"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9.2A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7 2.8C19 15.6 12 20 12 20z"/></svg><span>Guardadas</span></a>
+  <a href="#/players" data-bn="/players"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c1.2-4 4-6 7-6s5.8 2 7 6"/></svg><span>Jugadores</span></a>
   <a href="#/teams" data-bn="/teams"><svg viewBox="0 0 24 24"><path d="M12 3.5l7 3v5.2c0 4.3-3 7.6-7 8.8-4-1.2-7-4.5-7-8.8V6.5z"/><path d="M9 11.5h6M12 8.5v6"/></svg><span>Equipos</span></a>
   <a href="#/combos" data-bn="/combos"><svg viewBox="0 0 24 24"><rect x="5" y="9" width="11" height="11" rx="1.5"/><path d="M8 9V6.5A1.5 1.5 0 0 1 9.5 5H18a1.5 1.5 0 0 1 1.5 1.5V15a1.5 1.5 0 0 1-1.5 1.5H17"/></svg><span>Combos</span></a>
 </nav>
@@ -3610,7 +3621,7 @@ function toast(msg){
   clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove("show"), 2200);
 }
 function paintPips(){
-  const w = $("#wlPip"), c = $("#cartPip") || { hidden:true };
+  const w = $("#wlPip") || { hidden:true }, c = $("#cartPip") || { hidden:true };
   w.hidden = !S.watchlist.length; w.textContent = S.watchlist.length;
   c.hidden = !S.cart.length; c.textContent = S.cart.length;
 }
@@ -3659,6 +3670,7 @@ function keyBadges(c){
   return out.slice(0, 3);
 }
 function heart(id){
+  return "";   // sin cuentas no hay guardadas: el corazón queda apagado
   const on = S.watchlist.includes(id) ? " on" : "";
   return '<button class="pcard-save'+on+'" data-watch="'+id+'" aria-label="Guardar carta">'+
     '<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-9.2A3.8 3.8 0 0 1 12 8a3.8 3.8 0 0 1 7 2.8C19 15.6 12 20 12 20z"/></svg></button>';
@@ -3892,7 +3904,7 @@ function quickFilters(pool){
   const pMin = S.filters.priceMin || "", pMax = S.filters.priceMax || "";
   const inBand = ([, lo, hi]) => pool.filter(c => (!lo || c.price >= +lo) && (!hi || c.price <= +hi)).length;
   return `<div class="qf">
-    ${kinds.length ? `<div class="fd-row"><span class="fd-label">Tipo</span><div class="fd-scroll" data-qf-row>
+    ${kinds.length ? `<div class="fd-row qf-kind"><span class="fd-label">Tipo</span><div class="fd-scroll" data-qf-row>
       <button class="fd-chip${sel.length ? "" : " on"}" data-qf="cardType" data-qf-val="" data-qf-one>Todas</button>
       ${kinds.map(k => `<button class="fd-chip${sel.includes(k) ? " on" : ""}" data-qf="cardType" data-qf-val="${esc(k)}" data-qf-one><b>${esc(KIND_LABEL[k] || k)}</b><span class="n">${count[k]}</span></button>`).join("")}
     </div></div>` : ""}
@@ -4357,7 +4369,7 @@ function pageShop(params){
   return `
   <div class="wrap">
     <p class="crumbs"><a href="#/">Inicio</a> / ${esc(title)}</p>
-    <div class="section-head" style="margin-bottom:22px">
+    <div class="section-head shop-head" style="margin-bottom:22px">
       <div>
         <p class="eyebrow gold">${esc(eyebrow)}</p>
         <h2>${esc(title)}</h2>
@@ -4366,11 +4378,6 @@ function pageShop(params){
       <p class="eyebrow shop-count">${plural(list.length, "carta", "cartas")}${activeFilterCount()?" · "+plural(activeFilterCount(), "filtro", "filtros"):""}</p>
     </div>
     ${subTabs ? `<div class="tabs">${subTabs.map(([l,v]) => `<button data-sub="${v}" class="${(params.sub||"all")===v?"on":""}">${l}</button>`).join("")}</div>` : ""}
-
-    <div class="mobile-filter-bar">
-      <button class="btn btn-sm" id="openFilters" style="flex:1">Más filtros${activeFilterCount()?" ("+activeFilterCount()+")":""}</button>
-      ${activeFilterCount() ? `<button class="btn btn-sm btn-ghost" data-clear-all>Limpiar</button>` : ""}
-    </div>
 
     <div class="shop-layout">
       <aside class="filters" id="filterPanel">
@@ -4408,6 +4415,7 @@ function pageShop(params){
         ${quickFilters(basePool)}
         <div class="shop-toolbar">
           ${S.q ? `<span class="afilter">“${esc(S.q)}” <button data-clearq aria-label="Borrar búsqueda">×</button></span>` : ""}
+          <button class="btn btn-sm only-m" id="openFilters">Filtros${activeFilterCount()?" ("+activeFilterCount()+")":""}</button>
           <select class="sortsel" id="sortSel" aria-label="Ordenar cartas">
             <option value="new"${S.sort==="new"?" selected":""}>Más nuevas primero</option>
             <option value="price-desc"${S.sort==="price-desc"?" selected":""}>Precio: mayor a menor</option>
@@ -4517,10 +4525,7 @@ function pageProduct(slug){
             ? `<a class="btn btn-block" href="#/players/${c.playerSlug}">Ver otras cartas de ${esc(c.player.split(" ").slice(-1)[0])}</a>
                <button class="btn btn-block" data-wantlist="${c.id}">Avisame si aparece otra</button>`
             : `${waBtn(c, "Consultar por WhatsApp", "btn-block")}
-               <div class="row">
-                 <button class="btn" data-watch-btn="${c.id}">${S.watchlist.includes(c.id)?"♥ Guardada":"♡ Guardar"}</button>
-                 <button class="btn" data-share="${c.id}">↗ Compartir</button>
-               </div>
+               <button class="btn btn-block" data-share="${c.id}">↗ Compartir esta carta</button>
                <p class="wa-note">Te abre un chat con el mensaje listo: precio, envío y ofertas se hablan directo.</p>
                <ul class="pdp-trust">
                  <li>Unidad única: es la carta que ves publicada${ser ? ", con su número de serie" : ""}.</li>
@@ -5048,7 +5053,7 @@ function pageStatic(kind){
     contact: ["Contacto", "Hablar con la bóveda", `<p>Ofertas, listas de búsqueda, consignación y canjes: contesta la persona que tiene la colección, por WhatsApp.</p>
       <p style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">${waLink("Hola! Te escribo desde Final Cards.", "Escribir por WhatsApp")}<a class="btn" href="#/sell">Vender una carta</a></p>`],
     terms: ["Términos", "Términos de venta", `<p>Las ventas son finales una vez despachada la carta, salvo que la carta difiera de su descripción o de sus fotos. Las cartas se venden como coleccionables; no se promete ni se sugiere ningún retorno de inversión.</p>`],
-    privacy: ["Privacidad", "Qué guarda la bóveda", `<p>El sitio no pide cuentas ni datos personales. Las cartas que guardás con el corazón quedan solamente en tu navegador. Cuando consultás por una carta, la conversación sigue por WhatsApp.</p>`]
+    privacy: ["Privacidad", "Qué guarda la bóveda", `<p>El sitio no pide cuentas ni datos personales. Cuando consultás por una carta, la conversación sigue por WhatsApp.</p>`]
   }[kind];
   if (!content) return `<div class="wrap section">${emptyState("Página no encontrada.")}</div>`;
   return `<div class="wrap section" style="max-width:860px">
@@ -5274,7 +5279,6 @@ function paintShowcaseTools(){
     ${scIsBack() && showingPz ? `<button class="btn btn-sm" data-sc-tool="replay">↻ Repetir jugada</button>` : ""}
     <button class="btn btn-sm" data-share="${c.id}">↗ Compartir</button>
     <button class="btn btn-sm" data-sc-tool="zoom">${SC.zoom ? "Alejar" : "Acercar"}</button>
-    <button class="btn btn-sm" data-watch-btn="${c.id}">${S.watchlist.includes(c.id) ? "♥ Guardada" : "♡ Guardar"}</button>
     <a class="btn btn-sm" href="#/cards/${c.slug}" data-sc-tool="close">Ver ficha</a>`;
 }
 
@@ -5663,7 +5667,6 @@ function pkSummary(){
           </div>
           <div class="pks-btns">
             ${waBtn(c, "Consultar", "btn-sm")}
-            <button class="btn btn-sm" data-watch-btn="${c.id}">${S.watchlist.includes(c.id) ? "♥" : "♡"}</button>
           </div>
         </article>`).join("")}
     </div>
@@ -7047,6 +7050,14 @@ function paintMenus(){
       <a href="#/premium" class="mega-vault">Premium<span class="mega-n">${pool.filter(c => c.vault).length}</span></a>
       ${argN ? `<a href="#/collections/argentina">Argentina en la NBA<span class="mega-n">${argN}</span></a>` : ""}
       <a class="btn btn-sm" href="#" data-sala style="margin-top:14px">Recorrer la sala 3D</a></div>`;
+  const ms = $("#mstrip");
+  if (ms){
+    const here = location.hash || "#/";
+    const items = [["Todas", "#/cards", pool.length]].concat(types.filter(t => t[0] !== "Numeradas"),
+      [["Premium", "#/premium", pool.filter(c => c.vault).length]], argN ? [["Argentina", "#/collections/argentina", argN]] : [], COMBOS.length ? [["Combos", "#/combos", COMBOS.length]] : []);
+    ms.innerHTML = items.filter(i => i[2]).map(([l,h,n]) => `<a href="${h}" class="${here === h ? "on" : ""}">${esc(l)}<span>${n}</span></a>`).join("");
+    const on = ms.querySelector("a.on"); if (on) ms.scrollLeft = Math.max(0, on.offsetLeft - 16);
+  }
   const mt = $("#mnavTypes");
   if (mt) mt.innerHTML = types.map(([l,h,n]) => `<a href="${h}">${esc(l)} <span>${n}</span></a>`).join("");
 }
@@ -7213,7 +7224,7 @@ function wire(){
   $("#mobileNav").addEventListener("click", e => { if (e.target.closest("a")) $("#mobileNav").classList.remove("open"); });
 
   // vitrina desde el header
-  $("#vitrinaBtn").addEventListener("click", () => openShowcase("all"));
+  if ($("#vitrinaBtn")) $("#vitrinaBtn").addEventListener("click", () => openShowcase("all"));
 
   // búsqueda
   const so = $("#searchOverlay"), si = $("#searchInput");
