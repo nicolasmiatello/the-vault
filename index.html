@@ -7078,8 +7078,12 @@ function paintMenus(){
   const ms = $("#mstrip");
   if (ms){
     const here = location.hash || "#/";
-    const items = [["Todas", "#/cards", pool.length]].concat(types.filter(t => t[0] !== "Numeradas"),
-      [["Premium", "#/premium", pool.filter(c => c.vault).length]], argN ? [["Argentina", "#/collections/argentina", argN]] : [], COMBOS.length ? [["Combos", "#/combos", COMBOS.length]] : []);
+    // orden pedido: Todas, Autógrafos, Combos, Game-Worn y patches, Argentina, y después el resto
+    const ty = l => types.find(t => t[0] === l);
+    const first = [["Todas", "#/cards", pool.length], ty("Autógrafos"), COMBOS.length ? ["Combos", "#/combos", COMBOS.length] : null,
+      ty("Game-Worn y patches"), argN ? ["Argentina", "#/collections/argentina", argN] : null].filter(Boolean);
+    const rest = types.filter(t => !["Autógrafos", "Game-Worn y patches", "Numeradas"].includes(t[0])).concat([["Premium", "#/premium", pool.filter(c => c.vault).length]]);
+    const items = first.concat(rest);
     ms.innerHTML = items.filter(i => i[2]).map(([l,h,n]) => `<a href="${h}" class="${here === h ? "on" : ""}">${esc(l)}<span>${n}</span></a>`).join("");
     const on = ms.querySelector("a.on"); if (on) ms.scrollLeft = Math.max(0, on.offsetLeft - 16);
   }
