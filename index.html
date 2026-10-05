@@ -2476,6 +2476,12 @@ html, body{overflow-x:clip}
 .fd-chip.on b, .fd-chip.on .n{color:#1a1405}
 /* acceso rápido del inicio: Equipos / Jugadores / Combos */
 .fd-simple{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--hair)}
+/* nombre y precio de la carta que está al frente del carrusel */
+.stage-cap{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:center; gap:6px 12px; text-align:center; margin:-18px auto 14px; max-width:92%; position:relative; z-index:2}
+.stage-cap .sc-k{font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:#1a1405; background:linear-gradient(140deg,var(--gold-soft),var(--gold)); padding:3px 8px; border-radius:2px; font-weight:600}
+.stage-cap b{font-variation-settings:"wdth" 84,"wght" 800; text-transform:uppercase; font-size:clamp(15px,2.2vw,20px); letter-spacing:.03em}
+.stage-cap .sc-d{font-family:var(--mono); font-size:12.5px; color:var(--gold-soft); font-variant-numeric:tabular-nums}
+.stage-cap:hover b{color:var(--gold-soft)}
 /* buscador grande del inicio */
 .fd-search{
   display:flex; align-items:center; gap:16px; width:100%; text-align:left; margin-block:22px 14px; padding:18px 20px;
@@ -3994,7 +4000,6 @@ function runMini(c){
 function pageHome(){
   const pool = live();
   const fresh = pool.slice().sort(SORTS.new).slice(0, 8);
-  const vaultPieces = pool.filter(c => c.vault).sort((a,b) => b.price - a.price).slice(0, 3);
   const argCards = pool.filter(c => ARGENTINA_SLUGS.includes(c.playerSlug)).sort((a,b) => b.price - a.price);
   const argHave = new Set(argCards.map(c => c.player));
   const argWanted = WANTED.argentina.filter(n => !argHave.has(n));
@@ -4013,7 +4018,26 @@ function pageHome(){
     { n: runs.length ? "/" + Math.min(...runs) : "—", l: "Tirada más baja" },
     { n: String(pool.filter(c => c.auto).length), l: "Autografiadas" }
   ];
-  const stageCards = pool.slice().sort((a,b) => b.price - a.price).slice(0, 5);   // las cinco más importantes del stock
+  // el carrusel de arriba ES la vitrina Premium: las más caras del stock (hasta 8), sin repetirlas más abajo
+  const byPrice = pool.slice().sort((a,b) => b.price - a.price);
+  const premiumAll = byPrice.filter(c => c.vault);
+  // reparto parejo entre dueños: una carta de cada uno por turno (la mejor de cada uno primero),
+  // así ningún socio queda afuera de los lugares destacados por tener cartas más baratas
+  const fairMix = list => {
+    const by = {}, order = [];
+    list.forEach(x => { const o = x.owner || DEFAULT_OWNER; if (!by[o]){ by[o] = []; order.push(o); } by[o].push(x); });
+    const out = []; for (let i = 0; out.length < list.length; i++) order.forEach(o => { if (by[o][i]) out.push(by[o][i]); });
+    return out;
+  };
+  const stageCards = fairMix(byPrice).slice(0, 5);
+  // sección Premium del inicio: premium que no están girando arriba, para no repetir
+  const premRest = premiumAll.filter(c => !stageCards.includes(c));
+  const vaultPieces = fairMix(premRest.length >= 3 ? premRest : premiumAll).slice(0, 3);
+  // combos del inicio: los más importantes disponibles primero
+  // las secciones de abajo no repiten lo que ya gira arriba (salvo que queden muy pocas)
+  const stageIds = new Set(stageCards.concat(vaultPieces).map(c => c.id));
+  const homeRest = list => { const r = list.filter(c => !stageIds.has(c.id)); return fairMix(r.length >= 4 ? r : list); };
+  const homeCombos = fairMix(COMBOS.filter(co => co.status !== "sold").sort((a,b) => b.price - a.price)).slice(0, 3);
   const rookies = pool.filter(c => c.rookie);
   const worn = pool.filter(c => c.memorabilia);
   const lowNo = pool.filter(c => c.printRun && c.printRun <= 49).sort((a,b) => a.printRun - b.printRun);
@@ -4066,7 +4090,7 @@ function pageHome(){
         <div class="stage-glow"></div>
         <div class="stage-beam"></div>
         ${stageCards.map((c,i) => `
-          <a class="stage-card" href="#/cards/${c.slug}" data-stage="${i}" aria-label="${esc(c.player)}" draggable="false">
+          <a class="stage-card" href="#/cards/${c.slug}" data-stage="${i}" data-cap="${esc(c.player)}" data-capk="${c.vault ? "Premium" : "Destacada"}" data-cap2="${esc([serialOf(c), money(c.price)].filter(Boolean).join(" · "))}" aria-label="${esc(c.player)}" draggable="false">
             <img src="${c.imgs[0]}" alt="${esc(c.player)} — ${esc(c.product)}" draggable="false">
             <span class="holo" aria-hidden="true"></span>
           </a>`).join("")}
@@ -4120,39 +4144,6 @@ function pageHome(){
           <span class="fd-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
       </div>
-    </div>
-  </section>
-
-  <section class="vault-band">
-    <div class="wrap section rv">
-      ${sec("01 — Premium", "Más de " + money(SETTINGS.vaultOver))}
-      <div class="vault-hero">
-        <h2 class="display">Cartas excepcionales para colecciones excepcionales.</h2>
-        <p>Las cartas más importantes de la bóveda. Hay ${plural(pool.filter(c => c.vault).length, "carta premium", "cartas premium")} en stock.</p>
-      </div>
-      <div class="vault-row">
-        ${vaultPieces.map((c,i) => `
-          <div class="vault-piece">
-            <a class="tilt" data-tilt href="#/cards/${c.slug}"><img src="${c.imgs[0]}" alt="${esc(c.player)}"></a>
-            <div class="plaque">
-              <span class="pl-t">Premium ${String(i+1).padStart(2,"0")}</span>
-              <span class="pl-s">${esc(c.season)} · ${esc(c.product)}</span>
-            </div>
-            <h3>${esc(c.player)}</h3>
-            <p class="vp-set">${esc(c.set)}</p>
-            <p class="vp-serial serial">${serialOf(c) || "SIN NUMERAR"}</p>
-            ${runMini(c)}
-            <p class="vp-price">${money(c.price)}</p>
-            <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
-              <a class="btn btn-sm" href="#/cards/${c.slug}">Ver carta</a>
-              <button class="btn btn-sm" data-vitrina="${c.id}">◈ Vitrina</button>
-            </p>
-          </div>`).join("")}
-      </div>
-      <p style="text-align:center; margin-top:44px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
-        <a class="btn btn-gold" href="#/premium">Ver todas las cartas premium</a>
-        <button class="btn" data-sala>Recorrer la sala en 3D</button>
-      </p>
     </div>
   </section>
 
@@ -4219,7 +4210,7 @@ function pageHome(){
       const homeTab = homeSets[S.tab] ? S.tab : "autos";
       const hs = homeSets[homeTab];
       return `
-      ${sec("02 — Por formato", "Elegí un formato")}
+      ${sec("01 — Por formato", "Elegí un formato")}
       <div class="fmt-pick" role="tablist" aria-label="Formatos de la bóveda">
         ${Object.keys(homeSets).map(k => { const h = homeSets[k], n = h.list.length, on = k === homeTab; return `
         <button class="fmt${on ? " on" : ""}" data-tab="${k}" role="tab" aria-selected="${on}">
@@ -4231,31 +4222,53 @@ function pageHome(){
       <div class="section-head"><div><h2>${esc(hs.h2)}</h2>
         <p class="sub">${esc(hs.sub)}</p></div>
         <a class="btn btn-sm" href="${hs.href}">${esc(hs.label)}</a></div>
-      ${hs.list.length ? room(hs.list, {
+      ${hs.list.length ? room(homeRest(hs.list), {
         eyebrow: hs.eyebrow, title: "Qué hay en la sala", blurb: hs.blurb, rows: hs.rows,
         wanted: hs.wanted, href: hs.href, cta: hs.cta
       }) : emptyState()}`;
     })()}
   </section>
 
-  ${argCards.length ? `<section class="section-tight wrap rv arg-band">
-    ${sec("03 — Argentina", plural(argCards.length, "carta", "cartas"))}
-    <div class="section-head"><div><h2>Argentina en la NBA</h2>
-      <p class="sub">Las cartas de los nuestros, juntas en un solo lugar.</p></div>
-      <a class="btn btn-sm" href="#/collections/argentina">Ver la colección</a></div>
-    ${argCards.length >= 5 ? rail(argCards) : cardGrid(argCards.slice(0, 4))}
-    ${argWanted.length ? `<p class="arg-want"><span class="eyebrow">En la lista de búsqueda</span>${argWanted.map(n => `<span class="badge">${esc(n)}</span>`).join("")}</p>` : ""}
+  ${vaultPieces.length ? `<section class="vault-band">
+    <div class="wrap section rv">
+      ${sec("02 — Premium", "Más de " + money(SETTINGS.vaultOver))}
+      <div class="vault-hero">
+        <h2 class="display">Cartas excepcionales para colecciones excepcionales.</h2>
+        <p>Las cartas más importantes de la bóveda. Hay ${plural(premiumAll.length, "carta premium", "cartas premium")} en stock.</p>
+      </div>
+      <div class="vault-row">
+        ${vaultPieces.map(c => `
+          <div class="vault-piece">
+            <a class="tilt" data-tilt href="#/cards/${c.slug}"><img src="${c.imgs[0]}" alt="${esc(c.player)}"></a>
+            <div class="plaque">
+              <span class="pl-t">Premium</span>
+              <span class="pl-s">${esc(c.season)} · ${esc(c.product)}</span>
+            </div>
+            <h3>${esc(c.player)}</h3>
+            <p class="vp-set">${esc(c.set)}</p>
+            <p class="vp-serial serial">${serialOf(c) || "SIN NUMERAR"}</p>
+            <p class="vp-price">${money(c.price)}</p>
+            <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
+              <a class="btn btn-sm" href="#/cards/${c.slug}">Ver carta</a>
+              <button class="btn btn-sm" data-vitrina="${c.id}">◈ Vitrina</button>
+            </p>
+          </div>`).join("")}
+      </div>
+      <p style="text-align:center; margin-top:44px">
+        <a class="btn btn-gold" href="#/premium">Ver todas las cartas premium</a>
+      </p>
+    </div>
   </section>` : ""}
 
   ${COMBOS.length ? `<section class="vault-band" style="background:linear-gradient(180deg,#0b0904,#000)">
     <div class="wrap section rv">
-      ${sec("04 — Combos", plural(COMBOS.length, "combo armado", "combos armados"))}
+      ${sec("03 — Combos", plural(COMBOS.length, "combo armado", "combos armados"))}
       <div class="vault-hero">
         <h2 class="display">Lotes que se venden<br><em style="font-style:italic; color:var(--gold-soft)">enteros</em>, a mejor precio.</h2>
         <p>Varias cartas juntas por menos de lo que saldrían por separado. Se arman y se agotan: lo que ves acá es lo que hay ahora.</p>
       </div>
       <div class="vault-row">
-        ${COMBOS.slice().reverse().slice(0, 3).map((co,i) => `
+        ${homeCombos.map((co,i) => `
           <div class="vault-piece">
             <a class="tilt" data-tilt href="#/combos/${co.slug}"><img src="${co.imgs[0]}" alt="${esc(co.title)}"></a>
             <div class="plaque">
@@ -4276,6 +4289,15 @@ function pageHome(){
     </div>
   </section>` : ""}
 
+  ${argCards.length ? `<section class="section-tight wrap rv arg-band">
+    ${sec("04 — Argentina", plural(argCards.length, "carta", "cartas"))}
+    <div class="section-head"><div><h2>Argentina en la NBA</h2>
+      <p class="sub">Las cartas de los nuestros, juntas en un solo lugar.</p></div>
+      <a class="btn btn-sm" href="#/collections/argentina">Ver la colección</a></div>
+    ${argCards.length >= 5 ? rail(argCards) : cardGrid(argCards.slice(0, 4))}
+    ${argWanted.length ? `<p class="arg-want"><span class="eyebrow">En la lista de búsqueda</span>${argWanted.map(n => `<span class="badge">${esc(n)}</span>`).join("")}</p>` : ""}
+  </section>` : ""}
+
   <section class="section wrap rv">
     ${sec("05 — Recién llegadas", plural(fresh.length, "carta", "cartas"))}
     <div class="section-head">
@@ -4285,7 +4307,7 @@ function pageHome(){
       </div>
       <a class="btn btn-sm" href="#/cards?sort=new">Ver todas</a>
     </div>
-    ${cardGrid(fresh)}
+    ${cardGrid(homeRest(pool.slice().sort(SORTS.new)).slice(0, 8))}
   </section>
 
   <section class="pack-band">
@@ -7078,6 +7100,10 @@ function afterRender(parts, pathChanged){
     const place = () => cards.forEach((el, i) => {
       const d = (i - idx + cards.length) % cards.length;
       el.className = "stage-card " + (d === 0 ? "s-center" : d === 1 ? "s-right" : d === cards.length - 1 ? "s-left" : "s-hide");
+      if (d === 0){
+        const cap = $("#stageCap");
+        if (cap){ cap.href = el.getAttribute("href"); $("#stageCapKind").textContent = el.dataset.capk || ""; $("#stageCapName").textContent = el.dataset.cap || ""; $("#stageCapData").textContent = el.dataset.cap2 || ""; }
+      }
     });
     const auto = () => {
       clearInterval(window._stageTimer);
