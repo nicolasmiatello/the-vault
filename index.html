@@ -4123,16 +4123,37 @@ function pageHome(){
     </div>
   </section>
 
-  <section class="section wrap rv">
-    ${sec("01 — Recién llegadas", plural(fresh.length, "carta", "cartas"))}
-    <div class="section-head">
-      <div>
-        <h2>Recién llegadas</h2>
-        <p class="sub">Lo último que entró a la bóveda.</p>
+  <section class="vault-band">
+    <div class="wrap section rv">
+      ${sec("01 — Premium", "Más de " + money(SETTINGS.vaultOver))}
+      <div class="vault-hero">
+        <h2 class="display">Cartas excepcionales para colecciones excepcionales.</h2>
+        <p>Las cartas más importantes de la bóveda. Hay ${plural(pool.filter(c => c.vault).length, "carta premium", "cartas premium")} en stock.</p>
       </div>
-      <a class="btn btn-sm" href="#/cards?sort=new">Ver todas</a>
+      <div class="vault-row">
+        ${vaultPieces.map((c,i) => `
+          <div class="vault-piece">
+            <a class="tilt" data-tilt href="#/cards/${c.slug}"><img src="${c.imgs[0]}" alt="${esc(c.player)}"></a>
+            <div class="plaque">
+              <span class="pl-t">Premium ${String(i+1).padStart(2,"0")}</span>
+              <span class="pl-s">${esc(c.season)} · ${esc(c.product)}</span>
+            </div>
+            <h3>${esc(c.player)}</h3>
+            <p class="vp-set">${esc(c.set)}</p>
+            <p class="vp-serial serial">${serialOf(c) || "SIN NUMERAR"}</p>
+            ${runMini(c)}
+            <p class="vp-price">${money(c.price)}</p>
+            <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
+              <a class="btn btn-sm" href="#/cards/${c.slug}">Ver carta</a>
+              <button class="btn btn-sm" data-vitrina="${c.id}">◈ Vitrina</button>
+            </p>
+          </div>`).join("")}
+      </div>
+      <p style="text-align:center; margin-top:44px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
+        <a class="btn btn-gold" href="#/premium">Ver todas las cartas premium</a>
+        <button class="btn" data-sala>Recorrer la sala en 3D</button>
+      </p>
     </div>
-    ${cardGrid(fresh)}
   </section>
 
   <section class="section-tight wrap rv">
@@ -4226,42 +4247,9 @@ function pageHome(){
     ${argWanted.length ? `<p class="arg-want"><span class="eyebrow">En la lista de búsqueda</span>${argWanted.map(n => `<span class="badge">${esc(n)}</span>`).join("")}</p>` : ""}
   </section>` : ""}
 
-  <section class="vault-band">
-    <div class="wrap section rv">
-      ${sec("04 — Premium", "Más de " + money(SETTINGS.vaultOver))}
-      <div class="vault-hero">
-        <h2 class="display">Cartas excepcionales para colecciones excepcionales.</h2>
-        <p>Las cartas más importantes de la bóveda. Hay ${plural(pool.filter(c => c.vault).length, "carta premium", "cartas premium")} en stock.</p>
-      </div>
-      <div class="vault-row">
-        ${vaultPieces.map((c,i) => `
-          <div class="vault-piece">
-            <a class="tilt" data-tilt href="#/cards/${c.slug}"><img src="${c.imgs[0]}" alt="${esc(c.player)}"></a>
-            <div class="plaque">
-              <span class="pl-t">Premium ${String(i+1).padStart(2,"0")}</span>
-              <span class="pl-s">${esc(c.season)} · ${esc(c.product)}</span>
-            </div>
-            <h3>${esc(c.player)}</h3>
-            <p class="vp-set">${esc(c.set)}</p>
-            <p class="vp-serial serial">${serialOf(c) || "SIN NUMERAR"}</p>
-            ${runMini(c)}
-            <p class="vp-price">${money(c.price)}</p>
-            <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
-              <a class="btn btn-sm" href="#/cards/${c.slug}">Ver carta</a>
-              <button class="btn btn-sm" data-vitrina="${c.id}">◈ Vitrina</button>
-            </p>
-          </div>`).join("")}
-      </div>
-      <p style="text-align:center; margin-top:44px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
-        <a class="btn btn-gold" href="#/premium">Ver todas las cartas premium</a>
-        <button class="btn" data-sala>Recorrer la sala en 3D</button>
-      </p>
-    </div>
-  </section>
-
   ${COMBOS.length ? `<section class="vault-band" style="background:linear-gradient(180deg,#0b0904,#000)">
     <div class="wrap section rv">
-      ${sec("05 — Combos", plural(COMBOS.length, "combo armado", "combos armados"))}
+      ${sec("04 — Combos", plural(COMBOS.length, "combo armado", "combos armados"))}
       <div class="vault-hero">
         <h2 class="display">Lotes que se venden<br><em style="font-style:italic; color:var(--gold-soft)">enteros</em>, a mejor precio.</h2>
         <p>Varias cartas juntas por menos de lo que saldrían por separado. Se arman y se agotan: lo que ves acá es lo que hay ahora.</p>
@@ -4287,6 +4275,18 @@ function pageHome(){
       </p>
     </div>
   </section>` : ""}
+
+  <section class="section wrap rv">
+    ${sec("05 — Recién llegadas", plural(fresh.length, "carta", "cartas"))}
+    <div class="section-head">
+      <div>
+        <h2>Recién llegadas</h2>
+        <p class="sub">Lo último que entró a la bóveda.</p>
+      </div>
+      <a class="btn btn-sm" href="#/cards?sort=new">Ver todas</a>
+    </div>
+    ${cardGrid(fresh)}
+  </section>
 
   <section class="pack-band">
     <div class="wrap pack-band-in">
