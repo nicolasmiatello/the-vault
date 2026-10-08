@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- el sitio ya es oscuro: así los navegadores en "modo oscuro" no le aplican su oscurecido automático -->
+<meta name="color-scheme" content="dark">
+<meta name="supported-color-schemes" content="dark">
+<meta name="theme-color" content="#060607">
 <title>Final Cards · The NBA Vault</title>
 <meta name="description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas. Consultas directas por WhatsApp.">
 <meta property="og:type" content="website">
@@ -27,6 +31,7 @@
    directed light, champagne hairlines, the card is the subject.
    ============================================================ */
 
+@media (prefers-color-scheme: dark){ :root{color-scheme:dark} html, body{background-color:#060607} }
 :root{
   color-scheme: dark;
 
