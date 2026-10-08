@@ -11,6 +11,8 @@
 <meta property="og:description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas, de cualquier equipo y cualquier época.">
 <!-- Cuando tengas la URL definitiva, reemplazá TU-DOMINIO en las dos líneas de imagen (WhatsApp y redes necesitan la dirección completa) -->
 <meta property="og:image" content="https://TU-DOMINIO/img/intro-poster.jpg">
+<link rel="icon" type="image/png" href="img/favicon-48.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Final Cards · The NBA Vault">
 <meta name="twitter:description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas, de cualquier equipo y cualquier época.">
@@ -220,6 +222,9 @@ section{position:relative}
 .mnav .mnav-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:26px}
 .mnav a{display:block; padding:13px 0; border-bottom:1px solid var(--hair); font-family:var(--ui); font-variation-settings:"wdth" 82,"wght" 700; text-transform:uppercase; font-size:19px; letter-spacing:.02em}
 .mnav a:hover{color:var(--gold-soft)}
+.mnav a.mnav-wa{display:flex; align-items:center; gap:11px; color:#25D366}
+.mnav a.mnav-wa:hover{color:#5fe592}
+.mnav a.mnav-wa .wa-ico{width:22px; height:22px; stroke-width:1.8}
 /* celular: tira de accesos por tipo de carta, siempre a la vista debajo de la cabecera */
 .mstrip{display:flex; gap:7px; overflow-x:auto; padding:8px var(--gutter) 10px; border-top:1px solid var(--hair); scrollbar-width:none; -webkit-overflow-scrolling:touch}
 .mstrip::-webkit-scrollbar{display:none}
@@ -316,7 +321,9 @@ section{position:relative}
   transform-style:preserve-3d; border-radius:4px; overflow:hidden; cursor:pointer;
   box-shadow:0 30px 60px -20px rgba(0,0,0,.9), 0 0 0 1px rgba(244,243,239,.07);
 }
-.stage-card img{width:100%; height:100%; object-fit:contain; background:#000}
+/* la carta toma la proporción real de su foto: sin franjas negras si la imagen es más angosta */
+.stage-card{aspect-ratio:auto!important; height:auto}
+.stage-card img{width:100%; height:auto; display:block; background:transparent}
 .stage-card::after{
   content:""; position:absolute; inset:0;
   background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.14) 48%,transparent 62%);
@@ -440,8 +447,8 @@ section{position:relative}
 .vault-hero{text-align:center; max-width:760px; margin:0 auto clamp(34px,4.5vw,56px)}
 .vault-hero h2{font-family:var(--display); font-weight:500; font-size:clamp(34px,6.4vw,76px); line-height:1; letter-spacing:.01em}
 .vault-hero p{margin-top:16px; color:var(--bone-dim); font-size:15px}
-.vault-row{display:grid; gap:clamp(20px,3vw,44px); grid-template-columns:1fr}
-@media(min-width:900px){.vault-row{grid-template-columns:repeat(3,1fr)}}
+.vault-row{display:grid; gap:clamp(10px,3vw,44px); grid-template-columns:repeat(2,minmax(0,380px)); justify-content:center}
+@media(max-width:560px){.vault-piece{padding:20px 6px 22px} .vault-piece .tilt{width:92%} .vault-piece h3{font-size:15px} .vault-piece .vp-serial{font-size:17px} .vault-piece .vp-set{font-size:10px} .vault-piece .btn-sm{width:100%; justify-content:center}}
 .vault-piece{position:relative; text-align:center; padding:clamp(24px,3vw,40px) 18px 30px}
 .vault-piece::before{
   content:""; position:absolute; inset:0;
@@ -2338,6 +2345,16 @@ html, body{overflow-x:clip}
 .site-header .brand{flex-direction:column; align-items:flex-start; gap:3px; line-height:1}
 .site-header .brand .tag{display:block!important; font-size:8.5px; letter-spacing:.3em; color:var(--gold-soft); white-space:nowrap}
 @media(max-width:560px){ .site-header .brand .tag{font-size:8px} }
+/* logo */
+.site-header .brand, .mnav-head .brand{flex-direction:row; align-items:center; gap:10px}
+.brand .logo-mark{height:40px; width:auto; display:block; flex:0 0 auto}
+.brand .brand-txt{display:flex; flex-direction:column; align-items:flex-start; gap:6px; line-height:1}
+.brand .logo-word{height:15px; width:auto; display:block}
+@media(max-width:560px){ .brand .logo-mark{height:34px} .brand .logo-word{height:13px} .brand .brand-txt{gap:5px} }
+.foot-logo{display:block; width:min(210px,60vw); height:auto}
+.lb-brand .lb-logo{display:flex; align-items:center; gap:12px}
+.lb-brand .lb-logo .logo-mark{height:clamp(34px,4vw,48px); width:auto}
+.lb-brand .lb-logo .logo-word{height:clamp(13px,1.6vw,19px); width:auto}
 </style>
 <style>
 /* video de entrada a la sala NBA: pantalla completa, sin máscaras ni recortes animados */
@@ -2552,6 +2569,17 @@ html, body{overflow-x:clip}
 .share-prev img{max-height:46vh; width:auto; border-radius:2px}
 .share-acts{display:grid; gap:8px}
 .share-acts .btn[hidden]{display:none}
+.btn-group{background:#25D366; color:#06210f; border-color:transparent; font-weight:600}
+.btn-group:hover{filter:brightness(1.07); color:#06210f}
+.btn-group .wa-ico{stroke:#06210f}
+.group-band{border-block:1px solid var(--hair); background:radial-gradient(ellipse 70% 120% at 85% 50%,rgba(37,211,102,.10),transparent 70%), var(--ink)}
+.group-band-in{display:grid; gap:22px; align-items:center; grid-template-columns:1fr; padding-block:clamp(34px,5vw,60px)}
+@media(min-width:760px){.group-band-in{grid-template-columns:minmax(0,1fr) auto}}
+.group-band h2{font-family:var(--display); font-weight:500; font-size:clamp(28px,4.4vw,48px); line-height:1.05}
+.group-band h2 em{font-style:italic; color:var(--gold-soft)}
+.group-band .gb-sub{margin-top:12px; color:var(--bone-dim); font-size:15px; max-width:52ch; line-height:1.65}
+.group-note{font-size:13px; color:var(--bone-dim); margin-top:14px; line-height:1.6}
+.group-note a{color:var(--gold-soft); text-decoration:underline; text-underline-offset:3px}
 .pdp-trust{display:grid; gap:6px; margin-top:6px; padding-top:14px; border-top:1px solid var(--hair)}
 .pdp-trust li{display:flex; gap:9px; align-items:baseline; font-size:13px; color:var(--bone-dim)}
 .pdp-trust li::before{content:"✓"; color:var(--gold-soft); font-size:12px}
@@ -2561,9 +2589,9 @@ html, body{overflow-x:clip}
 <body>
 <header class="site-header" id="siteHeader">
   <div class="wrap-wide hdr">
-    <a class="brand" href="#/">
-      <span class="mark">FINAL <em>CARDS</em></span>
-      <span class="tag">The NBA Vault</span>
+    <a class="brand" href="#/" aria-label="Final Cards · inicio">
+      <img class="logo-mark" src="img/logo-mark.webp" alt="" width="149" height="160">
+      <span class="brand-txt"><img class="logo-word" src="img/logo-word.webp" alt="Final Cards" width="600" height="75"><span class="tag">The NBA Vault</span></span>
     </a>
     <button class="sala-chip" data-lobby aria-label="Cambiar de sala">Sala NBA <svg viewBox="0 0 12 12"><path d="M3 4.5l3 3 3-3"/></svg></button>
     <nav class="nav" id="mainNav">
@@ -2595,7 +2623,7 @@ html, body{overflow-x:clip}
 
 <div class="mnav" id="mobileNav">
   <div class="mnav-head">
-    <span class="brand"><span class="mark">FINAL <em>CARDS</em></span></span>
+    <span class="brand"><img class="logo-mark" src="img/logo-mark.webp" alt="" width="149" height="160"><span class="brand-txt"><img class="logo-word" src="img/logo-word.webp" alt="Final Cards" width="600" height="75"><span class="tag" style="display:block;font-size:8px;letter-spacing:.3em;color:var(--gold-soft)">The NBA Vault</span></span></span>
     <button class="icon-btn" id="mnavClose" aria-label="Cerrar menú">
       <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
@@ -2605,6 +2633,7 @@ html, body{overflow-x:clip}
   <a href="#/teams">Equipos</a>
   <a href="#/collections">Colecciones</a>
   <a href="#/combos">Combos</a>
+  <a href="#" data-group class="mnav-wa"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.2-3.6A7.8 7.8 0 1 1 8.4 18.6z"/><path d="M9.2 9.3c.3 1.9 1.8 3.8 3.9 4.6l1.1-1 1.6.8c-.2.9-.9 1.5-1.8 1.5-2.9-.2-5.6-2.9-5.9-5.8 0-.9.6-1.6 1.5-1.8l.8 1.6z"/></svg>Grupo de WhatsApp</a>
   <p class="mnav-h">Por tipo de carta</p>
   <div class="mnav-sub" id="mnavTypes"></div>
   <p class="mnav-h">Más</p>
@@ -2613,7 +2642,6 @@ html, body{overflow-x:clip}
     <a href="#/cards?sort=new">Recién llegadas</a>
     <a href="#" data-pack>Abrí un sobre</a>
     <a href="#" data-sala>Recorré la sala</a>
-    <a href="#/sell">Vendé tu carta</a>
     <a href="#" data-lobby>Cambiar de sala</a>
   </div>
 </div>
@@ -2638,7 +2666,7 @@ html, body{overflow-x:clip}
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-col">
-        <span class="brand"><span class="mark">FINAL <em>CARDS</em></span></span>
+        <img class="foot-logo" src="img/logo-full.webp" alt="Final Cards" width="520" height="386">
         <p style="color:var(--silver); font-size:13.5px; margin-top:14px; max-width:38ch">Quedate con una parte del juego. Autógrafos, rookies, patches, game-worn y cartas especiales de la NBA, elegidas una por una.</p>
       </div>
       <div class="foot-col">
@@ -2666,7 +2694,7 @@ html, body{overflow-x:clip}
         <a href="#/payments">Pagos</a>
         <a href="#/faq">Preguntas</a>
         <a href="#/contact">Contacto</a>
-        <a href="#/sell">Vendé tu carta</a>
+        <a href="#" data-group>Grupo de WhatsApp</a>
       </div>
     </div>
     <div class="foot-bottom">
@@ -2876,6 +2904,7 @@ const DEFAULT_OWNER = "nico";
 
 const SETTINGS = {
   demo: true,
+  groupUrl: "",             // link de invitación al grupo o canal de WhatsApp (https://chat.whatsapp.com/...). Vacío: el botón abre un chat pidiendo que lo sumen
   roomFilm: false,          // video largo al entrar a la Sala NBA: apagado. Poner true para volver a mostrarlo
   vaultOver: 60,            // una carta es "Premium" cuando su precio supera este valor (USD)
   auctions: false,          // subastas apagadas por ahora: poner true para volver a mostrarlas
@@ -2906,13 +2935,13 @@ const CARDS = [
     season: "2013-14", year: 2014, era: "2010s", playerEra: "1980s",
     brand: "Panini", product: "National Treasures", set: "Game Changers Signatures", subset: "Game Changers",
     cardNo: "GC-BK", serialNum: 3, printRun: 60,
-    rookie: false, auto: true, autoType: "On-Card", memorabilia: false, memType: "Sin memorabilia",
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 80, status: "available", addedDaysAgo: 3, vault: false, demo: true, owner: "nico",
     imgs: [IMG.king, IMG.king2],
     badges: ["/60", "HALL OF FAME"],
-    why: ["Numerada 03 de 60", "Firma de un Hall of Famer", "Autógrafo on-card", "Ícono anotador de los Knicks"],
-    story: "King llegó a Nueva York en 1982 y convirtió al Garden en su escenario: en el primer partido de los playoffs de 1984 contra Detroit promedió 42,6 puntos en la serie, con 44 en el quinto juego jugando con 39° de fiebre en una cancha que marcaba 49°. National Treasures puso la firma de Game Changers sobre la foto que todo coleccionista quiere: la casaca azul de visitante, la mano alta, el número 30. El autógrafo es on-card, trazado sobre el panel izquierdo en tinta azul gruesa. Numerada 03 de 60."
+    why: ["Numerada 03 de 60", "Firma de un Hall of Famer", "Autógrafo", "Ícono anotador de los Knicks"],
+    story: "King llegó a Nueva York en 1982 y convirtió al Garden en su escenario: en el primer partido de los playoffs de 1984 contra Detroit promedió 42,6 puntos en la serie, con 44 en el quinto juego jugando con 39° de fiebre en una cancha que marcaba 49°. National Treasures puso la firma de Game Changers sobre la foto que todo coleccionista quiere: la casaca azul de visitante, la mano alta, el número 30. El autógrafo está trazado sobre el panel izquierdo en tinta azul gruesa. Numerada 03 de 60."
   },
   {
     id: "c2", slug: "mark-jackson-national-treasures-clutch-factor-patch-auto-45-99",
@@ -2921,7 +2950,7 @@ const CARDS = [
     season: "2019-20", year: 2020, era: "2020s", playerEra: "1990s",
     brand: "Panini", product: "National Treasures", set: "Clutch Factor Signatures", subset: "Clutch Factor",
     cardNo: "CF-MJK", serialNum: 45, printRun: 99,
-    rookie: false, auto: true, autoType: "On-Card", memorabilia: true, memType: "Jersey",
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: true, memType: "Jersey",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 45, status: "available", addedDaysAgo: 1, vault: false, demo: true, owner: "nico",
     imgs: [IMG.jackson, IMG.jackson2],
@@ -2936,12 +2965,12 @@ const CARDS = [
     season: "2017-18", year: 2018, era: "2010s", playerEra: "1970s",
     brand: "Panini", product: "National Treasures", set: "Signatures", subset: "Century Signatures",
     cardNo: "S-WFZ", serialNum: 2, printRun: 25,
-    rookie: false, auto: true, autoType: "On-Card", memorabilia: false, memType: "Sin memorabilia",
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 140, status: "available", addedDaysAgo: 6, vault: true, spotlight: true, demo: true, owner: "nico",
     imgs: [IMG.frazier, IMG.frazier2],
     badges: ["/25", "HALL OF FAME"],
-    why: ["Numerada 02 de 25", "Bicampeón de la NBA", "Firma on-card en azul", "La cara del título de 1970"],
+    why: ["Numerada 02 de 25", "Bicampeón de la NBA", "Firma en azul", "La cara del título de 1970"],
     story: "Dos títulos, siete equipos All-Defensive y el séptimo juego de las Finales de 1970: 36 puntos y 19 asistencias mientras Willis Reed rengueaba los primeros minutos. Frazier firma grande y prolijo, y acá la firma cruza a lo ancho todo el panel blanco debajo de la foto. El serial está estampado 02/25 abajo a la derecha: la segunda carta de las veinticinco que existen de este set."
   },
   {
@@ -2951,12 +2980,12 @@ const CARDS = [
     season: "2024-25", year: 2025, era: "2020s", playerEra: "1990s",
     brand: "Panini", product: "Immaculate Collection", set: "Immaculate Ink", subset: "Immaculate Ink",
     cardNo: "INK-LJS", serialNum: 21, printRun: 25,
-    rookie: false, auto: true, autoType: "On-Card", memorabilia: false, memType: "Sin memorabilia",
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 85, status: "available", addedDaysAgo: 9, vault: true, demo: true, owner: "nico",
     imgs: [IMG.lj, IMG.lj2],
     badges: ["/25", "PREMIUM"],
-    why: ["Numerada 21 de 25", "El autógrafo insignia de Immaculate", "Uno de los mejores rebotadores ofensivos de su época", "Firma on-card limpia en azul"],
+    why: ["Numerada 21 de 25", "El autógrafo insignia de Immaculate", "Uno de los mejores rebotadores ofensivos de su época", "Firma limpia en azul"],
     story: "Johnson leía la cancha mejor que nadie bajo el aro: veía para dónde iba a rebotar un tiro errado y ya se estaba parando ahí, ganándole la posición a su marca antes de que la pelota pique. Fue esa lectura, más que la altura, lo que lo hizo uno de los mejores rebotadores ofensivos de su generación. Immaculate Ink es el formato de autógrafo más puro del producto: sin swatch, sin ruido, una foto a sangre y un panel para firmar. Veinticinco copias; esta es la 21."
   },
   {
@@ -2966,13 +2995,13 @@ const CARDS = [
     season: "2021-22", year: 2022, era: "2020s", playerEra: "2020s",
     brand: "Panini", product: "Origins", set: "Origins Rookie Autographs", subset: "Rookie Autographs",
     cardNo: "RA-MMB", serialNum: null, printRun: null,
-    rookie: true, auto: true, autoType: "On-Card", memorabilia: false, memType: "Sin memorabilia",
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 45, status: "available", addedDaysAgo: 2, vault: false, demo: true, owner: "nico",
     imgs: [IMG.mcbride],
     badges: ["ROOKIE AUTO", "RC"],
-    why: ["Rookie card verdadera, con escudo RC", "Autógrafo de año rookie on-card", "Base rotativa actual de los Knicks", "Diseño de tinta en agua de Origins"],
-    story: "El autógrafo rookie de Deuce McBride en Origins, el set construido sobre ese fondo de tinta en agua. Llegó como especialista defensivo desde West Virginia y se transformó en un tirador de rotación: es el tipo de rookie auto que sale muy poco antes del salto y que después ya no se consigue callado. Escudo RC abajo, firma on-card en azul."
+    why: ["Rookie card verdadera, con escudo RC", "Autógrafo de año rookie", "Base rotativa actual de los Knicks", "Diseño de tinta en agua de Origins"],
+    story: "El autógrafo rookie de Deuce McBride en Origins, el set construido sobre ese fondo de tinta en agua. Llegó como especialista defensivo desde West Virginia y se transformó en un tirador de rotación: es el tipo de rookie auto que sale muy poco antes del salto y que después ya no se consigue callado. Escudo RC abajo, firma en azul."
   },
   {
     id: "c6", slug: "iman-shumpert-totally-certified-rookie-roll-call-03-49",
@@ -2981,7 +3010,7 @@ const CARDS = [
     season: "2012-13", year: 2013, era: "2010s", playerEra: "2010s",
     brand: "Panini", product: "Totally Certified", set: "Rookie Roll Call", subset: "Rookie Roll Call",
     cardNo: "2", serialNum: 3, printRun: 49,
-    rookie: true, auto: true, autoType: "Sticker", memorabilia: false, memType: "Sin memorabilia",
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 45, status: "available", addedDaysAgo: 12, vault: false, demo: true, owner: "nico",
     imgs: [IMG.shumpert, IMG.shumpert2],
@@ -2996,12 +3025,12 @@ const CARDS = [
     season: "2021-22", year: 2022, era: "2020s", playerEra: "1990s",
     brand: "Panini", product: "Impeccable", set: "Canvas Creations", subset: "Canvas Creations",
     cardNo: "CC-CHW", serialNum: 21, printRun: 99,
-    rookie: false, auto: true, autoType: "On-Card", memorabilia: false, memType: "Sin memorabilia",
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 45, status: "available", addedDaysAgo: 15, vault: false, demo: true, owner: "nico",
     imgs: [IMG.ward, IMG.wardb2],
     badges: ["/99", "CANVAS"],
-    why: ["Numerada 21 de 99", "Stock de lienzo texturado", "Ganador del Heisman metido a base", "Firma on-card"],
+    why: ["Numerada 21 de 99", "Stock de lienzo texturado", "Ganador del Heisman metido a base", "Autografiada por el jugador"],
     story: "El único ganador del Trofeo Heisman que arrancó como base en unas Finales de la NBA. Ward manejó a los Knicks de 1999 desde el octavo puesto hasta la final, y el formato Canvas Creations le queda bien: la carta está impresa sobre lienzo texturado con un tratamiento pictórico detrás de la foto, más objeto que carta. Numerada a 99."
   },
   {
@@ -3011,12 +3040,12 @@ const CARDS = [
     season: "2018-19", year: 2019, era: "2010s", playerEra: "1990s",
     brand: "Panini", product: "National Treasures", set: "Signatures", subset: "Signatures",
     cardNo: "SG-LSP", serialNum: 51, printRun: 99,
-    rookie: false, auto: true, autoType: "On-Card", memorabilia: false, memType: "Sin memorabilia",
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 120, status: "available", addedDaysAgo: 7, vault: false, demo: true, owner: "nico",
     imgs: [IMG.sprewell, IMG.sprewell2],
     badges: ["/99", "NATIONAL TREASURES"],
-    why: ["Numerada 51 de 99", "Firma on-card grande", "24 puntos en su debut con los Knicks", "Producto premium insignia"],
+    why: ["Numerada 51 de 99", "Firma grande", "24 puntos en su debut con los Knicks", "Producto premium insignia"],
     story: "El 5 de febrero de 1999 Sprewell se puso por primera vez el azul y naranja de los Knicks bajo las luces de la NBA, y le bastó ese debut para ilusionar al Garden: 24 puntos, seis rebotes, dos robos y dos asistencias ante Orlando. National Treasures Signatures es el formato caro y sobrio: marco plateado, rieles azules y todo el tercio inferior entregado al autógrafo. 51 de 99."
   },
   {
@@ -3026,12 +3055,12 @@ const CARDS = [
     season: "2014-15", year: 2015, era: "2010s", playerEra: "1990s",
     brand: "Panini", product: "Paramount", set: "Paramount Signatures", subset: "Paramount Signatures",
     cardNo: "P-AH", serialNum: 87, printRun: 99,
-    rookie: false, auto: true, autoType: "On-Card", memorabilia: false, memType: "Sin memorabilia",
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 70, status: "available", addedDaysAgo: 18, vault: false, demo: true, owner: "nico",
     imgs: [IMG.houston, IMG.houstonb],
     badges: ["/99", "LEYENDA KNICK"],
-    why: ["Numerada 87 de 99", "Firma on-card grande y limpia", "19,7 puntos por partido y su primer All-Star en 1999-2000", "Stock grabado de Paramount"],
+    why: ["Numerada 87 de 99", "Firma grande y limpia", "19,7 puntos por partido y su primer All-Star en 1999-2000", "Stock grabado de Paramount"],
     story: "La temporada 1999-2000 fue la mejor de Houston: 19,7 puntos por partido, su primera convocatoria al All-Star, y unos meses después el oro olímpico en Sydney 2000 con Team USA, donde lideró al equipo en triples convertidos. Paramount le da a la firma casi toda la carta: stock grabado en plata, una sola foto arriba y un panel blanco ancho donde la A y la H de Houston se estiran de punta a punta. Numerada 87 de 99."
   },
   {
@@ -3041,12 +3070,12 @@ const CARDS = [
     season: "2022-23", year: 2023, era: "2020s", playerEra: "2010s",
     brand: "Panini", product: "Donruss Elite", set: "Elite Signatures", subset: "Elite Signatures",
     cardNo: "ES-ASM", serialNum: 36, printRun: 49,
-    rookie: false, auto: true, autoType: "On-Card", memorabilia: false, memType: "Sin memorabilia",
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 55, status: "available", addedDaysAgo: 4, vault: false, demo: true, owner: "nico",
     imgs: [IMG.amare, IMG.amare2],
     badges: ["/49", "FOIL"],
-    why: ["Numerada 36 de 49", "41 puntos con 17/21 de cancha ante Philadelphia en 2011", "Firma on-card grande", "Diseño Donruss Elite en foil rojo"],
+    why: ["Numerada 36 de 49", "41 puntos con 17/21 de cancha ante Philadelphia en 2011", "Firma grande", "Diseño Donruss Elite en foil rojo"],
     story: "“The Knicks are back.” Amar'e lo dijo en el verano de 2010, y el 6 de febrero de 2011 lo probó en cancha: 41 puntos convirtiendo 17 de 21 tiros ante Philadelphia, una eficiencia que solo Patrick Ewing y Bernard King habían igualado antes con la camiseta de los Knicks en un partido de 40 o más. El diseño de Elite Signatures es ruidoso a propósito: cuñas de foil rojo y dorado, un panel azul para el serial y una firma que se come todo el campo blanco. 36 de 49."
   },
   {
@@ -3056,13 +3085,13 @@ const CARDS = [
     season: "2018-19", year: 2019, era: "2010s", playerEra: "1990s",
     brand: "Panini", product: "Contenders", set: "Legendary Contenders", subset: "Legendary Contenders",
     cardNo: "LC-AHS", serialNum: 8, printRun: 10,
-    rookie: false, auto: true, autoType: "On-Card", memorabilia: false, memType: "Sin memorabilia",
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 130, status: "available", addedDaysAgo: 0, vault: true, demo: true, owner: "nico",
     imgs: [IMG.houston2b, IMG.houston2],
     badges: ["/10", "LEYENDA KNICK"],
-    why: ["Numerada 08 de 10 copias", "Firma on-card en tinta azul", "Diseño dúotono: foto de época y foto actual", "Dos veces All-Star con los Knicks"],
-    story: "Contenders reserva su inserto Legendary Contenders para nombres que ya escribieron su capítulo: el fondo va en blanco y negro con una foto de época, y por encima se superpone una foto actual a color, la 20 de siempre y la firma on-card en tinta azul cruzando el panel. Es una de las tiradas más cortas de la bóveda: apenas diez copias existen, y esta es la 08."
+    why: ["Numerada 08 de 10 copias", "Firma en tinta azul", "Diseño dúotono: foto de época y foto actual", "Dos veces All-Star con los Knicks"],
+    story: "Contenders reserva su inserto Legendary Contenders para nombres que ya escribieron su capítulo: el fondo va en blanco y negro con una foto de época, y por encima se superpone una foto actual a color, la 20 de siempre y la firma en tinta azul cruzando el panel. Es una de las tiradas más cortas de la bóveda: apenas diez copias existen, y esta es la 08."
   },
   {
     id: "c12", slug: "carlos-delfino-skybox-autographics-jersey-auto-20-30",
@@ -3071,13 +3100,13 @@ const CARDS = [
     season: "2004-05", year: 2005, era: "2000s", playerEra: "2000s",
     brand: "Fleer", product: "SkyBox Autographics", set: "Autographics", subset: "Autographics",
     cardNo: "AG-CD", serialNum: 20, printRun: 30,
-    rookie: false, auto: true, autoType: "On-Card", memorabilia: true, memType: "Jersey",
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: true, memType: "Jersey",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 80, status: "available", addedDaysAgo: 0, vault: false, demo: true, owner: "nico",
     imgs: [IMG.delfino, IMG.delfino2],
     badges: ["JERSEY", "/30"],
-    why: ["Numerada 20 de 30", "Autógrafo on-card más parche de camiseta de juego", "Parte de la Generación Dorada, oro olímpico en Atenas 2004", "Certificado de autenticidad Fleer/SkyBox en el dorso"],
-    story: "Delfino llegó a Detroit en 2003 con la Generación Dorada ya casi completa: el oro de Atenas 2004 le cayó en medio de su primera temporada de Pistons. SkyBox Autographics combina en una sola carta la firma on-card y un parche real de camiseta de juego, con el certificado numerado impreso en el dorso. Esta es la copia 20 de 30, con la firma en tinta azul cruzando el panel blanco junto al swatch."
+    why: ["Numerada 20 de 30", "Autógrafo más parche de camiseta de juego", "Parte de la Generación Dorada, oro olímpico en Atenas 2004", "Certificado de autenticidad Fleer/SkyBox en el dorso"],
+    story: "Delfino llegó a Detroit en 2003 con la Generación Dorada ya casi completa: el oro de Atenas 2004 le cayó en medio de su primera temporada de Pistons. SkyBox Autographics combina en una sola carta la firma y un parche real de camiseta de juego, con el certificado numerado impreso en el dorso. Esta es la copia 20 de 30, con la firma en tinta azul cruzando el panel blanco junto al swatch."
   },
   {
     id: "c13", slug: "andres-nocioni-topps-finest-refractor-rookie-auto-98-179",
@@ -3086,7 +3115,7 @@ const CARDS = [
     season: "2004-05", year: 2005, era: "2000s", playerEra: "2000s",
     brand: "Topps", product: "Topps Finest", set: "Topps Finest Refractor", subset: "Rookie Autographs",
     cardNo: "190", serialNum: 98, printRun: 179,
-    rookie: true, auto: true, autoType: "On-Card", memorabilia: false, memType: "Sin memorabilia",
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 70, status: "available", addedDaysAgo: 0, vault: true, demo: true, owner: "nico",
     imgs: [IMG.nocioni, IMG.nocioni2],
@@ -3101,13 +3130,13 @@ const CARDS = [
     season: "2016-17", year: 2017, era: "2010s", playerEra: "1990s",
     brand: "Panini", product: "Immaculate Collection", set: "Heralded Signatures", subset: "Heralded Signatures",
     cardNo: "HS-KTH", serialNum: 20, printRun: 25,
-    rookie: false, auto: true, autoType: "On-Card", memorabilia: false, memType: "Sin memorabilia",
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 45, status: "available", addedDaysAgo: 0, vault: false, demo: true, owner: "nico",
     imgs: [IMG.kthomas, IMG.kthomas2],
     badges: ["/25", "LEYENDA KNICK"],
-    why: ["Numerada 20 de 25", "Firma on-card", "Dos etapas distintas en los Knicks, 1998-99 a 2004-05 y su regreso en 2012-13", "Producto premium Immaculate Collection"],
-    story: "Thomas volvió al Garden en 2012-13, a los 40 años y en su temporada 18 en la NBA, para dar una mano de experiencia en la pintura antes de colgar los botines. Heralded Signatures lo recuerda con el escudo de los Knicks arriba y la firma on-card abajo, sobre el stock texturado de Immaculate. Numerada 20 de apenas 25 copias."
+    why: ["Numerada 20 de 25", "Autografiada por el jugador", "Dos etapas distintas en los Knicks, 1998-99 a 2004-05 y su regreso en 2012-13", "Producto premium Immaculate Collection"],
+    story: "Thomas volvió al Garden en 2012-13, a los 40 años y en su temporada 18 en la NBA, para dar una mano de experiencia en la pintura antes de colgar los botines. Heralded Signatures lo recuerda con el escudo de los Knicks arriba y la firma abajo, sobre el stock texturado de Immaculate. Numerada 20 de apenas 25 copias."
   },
   {
     id: "c15", slug: "andres-nocioni-certified-fabric-of-the-game-jersey-06-25",
@@ -3131,13 +3160,13 @@ const CARDS = [
     season: "2012-13", year: 2013, era: "2010s", playerEra: "1990s",
     brand: "Panini", product: "Preferred", set: "Preferred", subset: "Preferred Autographs",
     cardNo: "119", serialNum: 5, printRun: 74,
-    rookie: false, auto: true, autoType: "On-Card", memorabilia: false, memType: "Sin memorabilia",
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 75, status: "available", addedDaysAgo: 0, vault: false, demo: true, owner: "nico",
+    price: 75, status: "available", addedDaysAgo: 0, vault: false, demo: true, owner: "nico", homePremium: false,
     imgs: [IMG.oakley, IMG.oakley2],
     badges: ["/74", "LEYENDA KNICK"],
-    why: ["Numerada 05 de 74", "Firma on-card en tinta azul", "Líder histórico de la franquicia en rebotes ofensivos", "Panini Preferred, diseño rojo y foil dorado"],
-    story: "Oakley llegó a los Knicks en 1988-89 después de liderar la liga en rebotes con Chicago, y se pasó una década siendo el que ponía el cuerpo debajo del aro. Preferred lo homenajea con una foto en blanco y negro en el dorso y la firma on-card sobre fondo rojo en el frente, con el escudo de los Knicks al lado del nombre. Numerada 05 de 74."
+    why: ["Numerada 05 de 74", "Firma en tinta azul", "Líder histórico de la franquicia en rebotes ofensivos", "Panini Preferred, diseño rojo y foil dorado"],
+    story: "Oakley llegó a los Knicks en 1988-89 después de liderar la liga en rebotes con Chicago, y se pasó una década siendo el que ponía el cuerpo debajo del aro. Preferred lo homenajea con una foto en blanco y negro en el dorso y la firma sobre fondo rojo en el frente, con el escudo de los Knicks al lado del nombre. Numerada 05 de 74."
   },
   {
     id: "c17", slug: "marcus-camby-spectra-retro-stars-auto-23-75",
@@ -3146,13 +3175,13 @@ const CARDS = [
     season: "2019-20", year: 2020, era: "2020s", playerEra: "1990s",
     brand: "Panini", product: "Spectra", set: "Retro Stars", subset: "Retro Stars",
     cardNo: "RS-MCB", serialNum: 23, printRun: 75,
-    rookie: false, auto: true, autoType: "On-Card", memorabilia: false, memType: "Sin memorabilia",
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 45, status: "available", addedDaysAgo: 0, vault: true, demo: true, owner: "nico",
     imgs: [IMG.camby, IMG.camby2],
     badges: ["/75", "RETRO STARS"],
-    why: ["Numerada 23 de 75", "Firma on-card en tinta azul", "Insert Retro Stars sobre diseño holográfico Spectra", "Bloqueador de élite con la casaca de los Knicks"],
-    story: "Camby llegó a Nueva York en 1998 a tapar los agujeros que dejaba la salida de Ewing, y se ganó fama de bloqueador incansable bajo los dos aros. Retro Stars revive esas temporadas con el diseño holográfico de Spectra: arcos de color envolviendo la foto, el escudo de los Knicks al centro y la firma on-card en el panel inferior. Numerada 23 de 75."
+    why: ["Numerada 23 de 75", "Firma en tinta azul", "Insert Retro Stars sobre diseño holográfico Spectra", "Bloqueador de élite con la casaca de los Knicks"],
+    story: "Camby llegó a Nueva York en 1998 a tapar los agujeros que dejaba la salida de Ewing, y se ganó fama de bloqueador incansable bajo los dos aros. Retro Stars revive esas temporadas con el diseño holográfico de Spectra: arcos de color envolviendo la foto, el escudo de los Knicks al centro y la firma en el panel inferior. Numerada 23 de 75."
   },
   {
     id: "c18", slug: "jason-kidd-impeccable-elegance-jersey-auto-05-49",
@@ -3161,13 +3190,13 @@ const CARDS = [
     season: "2023-24", year: 2024, era: "2020s", playerEra: "2000s",
     brand: "Panini", product: "Impeccable", set: "Impeccable", subset: "Elegance",
     cardNo: "EL-JK", serialNum: 5, printRun: 49,
-    rookie: false, auto: true, autoType: "On-Card", memorabilia: true, memType: "Jersey",
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: true, memType: "Jersey",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 160, status: "available", addedDaysAgo: 0, vault: true, demo: true, owner: "nico",
     imgs: [IMG.kidd, IMG.kidd2],
     badges: ["JERSEY", "/49", "HALL OF FAME"],
-    why: ["Numerada 05 de 49", "Firma on-card en tinta azul", "Parche de casaca game-worn/used certificado por Panini", "Impeccable, una de las líneas más altas de Panini"],
-    story: "Kidd llegó a Nueva York en 2013 para cerrar su carrera repartiendo asistencias con la misma visión de siempre, orquestando el ataque a toda velocidad como un director de orquesta que no necesitaba mirar a sus compañeros. Impeccable lo homenajea en el subset Elegance: foto de acción con la camiseta de los Knicks, firma on-card y un parche de jersey game-worn en el frente, con el escudo del equipo y la numeración en foil plateado en el dorso. Numerada 05 de 49."
+    why: ["Numerada 05 de 49", "Firma en tinta azul", "Parche de casaca game-worn/used certificado por Panini", "Impeccable, una de las líneas más altas de Panini"],
+    story: "Kidd llegó a Nueva York en 2013 para cerrar su carrera repartiendo asistencias con la misma visión de siempre, orquestando el ataque a toda velocidad como un director de orquesta que no necesitaba mirar a sus compañeros. Impeccable lo homenajea en el subset Elegance: foto de acción con la camiseta de los Knicks, firma y un parche de jersey game-worn en el frente, con el escudo del equipo y la numeración en foil plateado en el dorso. Numerada 05 de 49."
   },
   {
     id: "c19", slug: "victor-wembanyama-topps-chrome-refractor-22",
@@ -3289,7 +3318,6 @@ const TEAMS = [
 const COLLECTIONS = [
   { slug:"the-knicks-vault", name:"La bóveda Knicks", sub:"Todo lo que hay hoy de los Knicks", test:c=>c.teamSlug==="new-york-knicks" },
   { slug:"low-numbered", name:"Numeradas bajo", sub:"Tiradas de 49 copias o menos", test:c=>c.printRun && c.printRun<=49 },
-  { slug:"on-card-autographs", name:"Autógrafos on-card", sub:"Firmadas sobre la carta, no sobre un sticker", test:c=>c.autoType==="On-Card" },
   { slug:"rookie-autographs", name:"Rookie autographs", sub:"Firmas del primer año de cartas de un jugador", test:c=>c.rookie&&c.auto },
   { slug:"game-worn", name:"Game-worn y patches", sub:"Cartas con un pedazo de camiseta", test:c=>c.memorabilia },
   { slug:"hall-of-fame", name:"Hall of Fame", sub:"Firmas de miembros del Salón de la Fama", test:c=>c.hof },
@@ -3527,6 +3555,10 @@ function waGroup(cards, cls){
 
 /* WhatsApp general (contacto y "vendé tu carta"): va al dueño principal */
 function waTo(text){ return "https://wa.me/" + OWNERS[DEFAULT_OWNER].wa + "?text=" + encodeURIComponent(text); }
+function groupHref(){ return SETTINGS.groupUrl || waTo("Hola, quiero sumarme al grupo de WhatsApp de Final Cards."); }
+function groupBtn(label, cls){ return `<a class="btn btn-group ${cls || ""}" href="${groupHref()}" target="_blank" rel="noopener">${WA_ICON}${esc(label || "Sumate al grupo")}</a>`; }
+function groupNote(lead){ return `<p class="group-note">${esc(lead)} <a href="${groupHref()}" target="_blank" rel="noopener">Sumate al grupo de WhatsApp</a> y enterate cuando entren cartas nuevas.</p>`; }
+document.querySelectorAll("[data-group]").forEach(a => { a.href = groupHref(); a.target = "_blank"; a.rel = "noopener"; });
 function waLink(text, label, cls){ return `<a class="btn btn-wa ${cls || ""}" href="${waTo(text)}" target="_blank" rel="noopener">${WA_ICON}${esc(label)}</a>`; }
 
 /* ---------- combos ---------- */
@@ -3674,7 +3706,6 @@ function badgeClass(b){
 }
 function keyBadges(c){
   const out = [];
-  if (c.auto && c.autoType !== "On-Card") out.push("AUTO STICKER");
   if (c.memorabilia) out.push(c.memType === "Patch" ? "PATCH" : "MEMORABILIA");
   if (c.rookie) out.push("ROOKIE");
   if (c.hof) out.push("HOF");
@@ -3786,7 +3817,7 @@ function comboTile(combo){
 function emptyState(msg){
   return '<div class="empty"><h3>Este cajón todavía está vacío</h3><p>'+
     esc(msg || "Ninguna carta coincide con esta combinación. Soltá algún filtro o mirá la bóveda completa.")+
-    '</p><a class="btn" href="#/cards">Ver todas las cartas</a></div>';
+    '</p><p style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center"><a class="btn" href="#/cards">Ver todas las cartas</a>' + groupBtn("Avisame cuando llegue") + '</p></div>';
 }
 
 /* ---------- búsqueda ---------- */
@@ -3816,7 +3847,7 @@ function parseQuery(q){
 }
 function blob(c){
   return [c.player, c.team, c.season, c.brand, c.product, c.set, c.subset, c.cardNo, c.condition,
-    c.gradeCompany, c.grade, c.playerEra, c.era, runLabel(c), c.autoType, c.memType].filter(Boolean).map(norm).join(" ");
+    c.gradeCompany, c.grade, c.playerEra, c.era, runLabel(c), c.auto ? "autografo autografiada firmada" : "", c.memType].filter(Boolean).map(norm).join(" ");
 }
 function searchCards(q, pool){
   const p = parseQuery(q);
@@ -3828,7 +3859,6 @@ function searchCards(q, pool){
     if (p.minPrice && c.price < p.minPrice) return false;
     if (p.rookie && !c.rookie) return false;
     if (p.auto && !c.auto) return false;
-    if (p.onCard && c.autoType !== "On-Card") return false;
     if (p.patch && !c.memorabilia) return false;
     if (p.graded){
       if (!c.gradeCompany || c.gradeCompany === "RAW") return false;
@@ -3870,7 +3900,7 @@ const FILTER_DEFS = [
   { key:"product",  label:"Producto",           get:c => c.product },
   { key:"set",      label:"Set",                get:c => c.set },
   { key:"subset",   label:"Subset",             get:c => c.subset },
-  { key:"autoType", label:"Tipo de autógrafo",  get:c => c.auto ? c.autoType : "Sin autógrafo" },
+  { key:"autoType", label:"Autógrafo",          get:c => c.auto ? "Autografiada" : "Sin autógrafo" },
   { key:"memType",  label:"Tipo de memorabilia",get:c => c.memorabilia ? c.memType : "Sin memorabilia" },
   { key:"printRun", label:"Tirada",             get:c => runLabel(c) || "Sin numerar" },
   { key:"gradeCompany", label:"Grading",        get:c => c.gradeCompany || "RAW" },
@@ -3931,7 +3961,7 @@ function quickFilters(pool){
 function meters(c){
   const rarity = c.printRun ? Math.min(100, Math.round(100 - Math.log10(c.printRun) * 42)) : 26;
   const cond = { "Mint":100, "Near Mint–Mint":88, "Near Mint":78, "Excellent":62, "Played":40 }[c.condition] || 70;
-  const ink = !c.auto ? 0 : (c.autoType === "On-Card" ? 100 : 62);
+  const ink = c.auto ? 100 : 0;
   const row = (label, val, text, blue) =>
     `<div class="meter-row"><span class="ml">${label}</span>
       <span class="meter-track"><span class="meter-fill${blue?" blue":""}" style="width:${val}%"></span></span>
@@ -3939,7 +3969,7 @@ function meters(c){
   return `<div class="meter">
     ${row("Rareza", rarity, c.printRun ? plural(c.printRun, "copia", "copias") : "sin numerar")}
     ${row("Estado", cond, c.condition, true)}
-    ${row("Tinta", ink, c.auto ? c.autoType : "sin firma")}
+    ${row("Firma", ink, c.auto ? "autografiada" : "sin firma")}
   </div>`;
 }
 
@@ -4035,7 +4065,8 @@ function pageHome(){
   const stageCards = fairMix(byPrice).slice(0, 5);
   // sección Premium del inicio: premium que no están girando arriba, para no repetir
   const premRest = premiumAll.filter(c => !stageCards.includes(c));
-  const vaultPieces = fairMix(premRest.length >= 3 ? premRest : premiumAll).slice(0, 3);
+  const premShow = (premRest.length >= 2 ? premRest : premiumAll).filter(c => c.homePremium !== false);   // homePremium:false en una carta la saca de esta sección del inicio
+  const vaultPieces = fairMix(premShow).slice(0, 2);
   // combos del inicio: los más importantes disponibles primero
   // las secciones de abajo no repiten lo que ya gira arriba (salvo que queden muy pocas)
   const stageIds = new Set(stageCards.concat(vaultPieces).map(c => c.id));
@@ -4158,10 +4189,8 @@ function pageHome(){
           label: "Autógrafos", pick: "Firmadas por el jugador", list: autos, href: "#/autographs", cta: "Abrir la sala de autógrafos",
           h2: "Cartas autografiadas", sub: "La firma del jugador sobre la carta. Es lo más buscado de la bóveda, de leyendas del Hall of Fame a rookies.",
           eyebrow: "Sala de autógrafos",
-          blurb: "Todas las firmadas, contadas por tipo de firma.",
+          blurb: "Todas las cartas firmadas de la bóveda.",
           rows: [
-            ["Firma on-card", autos.filter(c => c.autoType === "On-Card").length],
-            ["Firma en sticker", autos.filter(c => c.autoType === "Sticker").length],
             ["Hall of Fame", autos.filter(c => c.hof).length],
             ["Rookie autos", autos.filter(c => c.rookie).length],
             ["Numeradas /25 o menos", autos.filter(c => c.printRun && c.printRun <= 25).length]
@@ -4173,8 +4202,7 @@ function pageHome(){
           eyebrow: "Sala 06 · Rookie Center",
           blurb: "Todo lo del primer año de cartas de un jugador, contado por formato.",
           rows: [
-            ["Rookie auto on-card", rookies.filter(c => c.autoType === "On-Card").length],
-            ["Rookie auto sticker", rookies.filter(c => c.autoType === "Sticker").length],
+            ["Rookie autos", rookies.filter(c => c.auto).length],
             ["RPA (rookie patch auto)", rookies.filter(c => c.memorabilia).length],
             ["Numeradas /49 o menos", rookies.filter(c => c.printRun && c.printRun <= 49).length],
             ["Gradeadas", rookies.filter(c => c.gradeCompany !== "RAW").length]
@@ -4313,6 +4341,17 @@ function pageHome(){
     ${cardGrid(homeRest(pool.slice().sort(SORTS.new)).slice(0, 8))}
   </section>
 
+  <section class="group-band rv">
+    <div class="wrap group-band-in">
+      <div>
+        <p class="eyebrow">Grupo de WhatsApp</p>
+        <h2>Enterate de las <em>cartas nuevas</em></h2>
+        <p class="gb-sub">Sumate al grupo de Final Cards. Ahí publicamos las cartas que entran, los combos y las novedades.</p>
+      </div>
+      <div>${groupBtn("Sumate al grupo")}</div>
+    </div>
+  </section>
+
   <section class="pack-band">
     <div class="wrap pack-band-in">
       <div class="pk-wrap" data-pack data-tilt-pack role="button" tabindex="0" aria-label="Abrir un sobre de la bóveda">
@@ -4376,7 +4415,7 @@ function pageShop(params){
   let title = "Todas las cartas", eyebrow = "Tienda", sub = "";
 
   if (params.preset === "rookies"){ pool = pool.filter(c => c.rookie); title = "Rookie Center"; eyebrow = "Rookies"; sub = "Rookie cards, rookie autographs y RPA. Solo cartas de primer año."; }
-  if (params.preset === "autographs"){ pool = pool.filter(c => c.auto); title = "La sala de autógrafos"; eyebrow = "Autógrafos"; sub = "On-card, sticker, tinta rookie y firmas de Hall of Fame."; }
+  if (params.preset === "autographs"){ pool = pool.filter(c => c.auto); title = "La sala de autógrafos"; eyebrow = "Autógrafos"; sub = "Firmas de leyendas, rookies y Hall of Fame."; }
   if (params.preset === "game-worn"){ pool = pool.filter(c => c.memorabilia); title = "Game-Worn"; eyebrow = "Memorabilia"; sub = "Cartas con jersey, patch o prime swatch."; }
   if (params.f === "patch") pool = pool.filter(c => c.memorabilia);
   if (params.f === "numbered") pool = pool.filter(c => c.printRun);
@@ -4389,7 +4428,7 @@ function pageShop(params){
   list = list.slice().sort(SORTS[S.sort] || SORTS.new);
 
   const subTabs = params.preset === "autographs"
-    ? [["Todas","all"],["On-Card","On-Card"],["Sticker","Sticker"],["Rookie autos","rookie"],["Hall of Fame","hof"],["Numeradas bajo","low"]]
+    ? [["Todas","all"],["Rookie autos","rookie"],["Hall of Fame","hof"],["Numeradas bajo","low"]]
     : params.preset === "rookies"
     ? [["Todas","all"],["Rookie autos","auto"],["Numeradas bajo","low"],["Graded","graded"]]
     : null;
@@ -4491,7 +4530,7 @@ function pageProduct(slug){
     ["Producto", c.product], ["Set", c.set], ["Subset", c.subset || "—"], ["N° de carta", c.cardNo || "—"],
     ["Serial", ser || "Sin numerar"], ["Tirada", c.printRun ? plural(c.printRun, "copia", "copias") : "No disponible"],
     ["Rookie", c.rookie ? "Sí" : "No"], ["Autógrafo", c.auto ? "Sí" : "No"],
-    ["Tipo de autógrafo", c.auto ? c.autoType : "—"], ["Memorabilia", c.memorabilia ? "Sí" : "No"],
+    ["Autógrafo", c.auto ? "Sí" : "No"], ["Memorabilia", c.memorabilia ? "Sí" : "No"],
     ["Tipo de memorabilia", c.memorabilia ? c.memType : "—"], ["Estado", c.condition],
     ["Grading", c.gradeCompany === "RAW" ? "Raw (sin gradear)" : c.gradeCompany + " " + c.grade],
     ["N° de certificación", c.cert || "—"]
@@ -4517,7 +4556,6 @@ function pageProduct(slug){
           <button class="btn btn-sm btn-holo" data-gyro hidden>✦ Foil con movimiento</button>
           <button class="btn btn-sm" data-playbook="${c.id}">✎ Ver la jugada</button>
           <button class="btn btn-sm" data-lightbox="${c.id}">Pantalla completa · zoom 4×</button>
-          <button class="btn btn-sm" id="rotateBtn">Rotar</button>
           <button class="btn btn-sm" data-compare="${c.id}">${S.compare.includes(c.id)?"En el comparador":"Comparar"}</button>
         </div>
         <p class="gyro-status" data-gyro-status hidden></p>
@@ -4551,7 +4589,8 @@ function pageProduct(slug){
         <div class="pdp-actions">
           ${sold
             ? `<a class="btn btn-block" href="#/players/${c.playerSlug}">Ver otras cartas de ${esc(c.player.split(" ").slice(-1)[0])}</a>
-               <button class="btn btn-block" data-wantlist="${c.id}">Avisame si aparece otra</button>`
+               <button class="btn btn-block" data-wantlist="${c.id}">Avisame si aparece otra</button>
+               ${groupNote("Esta ya se vendió.")}`
             : `${waBtn(c, "Consultar por WhatsApp", "btn-block")}
                <button class="btn btn-block" data-share="${c.id}">↗ Compartir esta carta</button>
                <p class="wa-note">Te abre un chat con el mensaje listo: precio, envío y ofertas se hablan directo.</p>
@@ -4559,7 +4598,8 @@ function pageProduct(slug){
                  <li>Unidad única: es la carta que ves publicada${ser ? ", con su número de serie" : ""}.</li>
                  <li>Trato directo con quien tiene la carta.</li>
                  <li>Podés pedir más fotos antes de comprar.</li>
-               </ul>`}
+               </ul>
+               ${groupNote("¿No es la que buscás?")}`}
         </div>
 
         ${runMap(c)}
@@ -4592,7 +4632,7 @@ function pageProduct(slug){
     </div>
 
     <section class="section-tight">
-      <div class="section-head"><div><p class="eyebrow gold">También te puede gustar</p><h2>Cerca de esta carta</h2></div></div>
+      <div class="section-head"><div><p class="eyebrow gold">Seguí mirando</p><h2>Otras cartas que te pueden interesar</h2></div></div>
       ${cardGrid(related)}
     </section>
 
@@ -5005,7 +5045,7 @@ function pageCompare(){
     ["Jugador", c => esc(c.player)],
     ["Temporada", c => esc(c.season)],
     ["Set", c => esc(c.product + " · " + c.set)],
-    ["Autógrafo", c => c.auto ? esc(c.autoType) : "No"],
+    ["Autógrafo", c => c.auto ? "Sí" : "No"],
     ["Memorabilia", c => c.memorabilia ? esc(c.memType) : "No"],
     ["Rookie", c => c.rookie ? "Sí" : "No"],
     ["Serial", c => serialOf(c) || "Sin numerar"],
@@ -5079,7 +5119,7 @@ function pageStatic(kind){
       <p><b>¿Aceptás ofertas?</b> Depende de la carta o del combo: en algunos sí y en otros no. Consultá desde “Consultar por WhatsApp” en la ficha.</p>
       <p><b>¿Gradeás antes de vender?</b> Algunas. Las raw se describen con honestidad y se cotizan como raw: el grado lo vas a buscar vos.</p>`],
     contact: ["Contacto", "Hablar con la bóveda", `<p>Ofertas, listas de búsqueda, consignación y canjes: contesta la persona que tiene la colección, por WhatsApp.</p>
-      <p style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">${waLink("Hola! Te escribo desde Final Cards.", "Escribir por WhatsApp")}<a class="btn" href="#/sell">Vender una carta</a></p>`],
+      <p style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">${waLink("Hola! Te escribo desde Final Cards.", "Escribir por WhatsApp")}</p>`],
     terms: ["Términos", "Términos de venta", `<p>Las ventas son finales una vez despachada la carta, salvo que la carta difiera de su descripción o de sus fotos. Las cartas se venden como coleccionables; no se promete ni se sugiere ningún retorno de inversión.</p>`],
     privacy: ["Privacidad", "Qué guarda la bóveda", `<p>El sitio no pide cuentas ni datos personales. Cuando consultás por una carta, la conversación sigue por WhatsApp.</p>`]
   }[kind];
@@ -5244,6 +5284,7 @@ function centerShowcase(){
 }
 function paintShowcase(){
   const c = SC.list[SC.i]; if (!c) return;
+  $("#scImg").onload = () => sizeShowcase();
   $("#scImg").src = c.imgs[0];
   $("#scImg").alt = c.player + " — " + c.season + " " + c.product + " " + c.set;
   $("#scTeam").textContent = c.team;
@@ -5380,7 +5421,9 @@ function sizeShowcase(){
   const topEl = document.querySelector(".sc-top"), botEl = document.querySelector(".sc-bottom");
   const topY = topEl ? topEl.getBoundingClientRect().bottom : 60;
   const botY = botEl ? botEl.getBoundingClientRect().top : window.innerHeight - 180;
-  const ratio = 1086 / 1448;
+  // proporción real de la foto de esta carta, para que no queden franjas a los costados
+  const scIm = $("#scImg");
+  const ratio = scIm && scIm.naturalWidth ? scIm.naturalWidth / scIm.naturalHeight : 1086 / 1448;
   // la carta se centra en la franja libre y puede entrar apenas bajo los degradados
   stage.style.paddingTop = Math.round(topY) + "px";
   stage.style.paddingBottom = Math.round(window.innerHeight - botY) + "px";
@@ -6910,7 +6953,7 @@ function lobbyMarkupRaw(){
   const n = live().length;
   const lock = `<svg viewBox="0 0 12 12"><rect x="2.5" y="5.5" width="7" height="5" rx="1"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5"/></svg>`;
   return `<div class="lb-head">
-      <div class="lb-brand">FINAL <em>CARDS</em></div>
+      <div class="lb-brand"><span class="lb-logo"><img class="logo-mark" src="img/logo-mark.webp" alt="" width="149" height="160"><img class="logo-word" src="img/logo-word.webp" alt="Final Cards" width="600" height="75"></span></div>
       <div class="lb-ask">Cuatro bóvedas, una por colección<b>¿A cuál entrás?</b></div>
     </div>
     <div class="lb-doors">
@@ -7039,7 +7082,7 @@ function render(){
   else if (p0 === "compare") html = pageCompare();
   else if (p0 === "cart" || p0 === "checkout") html = pageShop(params);
   else if (p0 === "auctions" && SETTINGS.auctions) html = pageAuctions();
-  else if (p0 === "sell") html = pageSell();
+  else if (p0 === "sell") html = pageHome();   // "Vendé tu carta" apagado por ahora: volver a pageSell() para reactivarlo
   else if (["about","shipping","payments","faq","contact","terms","privacy"].includes(p0)) html = pageStatic(p0);
   else html = `<div class="wrap section">${emptyState("Esa página no está en la bóveda.")}</div>`;
 
@@ -7344,7 +7387,7 @@ function wire(){
         <span class="r-price">${combo.status==="sold" ? "VENDIDO" : money(combo.price)}</span>
       </a>`).join("");
     if (q && all.length > cardRes.length) html += `<a class="sr-all" href="#/cards?q=${encodeURIComponent(q)}" data-close-search>Ver las ${all.length} cartas que coinciden →</a>`;
-    $("#searchResults").innerHTML = html || `<p class="muted" style="padding:20px 12px">Nada coincide con “${esc(q)}”. Probá un jugador, un equipo, un set o una tirada como /25.</p>`;
+    $("#searchResults").innerHTML = html || `<p class="muted" style="padding:20px 12px">Nada coincide con “${esc(q)}”. Probá un jugador, un equipo, un set o una tirada como /25.</p><div style="padding:0 12px 18px">${groupNote("¿Todavía no la tenemos?")}</div>`;
   }
 
   // newsletter
