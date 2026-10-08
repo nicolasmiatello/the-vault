@@ -8,6 +8,7 @@
 <meta name="color-scheme" content="dark">
 <meta name="supported-color-schemes" content="dark">
 <meta name="theme-color" content="#060607">
+<script>/* Samsung Internet y otros navegadores de Android en modo oscuro apagan los dorados: se marca para compensar */try{var u=navigator.userAgent||"";if(/SamsungBrowser/i.test(u)||(/Android/i.test(u)&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("ua-samsung")}catch(e){}</script>
 <title>Final Cards · The NBA Vault</title>
 <meta name="description" content="Cartas coleccionables NBA: autógrafos, rookies, patches y numeradas bajas. Consultas directas por WhatsApp.">
 <meta property="og:type" content="website">
@@ -32,6 +33,15 @@
    ============================================================ */
 
 @media (prefers-color-scheme: dark){ :root{color-scheme:dark} html, body{background-color:#060607} }
+/* celular en modo oscuro: los rellenos dorados se vuelven marrones y el texto dorado degradado se apaga.
+   Ahí los botones pasan a fondo oscuro con borde y letra dorada, y los números a dorado liso. */
+html.ua-samsung .serial, html.ua-samsung .pk-mono, html.ua-samsung .pkc-back .bm{background:none!important; color:#E8C766!important; -webkit-text-fill-color:#E8C766!important}
+html.ua-samsung .btn-gold, html.ua-samsung .btn-wa, html.ua-samsung .lb-go, html.ua-samsung .mstrip a.on, html.ua-samsung .fd-chip.on, html.ua-samsung .sl-rooms button.on, html.ua-samsung .pz-kind.icono{background:#0c0b08!important; color:#E8C766!important; border:1.5px solid #C9A227!important; box-shadow:0 0 22px rgba(201,162,39,.22)}
+html.ua-samsung .btn-gold::after, html.ua-samsung .btn-wa::after{display:none}
+html.ua-samsung .btn-group{background:#07140c!important; color:#3ee07f!important; border:1.5px solid #25D366!important}
+html.ua-samsung .btn-group .wa-ico{stroke:#3ee07f}
+html.ua-samsung .btn-solid{background:#0c0c0d!important; color:#F4F3EF!important; border:1.5px solid #F4F3EF!important}
+html.ua-samsung .stage-cap .sc-k{background:#0c0b08!important; color:#E8C766!important; border:1px solid #C9A227}
 :root{
   color-scheme: dark;
 
