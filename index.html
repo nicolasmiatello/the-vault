@@ -2546,7 +2546,23 @@ html, body{overflow-x:clip}
 .xp i{width:8px; height:8px; border-radius:50%; flex:0 0 auto}
 .arg-want{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:22px}
 .arg-want .eyebrow{margin-right:6px}
-@media(max-width:760px){.fd-simple{grid-template-columns:1fr}}
+.fd-short{display:none}
+/* celular: buscador en una línea y los tres accesos uno al lado del otro, como en la compu */
+@media(max-width:760px){
+  .fd-search{margin-block:14px 10px; padding:12px 14px; gap:12px}
+  .fd-search svg{width:20px; height:20px}
+  .fd-s-txt b{font-size:17px}
+  .fd-s-txt span{display:none}
+  .fd-simple{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .finder .fd-tile{flex-direction:column; justify-content:center; text-align:center; gap:8px; padding:14px 6px 13px}
+  .finder .fd-tile-icon{width:36px; height:36px}
+  .fd-tile-icon svg{width:17px; height:17px}
+  .finder .fd-tile-body b{font-size:13.5px; letter-spacing:.04em}
+  .finder .fd-tile .fd-tile-body > span{display:none}
+  .fd-tile-body .fd-short{display:block; margin-top:3px; font-style:normal; font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--silver)}
+  .finder .fd-tile-arrow{display:none}
+  .finder .wrap{padding-bottom:14px}
+}
 .fd-tile{
   position:relative; display:flex; align-items:center; gap:16px; background:#050506;
   padding:24px clamp(18px,2.6vw,30px); overflow:hidden; transition:background .3s var(--ease);
@@ -4186,17 +4202,17 @@ function pageHome(){
       <div class="fd-simple">
         <a class="fd-tile" href="#/teams">
           <span class="fd-tile-icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/></svg></span>
-          <span class="fd-tile-body"><b>Equipos</b><span>${Object.keys(teamCounts).length} con cartas en la bóveda</span></span>
+          <span class="fd-tile-body"><b>Equipos</b><span>${Object.keys(teamCounts).length} con cartas en la bóveda</span><i class="fd-short">${plural(Object.keys(teamCounts).length, "equipo", "equipos")}</i></span>
           <span class="fd-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
         <a class="fd-tile" href="#/players">
           <span class="fd-tile-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c1.2-4 4-6 7-6s5.8 2 7 6"/></svg></span>
-          <span class="fd-tile-body"><b>Jugadores</b><span>${Object.keys(playerCounts).length} con cartas en la bóveda</span></span>
+          <span class="fd-tile-body"><b>Jugadores</b><span>${Object.keys(playerCounts).length} con cartas en la bóveda</span><i class="fd-short">${plural(Object.keys(playerCounts).length, "jugador", "jugadores")}</i></span>
           <span class="fd-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
         <a class="fd-tile" href="#/combos">
           <span class="fd-tile-icon"><svg viewBox="0 0 24 24"><rect x="5" y="9" width="11" height="11" rx="1.5"/><path d="M8 9V6.5A1.5 1.5 0 0 1 9.5 5H18a1.5 1.5 0 0 1 1.5 1.5V15a1.5 1.5 0 0 1-1.5 1.5H17"/></svg></span>
-          <span class="fd-tile-body"><b>Combos</b><span>${COMBOS.length ? plural(COMBOS.length, "combo armado", "combos armados") : "Ver combos"}</span></span>
+          <span class="fd-tile-body"><b>Combos</b><span>${COMBOS.length ? plural(COMBOS.length, "combo armado", "combos armados") : "Ver combos"}</span><i class="fd-short">${COMBOS.length ? plural(COMBOS.length, "armado", "armados") : "Ver"}</i></span>
           <span class="fd-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
       </div>
@@ -6932,7 +6948,7 @@ const LOBBY_ROOMS = [
   { k:"nba",    name:"NBA",        sub:"Autógrafos, parches y numeradas de cualquier equipo", open:true },
   { k:"f1",     name:"Fórmula 1",  sub:"Pilotos, campeones y piezas numeradas de la parrilla", open:false },
   { k:"futbol", name:"Fútbol",     sub:"Selecciones, clubes y los ídolos de siempre", open:false },
-  { k:"varios", name:"Varios",     sub:"Tenis, NFL, béisbol y rarezas que no entran en otra sala", open:false }
+  { k:"varios", name:"Varios",     sub:"Tenis, boxeo, música, cómics y rarezas que no entran en otra sala", open:false }
 ];
 const FILM_Q = () => (innerWidth <= 820 ? "720" : "1080");
 function lobbyArt(k){
