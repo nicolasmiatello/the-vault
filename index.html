@@ -751,7 +751,8 @@ select.sortsel{background:var(--field); border:1px solid var(--hair); padding:9p
 .tabs button:hover{color:var(--bone)}
 /* selector de formato del inicio: tres tarjetas, la elegida en dorado */
 .fmt-pick{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:clamp(24px,3vw,36px)}
-.fmt-pick > .fmt:nth-child(5):last-child{grid-column:1/-1}   /* la 5ª opción (Combos) ocupa todo el ancho, abajo */
+/* 6 opciones: en 2 columnas quedan 3 filas parejas; en 4 columnas, las dos últimas ocupan media fila cada una */
+@media(min-width:1041px){ .fmt-pick > .fmt:nth-child(5):nth-last-child(2), .fmt-pick > .fmt:nth-child(6):last-child{grid-column:span 2} }
 @media(max-width:1040px){ .fmt-pick{grid-template-columns:repeat(2,minmax(0,1fr))} }
 .fmt{
   position:relative; display:flex; align-items:center; gap:14px; text-align:left; min-width:0; overflow:hidden;
@@ -782,7 +783,6 @@ select.sortsel{background:var(--field); border:1px solid var(--hair); padding:9p
   .fmt-sub{display:none}
   .fmt-thumbs img{width:28px}
   .fmt-n{font-size:9.5px; letter-spacing:.1em}
-  .fmt-pick > .fmt:nth-child(5):last-child{flex-direction:row; align-items:center; gap:14px}
 }
 .teams-grid{display:grid; gap:1px; background:var(--hair); grid-template-columns:repeat(2,1fr)}
 @media(min-width:700px){.teams-grid{grid-template-columns:repeat(3,1fr)}}
@@ -4358,6 +4358,18 @@ function pageHome(){
             ["Serial de un dígito", lowNo.filter(c => c.serialNum && c.serialNum < 10).length]
           ],
           wanted: ["1/1", "/5", "/10"]
+        },
+        rookies: {
+          label: "Rookies", pick: "El primer año del jugador", list: rookies, href: "#/rookies", cta: "Ver todos los rookies",
+          h2: "Cartas rookie", sub: "Las primeras cartas de un jugador, de su año de debut en la NBA: rookie autos, RPA y cartas con escudo RC.",
+          eyebrow: "Sala Rookies",
+          blurb: "Todo lo del primer año de cartas de un jugador, contado por formato.",
+          rows: [
+            ["Rookie autos", rookies.filter(c => c.auto).length],
+            ["RPA (rookie patch auto)", rookies.filter(c => c.auto && c.memorabilia).length],
+            ["Numeradas /49 o menos", rookies.filter(c => c.printRun && c.printRun <= 49).length]
+          ],
+          wanted: ["RPA", "Rookies /25", "PSA 10"]
         },
         combos: {
           label: "Combos", pick: "Lotes que se venden enteros, a mejor precio", list: COMBOS.filter(co => co.status !== "sold"), unit: ["combo", "combos"], isCombo: true,
