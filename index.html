@@ -2588,6 +2588,22 @@ html, body{overflow-x:clip}
   .hero .hstat span{margin-top:5px; font-size:8px; letter-spacing:.1em; line-height:1.35}
   .ticker{padding:8px 0}
 }
+.more-cta{text-align:center; margin-top:44px}
+/* celular: menos aire entre secciones de toda la página */
+@media(max-width:760px){
+  .section{padding-block:34px}
+  .section-tight{padding-block:26px}
+  .finder + .section-tight{padding-top:22px}
+  .section-head{margin-bottom:16px}
+  .vault-hero{margin-bottom:20px}
+  .vault-hero p{margin-top:10px}
+  .more-cta{margin-top:22px}
+  .group-band .group-band-in{padding-block:26px; gap:16px}
+  .pack-band-in{padding-block:30px; gap:20px}
+  .closer{padding-block:44px}
+  .closer .btn{margin-top:22px}
+  .arg-want{margin-top:16px}
+}
 .fd-tile{
   position:relative; display:flex; align-items:center; gap:16px; background:#050506;
   padding:24px clamp(18px,2.6vw,30px); overflow:hidden; transition:background .3s var(--ease);
@@ -4348,7 +4364,7 @@ function pageHome(){
             </p>
           </div>`).join("")}
       </div>
-      <p style="text-align:center; margin-top:44px">
+      <p class="more-cta">
         <a class="btn btn-gold" href="#/premium">Ver todas las cartas premium</a>
       </p>
     </div>
@@ -4377,7 +4393,7 @@ function pageHome(){
             </p>
           </div>`).join("")}
       </div>
-      <p style="text-align:center; margin-top:44px">
+      <p class="more-cta">
         <a class="btn btn-gold" href="#/combos">Ver todos los combos</a>
       </p>
     </div>
