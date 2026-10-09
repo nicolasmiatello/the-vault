@@ -751,6 +751,7 @@ select.sortsel{background:var(--field); border:1px solid var(--hair); padding:9p
 .tabs button:hover{color:var(--bone)}
 /* selector de formato del inicio: tres tarjetas, la elegida en dorado */
 .fmt-pick{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:clamp(24px,3vw,36px)}
+.fmt-pick > .fmt:nth-child(5):last-child{grid-column:1/-1}   /* la 5ª opción (Combos) ocupa todo el ancho, abajo */
 @media(max-width:1040px){ .fmt-pick{grid-template-columns:repeat(2,minmax(0,1fr))} }
 .fmt{
   position:relative; display:flex; align-items:center; gap:14px; text-align:left; min-width:0; overflow:hidden;
@@ -781,6 +782,7 @@ select.sortsel{background:var(--field); border:1px solid var(--hair); padding:9p
   .fmt-sub{display:none}
   .fmt-thumbs img{width:28px}
   .fmt-n{font-size:9.5px; letter-spacing:.1em}
+  .fmt-pick > .fmt:nth-child(5):last-child{flex-direction:row; align-items:center; gap:14px}
 }
 .teams-grid{display:grid; gap:1px; background:var(--hair); grid-template-columns:repeat(2,1fr)}
 @media(min-width:700px){.teams-grid{grid-template-columns:repeat(3,1fr)}}
@@ -4356,6 +4358,10 @@ function pageHome(){
             ["Serial de un dígito", lowNo.filter(c => c.serialNum && c.serialNum < 10).length]
           ],
           wanted: ["1/1", "/5", "/10"]
+        },
+        combos: {
+          label: "Combos", pick: "Lotes que se venden enteros, a mejor precio", list: COMBOS.filter(co => co.status !== "sold"), unit: ["combo", "combos"], isCombo: true,
+          href: "#/combos", h2: "Combos armados", sub: "Varias cartas juntas por menos de lo que saldrían por separado. Cada combo se vende entero, tal como está armado."
         }
       };
       const homeTab = homeSets[S.tab] ? S.tab : "autos";
@@ -4366,14 +4372,14 @@ function pageHome(){
         ${Object.keys(homeSets).map(k => { const h = homeSets[k], n = h.list.length, on = k === homeTab; return `
         <button class="fmt${on ? " on" : ""}" data-tab="${k}" role="tab" aria-selected="${on}">
           <span class="fmt-thumbs">${h.list.slice(0,3).map(c => `<img src="${c.imgs[0]}" alt="" loading="lazy">`).join("")}</span>
-          <span class="fmt-txt"><b>${esc(h.label)}</b><span class="fmt-n">${n ? plural(n, "carta", "cartas") : "Próximamente"}</span><span class="fmt-sub">${esc(h.pick)}</span></span>
+          <span class="fmt-txt"><b>${esc(h.label)}</b><span class="fmt-n">${n ? plural(n, ...(h.unit || ["carta", "cartas"])) : "Próximamente"}</span><span class="fmt-sub">${esc(h.pick)}</span></span>
           <span class="fmt-go">${on ? "Viendo" : "Ver →"}</span>
         </button>`; }).join("")}
       </div>
       <div class="section-head"><div><h2>${esc(hs.h2)}</h2>
         <p class="sub">${esc(hs.sub)}</p></div>
         <a class="btn btn-sm" href="${hs.href}">${esc(hs.label)}</a></div>
-      ${hs.list.length ? room(homeRest(hs.list), {
+      ${hs.isCombo ? (hs.list.length ? `<div class="combo-grid">${hs.list.map(comboTile).join("")}</div>` : emptyState()) : hs.list.length ? room(homeRest(hs.list), {
         eyebrow: hs.eyebrow, title: "Qué hay en la sala", blurb: hs.blurb, rows: hs.rows,
         wanted: hs.wanted, href: hs.href, cta: hs.cta
       }) : emptyState()}`;
