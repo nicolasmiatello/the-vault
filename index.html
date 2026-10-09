@@ -480,6 +480,17 @@ section{position:relative}
 .vault-piece .tilt{position:relative; display:block; width:min(300px,76%); margin:0 auto; transform-style:preserve-3d; transition:transform .25s var(--ease)}
 .vault-piece .tilt img{border-radius:4px; box-shadow:0 40px 70px -30px rgba(0,0,0,.95), 0 0 0 1px rgba(244,243,239,.08)}
 .vault-piece .vp-label{margin-top:22px}
+/* las dos piezas de cada fila siempre alineadas: cada renglón (carta, placa, nombre, set, serial, precio, botones) a la misma altura */
+.vault-piece{display:flex; flex-direction:column; align-items:center}
+.vault-piece .plaque{justify-content:center}
+@supports (grid-template-rows: subgrid){
+  .vault-row{row-gap:0}
+  .vault-piece{display:grid; grid-template-rows:subgrid; grid-row:span 7; justify-items:center; align-content:start}
+  .vault-piece.vp-combo{grid-row:span 6}
+  .vault-piece .tilt{align-self:end}
+  .vault-piece .plaque{align-self:stretch; justify-self:stretch; max-width:300px; width:100%; margin-inline:auto}
+  .vault-piece h3, .vault-piece .vp-set{align-self:start}
+}
 .vault-piece h3{margin-top:12px; font-variation-settings:"wdth" 84,"wght" 800; text-transform:uppercase; font-size:19px; letter-spacing:.03em}
 .vault-piece .vp-set{margin-top:6px; font-family:var(--mono); font-size:11px; color:var(--silver); letter-spacing:.05em}
 .vault-piece .vp-serial{margin-top:12px; font-size:22px}
@@ -4385,7 +4396,7 @@ function pageHome(){
               <span class="pl-s">${esc(c.season)} · ${esc(c.product)}</span>
             </div>
             <h3>${esc(c.player)}</h3>
-            <p class="vp-set">${esc(c.set)}</p>
+            <p class="vp-set">${esc(setRest(c) || c.subset || c.set)}</p>
             <p class="vp-serial serial">${serialOf(c) || "SIN NUMERAR"}</p>
             <p class="vp-price">${money(c.price)}</p>
             <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
@@ -4409,7 +4420,7 @@ function pageHome(){
       </div>
       <div class="vault-row">
         ${homeCombos.map((co,i) => `
-          <div class="vault-piece">
+          <div class="vault-piece vp-combo">
             <a class="tilt" data-tilt href="#/combos/${co.slug}"><img src="${co.imgs[0]}" alt="${esc(co.title)}"></a>
             <div class="plaque">
               <span class="pl-t">Combo ${String(i+1).padStart(2,"0")}</span>
