@@ -2564,6 +2564,29 @@ html, body{overflow-x:clip}
   .finder .wrap{padding-bottom:8px}
   .finder + .section-tight{padding-top:22px}
   .finder-in{gap:8px; padding-block:8px}
+  /* tiles sin ícono: más finitos */
+  .finder .fd-tile-icon{display:none}
+  .finder .fd-tile{padding:11px 4px 10px; gap:2px}
+  .finder .fd-search{margin-block:10px 8px}
+}
+/* celular: portada más compacta (menos aire entre bloques) */
+@media(max-width:760px){
+  .hero .hero-inner{padding-block:22px 18px}
+  .hero .hero-top{margin-bottom:14px}
+  .hero .stage{height:270px; margin-bottom:22px}
+  .hero .stage-hint{margin:-14px 0 12px}
+  .hero .hero-copy .kicker{margin-bottom:12px}
+  .hero .hero-sub{margin-top:12px}
+  .hero .hero-cta{margin-top:16px; gap:8px}
+  .hero .hero-cta{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); max-width:440px; margin-inline:auto}
+  .hero .hero-cta .btn{padding:11px 6px; justify-content:center; width:100%; font-size:11px; letter-spacing:.14em; white-space:nowrap}
+  .hero .hero-cta .btn-gold{grid-column:1/-1}
+  .hero .hero-stats{margin-top:16px; grid-template-columns:repeat(4,minmax(0,1fr))}
+  .hero .hstat{padding:11px 3px; border-right:1px solid var(--hair); border-bottom:0}
+  .hero .hstat:last-child{border-right:0}
+  .hero .hstat b{font-size:18px}
+  .hero .hstat span{margin-top:5px; font-size:8px; letter-spacing:.1em; line-height:1.35}
+  .ticker{padding:8px 0}
 }
 .fd-tile{
   position:relative; display:flex; align-items:center; gap:16px; background:#050506;
