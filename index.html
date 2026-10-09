@@ -2549,19 +2549,21 @@ html, body{overflow-x:clip}
 .fd-short{display:none}
 /* celular: buscador en una línea y los tres accesos uno al lado del otro, como en la compu */
 @media(max-width:760px){
-  .fd-search{margin-block:14px 10px; padding:12px 14px; gap:12px}
+  .fd-search{margin-block:8px 8px; padding:10px 14px; gap:10px}
   .fd-search svg{width:20px; height:20px}
   .fd-s-txt b{font-size:17px}
   .fd-s-txt span{display:none}
   .fd-simple{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .finder .fd-tile{flex-direction:column; justify-content:center; text-align:center; gap:8px; padding:14px 6px 13px}
-  .finder .fd-tile-icon{width:36px; height:36px}
-  .fd-tile-icon svg{width:17px; height:17px}
+  .finder .fd-tile{flex-direction:column; justify-content:center; text-align:center; gap:5px; padding:9px 4px 8px}
+  .finder .fd-tile-icon{width:28px; height:28px}
+  .fd-tile-icon svg{width:14px; height:14px}
   .finder .fd-tile-body b{font-size:13.5px; letter-spacing:.04em}
   .finder .fd-tile .fd-tile-body > span{display:none}
-  .fd-tile-body .fd-short{display:block; margin-top:3px; font-style:normal; font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--silver)}
+  .fd-tile-body .fd-short{display:block; margin-top:1px; font-style:normal; font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--silver)}
   .finder .fd-tile-arrow{display:none}
-  .finder .wrap{padding-bottom:14px}
+  .finder .wrap{padding-bottom:8px}
+  .finder + .section-tight{padding-top:22px}
+  .finder-in{gap:8px; padding-block:8px}
 }
 .fd-tile{
   position:relative; display:flex; align-items:center; gap:16px; background:#050506;
