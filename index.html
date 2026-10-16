@@ -646,10 +646,21 @@ select.sortsel{background:var(--field); border:1px solid var(--hair); padding:9p
 .combo-card{display:flex; flex-direction:column; border:1px solid var(--gold-hair); border-radius:3px; overflow:hidden; background:linear-gradient(180deg,#0f0c05,var(--ink)); transition:transform .3s var(--ease), border-color .3s var(--ease)}
 .combo-card:hover{transform:translateY(-4px); border-color:var(--gold)}
 .combo-card.nomatch{display:none}
+/* ficha del combo: tocar la foto la agranda un 30% (y volver a tocar la achica) */
+.pdp-frame.combo-zoom{cursor:zoom-in; overflow:visible; position:relative; z-index:2}
+.pdp-frame.combo-zoom #pdpImg{transition:transform .35s var(--ease); transform-origin:center center}
+.pdp-frame.combo-zoom.z130{cursor:zoom-out; z-index:20}
+.pdp-frame.combo-zoom.z130 #pdpImg{transform:scale(1.3); box-shadow:0 40px 90px -20px #000}
 .cc-img{position:relative; display:block; aspect-ratio:4/3; background:#050506; overflow:hidden}
 .cc-img img{width:100%; height:100%; object-fit:cover; transition:transform .5s var(--ease)}
 .combo-card:hover .cc-img img{transform:scale(1.04)}
 .combo-card.is-sold .cc-img img{filter:grayscale(.6) brightness(.6)}
+/* combos: todas las fotos en el mismo marco, sin importar si la foto es vertical u horizontal */
+.cc-img{aspect-ratio:1/1; background:radial-gradient(70% 60% at 50% 40%, rgba(244,243,239,.05), transparent 70%), #08080a}
+.cc-img img{object-fit:contain; padding:10px}
+.vault-piece.vp-combo .tilt{aspect-ratio:1/1; width:min(300px,80%); display:grid; place-items:center; border-radius:6px;
+  background:radial-gradient(70% 60% at 50% 40%, rgba(244,243,239,.06), transparent 70%), #0a0a0c; box-shadow:0 0 0 1px rgba(244,243,239,.08), 0 40px 70px -30px rgba(0,0,0,.95)}
+.vault-piece.vp-combo .tilt img{width:100%; height:100%; object-fit:contain; padding:8px; box-shadow:none; -webkit-box-reflect:unset}
 .cc-n{position:absolute; left:10px; bottom:10px; font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#1a1405; background:linear-gradient(140deg,var(--gold-soft),var(--gold)); padding:5px 9px; border-radius:2px; font-weight:600}
 .cc-img .flag{position:absolute; top:10px; left:10px}
 .cc-body{display:flex; flex-direction:column; gap:8px; padding:16px 16px 18px; flex:1}
@@ -748,6 +759,10 @@ select.sortsel{background:var(--field); border:1px solid var(--hair); padding:9p
   color:var(--silver); border-bottom:2px solid transparent; white-space:nowrap;
 }
 .tabs button.on{color:var(--bone); border-bottom-color:var(--gold)}
+/* subcategorías de combos: pastillas que bajan de renglón, así se ven todas en el celular */
+.combo-tabs{flex-wrap:wrap; gap:6px; border-bottom:0; margin-bottom:16px; overflow:visible}
+.combo-tabs button{border:1px solid var(--hair-strong); border-radius:20px; padding:8px 13px; margin:0; font-size:10px; letter-spacing:.1em}
+.combo-tabs button.on{border-color:var(--gold); color:var(--gold-soft); background:rgba(201,162,39,.08)}
 .tabs button:hover{color:var(--bone)}
 /* selector de formato del inicio: tres tarjetas, la elegida en dorado */
 .fmt-pick{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-bottom:clamp(24px,3vw,36px)}
@@ -2985,6 +3000,67 @@ const IMG = {
   kidd2:     "img/1790614492707.webp",
   wemby:     "img/1790629115384.webp",
   wemby2:    "img/1790629115385.webp",
+  // tanda 1 de Guido
+  arenas49f:  "img/g-arenas99f.webp",   arenas49b:  "img/g-arenas99b.webp",
+  arenasAf:   "img/g-arenasautof.webp", arenasAb:   "img/g-arenasautob.webp",
+  sherrellf:  "img/g-sherrellf.webp",   sherrellb:  "img/g-sherrellb.webp",
+  kiyanf:     "img/g-kiyanf.webp",      kiyanb:     "img/g-kiyanb.webp",
+  // tanda 2 de Guido
+  bryantf:    "img/g-bryantf.webp",     bryantb:    "img/g-bryantb.webp",
+  shrewf:     "img/g-shrewf.webp",      shrewb:     "img/g-shrewb.webp",
+  sensf:      "img/g-sensf.webp",       sensb:      "img/g-sensb.webp",
+  // tanda 3 de Guido
+  currymessif: "img/g-currymessif.webp", currymessib: "img/g-currymessib.webp",
+  lanierf:    "img/g-lanierf.webp",     lanierb:    "img/g-lanierb.webp",
+  collierf:   "img/g-collierf.webp",    collierb:   "img/g-collierb.webp",
+  // tanda 4 de Guido
+  flaggf:     "img/g-flaggf.webp",      flaggb:     "img/g-flaggb.webp",
+  dasilvaf:   "img/g-dasilvaf.webp",    dasilvab:   "img/g-dasilvab.webp",
+  delfinorf:  "img/g-delfinorf.webp",   delfinorb:  "img/g-delfinorb.webp",
+  dybantsaf:  "img/g-dybantsaf.webp",   dybantsab:  "img/g-dybantsab.webp",
+  // tanda 5 de Guido
+  hartself:   "img/g-hartself.webp",    hartselb:   "img/g-hartselb.webp",
+  hartprzf:   "img/g-hartprzf.webp",    hartprzb:   "img/g-hartprzb.webp",
+  ggjf:       "img/g-ggjf.webp",        ggjb:       "img/g-ggjb.webp",
+  // tanda 6 de Guido
+  broomef:    "img/g-broomef.webp",     broomeb:    "img/g-broomeb.webp",
+  morantf:    "img/g-morantf.webp",     morantb:    "img/g-morantb.webp",
+  mjeccf:     "img/g-mjeccf.webp",      mjeccb:     "img/g-mjeccb.webp",
+  grahovacf:  "img/g-grahovacf.webp",   grahovacb:  "img/g-grahovacb.webp",
+  irvingf:    "img/g-irvingf.webp",     irvingb:    "img/g-irvingb.webp",
+  // tanda 7 de Guido
+  georgef:    "img/g-georgef.webp",     georgeb:    "img/g-georgeb.webp",
+  mjrairf:    "img/g-mjrairf.webp",     mjrairb:    "img/g-mjrairb.webp",
+  keshssf:    "img/g-keshssf.webp",     keshssb:    "img/g-keshssb.webp",
+  keshrsf:    "img/g-keshrsf.webp",     keshrsb:    "img/g-keshrsb.webp",
+  mjbbf:      "img/g-mjbbf.webp",       mjbbb:      "img/g-mjbbb.webp",
+  // tanda 8 de Guido
+  nocrmf:     "img/g-nocrmf.webp",      nocrmb:     "img/g-nocrmb.webp",
+  mitchellf:  "img/g-mitchellf.webp",   mitchellb:  "img/g-mitchellb.webp",
+  nocartf:    "img/g-nocartf.webp",     nocartb:    "img/g-nocartb.webp",
+  // tanda 9 de Guido
+  traoref:    "img/g-traoref.webp",     traoreb:    "img/g-traoreb.webp",
+  olaf:       "img/g-olaf.webp",        olab:       "img/g-olab.webp",
+  paynef:     "img/g-paynef.webp",      payneb:     "img/g-payneb.webp",
+  pepef:      "img/g-pepef.webp",       pepeb:      "img/g-pepeb.webp",
+  pgf:        "img/g-pgf.webp",         pgb:        "img/g-pgb.webp",
+  prigxf:     "img/g-prigxf.webp",      prigxb:     "img/g-prigxb.webp",
+  // tanda 10 de Guido
+  siakamf:    "img/g-siakamf.webp",     siakamb:    "img/g-siakamb.webp",
+  risacherf:  "img/g-risacherf.webp",   risacherb:  "img/g-risacherb.webp",
+  rodmanf:    "img/g-rodmanf.webp",     rodmanb:    "img/g-rodmanb.webp",
+  sellersf:   "img/g-sellersf.webp",    sellersb:   "img/g-sellersb.webp",
+  sharpef:    "img/g-sharpef.webp",     sharpeb:    "img/g-sharpeb.webp",
+  // tanda 11 de Guido
+  salaunf:    "img/g-salaunf.webp",     salaunb:    "img/g-salaunb.webp",
+  demaryf:    "img/g-demaryf.webp",     demaryb:    "img/g-demaryb.webp",
+  sorberf:    "img/g-sorberf.webp",     sorberb:    "img/g-sorberb.webp",
+  spikef:     "img/g-spikef.webp",      spikeb:     "img/g-spikeb.webp",
+  tmacf:      "img/g-tmacf.webp",       tmacb:      "img/g-tmacb.webp",
+  // tanda 12 de Guido
+  wolkof:     "img/g-wolkof.webp",      wolkob:     "img/g-wolkob.webp",
+  tysonf:     "img/g-tysonf.webp",      tysonb:     "img/g-tysonb.webp",
+  richardf:   "img/g-richardf.webp",    richardb:   "img/g-richardb.webp",
   sprewell2: "img/1790612814653.webp",
   houstonb:  "img/1790612815049.webp",
   wardb2:    "img/1790612815341.webp",
@@ -2999,7 +3075,8 @@ const IMG = {
 /* DUEÑOS — cada carta tiene un dueño; el botón de WhatsApp abre el chat del dueño de esa carta.
    Para sumar un socio: agregarlo acá y poner owner:"clave" en sus cartas. El nombre NO se muestra en el sitio. */
 const OWNERS = {
-  nico: { name:"Nico", wa:"5491155866812" }
+  nico:  { name:"Nico",  wa:"5491155866812" },
+  guido: { name:"Guido", wa:"5491154787985" }   // Guido Ropa NBA · +54 9 11 5478-7985
 };
 const DEFAULT_OWNER = "nico";
 
@@ -3011,6 +3088,7 @@ const SETTINGS = {
   auctions: false,          // subastas apagadas por ahora: poner true para volver a mostrarlas
   heroStats: null,          // se calculan solas con el stock (ver heroStatsLive)
   currency: "USD",
+  arsPerUsd: 1500,          // cotización de referencia SOLO para ordenar por precio y decidir qué es Premium en cartas cargadas en pesos (cur:"ARS"). El precio que se muestra es el que se cargó.
   shipping: {
     "Argentina": { label: "Argentina — Andreani / OCA", price: 12, days: "3 a 6 días hábiles" },
     "Estados Unidos": { label: "Estados Unidos — con tracking", price: 25, days: "7 a 12 días hábiles" },
@@ -3038,7 +3116,7 @@ const CARDS = [
     cardNo: "GC-BK", serialNum: 3, printRun: 60,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 80, status: "available", addedOn: "2026-10-06", vault: false, demo: true, owner: "nico",
+    price: 99000, cur: "ARS", status: "available", addedOn: "2026-10-06", vault: false, demo: true, owner: "nico",
     imgs: [IMG.king, IMG.king2],
     badges: ["/60", "HALL OF FAME"],
     why: ["Numerada 03 de 60", "Firma de un Hall of Famer", "Autógrafo", "Ícono anotador de los Knicks"],
@@ -3053,7 +3131,7 @@ const CARDS = [
     cardNo: "CF-MJK", serialNum: 45, printRun: 99,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: true, memType: "Jersey",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 45, status: "available", addedOn: "2026-10-08", vault: false, demo: true, owner: "nico",
+    price: 75000, cur: "ARS", status: "available", addedOn: "2026-10-08", vault: false, demo: true, owner: "nico",
     imgs: [IMG.jackson, IMG.jackson2],
     badges: ["PATCH AUTO", "MEMORABILIA", "/99"],
     why: ["Pedazo de camiseta más firma", "Numerada a 99", "Uno de los tres únicos jugadores en la historia con 10.000 puntos, 10.000 asistencias y 1.500 robos", "Inscripción “God Bless”"],
@@ -3068,7 +3146,7 @@ const CARDS = [
     cardNo: "S-WFZ", serialNum: 2, printRun: 25,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 140, status: "available", addedOn: "2026-10-03", vault: true, spotlight: true, demo: true, owner: "nico",
+    price: 126, status: "available", addedOn: "2026-10-03", vault: true, spotlight: true, demo: true, owner: "nico",
     imgs: [IMG.frazier, IMG.frazier2],
     badges: ["/25", "HALL OF FAME"],
     why: ["Numerada 02 de 25", "Bicampeón de la NBA", "Firma en azul", "La cara del título de 1970"],
@@ -3083,7 +3161,7 @@ const CARDS = [
     cardNo: "INK-LJS", serialNum: 21, printRun: 25,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 85, status: "available", addedOn: "2026-09-30", vault: true, demo: true, owner: "nico",
+    price: 120000, cur: "ARS", status: "available", addedOn: "2026-09-30", vault: true, demo: true, owner: "nico",
     imgs: [IMG.lj, IMG.lj2],
     badges: ["/25", "PREMIUM"],
     why: ["Numerada 21 de 25", "El autógrafo insignia de Immaculate", "Uno de los mejores rebotadores ofensivos de su época", "Firma limpia en azul"],
@@ -3095,11 +3173,11 @@ const CARDS = [
     team: "New York Knicks", teamSlug: "new-york-knicks",
     season: "2021-22", year: 2022, era: "2020s", playerEra: "2020s",
     brand: "Panini", product: "Origins", set: "Origins Rookie Autographs", subset: "Rookie Autographs",
-    cardNo: "RA-MMB", serialNum: null, printRun: null,
+    cardNo: "RA-MIL", serialNum: null, printRun: null,
     rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 45, status: "available", addedOn: "2026-10-07", vault: false, demo: true, owner: "nico",
-    imgs: [IMG.mcbride],
+    price: 52000, cur: "ARS", status: "available", addedOn: "2026-10-07", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.mcbride, "img/mcbride-dorso.webp"],
     badges: ["ROOKIE AUTO", "RC"],
     why: ["Rookie card verdadera, con escudo RC", "Autógrafo de año rookie", "Rookie de los Knicks de 2021-22", "Diseño de tinta en agua de Origins"],
     story: "El autógrafo rookie de Deuce McBride en Origins, el set construido sobre ese fondo de tinta en agua. Llegó como especialista defensivo desde West Virginia y se transformó en un tirador de rotación. Es su autógrafo de año rookie, con el escudo RC abajo y la firma en azul."
@@ -3110,14 +3188,14 @@ const CARDS = [
     team: "New York Knicks", teamSlug: "new-york-knicks",
     season: "2012-13", year: 2013, era: "2010s", playerEra: "2010s",
     brand: "Panini", product: "Totally Certified", set: "Rookie Roll Call", subset: "Rookie Roll Call",
-    cardNo: "2", serialNum: 3, printRun: 49,
+    cardNo: "2", serialNum: 5, printRun: 49,
     rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 45, status: "available", addedOn: "2026-09-27", vault: false, demo: true, owner: "nico",
+    price: 55000, cur: "ARS", status: "available", addedOn: "2026-09-27", vault: false, demo: true, owner: "nico",
     imgs: [IMG.shumpert, IMG.shumpert2],
     badges: ["ROOKIE AUTO", "/49", "PARALELA BLUE"],
-    why: ["Serial 03 de 49", "Autógrafo de temporada rookie", "Totally Certified azul", "Serial de un solo dígito"],
-    story: "El año rookie de Shumpert fue el que le devolvió la defensa a los Knicks: primer equipo All-Rookie, el peinado, los clavados a la platea. Rookie Roll Call es un autógrafo sobre sticker enmarcado en dorado, sobre el stock azul de Totally Certified; esta copia tiene el serial de un solo dígito 03/49, el número que para muchos coleccionistas pesa más que el nombre del frente."
+    why: ["Serial 05 de 49", "Autógrafo de temporada rookie", "Totally Certified azul", "Serial de un solo dígito"],
+    story: "El año rookie de Shumpert fue el que le devolvió la defensa a los Knicks: primer equipo All-Rookie, el peinado, los clavados a la platea. Rookie Roll Call es un autógrafo sobre sticker enmarcado en dorado, sobre el stock azul de Totally Certified; esta copia tiene el serial de un solo dígito 05/49, el número que para muchos coleccionistas pesa más que el nombre del frente."
   },
   {
     id: "c7", slug: "charlie-ward-impeccable-canvas-creations-21-99",
@@ -3128,7 +3206,7 @@ const CARDS = [
     cardNo: "CC-CHW", serialNum: 21, printRun: 99,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 45, status: "available", addedOn: "2026-09-24", vault: false, demo: true, owner: "nico",
+    price: 55000, cur: "ARS", status: "available", addedOn: "2026-09-24", vault: false, demo: true, owner: "nico",
     imgs: [IMG.ward, IMG.wardb2],
     badges: ["/99", "CANVAS"],
     why: ["Numerada 21 de 99", "Stock de lienzo texturado", "Ganador del Heisman metido a base", "Autografiada por el jugador"],
@@ -3143,7 +3221,7 @@ const CARDS = [
     cardNo: "SG-LSP", serialNum: 51, printRun: 99,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 120, status: "available", addedOn: "2026-10-02", vault: false, demo: true, owner: "nico",
+    price: 160000, cur: "ARS", status: "available", addedOn: "2026-10-02", vault: false, demo: true, owner: "nico",
     imgs: [IMG.sprewell, IMG.sprewell2],
     badges: ["/99", "NATIONAL TREASURES"],
     why: ["Numerada 51 de 99", "Firma grande", "24 puntos en su debut con los Knicks", "Producto premium insignia"],
@@ -3158,7 +3236,7 @@ const CARDS = [
     cardNo: "P-AH", serialNum: 87, printRun: 99,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 70, status: "available", addedOn: "2026-09-21", vault: false, demo: true, owner: "nico",
+    price: 85000, cur: "ARS", status: "available", addedOn: "2026-09-21", vault: false, demo: true, owner: "nico",
     imgs: [IMG.houston, IMG.houstonb],
     badges: ["/99", "LEYENDA KNICK"],
     why: ["Numerada 87 de 99", "Firma grande y limpia", "19,7 puntos por partido y su primer All-Star en 1999-2000", "Stock grabado de Paramount"],
@@ -3173,7 +3251,7 @@ const CARDS = [
     cardNo: "ES-ASM", serialNum: 36, printRun: 49,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 55, status: "available", addedOn: "2026-10-05", vault: false, demo: true, owner: "nico",
+    price: 70000, cur: "ARS", status: "available", addedOn: "2026-10-05", vault: false, demo: true, owner: "nico",
     imgs: [IMG.amare, IMG.amare2],
     badges: ["/49", "FOIL"],
     why: ["Numerada 36 de 49", "41 puntos con 17/21 de cancha ante Philadelphia en 2011", "Firma grande", "Diseño Donruss Elite en foil rojo"],
@@ -3188,7 +3266,7 @@ const CARDS = [
     cardNo: "LC-AHS", serialNum: 8, printRun: 10,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 130, status: "available", addedOn: "2026-10-09", vault: true, demo: true, owner: "nico",
+    price: 160000, cur: "ARS", status: "available", addedOn: "2026-10-09", vault: true, demo: true, owner: "nico",
     imgs: [IMG.houston2b, IMG.houston2],
     badges: ["/10", "LEYENDA KNICK"],
     why: ["Numerada 08 de 10 copias", "Firma en tinta azul", "Diseño dúotono: foto de época y foto actual", "Dos veces All-Star con los Knicks"],
@@ -3203,7 +3281,7 @@ const CARDS = [
     cardNo: "AG-CD", serialNum: 20, printRun: 30,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: true, memType: "Jersey",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 80, status: "available", addedOn: "2026-10-09", vault: false, demo: true, owner: "nico",
+    price: 92000, cur: "ARS", status: "available", addedOn: "2026-10-09", vault: false, demo: true, owner: "nico",
     imgs: [IMG.delfino, IMG.delfino2],
     badges: ["JERSEY", "/30"],
     why: ["Numerada 20 de 30", "Autógrafo más parche de camiseta de juego", "Parte de la Generación Dorada, oro olímpico en Atenas 2004", "Certificado de autenticidad Fleer/SkyBox en el dorso"],
@@ -3218,7 +3296,7 @@ const CARDS = [
     cardNo: "190", serialNum: 98, printRun: 179,
     rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 70, status: "available", addedOn: "2026-10-09", vault: true, demo: true, owner: "nico",
+    price: 92000, cur: "ARS", status: "available", addedOn: "2026-10-09", vault: true, demo: true, owner: "nico",
     imgs: [IMG.nocioni, IMG.nocioni2],
     badges: ["ROOKIE AUTO", "REFRACTOR", "/179"],
     why: ["Rookie card verdadera de Topps Finest", "Refractor numerada 098 de 179", "Autógrafo certificado por Topps", "Oro olímpico con Argentina en Atenas 2004, meses antes de debutar"],
@@ -3233,7 +3311,7 @@ const CARDS = [
     cardNo: "HS-KTH", serialNum: 20, printRun: 25,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 45, status: "available", addedOn: "2026-10-09", vault: false, demo: true, owner: "nico",
+    price: 60000, cur: "ARS", status: "available", addedOn: "2026-10-09", vault: false, demo: true, owner: "nico",
     imgs: [IMG.kthomas, IMG.kthomas2],
     badges: ["/25", "LEYENDA KNICK"],
     why: ["Numerada 20 de 25", "Autografiada por el jugador", "Dos etapas distintas en los Knicks, 1998-99 a 2004-05 y su regreso en 2012-13", "Producto premium Immaculate Collection"],
@@ -3248,7 +3326,7 @@ const CARDS = [
     cardNo: "FOG-AN", serialNum: 6, printRun: 25,
     rookie: false, auto: false, autoType: null, memorabilia: true, memType: "Jersey",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 55, status: "available", addedOn: "2026-10-09", vault: false, demo: true, owner: "nico",
+    price: 70000, cur: "ARS", status: "available", addedOn: "2026-10-09", vault: false, demo: true, owner: "nico",
     imgs: [IMG.nocioni3, IMG.nocioni3b],
     badges: ["JERSEY", "/25", "SACRAMENTO KINGS"],
     why: ["Parche grande numerado 06 de 25", "El número 5 recortado directo de la malla de los Kings", "Segunda etapa de Nocioni en la NBA, después de Chicago", "Swatch certificado por Panini America"],
@@ -3263,7 +3341,7 @@ const CARDS = [
     cardNo: "119", serialNum: 5, printRun: 74,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 75, status: "available", addedOn: "2026-10-09", vault: false, demo: true, owner: "nico", homePremium: false,
+    price: 92000, cur: "ARS", status: "available", addedOn: "2026-10-09", vault: false, demo: true, owner: "nico", homePremium: false,
     imgs: [IMG.oakley, IMG.oakley2],
     badges: ["/74", "LEYENDA KNICK"],
     why: ["Numerada 05 de 74", "Firma en tinta azul", "Líder histórico de la franquicia en rebotes ofensivos", "Panini Preferred, diseño rojo y foil dorado"],
@@ -3278,7 +3356,7 @@ const CARDS = [
     cardNo: "RS-MCB", serialNum: 23, printRun: 75,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 45, status: "available", addedOn: "2026-10-09", vault: true, demo: true, owner: "nico",
+    price: 55000, cur: "ARS", status: "available", addedOn: "2026-10-09", vault: true, demo: true, owner: "nico",
     imgs: [IMG.camby, IMG.camby2],
     badges: ["/75", "RETRO STARS"],
     why: ["Numerada 23 de 75", "Firma en tinta azul", "Insert Retro Stars sobre diseño holográfico Spectra", "Bloqueador de élite con la casaca de los Knicks"],
@@ -3293,7 +3371,7 @@ const CARDS = [
     cardNo: "EL-JK", serialNum: 5, printRun: 49,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: true, memType: "Jersey",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 160, status: "available", addedOn: "2026-10-09", vault: true, demo: true, owner: "nico",
+    price: 155, status: "available", addedOn: "2026-10-09", vault: true, demo: true, owner: "nico",
     imgs: [IMG.kidd, IMG.kidd2],
     badges: ["JERSEY", "/49", "HALL OF FAME"],
     why: ["Numerada 05 de 49", "Firma en tinta azul", "Parche de casaca game-worn/used certificado por Panini", "Impeccable, una de las líneas más altas de Panini"],
@@ -3308,15 +3386,754 @@ const CARDS = [
     cardNo: "22", serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 25, status: "available", addedOn: "2026-10-09", vault: false, demo: true, owner: "nico",
+    price: 30000, cur: "ARS", status: "available", addedOn: "2026-10-09", vault: false, demo: true, owner: "nico",
     imgs: [IMG.wemby, IMG.wemby2],
     badges: ["REFRACTOR", "SIN NUMERAR"],
     why: ["Parallel Refractor de Topps Chrome, con el efecto espejado característico", "Temporada 2025-26, el jugador más dominante de la nueva generación", "Récord de puntos en un debut de temporada para San Antonio: 40 puntos, 15 rebotes y 3 tapones ante Dallas"],
     story: "El 22 de octubre de 2025, en una goleada 125-92 sobre Dallas, Wembanyama estableció el récord de San Antonio en puntos para un debut de temporada: 40 puntos, 15 rebotes y 3 tapones. Esta Refractor de Topps Chrome lo retrata con el puño cerrado tras una jugada, con el efecto cromado que refleja la luz en ángulos distintos y el nombre del equipo en vertical sobre el borde izquierdo."
+  },
+  /* ===== Cartas de Guido (precios en pesos) ===== */
+  {
+    id: "g1", slug: "alijah-arenas-90s-pop-culture-rookies-prospects-03-49",
+    player: "Alijah Arenas", playerSlug: "alijah-arenas", jersey: 0, hof: false,
+    team: "USC", teamSlug: "ncaa-usc",
+    season: "2026", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "90s Pop Culture", set: "Rookies & Prospects", subset: "Rated Prospect",
+    cardNo: "117", serialNum: 3, printRun: 49,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 20000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.arenas49f, IMG.arenas49b],
+    badges: ["/49", "RATED PROSPECT"],
+    why: ["Numerada 03 de 49", "Inserto Rookies & Prospects con el sello Rated Prospect", "Diseño retro inspirado en los 90, del box set 90s Pop Culture de Panini"],
+    story: "Alijah Arenas, hijo de Gilbert Arenas, en el inserto Rookies & Prospects del box set 90s Pop Culture de Panini: fondo de colores y formas de los 90, el sello Rated Prospect y el serial 03/49 estampado al costado."
+  },
+  {
+    id: "g2", slug: "alijah-arenas-donruss-rated-prospect-auto-77-99",
+    player: "Alijah Arenas", playerSlug: "alijah-arenas", jersey: 0, hof: false,
+    team: "USC", teamSlug: "ncaa-usc",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "Donruss", set: "Rated Prospect", subset: "Autograph",
+    cardNo: "58", serialNum: 77, printRun: 99,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 60000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.arenasAf, IMG.arenasAb],
+    badges: ["AUTO", "/99", "RATED PROSPECT"],
+    why: ["Numerada 77 de 99", "Autógrafo garantizado por Panini America", "Sello Rated Prospect de Donruss"],
+    story: "Arenas rompió redes en Chatsworth HS, en Los Ángeles: fue el primer jugador varón de la historia de la sección de L.A. en pasar los 3.000 puntos, y lo hizo en tres temporadas. All-American de secundaria en 2025 e hijo del tres veces All-Star Gilbert Arenas, firma esta Rated Prospect de Donruss en tinta azul. Numerada 77 de 99."
+  },
+  {
+    id: "g3", slug: "aiden-sherrell-bowman-university-chrome-prospect-auto-17-100",
+    player: "Aiden Sherrell", playerSlug: "aiden-sherrell", jersey: 22, hof: false,
+    team: "Alabama", teamSlug: "ncaa-alabama",
+    season: "2024-25", year: 2025, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Bowman University Chrome", set: "Bowman Chrome Prospect Autographs", subset: "1st Bowman",
+    cardNo: "3", serialNum: 17, printRun: 100,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 20000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.sherrellf, IMG.sherrellb],
+    badges: ["AUTO", "/100", "1ST BOWMAN"],
+    why: ["Numerada 17 de 100", "Autógrafo certificado por Topps", "Su 1st Bowman, la primera carta Bowman del jugador"],
+    story: "Aiden Sherrell, pivot de Alabama, en su 1st Bowman de Bowman University Chrome 2024-25: autógrafo certificado por Topps sobre la foto con la camiseta 22 del Crimson Tide, marco azul en zigzag y el serial 17/100 abajo a la derecha."
+  },
+  {
+    id: "g4", slug: "kiyan-anthony-bowman-university-chrome-green-17-99",
+    player: "Kiyan Anthony", playerSlug: "kiyan-anthony", jersey: 7, hof: false,
+    team: "Syracuse", teamSlug: "ncaa-syracuse",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Bowman University Chrome", set: "Bowman Chrome Prospects", subset: "Green Refractor",
+    cardNo: "BCP-4", serialNum: 17, printRun: 99,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 20000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.kiyanf, IMG.kiyanb],
+    badges: ["/99", "1ST BOWMAN", "REFRACTOR"],
+    why: ["Numerada 17 de 99", "Refractor verde de Bowman Chrome", "Su 1st Bowman, con la camiseta 7 de Syracuse"],
+    story: "Kiyan Anthony, hijo de Carmelo, llegó a Syracuse como el recluta N°32 de la clase 2025 según 247Sports, el mismo programa que su padre llevó al título nacional en 2003. Este 1st Bowman en refractor verde lo muestra con la 7 naranja, y el serial 17/99 va abajo a la izquierda."
+  },
+  {
+    id: "g5", slug: "carter-bryant-bowman-chrome-cactus-jack-rookie-74",
+    player: "Carter Bryant", playerSlug: "carter-bryant", jersey: 11, hof: false,
+    team: "San Antonio Spurs", teamSlug: "san-antonio-spurs",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Bowman Chrome", set: "Cactus Jack", subset: "Diseño de Travis Scott",
+    cardNo: "74", serialNum: null, printRun: null,
+    rookie: true, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 8000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.bryantf, IMG.bryantb],
+    badges: ["RC", "CACTUS JACK"],
+    why: ["Rookie card de los Spurs, con el escudo RC", "Diseño Cactus Jack de Travis Scott: cadenas, ladrillos y el logo dibujado a mano", "Temporada 2025-26, su primer año en la NBA"],
+    story: "Carter Bryant suma puntos con fuerza y atletismo cerca del aro y completa su aporte con defensa. Según el dorso de la carta, ayudó a San Antonio a ganar sus primeros cuatro partidos de pretemporada en 2025, con picos de 15 puntos, seis rebotes y dos robos. La versión Cactus Jack lo pone en sepia, entre cadenas y paredes de ladrillo, con el logo de Travis Scott arriba a la izquierda."
+  },
+  {
+    id: "g6", slug: "braeden-shrewsberry-bowman-university-chrome-prospect-auto",
+    player: "Braeden Shrewsberry", playerSlug: "braeden-shrewsberry", jersey: 11, hof: false,
+    team: "Notre Dame", teamSlug: "ncaa-notre-dame",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Bowman University Chrome", set: "Chrome Prospect Autographs", subset: "1st Bowman",
+    cardNo: "CPA-BS", serialNum: null, printRun: null,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 15000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.shrewf, IMG.shrewb],
+    badges: ["AUTO", "1ST BOWMAN"],
+    why: ["Autógrafo certificado por Topps", "Su 1st Bowman, la primera carta Bowman del jugador", "Con la camiseta 11 de Notre Dame"],
+    story: "Braeden Shrewsberry, escolta de Notre Dame, en su 1st Bowman de Bowman University Chrome 2025-26: autógrafo en tinta azul sobre la foto con la 11 del Fighting Irish y el escudo ND abajo a la derecha."
+  },
+  {
+    id: "g7", slug: "brice-sensabaugh-topps-chrome-certified-rookie-autograph",
+    player: "Brice Sensabaugh", playerSlug: "brice-sensabaugh", jersey: null, hof: false,
+    team: "Utah Jazz", teamSlug: "utah-jazz",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Chrome", set: "Certified Rookie Autographs", subset: "",
+    cardNo: "CRA-BS", serialNum: null, printRun: null,
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 20000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.sensf, IMG.sensb],
+    badges: ["RC", "AUTO"],
+    why: ["Autógrafo rookie certificado por Topps", "Rookie card, con el escudo RC", "Topps Chrome 2023-24, su año de debut en la NBA"],
+    story: "Brice Sensabaugh, alero, en el Certified Rookie Autograph de Topps Chrome 2023-24: firma en tinta azul sobre la ventana holográfica, el escudo RC arriba a la izquierda y el sello Certified Rookie Autographs al costado."
+  },
+  {
+    id: "g8", slug: "curry-messi-topps-now-mls-128-psa-6",
+    player: "Steph Curry · Lionel Messi", playerSlug: "stephen-curry", jersey: 4, hof: false,
+    team: "Team USA · Inter Miami", teamSlug: "otros",
+    season: "2024", year: 2024, era: "2020s", playerEra: "2010s",
+    brand: "Topps", product: "Topps Now MLS", set: "Topps Now", subset: "Night Night",
+    cardNo: "128", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "PSA", grade: "6 (EX-MT)", cert: "153539338",
+    price: 80000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.currymessif, IMG.currymessib],
+    badges: ["PSA 6", "TOPPS NOW"],
+    why: ["Gradeada PSA 6 (EX-MT), certificado 153539338", "Curry y Messi en la misma carta", "Topps Now: cartas que retratan un momento puntual de la temporada"],
+    story: "Topps Now de la MLS 2024 que junta a dos íconos con el mismo festejo: el \"night night\" que Curry hizo famoso con Team USA y que Messi repitió con la rosa de Inter Miami. Viene encapsulada y gradeada por PSA con nota 6 (EX-MT)."
+  },
+  {
+    id: "g9", slug: "chaz-lanier-bowman-chrome-rookie-auto-50-99",
+    player: "Chaz Lanier", playerSlug: "chaz-lanier", jersey: null, hof: false,
+    team: "Detroit Pistons", teamSlug: "detroit-pistons",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Bowman Chrome", set: "Base Chrome Autographs", subset: "Green /99",
+    cardNo: "BCA-CL", serialNum: 50, printRun: 99,
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 30000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.lanierf, IMG.lanierb],
+    badges: ["RC", "AUTO", "/99"],
+    why: ["Numerada 50 de 99", "Autógrafo rookie certificado por Topps", "Rookie card de los Pistons, con el escudo RC"],
+    story: "Chaz Lanier en su autógrafo rookie de Bowman Chrome 2025-26 con los Pistons: marco verde texturado, firma en tinta azul sobre la foto y el serial 50/99 abajo a la derecha."
+  },
+  {
+    id: "g10", slug: "isaiah-collier-signature-class-shadow-scripts-auto",
+    player: "Isaiah Collier", playerSlug: "isaiah-collier", jersey: 13, hof: false,
+    team: "Utah Jazz", teamSlug: "utah-jazz",
+    season: "2024-25", year: 2025, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Signature Class", set: "Shadow Scripts", subset: "",
+    cardNo: "SS-IC", serialNum: null, printRun: null,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 15000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.collierf, IMG.collierb],
+    badges: ["AUTO"],
+    why: ["Autógrafo certificado por Topps", "Inserto Shadow Scripts de Topps Signature Class", "Con la 13 de los Utah Jazz"],
+    story: "Isaiah Collier, base de los Jazz, en el inserto Shadow Scripts de Topps Signature Class: foto en blanco y negro con la 13 de Utah, fondo holográfico de colores y la firma en tinta azul en el panel de abajo."
+  },
+  {
+    id: "g11", slug: "cooper-flagg-bowman-chrome-cactus-jack-rookie-61",
+    player: "Cooper Flagg", playerSlug: "cooper-flagg", jersey: 32, hof: false,
+    team: "Dallas Mavericks", teamSlug: "dallas-mavericks",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Bowman Chrome", set: "Cactus Jack", subset: "Diseño de Travis Scott",
+    cardNo: "61", serialNum: null, printRun: null,
+    rookie: true, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 60000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.flaggf, IMG.flaggb],
+    badges: ["RC", "CACTUS JACK"],
+    why: ["Rookie card del N°1 del draft 2025, con el escudo RC", "Diseño Cactus Jack de Travis Scott: cadenas, ladrillos y el logo dibujado a mano", "Con la 32 de los Dallas Mavericks"],
+    story: "Cooper Flagg, elegido N°1 del draft 2025 por Dallas, en la versión Cactus Jack de Travis Scott: foto en sepia sacando la lengua, entre cadenas y paredes de ladrillo. Según el dorso, en sus primeros tres partidos de pretemporada, del 6 al 13 de octubre de 2025, anotó en doble dígito las tres veces y sumó ocho entre robos y tapas."
+  },
+  {
+    id: "g12", slug: "tristan-da-silva-topps-chrome-future-stars-rookie-auto",
+    player: "Tristan da Silva", playerSlug: "tristan-da-silva", jersey: 23, hof: false,
+    team: "Orlando Magic", teamSlug: "orlando-magic",
+    season: "2024-25", year: 2025, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Chrome", set: "Future Stars Autographs", subset: "",
+    cardNo: "FSA-TD", serialNum: null, printRun: null,
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 20000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.dasilvaf, IMG.dasilvab],
+    badges: ["RC", "AUTO"],
+    why: ["Autógrafo certificado por Topps", "Rookie card, con el escudo RC", "Inserto Future Stars de Topps Chrome 2024-25"],
+    story: "Tristan da Silva, alero de los Orlando Magic, en el autógrafo Future Stars de Topps Chrome 2024-25, su año rookie: estrella dorada de fondo, colores encendidos y la firma en tinta azul en el panel de abajo."
+  },
+  {
+    id: "g13", slug: "carlos-delfino-contenders-2012-13-rockets-173",
+    player: "Carlos Delfino", playerSlug: "carlos-delfino", jersey: 10, hof: false,
+    team: "Houston Rockets", teamSlug: "houston-rockets",
+    season: "2012-13", year: 2013, era: "2010s", playerEra: "2000s",
+    brand: "Panini", product: "Contenders", set: "Contenders", subset: "Base",
+    cardNo: "173", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 5000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.delfinorf, IMG.delfinorb],
+    badges: ["ARGENTINA"],
+    why: ["Delfino con la 10 de los Houston Rockets", "Panini Contenders 2012-13", "Para la colección de argentinos en la NBA"],
+    story: "Carlos Delfino tirando de tres con la 10 de los Rockets, sobre el fondo de humo rojo de Contenders 2012-13. El dorso juega con la frase \"flotá como una mariposa, picá con un triple\": así lo describe, apareciendo libre, recibiendo y metiéndola de lejos."
+  },
+  {
+    id: "g14", slug: "aj-dybantsa-bowmans-best-university-130-250",
+    player: "AJ Dybantsa", playerSlug: "aj-dybantsa", jersey: 3, hof: false,
+    team: "BYU", teamSlug: "ncaa-byu",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Bowman's Best University", set: "Bowman's Best", subset: "Purple Refractor /250",
+    cardNo: "9", serialNum: 130, printRun: 250,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 100000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.dybantsaf, IMG.dybantsab],
+    badges: ["/250", "REFRACTOR"],
+    why: ["Numerada 130 de 250", "Refractor violeta de Bowman's Best University", "Uno de los prospectos más seguidos de la camada universitaria 2025-26"],
+    story: "AJ Dybantsa con la 3 de BYU en Bowman's Best University. Según el dorso, el 9 de diciembre de 2025, en el Jimmy V Classic ante Clemson en el Madison Square Garden, metió 22 de sus 28 puntos en el segundo tiempo para darle a BYU, décimo del ranking, la victoria 67-64, con nueve rebotes y seis asistencias en 34 minutos. Numerada 130 de 250."
+  },
+  {
+    id: "g15", slug: "josh-hart-select-premier-level-purple-cracked-ice-46-99",
+    player: "Josh Hart", playerSlug: "josh-hart", jersey: 3, hof: false,
+    team: "New York Knicks", teamSlug: "new-york-knicks",
+    season: "2024-25", year: 2025, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "Select", set: "Premier Level", subset: "Purple Cracked Ice Prizm",
+    cardNo: "134", serialNum: 46, printRun: 99,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 10000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.hartself, IMG.hartselb],
+    badges: ["/99", "PRIZM"],
+    why: ["Numerada 46 de 99", "Prizm violeta Cracked Ice de Select", "Con la 3 de los Knicks"],
+    story: "Josh Hart tirando con la 3 de los Knicks, en el nivel Premier de Select 2024-25 y en Prizm violeta Cracked Ice. El dorso lo cuenta con humor: en el Garden casi no hay suplentes, y Hart promedió 42,2 minutos en los playoffs de 2024. Numerada 46 de 99."
+  },
+  {
+    id: "g16", slug: "josh-hart-prizm-purple-61-99",
+    player: "Josh Hart", playerSlug: "josh-hart", jersey: 3, hof: false,
+    team: "New York Knicks", teamSlug: "new-york-knicks",
+    season: "2024-25", year: 2025, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "Prizm", set: "Prizm", subset: "Purple Prizm",
+    cardNo: "196", serialNum: 61, printRun: 99,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 10000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.hartprzf, IMG.hartprzb],
+    badges: ["/99", "PRIZM"],
+    why: ["Numerada 61 de 99", "Purple Prizm de Panini Prizm", "Con la camiseta NYC de los Knicks"],
+    story: "Josh Hart en Purple Prizm de Prizm 2024-25. Según el dorso, arrancó la temporada 2023-24 sin ningún triple-doble en su carrera y la terminó con seis: el primero, con 10 puntos, 10 asistencias y 10 rebotes ante Utah el 30 de enero. Numerada 61 de 99."
+  },
+  {
+    id: "g17", slug: "gg-jackson-obsidian-galaxy-ink-auto-051-149",
+    player: "GG Jackson II", playerSlug: "gg-jackson", jersey: 45, hof: false,
+    team: "Memphis Grizzlies", teamSlug: "memphis-grizzlies",
+    season: "2024-25", year: 2025, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "Obsidian", set: "Galaxy Ink", subset: "",
+    cardNo: "GI-GGJ", serialNum: 51, printRun: 149,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 15000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.ggjf, IMG.ggjb],
+    badges: ["AUTO", "/149"],
+    why: ["Numerada 051 de 149", "Autógrafo garantizado por Panini America", "Inserto Galaxy Ink de Obsidian"],
+    story: "GG Jackson II con la camiseta retro Vancouver Grizzlies y la 45, en el autógrafo Galaxy Ink de Obsidian 2024-25: fondo de galaxia, marco holográfico y la firma en tinta azul. Numerada 051 de 149."
+  },
+  {
+    id: "g18", slug: "ja-morant-chronicles-panini-rookie-116",
+    player: "Ja Morant", playerSlug: "ja-morant", jersey: 12, hof: false,
+    team: "Memphis Grizzlies", teamSlug: "memphis-grizzlies",
+    season: "2019-20", year: 2020, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "Chronicles", set: "Panini", subset: "Base",
+    cardNo: "116", serialNum: null, printRun: null,
+    rookie: true, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 70000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.morantf, IMG.morantb],
+    badges: ["RC"],
+    why: ["Rookie card de Ja Morant, con el escudo RC", "Con la camiseta retro Vancouver Grizzlies y la 12", "Chronicles 2019-20, su año de debut en la NBA"],
+    story: "Ja Morant flexionando los brazos con la camiseta retro de los Vancouver Grizzlies, en su rookie card de Chronicles 2019-20. Según el dorso, el 9 de febrero de 2020 ante Washington firmó su primer triple-doble (27 puntos, 10 rebotes y 10 asistencias) y, con 20 años y 183 días, pasó a ser el cuarto más joven en lograr un triple-doble de 25 puntos, detrás de LeBron James, Luka Dončić y Shareef Abdur-Rahim."
+  },
+  {
+    id: "g19", slug: "mark-jackson-1990-nba-hoops-205-ecc-9",
+    player: "Mark Jackson", playerSlug: "mark-jackson", jersey: 13, hof: false,
+    team: "New York Knicks", teamSlug: "new-york-knicks",
+    season: "1990-91", year: 1990, era: "1990s", playerEra: "1990s",
+    brand: "NBA Hoops", product: "NBA Hoops", set: "NBA Hoops", subset: "Base",
+    cardNo: "205", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "ECC", grade: "9", cert: "ECC-16564",
+    price: 50000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.mjeccf, IMG.mjeccb],
+    badges: ["ECC 9", "VINTAGE"],
+    why: ["Gradeada ECC 9 por Elite Card Collector, certificado ECC-16564", "NBA Hoops 1990, una de las cartas clásicas de los 90", "Mark Jackson con la camiseta de los Knicks"],
+    story: "Mark Jackson pasando la pelota con la camiseta de los Knicks en la NBA Hoops de 1990. El dorso recuerda su gran arranque: Rookie del Año en 1988 tras batir el récord de asistencias para un novato (868), y nueve puntos con cuatro asistencias para el Este en el All-Star de 1989 en Houston. Encapsulada y gradeada por Elite Card Collector con nota 9."
+  },
+  {
+    id: "g20", slug: "johni-broome-topps-chrome-rookie-auto",
+    player: "Johni Broome", playerSlug: "johni-broome", jersey: 22, hof: false,
+    team: "Philadelphia 76ers", teamSlug: "philadelphia-76ers",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Chrome", set: "Topps Chrome Autographs", subset: "Rookie",
+    cardNo: "ICAR-JBE", serialNum: null, printRun: null,
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 25000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.broomef, IMG.broomeb],
+    badges: ["RC", "AUTO"],
+    why: ["Autógrafo certificado por Topps", "Rookie card de los 76ers, con el escudo RC", "Con la 22 de Philadelphia"],
+    story: "Johni Broome, pivot salido de Auburn y elegido en el draft 2025, con la 22 de los Philadelphia 76ers en su autógrafo rookie de Topps Chrome 2025-26: marco cromado azul y rojo, el 76 del escudo abajo a la izquierda y la firma en tinta azul en el panel central."
+  },
+  {
+    id: "g21", slug: "joe-grahovac-bowman-university-chrome-prospect-auto",
+    player: "Joe Grahovac", playerSlug: "joe-grahovac", jersey: 32, hof: false,
+    team: "St. Bonaventure", teamSlug: "ncaa-st-bonaventure",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Bowman University Chrome", set: "Chrome Prospect Autographs", subset: "1st Bowman",
+    cardNo: "CPA-JG", serialNum: null, printRun: null,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 15000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.grahovacf, IMG.grahovacb],
+    badges: ["AUTO", "1ST BOWMAN"],
+    why: ["Autógrafo certificado por Topps", "Su 1st Bowman, la primera carta Bowman del jugador", "Con la 32 de St. Bonaventure"],
+    story: "Joe Grahovac, de St. Bonaventure, en su 1st Bowman de Bowman University Chrome 2025-26: foto con la 32 de los Bonnies, la firma en tinta azul y el escudo del lobo abajo a la derecha."
+  },
+  {
+    id: "g22", slug: "kyrie-irving-excalibur-team-titans-38-70",
+    player: "Kyrie Irving", playerSlug: "kyrie-irving", jersey: 2, hof: false,
+    team: "Cleveland Cavaliers", teamSlug: "cleveland-cavaliers",
+    season: "2015-16", year: 2016, era: "2010s", playerEra: "2010s",
+    brand: "Panini", product: "Excalibur", set: "Team Titans", subset: "",
+    cardNo: "7", serialNum: 38, printRun: 70,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 25000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.irvingf, IMG.irvingb],
+    badges: ["/70"],
+    why: ["Numerada 38 de 70", "Inserto Team Titans de Panini Excalibur", "Kyrie con la 2 de los Cleveland Cavaliers"],
+    story: "Kyrie Irving con la 2 de Cleveland en el inserto Team Titans de Excalibur 2015-16. El dorso cuenta una noche suya: el 6 de enero de 2016 Washington lo tuvo controlado tres cuartos, pero en el último arrancó con 10 puntos seguidos y metió 19 de sus 32 para que los Cavaliers ganaran 121-115. Numerada 38 de 70."
+  },
+  {
+    id: "g23", slug: "michael-jordan-upper-deck-rare-air-decade-of-dominance-84",
+    player: "Michael Jordan", playerSlug: "michael-jordan", jersey: 23, hof: true,
+    team: "Chicago Bulls", teamSlug: "chicago-bulls",
+    season: "1997", year: 1997, era: "1990s", playerEra: "1990s",
+    brand: "Upper Deck", product: "Rare Air", set: "Decade of Dominance", subset: "",
+    cardNo: "84", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 100000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.mjrairf, IMG.mjrairb],
+    badges: ["HALL OF FAME", "VINTAGE"],
+    why: ["Michael Jordan con la 23 de los Bulls", "Serie Decade of Dominance de Upper Deck, con fotos de Walter Iooss", "Carta horizontal con dos imágenes de juego"],
+    story: "Jordan en Decade of Dominance de Upper Deck, con fotos de la colección Rare Air de Walter Iooss: una volcada y un tiro en suspensión con la 23 de los Bulls. El dorso repasa su dominio como goleador, incluida la temporada 1986-87, cuando se unió a Wilt Chamberlain como los únicos en pasar los 3.000 puntos en una temporada (3.041)."
+  },
+  {
+    id: "g24", slug: "kyshawn-george-topps-chrome-updates-havoc-marks-auto-079-150",
+    player: "Kyshawn George", playerSlug: "kyshawn-george", jersey: 18, hof: false,
+    team: "Washington Wizards", teamSlug: "washington-wizards",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Chrome Updates", set: "Havoc Marks", subset: "",
+    cardNo: "HM-KG", serialNum: 79, printRun: 150,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 25000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.georgef, IMG.georgeb],
+    badges: ["AUTO", "/150"],
+    why: ["Numerada 079 de 150", "Autógrafo certificado por Topps", "Inserto Havoc Marks de Topps Chrome Updates"],
+    story: "Kyshawn George con la camiseta District of Columbia de los Wizards y la 18, en el autógrafo Havoc Marks de Topps Chrome Updates 2025-26: fondo explosivo de colores, firma en tinta azul y el serial 079/150 abajo a la derecha."
+  },
+  {
+    id: "g25", slug: "keshad-johnson-prizm-sensational-signatures-rookie",
+    player: "Keshad Johnson", playerSlug: "keshad-johnson", jersey: 20, hof: false,
+    team: "Miami Heat", teamSlug: "miami-heat",
+    season: "2024-25", year: 2025, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "Prizm", set: "Sensational Signatures", subset: "",
+    cardNo: "SS-KSJ", serialNum: null, printRun: null,
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 15000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.keshssf, IMG.keshssb],
+    badges: ["RC", "AUTO"],
+    why: ["Autógrafo garantizado por Panini America", "Rookie card, con el escudo RC", "Inserto Sensational Signatures de Prizm 2024-25"],
+    story: "Keshad Johnson con la 20 del Miami Heat en el autógrafo Sensational Signatures de Prizm 2024-25, su año rookie: foto con la tribuna de fondo y la firma en tinta azul en el panel blanco."
+  },
+  {
+    id: "g26", slug: "keshad-johnson-prizm-rookie-signatures",
+    player: "Keshad Johnson", playerSlug: "keshad-johnson", jersey: 20, hof: false,
+    team: "Miami Heat", teamSlug: "miami-heat",
+    season: "2024-25", year: 2025, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "Prizm", set: "Rookie Signatures", subset: "",
+    cardNo: "RSI-KJH", serialNum: null, printRun: null,
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 15000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.keshrsf, IMG.keshrsb],
+    badges: ["RC", "AUTO"],
+    why: ["Autógrafo rookie de Panini Prizm", "Rookie card, con el escudo RC", "Con la camiseta negra del Miami Heat"],
+    story: "Keshad Johnson con la camiseta negra del Heat en el autógrafo Rookie Signatures de Prizm 2024-25: fondo rojo texturado, marco cromado y la firma en tinta azul abajo."
+  },
+  {
+    id: "g27", slug: "michael-jordan-upper-deck-1994-star-rookies-baseball-19",
+    player: "Michael Jordan", playerSlug: "michael-jordan", jersey: 45, hof: true,
+    team: "Chicago White Sox", teamSlug: "chicago-bulls",
+    season: "1994", year: 1994, era: "1990s", playerEra: "1990s",
+    brand: "Upper Deck", product: "Upper Deck Baseball", set: "Star Rookies", subset: "Béisbol",
+    cardNo: "19", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 40000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.mjbbf, IMG.mjbbb],
+    badges: ["BÉISBOL", "VINTAGE"],
+    why: ["Jordan en su etapa de béisbol con los Chicago White Sox", "Subset Star Rookies de Upper Deck 1994", "Una carta distinta para cualquier colección de Jordan"],
+    story: "En 1994, después de su primer retiro de la NBA, Michael Jordan probó suerte en el béisbol con los Chicago White Sox. Upper Deck lo incluyó en su subset Star Rookies: con anteojos y guante, corriendo en el jardín. El dorso recuerda que ya había jugado de pitcher en la secundaria Laney de Wilmington y que en 1993 ganó el concurso de jonrones de celebridades de Upper Deck."
+  },
+  {
+    id: "g28", slug: "donovan-mitchell-topps-chrome-utopia-highlights-071-150",
+    player: "Donovan Mitchell", playerSlug: "donovan-mitchell", jersey: 45, hof: false,
+    team: "Cleveland Cavaliers", teamSlug: "cleveland-cavaliers",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Chrome", set: "Utopia Highlights", subset: "Diseño de Travis Scott",
+    cardNo: "UH-6", serialNum: 71, printRun: 150,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 15000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.mitchellf, IMG.mitchellb],
+    badges: ["/150", "CACTUS JACK"],
+    why: ["Numerada 071 de 150", "Inserto Utopia Highlights de Topps Chrome, con el sello Cactus Jack de Travis Scott", "Con la 45 de los Cleveland Cavaliers"],
+    story: "Donovan Mitchell con la 45 de Cleveland en Utopia Highlights, el inserto de Topps Chrome con la estética del disco de Travis Scott. Según el dorso, el 28 de febrero de 2025 silenció al público de Boston con 41 puntos y cinco asistencias en una victoria 123-116. Numerada 071 de 150."
+  },
+  {
+    id: "g29", slug: "andres-nocioni-prizm-euroleague-real-madrid-192",
+    player: "Andrés Nocioni", playerSlug: "andres-nocioni", jersey: 6, hof: false,
+    team: "Real Madrid", teamSlug: "euroliga-real-madrid",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "2000s",
+    brand: "Panini", product: "Prizm EuroLeague", set: "Prizm EuroLeague", subset: "Base · Temporada 2014-15",
+    cardNo: "192", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 5000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.nocrmf, IMG.nocrmb],
+    badges: ["ARGENTINA", "EUROLIGA"],
+    why: ["Nocioni con la 6 del Real Madrid, temporada 2014-15", "Panini Prizm EuroLeague 2023-24", "Para la colección de argentinos"],
+    story: "El Chapu con la 6 del Real Madrid en la temporada 2014-15, la de la Euroliga ganada por el Madrid, en Prizm EuroLeague 2023-24. El dorso recuerda que en la Argentina nunca le perdieron el rastro y que en 2018 la Confederación Argentina de Básquetbol retiró su número."
+  },
+  {
+    id: "g30", slug: "andres-nocioni-upper-deck-artifacts-2007-08-bulls-15",
+    player: "Andrés Nocioni", playerSlug: "andres-nocioni", jersey: 5, hof: false,
+    team: "Chicago Bulls", teamSlug: "chicago-bulls",
+    season: "2007-08", year: 2008, era: "2000s", playerEra: "2000s",
+    brand: "Upper Deck", product: "Artifacts", set: "Artifacts", subset: "Base",
+    cardNo: "15", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 5000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.nocartf, IMG.nocartb],
+    badges: ["ARGENTINA"],
+    why: ["Nocioni con la 5 de los Chicago Bulls", "Upper Deck Artifacts 2007-08, con fondo de mapa antiguo", "Para la colección de argentinos en la NBA"],
+    story: "Nocioni con la 5 de los Bulls en Upper Deck Artifacts 2007-08: foto sobre un mapa antiguo, con marco de madera de parquet. El dorso recuerda sus 17 puntos, cuatro rebotes y dos tapas en el primer partido de la primera ronda de los playoffs de 2007, una victoria clave para Chicago."
+  },
+  {
+    id: "g31", slug: "pablo-prigioni-contenders-euroleague-x-factor-auto-87-99",
+    player: "Pablo Prigioni", playerSlug: "pablo-prigioni", jersey: 5, hof: false,
+    team: "Baskonia", teamSlug: "euroliga-baskonia",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2010s",
+    brand: "Panini", product: "Contenders EuroLeague", set: "X-Factor", subset: "Autograph",
+    cardNo: "XFC-PRI", serialNum: 87, printRun: 99,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 15000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.prigxf, IMG.prigxb],
+    badges: ["AUTO", "/99", "ARGENTINA"],
+    why: ["Numerada 87 de 99", "Autógrafo garantizado por Panini America", "Prigioni con la 5 del TAU Cerámica, temporada 2008-09"],
+    story: "Pablo Prigioni con la 5 del TAU Cerámica de Vitoria en la temporada 2008-09, en el autógrafo X-Factor de Contenders EuroLeague 2025-26. El dorso lo describe como un ladrón que componía sinfonías: sus robos no venían de la suerte sino de leer el juego tres pasos antes. Firma en tinta azul, numerada 87 de 99."
+  },
+  {
+    id: "g32", slug: "nolan-traore-signature-class-rookie-class-chrome-auto",
+    player: "Nolan Traore", playerSlug: "nolan-traore", jersey: 19, hof: false,
+    team: "Brooklyn Nets", teamSlug: "brooklyn-nets",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Signature Class", set: "Rookie Class Chrome Autographs", subset: "",
+    cardNo: "RCC-NT", serialNum: null, printRun: null,
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 20000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.traoref, IMG.traoreb],
+    badges: ["RC", "AUTO"],
+    why: ["Autógrafo certificado por Topps", "Rookie card, con el escudo RC", "Elegido en la primera ronda, pick 19, del draft 2025 por Brooklyn"],
+    story: "Nolan Traore con la 19 de los Brooklyn Nets en el Rookie Class Chrome Autographs de Topps Signature Class: la carta marca que lo eligieron en la primera ronda con el pick 19, y lleva la firma en tinta azul en el panel de abajo."
+  },
+  {
+    id: "g33", slug: "hakeem-olajuwon-topps-chrome-1997-generations-g4",
+    player: "Hakeem Olajuwon", playerSlug: "hakeem-olajuwon", jersey: 34, hof: true,
+    team: "Houston Rockets", teamSlug: "houston-rockets",
+    season: "1997-98", year: 1997, era: "1990s", playerEra: "1990s",
+    brand: "Topps", product: "Topps", set: "Generations", subset: "Troquelada",
+    cardNo: "G4", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 20000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.olaf, IMG.olab],
+    badges: ["HALL OF FAME", "VINTAGE"],
+    why: ["Hakeem Olajuwon con la 34 de los Houston Rockets", "Inserto Generations de Topps, troquelado y con acabado cromado", "Pieza de los 90 de un Hall of Famer"],
+    story: "Hakeem Olajuwon con la 34 de Houston en el inserto Generations de Topps (1997): carta troquelada en la parte de arriba, acabado cromado y el banner dorado de Generations. El dorso lo define como el pivot que cambió el puesto: versátil, de frente al aro y capaz de dominar el juego de línea de libre a línea de libre."
+  },
+  {
+    id: "g34", slug: "pharrel-payne-bowman-universitys-best-greatness-awaits-auto-59-99",
+    player: "Pharrel Payne", playerSlug: "pharrel-payne", jersey: 21, hof: false,
+    team: "Maryland", teamSlug: "ncaa-maryland",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Bowman University's Best", set: "Greatness Awaits", subset: "Autograph",
+    cardNo: "GA-PY", serialNum: 59, printRun: 99,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 15000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.paynef, IMG.payneb],
+    badges: ["AUTO", "/99"],
+    why: ["Numerada 59 de 99", "Autógrafo certificado por Topps", "Inserto Greatness Awaits de Bowman University's Best 2025-26"],
+    story: "Pharrel Payne, ala-pivot de Maryland, con la 21 de los Terrapins en el autógrafo Greatness Awaits de Bowman University's Best 2025-26: fondo verde brillante, letras rojas y la firma en tinta azul. Numerada 59 de 99."
+  },
+  {
+    id: "g35", slug: "pepe-sanchez-upper-deck-2002-03-pistons-255",
+    player: "Pepe Sánchez", playerSlug: "pepe-sanchez", jersey: 6, hof: false,
+    team: "Detroit Pistons", teamSlug: "detroit-pistons",
+    season: "2002-03", year: 2003, era: "2000s", playerEra: "2000s",
+    brand: "Upper Deck", product: "Upper Deck", set: "Upper Deck", subset: "Base",
+    cardNo: "255", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 3000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.pepef, IMG.pepeb],
+    badges: ["ARGENTINA"],
+    why: ["Pepe Sánchez con la 6 de los Detroit Pistons", "Upper Deck 2002-03", "Para la colección de argentinos en la NBA"],
+    story: "Juan Ignacio \"Pepe\" Sánchez, el bahiense que fue el primer argentino en jugar en la NBA, con la 6 de los Pistons en Upper Deck 2002-03. El dorso recuerda su paso por Temple, donde aprendió a defender con John Chaney y terminó con 365 robos, a solo 11 del récord de la NCAA."
+  },
+  {
+    id: "g36", slug: "paul-george-donruss-2016-17-all-stars-14",
+    player: "Paul George", playerSlug: "paul-george", jersey: 13, hof: false,
+    team: "Indiana Pacers", teamSlug: "indiana-pacers",
+    season: "2016-17", year: 2017, era: "2010s", playerEra: "2010s",
+    brand: "Panini", product: "Donruss", set: "All-Stars", subset: "",
+    cardNo: "14", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 150000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.pgf, IMG.pgb],
+    badges: ["ALL-STAR", "DRAKE EN LA TRIBUNA"],
+    why: ["La rareza: Drake aparece en la tribuna, detrás de Paul George", "Paul George con la camiseta del Este en el All-Star 2016 de Toronto", "Inserto All-Stars de Donruss 2016-17"],
+    story: "Lo que hace especial a esta carta está en el fondo: en la tribuna del All-Star 2016 de Toronto se ve a Drake, embajador de los Raptors y anfitrión de esa fiesta, mirando la jugada. Adelante, Paul George tira con la 13 del Este. Según el dorso, esa noche metió nueve triples y rompió el récord del partido, que era de ocho (Carmelo Anthony, 2014), y terminó con 41 puntos, a uno del récord de Wilt Chamberlain de 1962."
+  },
+  {
+    id: "g37", slug: "dennis-rodman-leaf-glory-of-the-game-glory-days-auto-08-40",
+    player: "Dennis Rodman", playerSlug: "dennis-rodman", jersey: 10, hof: true,
+    team: "Detroit Pistons", teamSlug: "detroit-pistons",
+    season: "2021", year: 2021, era: "2020s", playerEra: "1990s",
+    brand: "Leaf", product: "Glory of the Game", set: "Glory Days", subset: "Autograph",
+    cardNo: "GD-DR1", serialNum: 8, printRun: 40,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 70000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.rodmanf, IMG.rodmanb],
+    badges: ["AUTO", "/40", "HALL OF FAME"],
+    why: ["Numerada 08 de 40", "Autógrafo garantizado por Leaf Trading Cards", "Rodman con la 10 de los Pistons"],
+    story: "Dennis Rodman con la 10 de los Detroit Pistons en el autógrafo Glory Days de Leaf Glory of the Game (2021). La carta recuerda una noche puntual: el 2 de enero de 1991, con 34 puntos y 23 rebotes. Firma en tinta azul y numerada 08 de 40. Es un producto Leaf con licencia del jugador, sin logos oficiales de la NBA."
+  },
+  {
+    id: "g38", slug: "zaccharie-risacher-topps-chrome-updates-chromographs-auto-41-75",
+    player: "Zaccharie Risacher", playerSlug: "zaccharie-risacher", jersey: 10, hof: false,
+    team: "Atlanta Hawks", teamSlug: "atlanta-hawks",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Chrome Updates", set: "Chromographs", subset: "Autograph",
+    cardNo: "CH-ZR", serialNum: 41, printRun: 75,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 50000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.risacherf, IMG.risacherb],
+    badges: ["AUTO", "/75"],
+    why: ["Numerada 41 de 75", "Autógrafo certificado por Topps", "Inserto Chromographs de Topps Chrome Updates 2025-26"],
+    story: "Zaccharie Risacher, elegido N°1 del draft 2024 por Atlanta, con la 10 de los Hawks en el autógrafo Chromographs de Topps Chrome Updates 2025-26: diseño de vitral violeta con pelotas y globos dorados, firma en tinta azul y el serial 41/75 abajo a la derecha."
+  },
+  {
+    id: "g39", slug: "shaedon-sharpe-topps-chrome-updates-havoc-marks-auto",
+    player: "Shaedon Sharpe", playerSlug: "shaedon-sharpe", jersey: 17, hof: false,
+    team: "Portland Trail Blazers", teamSlug: "portland-trail-blazers",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Chrome Updates", set: "Havoc Marks", subset: "Autograph",
+    cardNo: "HM-SSH", serialNum: null, printRun: null,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 35000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.sharpef, IMG.sharpeb],
+    badges: ["AUTO"],
+    why: ["Autógrafo certificado por Topps", "Inserto Havoc Marks de Topps Chrome Updates 2025-26", "Con la 17 de los Portland Trail Blazers"],
+    story: "Shaedon Sharpe con la 17 de Portland en el autógrafo Havoc Marks de Topps Chrome Updates 2025-26: fondo explosivo de colores y la firma en tinta azul sobre la nube blanca de abajo."
+  },
+  {
+    id: "g40", slug: "oziyah-sellers-bowman-university-chrome-verified-86-99",
+    player: "Oziyah Sellers", playerSlug: "oziyah-sellers", jersey: 4, hof: false,
+    team: "St. John's", teamSlug: "ncaa-st-johns",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Bowman University Chrome", set: "Bowman Verified", subset: "Green Refractor",
+    cardNo: "BV-19", serialNum: 86, printRun: 99,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 5000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.sellersf, IMG.sellersb],
+    badges: ["/99", "REFRACTOR"],
+    why: ["Numerada 86 de 99", "Inserto Bowman Verified en refractor verde", "Con la 4 de St. John's"],
+    story: "Oziyah Sellers con la 4 de St. John's en el inserto Bowman Verified de Bowman University Chrome. Según el dorso, en 2024-25 metió el 40,1% de sus triples, con un pico de 27 puntos (4 de 5 de tres) ante Florida State el 25 de enero. Numerada 86 de 99."
+  },
+  {
+    id: "g41", slug: "pascal-siakam-nba-hoops-2018-19-raptors-56",
+    player: "Pascal Siakam", playerSlug: "pascal-siakam", jersey: 43, hof: false,
+    team: "Toronto Raptors", teamSlug: "toronto-raptors",
+    season: "2018-19", year: 2019, era: "2010s", playerEra: "2010s",
+    brand: "Panini", product: "NBA Hoops", set: "NBA Hoops", subset: "Base",
+    cardNo: "56", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 5000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.siakamf, IMG.siakamb],
+    badges: [],
+    why: ["Siakam volcando con la 43 de los Toronto Raptors", "NBA Hoops 2018-19", "La temporada en que Toronto salió campeón"],
+    story: "Pascal Siakam volando hacia el aro con la 43 de Toronto en NBA Hoops 2018-19. El dorso cuenta su historia de esfuerzo: nació en Camerún, empezó a jugar recién a los 16 años y en su segunda temporada superó en apenas 14 partidos las 17 asistencias de todo su año rookie."
+  },
+  {
+    id: "g42", slug: "tidjane-salaun-topps-inception-franchise-fundamental-auto-relic-22-50",
+    player: "Tidjane Salaün", playerSlug: "tidjane-salaun", jersey: 31, hof: false,
+    team: "Charlotte Hornets", teamSlug: "charlotte-hornets",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Inception", set: "Franchise Fundamental Autograph Relics", subset: "Doble swatch",
+    cardNo: "FF-TS", serialNum: 22, printRun: 50,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: true, memType: "Jersey",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 49000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.salaunf, IMG.salaunb],
+    badges: ["AUTO", "JERSEY", "/50"],
+    why: ["Numerada 22 de 50", "Autógrafo y dos pedazos de camiseta certificados por Topps", "Topps Inception, una de las líneas premium de Topps"],
+    story: "Tidjane Salaün con la camiseta de los Charlotte Hornets en el Franchise Fundamental Autograph Relics de Topps Inception 2025-26: carta horizontal con dos swatches de camiseta en marcos dorados, uno con la franja verde azulada de Charlotte, y la firma en tinta azul. El dorso lo presenta como parte de la camada francesa elegida en el top 10 del draft 2024: alero de brazos largos, atlético y con primer paso rápido. Numerada 22 de 50."
+  },
+  {
+    id: "g43", slug: "thomas-sorber-bowman-chrome-rookie-auto-purple-022-250",
+    player: "Thomas Sorber", playerSlug: "thomas-sorber", jersey: 12, hof: false,
+    team: "Oklahoma City Thunder", teamSlug: "oklahoma-city-thunder",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Bowman Chrome", set: "Base Chrome Autographs", subset: "Purple Refractor",
+    cardNo: "BCA-TS", serialNum: 22, printRun: 250,
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 30000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.sorberf, IMG.sorberb],
+    badges: ["RC", "AUTO", "/250"],
+    why: ["Numerada 022 de 250", "Autógrafo rookie certificado por Topps", "Refractor violeta de Bowman Chrome 2025-26, con el escudo RC"],
+    story: "Thomas Sorber con la 12 del Oklahoma City Thunder en su autógrafo rookie de Bowman Chrome 2025-26, en refractor violeta: firma en tinta azul sobre la foto y el serial 022/250 abajo a la derecha."
+  },
+  {
+    id: "g44", slug: "silas-demary-jr-bowman-universitys-best-best-of-2025-auto-35-99",
+    player: "Silas Demary Jr.", playerSlug: "silas-demary-jr", jersey: 2, hof: false,
+    team: "UConn", teamSlug: "ncaa-uconn",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Bowman University's Best", set: "Best of 2025 Autographs", subset: "Green Refractor",
+    cardNo: "BA-SD", serialNum: 35, printRun: 99,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 30000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.demaryf, IMG.demaryb],
+    badges: ["AUTO", "/99"],
+    why: ["Numerada 35 de 99", "Autógrafo certificado por Topps", "Inserto The Best of 2025 de Bowman University's Best"],
+    story: "Silas Demary Jr., base de UConn, con la 2 de los Huskies en el autógrafo The Best of 2025 de Bowman University's Best 2025-26: fondo verde brillante, la firma en tinta azul y el serial 35/99 arriba a la derecha."
+  },
+  {
+    id: "g45", slug: "spike-lee-donruss-2025-26-red-laser-109-125",
+    player: "Spike Lee", playerSlug: "spike-lee", jersey: null, hof: false,
+    team: "New York Knicks", teamSlug: "new-york-knicks",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "Donruss", set: "Donruss", subset: "Red Laser",
+    cardNo: "200", serialNum: 109, printRun: 125,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 30000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.spikef, IMG.spikeb],
+    badges: ["/125", "KNICKS"],
+    why: ["Numerada 109 de 125", "El hincha más famoso de los Knicks", "Parallel Red Laser de Donruss 2025-26"],
+    story: "Spike Lee, el hincha más famoso del Madison Square Garden, con su campera naranja y azul de los Knicks en Donruss 2025-26, en parallel Red Laser. El dorso recuerda que va a los partidos de New York hace cuatro décadas y que recibió el Oscar honorífico en 2015. Numerada 109 de 125."
+  },
+  {
+    id: "g46", slug: "tracy-mcgrady-topps-1997-98-rookie-125",
+    player: "Tracy McGrady", playerSlug: "tracy-mcgrady", jersey: 1, hof: true,
+    team: "Toronto Raptors", teamSlug: "toronto-raptors",
+    season: "1997-98", year: 1997, era: "1990s", playerEra: "2000s",
+    brand: "Topps", product: "Topps", set: "Topps", subset: "Base",
+    cardNo: "125", serialNum: null, printRun: null,
+    rookie: true, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 10000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.tmacf, IMG.tmacb],
+    badges: ["RC", "HALL OF FAME", "VINTAGE"],
+    why: ["Rookie card de Tracy McGrady", "Topps 1997-98, su primer año en la NBA", "Con la 1 de los Toronto Raptors"],
+    story: "Tracy McGrady volcando con la 1 de los Raptors en su rookie card de Topps 1997-98. El dorso cuenta el salto: después de Kevin Garnett en 1995 y de Kobe Bryant y Jermaine O'Neal en 1996, McGrady llegaba directo de la secundaria a la NBA, elegido noveno por Toronto, tras ser nombrado Jugador del Año de USA Today en Mt. Zion Christian Academy."
+  },
+  {
+    id: "g47", slug: "will-richard-bowman-chrome-rookie-auto",
+    player: "Will Richard", playerSlug: "will-richard", jersey: 3, hof: false,
+    team: "Golden State Warriors", teamSlug: "golden-state-warriors",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Bowman Chrome", set: "Base Chrome Autographs", subset: "",
+    cardNo: "BCA-WI", serialNum: null, printRun: null,
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 30000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.richardf, IMG.richardb],
+    badges: ["RC", "AUTO"],
+    why: ["Autógrafo rookie certificado por Topps", "Rookie card de los Warriors, con el escudo RC", "Bowman Chrome 2025-26"],
+    story: "Will Richard con la 3 de los Golden State Warriors en su autógrafo rookie de Bowman Chrome 2025-26: la firma en tinta azul sobre la foto y el escudo RC arriba a la izquierda."
+  },
+  {
+    id: "g48", slug: "jaylon-tyson-bowman-chrome-auto-refractor-030-499",
+    player: "Jaylon Tyson", playerSlug: "jaylon-tyson", jersey: 24, hof: false,
+    team: "Cleveland Cavaliers", teamSlug: "cleveland-cavaliers",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Bowman Chrome", set: "Base Chrome Autographs", subset: "Refractor",
+    cardNo: "BCA-JN", serialNum: 30, printRun: 499,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 20000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.tysonf, IMG.tysonb],
+    badges: ["AUTO", "/499", "REFRACTOR"],
+    why: ["Numerada 030 de 499", "Autógrafo certificado por Topps", "Refractor de Bowman Chrome 2025-26"],
+    story: "Jaylon Tyson con la camiseta negra de los Cleveland Cavaliers en el autógrafo de Bowman Chrome 2025-26, en versión refractor: firma \"JT 20\" en tinta azul sobre la foto y el serial 030/499 abajo a la derecha."
+  },
+  {
+    id: "g49", slug: "ruben-wolkowyski-upper-deck-game-edition-2000-01-sonics-369",
+    player: "Rubén Wolkowyski", playerSlug: "ruben-wolkowyski", jersey: 45, hof: false,
+    team: "Seattle SuperSonics", teamSlug: "oklahoma-city-thunder",
+    season: "2000-01", year: 2001, era: "2000s", playerEra: "2000s",
+    brand: "Upper Deck", product: "Upper Deck", set: "Game Edition", subset: "",
+    cardNo: "369", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 3000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    imgs: [IMG.wolkof, IMG.wolkob],
+    badges: ["ARGENTINA"],
+    why: ["Wolkowyski con la 45 de los Seattle SuperSonics", "Upper Deck Game Edition 2000-01", "Uno de los dos primeros argentinos en jugar en la NBA"],
+    story: "Rubén \"Colo\" Wolkowyski con la 45 de los Seattle SuperSonics en Upper Deck Game Edition 2000-01. El dorso recuerda su historia: brilló en Quilmes, Boca y Estudiantes de Olavarría, con el que ganó la Liga Nacional 1999-2000, y el 31 de octubre de 2000 se convirtió, junto a Pepe Sánchez, en uno de los dos primeros argentinos en jugar un partido de la NBA."
   }
 ];
 
 /* "Nueva" se calcula sola con la fecha de carga (addedOn, AAAA-MM-DD): a los 7 días deja de serlo */
+/* cartas en pesos: se guarda el precio real y se calcula el equivalente en USD para ordenar y filtrar */
+const toUsdNorm = c => { if (c.cur === "ARS" && c.priceArs == null){ c.priceArs = c.price; c.price = Math.round(c.price / SETTINGS.arsPerUsd); } };
+CARDS.forEach(toUsdNorm);
 CARDS.forEach(c => { const t = Date.parse((c.addedOn || "2026-01-01") + "T12:00:00"); c.addedDaysAgo = Math.max(0, Math.floor((Date.now() - t) / 864e5)); });
 
 /* Cartas vendidas (vacío por ahora) */
@@ -3348,7 +4165,7 @@ const COMBOS = [
       "Hugo González — RC, Celtics, insert Rookie Class Edition", "Ryan Kalkbrenner — RC, Hornets",
       "Noah Penda — RC, Magic", "Al Horford — Warriors"
     ],
-    price: 10, status: "available", owner: "nico"
+    price: 21000, cur: "ARS", status: "available", owner: "nico"
   },
   {
     slug: "combo-knicks-campeones-2025-26-topps-now",
@@ -3361,9 +4178,68 @@ const COMBOS = [
       "Mohamed Diawara — RC", "Ariel Hukporti", "Jose Alvarado", "Miles McBride",
       "Pacôme Dadiet", "Tyler Kolek"
     ],
-    price: 60, status: "available", owner: "nico"
+    price: 90000, cur: "ARS", status: "available", owner: "nico", cats: ["equipo"]
   }
 ];
+COMBOS.push({
+  slug: "combo-leandro-bolmaro-rookies-nba-hoops-2020-21",
+  title: "Combo Leandro Bolmaro — 2 rookies NBA Hoops 2020-21",
+  desc: "Las dos rookie cards de Bolmaro en NBA Hoops 2020-21: la base y la Rookie Ink autografiada.",
+  imgs: ["img/g-bolmarof.webp", "img/g-bolmarob.webp"],
+  includes: [
+    "Leandro Bolmaro — RC, Timberwolves, base N° 247 de NBA Hoops 2020-21",
+    "Leandro Bolmaro — RC, Timberwolves, Rookie Ink autografiada (N° RI-LBA), autógrafo garantizado por Panini"
+  ],
+  price: 15000, cur: "ARS", status: "available", owner: "guido"
+});
+COMBOS.push({
+  slug: "combo-manu-ginobili-x4-numeradas-y-swatch",
+  title: "Combo Manu Ginóbili ×4 — tres numeradas y un swatch de juego",
+  desc: "Cuatro cartas de Manu con los Spurs: 1952 Style /499, Swatch Kings con tela de juego /349, Triple Threads /899 y Brilliance.",
+  imgs: ["img/g-manu4f.webp", "img/g-manu4b.webp"],
+  includes: [
+    "Manu Ginóbili — Spurs, Topps Chrome 1952 Style N° 94, numerada 310/499",
+    "Manu Ginóbili — Spurs, Donruss 2015-16 Swatch Kings N° 31, tela game-worn certificada por Panini, numerada 060/349",
+    "Manu Ginóbili — Spurs, Topps Triple Threads 2007 N° 76, numerada 213/899",
+    "Manu Ginóbili — Spurs, Panini Brilliance 2012-13 N° 181"
+  ],
+  price: 60000, cur: "ARS", status: "available", owner: "guido"
+});
+COMBOS.push({
+  slug: "combo-manu-ginobili-x3",
+  title: "Combo Manu Ginóbili ×3",
+  desc: "Tres cartas de Manu con los Spurs: Excalibur, Reflections de Upper Deck y Rookies & Stars Longevity /199.",
+  imgs: ["img/g-manu3f.webp", "img/g-manu3b.webp"],
+  includes: [
+    "Manu Ginóbili — Spurs, Panini Excalibur 2015-16 N° 130",
+    "Manu Ginóbili — Spurs, Upper Deck Reflections 2004 N° 77",
+    "Manu Ginóbili — Spurs, Rookies & Stars 2009 Longevity N° 88, numerada 123/199"
+  ],
+  price: 15000, cur: "ARS", status: "available", owner: "guido"
+});
+COMBOS.push({
+  slug: "combo-pablo-prigioni-x2-elite-rookie-y-euroliga",
+  title: "Combo Pablo Prigioni ×2 — Elite Rookie /599 y Prizm EuroLeague",
+  desc: "Dos cartas del Pope: su Elite Rookie numerada con los Knicks y la Prizm EuroLeague con el Baskonia.",
+  imgs: ["img/g-prig2f.webp", "img/g-prig2b.webp"],
+  includes: [
+    "Pablo Prigioni — RC, Knicks, Donruss Elite 2012-13 Elite Rookie N° 224, numerada 112/599",
+    "Pablo Prigioni — Baskonia, Prizm EuroLeague 2023-24 N° 134, temporada 2008-09"
+  ],
+  price: 10000, cur: "ARS", status: "available", owner: "guido"
+});
+COMBOS.push({
+  slug: "combo-luis-scola-x2-excalibur-y-euroliga",
+  title: "Combo Luis Scola ×2 — Excalibur y Prizm EuroLeague",
+  desc: "Dos cartas de Luifa: Excalibur 2015-16 con los Raptors y Prizm EuroLeague con el Armani Milán.",
+  imgs: ["img/g-scola2f.webp", "img/g-scola2b.webp"],
+  includes: [
+    "Luis Scola — Raptors, Panini Excalibur 2015-16 N° 3",
+    "Luis Scola — Armani Milán, Prizm EuroLeague 2023-24 N° 62, temporada 2019-20"
+  ],
+  price: 5000, cur: "ARS", status: "available", owner: "guido"
+});
+COMBOS.forEach(toUsdNorm);
 
 /* Subastas en vivo — lotes demo armados con cartas que ya están en la bóveda */
 const AUCTIONS = [
@@ -3389,6 +4265,45 @@ const PLAYERS_META = {
   "charles-oakley":    { name:"Charles Oakley",      years:"1985–2004", teams:"Bulls · Knicks · Raptors · Wizards", pos:"Ala-pivot", hof:false, era:"1990s", note:"Líder histórico de la franquicia en rebotes ofensivos" },
   "marcus-camby":      { name:"Marcus Camby",        years:"1996–2013", teams:"Raptors · Knicks · Nuggets · Clippers · Blazers · Rockets", pos:"Pivot", hof:false, era:"1990s", note:"Mejor Defensor del Año 2007 con Denver" },
   "jason-kidd":        { name:"Jason Kidd",           years:"1994–2013", teams:"Mavericks · Suns · Nets · Knicks", pos:"Base", hof:true, era:"2000s", note:"Campeón NBA 2011, uno de los máximos asistidores de la historia" },
+  "alijah-arenas":     { name:"Alijah Arenas",        years:"2025–",     teams:"USC",       pos:"Escolta", hof:false, era:"2020s", note:"Hijo de Gilbert Arenas; más de 3.000 puntos en la secundaria en Los Ángeles" },
+  "aiden-sherrell":    { name:"Aiden Sherrell",       years:"2024–",     teams:"Alabama",   pos:"Pivot",   hof:false, era:"2020s", note:"Pivot de Alabama" },
+  "kiyan-anthony":     { name:"Kiyan Anthony",        years:"2025–",     teams:"Syracuse",  pos:"Escolta", hof:false, era:"2020s", note:"Hijo de Carmelo Anthony; recluta N°32 de la clase 2025 según 247Sports" },
+  "carter-bryant":     { name:"Carter Bryant",        years:"2025–",     teams:"Spurs",       pos:"Alero",   hof:false, era:"2020s", note:"Rookie de los Spurs en 2025-26" },
+  "braeden-shrewsberry": { name:"Braeden Shrewsberry", years:"2025–",   teams:"Notre Dame",  pos:"Escolta", hof:false, era:"2020s", note:"Escolta de Notre Dame" },
+  "brice-sensabaugh":  { name:"Brice Sensabaugh",     years:"2023–",     teams:"Jazz",        pos:"Alero",   hof:false, era:"2020s", note:"Debutó en la NBA en 2023-24" },
+  "stephen-curry":     { name:"Stephen Curry",        years:"2009–",     teams:"Warriors",    pos:"Base",    hof:false, era:"2010s", note:"Cuatro veces campeón con Golden State y oro olímpico en París 2024" },
+  "chaz-lanier":       { name:"Chaz Lanier",          years:"2025–",     teams:"Pistons",     pos:"Escolta", hof:false, era:"2020s", note:"Rookie de los Pistons en 2025-26" },
+  "isaiah-collier":    { name:"Isaiah Collier",       years:"2024–",     teams:"Jazz",        pos:"Base",    hof:false, era:"2020s", note:"Base de los Utah Jazz" },
+  "cooper-flagg":      { name:"Cooper Flagg",         years:"2025–",     teams:"Mavericks",   pos:"Alero",   hof:false, era:"2020s", note:"Elegido N°1 del draft 2025 por Dallas" },
+  "tristan-da-silva":  { name:"Tristan da Silva",     years:"2024–",     teams:"Magic",       pos:"Alero",   hof:false, era:"2020s", note:"Alero de los Orlando Magic" },
+  "aj-dybantsa":       { name:"AJ Dybantsa",          years:"2025–",     teams:"BYU",         pos:"Alero",   hof:false, era:"2020s", note:"Alero de BYU, de los prospectos más seguidos de su camada" },
+  "josh-hart":         { name:"Josh Hart",            years:"2017–",     teams:"Lakers · Pelicans · Blazers · Knicks", pos:"Escolta", hof:false, era:"2020s", note:"Ala todoterreno de los Knicks" },
+  "gg-jackson":        { name:"GG Jackson II",        years:"2023–",     teams:"Grizzlies",   pos:"Alero",   hof:false, era:"2020s", note:"Alero de los Memphis Grizzlies" },
+  "ja-morant":         { name:"Ja Morant",            years:"2019–",     teams:"Grizzlies",   pos:"Base",    hof:false, era:"2020s", note:"Rookie del Año 2020 con Memphis" },
+  "johni-broome":      { name:"Johni Broome",         years:"2025–",     teams:"76ers",       pos:"Pivot", hof:false, era:"2020s", note:"Rookie de los 76ers en 2025-26" },
+  "joe-grahovac":      { name:"Joe Grahovac",         years:"2025–",     teams:"St. Bonaventure", pos:"Ala-pivot", hof:false, era:"2020s", note:"Jugador de St. Bonaventure" },
+  "kyrie-irving":      { name:"Kyrie Irving",         years:"2011–",     teams:"Cavaliers · Celtics · Nets · Mavericks", pos:"Base", hof:false, era:"2010s", note:"Campeón NBA 2016 con Cleveland" },
+  "michael-jordan":    { name:"Michael Jordan",       years:"1984–2003", teams:"Bulls · Wizards", pos:"Escolta", hof:true, era:"1990s", note:"Seis veces campeón y seis veces MVP de las Finales con Chicago" },
+  "kyshawn-george":    { name:"Kyshawn George",       years:"2024–",     teams:"Wizards",     pos:"Alero",   hof:false, era:"2020s", note:"Alero de los Washington Wizards" },
+  "keshad-johnson":    { name:"Keshad Johnson",       years:"2024–",     teams:"Heat",        pos:"Alero",   hof:false, era:"2020s", note:"Debutó en la NBA con Miami en 2024-25" },
+  "donovan-mitchell":  { name:"Donovan Mitchell",     years:"2017–",     teams:"Jazz · Cavaliers", pos:"Escolta", hof:false, era:"2020s", note:"Escolta goleador de los Cleveland Cavaliers" },
+  "nolan-traore":      { name:"Nolan Traore",         years:"2025–",     teams:"Nets",        pos:"Base",    hof:false, era:"2020s", note:"Elegido en el pick 19 del draft 2025 por Brooklyn" },
+  "hakeem-olajuwon":   { name:"Hakeem Olajuwon",      years:"1984–2002", teams:"Rockets · Raptors", pos:"Pivot", hof:true, era:"1990s", note:"Bicampeón con Houston en 1994 y 1995" },
+  "pharrel-payne":     { name:"Pharrel Payne",        years:"2025–",     teams:"Maryland",    pos:"Ala-pivot", hof:false, era:"2020s", note:"Ala-pivot de Maryland" },
+  "paul-george":       { name:"Paul George",          years:"2010–",     teams:"Pacers · Thunder · Clippers · 76ers", pos:"Alero", hof:false, era:"2010s", note:"Nueve veces All-Star" },
+  "dennis-rodman":     { name:"Dennis Rodman",        years:"1986–2000", teams:"Pistons · Spurs · Bulls · Lakers · Mavericks", pos:"Ala-pivot", hof:true, era:"1990s", note:"Cinco veces campeón y siete veces líder de rebotes" },
+  "zaccharie-risacher": { name:"Zaccharie Risacher",  years:"2024–",     teams:"Hawks",       pos:"Alero",   hof:false, era:"2020s", note:"Elegido N°1 del draft 2024 por Atlanta" },
+  "shaedon-sharpe":    { name:"Shaedon Sharpe",       years:"2022–",     teams:"Trail Blazers", pos:"Escolta", hof:false, era:"2020s", note:"Escolta de los Portland Trail Blazers" },
+  "oziyah-sellers":    { name:"Oziyah Sellers",       years:"2025–",     teams:"St. John's",  pos:"Escolta", hof:false, era:"2020s", note:"Escolta de St. John's" },
+  "pascal-siakam":     { name:"Pascal Siakam",        years:"2016–",     teams:"Raptors · Pacers", pos:"Ala-pivot", hof:false, era:"2010s", note:"Campeón NBA 2019 con Toronto" },
+  "tidjane-salaun":    { name:"Tidjane Salaün",       years:"2024–",     teams:"Hornets",     pos:"Alero",   hof:false, era:"2020s", note:"Francés, elegido en el top 10 del draft 2024 por Charlotte" },
+  "thomas-sorber":     { name:"Thomas Sorber",        years:"2025–",     teams:"Thunder",     pos:"Pivot",   hof:false, era:"2020s", note:"Rookie del Oklahoma City Thunder en 2025-26" },
+  "silas-demary-jr":   { name:"Silas Demary Jr.",     years:"2025–",     teams:"UConn",       pos:"Base",    hof:false, era:"2020s", note:"Base de UConn" },
+  "spike-lee":         { name:"Spike Lee",            years:"Hincha",    teams:"Knicks",      pos:"Hincha",  hof:false, era:"2020s", note:"Director de cine y el hincha más famoso de los Knicks" },
+  "tracy-mcgrady":     { name:"Tracy McGrady",        years:"1997–2013", teams:"Raptors · Magic · Rockets", pos:"Escolta", hof:true, era:"2000s", note:"Dos veces goleador de la NBA, en el Hall of Fame desde 2017" },
+  "will-richard":      { name:"Will Richard",         years:"2025–",     teams:"Warriors",    pos:"Escolta", hof:false, era:"2020s", note:"Rookie de los Golden State Warriors en 2025-26" },
+  "jaylon-tyson":      { name:"Jaylon Tyson",         years:"2024–",     teams:"Cavaliers",   pos:"Alero",   hof:false, era:"2020s", note:"Alero de los Cleveland Cavaliers" },
+  "ruben-wolkowyski":  { name:"Rubén Wolkowyski",     years:"2000–2002", teams:"SuperSonics · Celtics", pos:"Ala-pivot", hof:false, era:"2000s", note:"Uno de los dos primeros argentinos en la NBA, junto a Pepe Sánchez" },
   "victor-wembanyama": { name:"Victor Wembanyama",    years:"2023–",     teams:"Spurs", pos:"Pivot", hof:false, era:"2020s", note:"Elegido N°1 del draft 2023, récord de puntos en debut de temporada para San Antonio" }
 };
 
@@ -3399,7 +4314,7 @@ const WANTED = {
 };
 /* jugadores argentinos: alcanza con que un jugador esté acá para que sus cartas
    aparezcan solas en la colección "Argentina", sin tocar nada más */
-const ARGENTINA_SLUGS = ["manu-ginobili","luis-scola","pablo-prigioni","fabricio-oberto","carlos-delfino","pepe-sanchez","andres-nocioni","facundo-campazzo","leandro-bolmaro","gabriel-deck"];
+const ARGENTINA_SLUGS = ["ruben-wolkowyski","manu-ginobili","luis-scola","pablo-prigioni","fabricio-oberto","carlos-delfino","pepe-sanchez","andres-nocioni","facundo-campazzo","leandro-bolmaro","gabriel-deck"];
 
 const TEAMS = [
   ["Atlanta Hawks","ATL","atlanta-hawks","#E03A3E","#C1D32F"],["Boston Celtics","BOS","boston-celtics","#007A33","#BA9653"],
@@ -3620,7 +4535,15 @@ const save = {
 const $ = (s, r=document) => r.querySelector(s);
 const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
 const esc = s => String(s==null?"":s).replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
-const money = n => "USD " + Number(n).toLocaleString("es-AR");
+/* precios: cada carta o combo puede estar en dólares (por defecto) o en pesos (cur:"ARS").
+   Para ordenar, filtrar y decidir Premium se usa price en USD; las de pesos guardan su precio real en priceArs. */
+const isArs = it => !!(it && it.cur === "ARS");
+/* precio en pesos de cualquier carta: las de dólares se pasan con la cotización de referencia (solo para filtrar) */
+const pesoOf = c => isArs(c) ? Number(c.priceArs) : Math.round(Number(c.price) * SETTINGS.arsPerUsd);
+const vaultLbl = () => "Más de $ " + (SETTINGS.vaultOver * SETTINGS.arsPerUsd).toLocaleString("es-AR");
+const curLbl = it => isArs(it) ? "$" : "USD";
+const priceNum = it => Number(isArs(it) ? it.priceArs : it.price).toLocaleString("es-AR");
+const money = (n, it) => isArs(it) ? "$ " + Number(it.priceArs).toLocaleString("es-AR") : "USD " + Number(n).toLocaleString("es-AR");
 const live = () => S.inventory.filter(c => c.status !== "sold");
 const soldCards = () => S.inventory.filter(c => c.status === "sold");
 const byId = id => S.inventory.find(c => c.id === id);
@@ -3639,7 +4562,7 @@ const plural = (n, s, p) => n + " " + (n === 1 ? s : p);
 /* WhatsApp: arma el link al dueño de la carta con el mensaje ya escrito */
 function ownerOf(c){ return OWNERS[c && c.owner] || OWNERS[DEFAULT_OWNER]; }
 function waMsg(cards){
-  const line = c => `• ${c.player} — ${c.season} ${c.set.startsWith(c.product) ? c.set : c.product + " " + c.set}${serialOf(c) ? " · " + serialOf(c) : ""} · ${money(c.price)}`;
+  const line = c => `• ${c.player} — ${c.season} ${c.set.startsWith(c.product) ? c.set : c.product + " " + c.set}${serialOf(c) ? " · " + serialOf(c) : ""} · ${money(c.price, c)}`;
   return cards.length === 1
     ? `Hola! Vi esta carta en Final Cards y me interesa:\n${line(cards[0])}\n¿Sigue disponible?`
     : `Hola! Vi estas cartas en Final Cards y me interesan:\n${cards.map(line).join("\n")}\n¿Siguen disponibles?`;
@@ -3665,14 +4588,14 @@ function waGroup(cards, cls){
 function waTo(text){ return "https://wa.me/" + OWNERS[DEFAULT_OWNER].wa + "?text=" + encodeURIComponent(text); }
 function groupHref(){ return SETTINGS.groupUrl || waTo("Hola, quiero sumarme al grupo de WhatsApp de Final Cards."); }
 function groupBtn(label, cls){ return `<a class="btn btn-group ${cls || ""}" href="${groupHref()}" target="_blank" rel="noopener">${WA_ICON}${esc(label || "Sumate al grupo")}</a>`; }
-function groupNote(lead){ return `<p class="group-note">${esc(lead)} <a href="${groupHref()}" target="_blank" rel="noopener">Sumate al grupo de WhatsApp</a> y enterate cuando entren cartas nuevas.</p>`; }
+function groupNote(lead){ return `<p class="group-note">${esc(lead)} <a href="${groupHref()}" target="_blank" rel="noopener">Sumate al grupo de WhatsApp</a>: ahí avisamos las cartas nuevas y hay ventas exclusivas del grupo.</p>`; }
 document.querySelectorAll("[data-group]").forEach(a => { a.href = groupHref(); a.target = "_blank"; a.rel = "noopener"; });
 function waLink(text, label, cls){ return `<a class="btn btn-wa ${cls || ""}" href="${waTo(text)}" target="_blank" rel="noopener">${WA_ICON}${esc(label)}</a>`; }
 
 /* ---------- combos ---------- */
 function comboWaMsg(combo){
   const items = (combo.includes || []).map(t => `• ${t}`).join("\n");
-  return `Hola! Vi el combo "${combo.title}" en Final Cards y me interesa:\n${items}\nPrecio del combo: ${money(combo.price)}\n¿Sigue disponible?`;
+  return `Hola! Vi el combo "${combo.title}" en Final Cards y me interesa:\n${items}\nPrecio del combo: ${money(combo.price, combo)}\n¿Sigue disponible?`;
 }
 function comboWaBtn(combo, cls){
   if (combo.status === "sold") return "";
@@ -3683,7 +4606,7 @@ function comboWaBtn(combo, cls){
 /* COMPARTIR — texto para WhatsApp y una imagen armada para Instagram */
 function shareText(c){
   const set = c.set.startsWith(c.product) ? c.set : c.product + " " + c.set;
-  return `${c.player} — ${c.season} ${set}${serialOf(c) ? " · " + serialOf(c) : ""} · ${money(c.price)}\nDisponible en Final Cards. Consultas por WhatsApp: wa.me/${ownerOf(c).wa}`;
+  return `${c.player} — ${c.season} ${set}${serialOf(c) ? " · " + serialOf(c) : ""} · ${money(c.price, c)}\nDisponible en Final Cards. Consultas por WhatsApp: wa.me/${ownerOf(c).wa}`;
 }
 function loadImg(src){ return new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; }); }
 async function shareImage(c){
@@ -3711,7 +4634,7 @@ async function shareImage(c){
   const set = c.set.startsWith(c.product) ? c.set : c.product + " · " + c.set;
   g.fillText((c.season + " " + set).toUpperCase(), W/2, 1120, W - 140);
   g.fillStyle = "#E2C572"; g.font = '500 44px "IBM Plex Mono", Menlo, monospace';
-  g.fillText([serialOf(c), money(c.price)].filter(Boolean).join("   ·   "), W/2, 1196, W - 140);
+  g.fillText([serialOf(c), money(c.price, c)].filter(Boolean).join("   ·   "), W/2, 1196, W - 140);
   g.fillStyle = "#8E97A4"; g.font = '22px "IBM Plex Mono", Menlo, monospace';
   g.fillText("CONSULTAS POR WHATSAPP · +" + ownerOf(c).wa, W/2, 1262, W - 140);
   return cv;
@@ -3854,7 +4777,7 @@ function cardTile(c){
         (ser ? '<span class="pcard-serial serial">'+ser+'</span>' : '<span class="pcard-serial muted" style="font-size:10px">SIN NUMERAR</span>')+
         '<span class="pcard-price">'+(sold
           ? '<small>VENDIDA</small>'+ (c.soldPrice ? Number(c.soldPrice).toLocaleString("es-AR") : "")
-          : '<small>USD</small>'+Number(c.price).toLocaleString("es-AR"))+'</span>'+
+          : '<small>'+curLbl(c)+'</small>'+priceNum(c))+'</span>'+
       '</div>'+
     '</div>'+
   '</article>';
@@ -3918,7 +4841,7 @@ function comboTile(combo){
     <span class="cc-body">
       <b>${esc(combo.title)}</b>
       ${combo.desc ? `<span class="cc-desc">${esc(combo.desc)}</span>` : ""}
-      <span class="cc-foot"><span class="cc-price">${sold ? "Vendido" : `<small>USD</small>${Number(combo.price).toLocaleString("es-AR")}`}</span><span class="cc-go">Ver combo →</span></span>
+      <span class="cc-foot"><span class="cc-price">${sold ? "Vendido" : `<small>${curLbl(combo)}</small>${priceNum(combo)}`}</span><span class="cc-go">Ver combo →</span></span>
     </span>
   </a>`;
 }
@@ -3963,8 +4886,9 @@ function searchCards(q, pool){
     const b = blob(c);
     if (p.text.length && !p.text.every(t => b.includes(t))) return false;
     if (p.run && c.printRun !== p.run) return false;
-    if (p.maxPrice && c.price > p.maxPrice) return false;
-    if (p.minPrice && c.price < p.minPrice) return false;
+    const pv = n => n < 1000 ? n * SETTINGS.arsPerUsd : n;
+    if (p.maxPrice && pesoOf(c) > pv(p.maxPrice)) return false;
+    if (p.minPrice && pesoOf(c) < pv(p.minPrice)) return false;
     if (p.rookie && !c.rookie) return false;
     if (p.auto && !c.auto) return false;
     if (p.patch && !c.memorabilia) return false;
@@ -4012,7 +4936,6 @@ const FILTER_DEFS = [
   { key:"memType",  label:"Tipo de memorabilia",get:c => c.memorabilia ? c.memType : "Sin memorabilia" },
   { key:"printRun", label:"Tirada",             get:c => runLabel(c) || "Sin numerar" },
   { key:"gradeCompany", label:"Grading",        get:c => c.gradeCompany || "RAW" },
-  { key:"condition",label:"Estado",             get:c => c.condition },
   { key:"status",   label:"Disponibilidad",     get:c => STATUS_ES[c.status] || c.status }
 ];
 function facetValues(pool, def){
@@ -4032,8 +4955,8 @@ function applyFilters(pool){
       let v = def.get(c); v = Array.isArray(v) ? v : [v];
       if (!v.some(x => sel.includes(String(x)))) return false;
     }
-    if (f.priceMin && c.price < +f.priceMin) return false;
-    if (f.priceMax && c.price > +f.priceMax) return false;
+    if (f.priceMin && pesoOf(c) < +f.priceMin) return false;
+    if (f.priceMax && pesoOf(c) > +f.priceMax) return false;
     return true;
   });
 }
@@ -4045,14 +4968,14 @@ function activeFilterCount(){
 const SHOP_PAGE = 24;   // cartas por tanda en el listado; el resto aparece con "Ver más"
 const KIND_ORDER = ["Autógrafo","Rookie","Game-Worn","Numerada bajo","Premium","Hall of Fame","Argentina"];
 const KIND_LABEL = { "Autógrafo":"Autógrafos", "Rookie":"Rookies", "Numerada bajo":"Numeradas bajo" };
-const PRICE_BANDS = [["Hasta USD 50", "", "50"], ["USD 50 a 100", "50", "100"], ["Más de USD 100", "100", ""]];
+const PRICE_BANDS = [["Hasta $ 30.000", "", "30000"], ["$ 30.000 a $ 90.000", "30001", "90000"], ["Más de $ 90.000", "90001", ""]];   // sin superposición: cada carta cae en una sola franja
 function quickFilters(pool){
   const def = FILTER_DEFS.find(d => d.key === "cardType");
   const count = {}; pool.forEach(c => def.get(c).forEach(k => { count[k] = (count[k] || 0) + 1; }));
   const kinds = KIND_ORDER.filter(k => count[k]);
   const sel = S.filters.cardType || [];
   const pMin = S.filters.priceMin || "", pMax = S.filters.priceMax || "";
-  const inBand = ([, lo, hi]) => pool.filter(c => (!lo || c.price >= +lo) && (!hi || c.price <= +hi)).length;
+  const inBand = ([, lo, hi]) => pool.filter(c => (!lo || pesoOf(c) >= +lo) && (!hi || pesoOf(c) <= +hi)).length;
   return `<div class="qf">
     ${kinds.length ? `<div class="fd-row qf-kind"><span class="fd-label">Tipo</span><div class="fd-scroll" data-qf-row>
       <button class="fd-chip${sel.length ? "" : " on"}" data-qf="cardType" data-qf-val="" data-qf-one>Todas</button>
@@ -4076,7 +4999,6 @@ function meters(c){
       <span class="mv">${esc(text)}</span></div>`;
   return `<div class="meter">
     ${row("Rareza", rarity, c.printRun ? plural(c.printRun, "copia", "copias") : "sin numerar")}
-    ${row("Estado", cond, c.condition, true)}
     ${row("Firma", ink, c.auto ? "autografiada" : "sin firma")}
   </div>`;
 }
@@ -4192,7 +5114,7 @@ function pageHome(){
   const playerCounts = {}; pool.forEach(c => playerCounts[c.playerSlug] = (playerCounts[c.playerSlug]||0)+1);
   const topPlayers = Object.keys(playerCounts).map(slug => { const c = pool.find(x => x.playerSlug === slug); return [slug, c.player, playerCounts[slug], Math.max(...pool.filter(x => x.playerSlug === slug).map(x => x.price))]; })
     .sort((a,b) => b[2] - a[2] || b[3] - a[3]).slice(0, 14);
-  const topTeams = Object.keys(teamCounts).map(slug => { const t = TEAMS.find(x => x[2] === slug); return [slug, t ? t[0] : slug, teamCounts[slug], t ? t[3] : "#888"]; })
+  const topTeams = Object.keys(teamCounts).filter(slug => TEAMS.some(x => x[2] === slug)).map(slug => { const t = TEAMS.find(x => x[2] === slug); return [slug, t ? t[0] : slug, teamCounts[slug], t ? t[3] : "#888"]; })
     .sort((a,b) => b[2] - a[2] || a[1].localeCompare(b[1])).slice(0, 14);
   const sec = (ix, right) => `<div class="sec-rule"><span class="ix">${ix}</span><span class="ln"></span>${right?`<span class="rt">${esc(right)}</span>`:""}</div>`;
   const rail = list => `<div class="rail">${list.map(c => `<div>${cardTile(c)}</div>`).join("")}</div>`;
@@ -4215,7 +5137,7 @@ function pageHome(){
   const soldOf = f => soldCards().filter(f).length;
 
   const tickerItems = pool.slice().sort(SORTS.new).slice(0,6).map(c =>
-      `<span class="tk"><span class="tdot"></span>Nueva en la bóveda <b>${esc(c.player)}</b> ${esc(c.set)} <span class="tprice">${money(c.price)}</span></span>`)
+      `<span class="tk"><span class="tdot"></span>Nueva en la bóveda <b>${esc(c.player)}</b> ${esc(c.set)} <span class="tprice">${money(c.price, c)}</span></span>`)
     .concat(soldCards().map(c =>
       `<span class="tk"><span class="tdot sold"></span>Vendida <b>${esc(c.player)}</b> ${serialOf(c)||""} <span class="tprice">${money(c.soldPrice||c.price)}</span></span>`))
     .concat([`<span class="tk"><span class="tdot"></span>Consultas directas por <b>WhatsApp</b></span>`,
@@ -4235,7 +5157,7 @@ function pageHome(){
         <div class="stage-glow"></div>
         <div class="stage-beam"></div>
         ${stageCards.map((c,i) => `
-          <a class="stage-card" href="#/cards/${c.slug}" data-stage="${i}" data-cap="${esc(c.player)}" data-capk="${c.vault ? "Premium" : "Destacada"}" data-cap2="${esc([serialOf(c), money(c.price)].filter(Boolean).join(" · "))}" aria-label="${esc(c.player)}" draggable="false">
+          <a class="stage-card" href="#/cards/${c.slug}" data-stage="${i}" data-cap="${esc(c.player)}" data-capk="${c.vault ? "Premium" : "Destacada"}" data-cap2="${esc([serialOf(c), money(c.price, c)].filter(Boolean).join(" · "))}" aria-label="${esc(c.player)}" draggable="false">
             <img src="${c.imgs[0]}" alt="${esc(c.player)} — ${esc(c.product)}" draggable="false">
             <span class="holo" aria-hidden="true"></span>
           </a>`).join("")}
@@ -4390,7 +5312,7 @@ function pageHome(){
       </div>
       <div class="section-head"><div><h2>${esc(hs.h2)}</h2>
         <p class="sub">${esc(hs.sub)}</p></div>
-        <a class="btn btn-sm" href="${hs.href}">${esc(hs.label)}</a></div>
+        <a class="btn btn-sm" href="${hs.href}">${hs.isCombo ? "Ver todos" : "Ver todas"}</a></div>
       ${hs.isCombo ? (hs.list.length ? `<div class="combo-grid">${hs.list.map(comboTile).join("")}</div>` : emptyState()) : hs.list.length ? room(homeRest(hs.list), {
         eyebrow: hs.eyebrow, title: "Qué hay en la sala", blurb: hs.blurb, rows: hs.rows,
         wanted: hs.wanted, href: hs.href, cta: hs.cta
@@ -4400,7 +5322,7 @@ function pageHome(){
 
   ${vaultPieces.length ? `<section class="vault-band">
     <div class="wrap section rv">
-      ${sec("03 — Premium", "Más de " + money(SETTINGS.vaultOver))}
+      ${sec("03 — Premium", vaultLbl())}
       <div class="vault-hero">
         <h2 class="display">Cartas excepcionales para colecciones excepcionales.</h2>
         <p>Las cartas más importantes de la bóveda. Hay ${plural(premiumAll.length, "carta premium", "cartas premium")} en stock.</p>
@@ -4416,7 +5338,7 @@ function pageHome(){
             <h3>${esc(c.player)}</h3>
             <p class="vp-set">${esc(setRest(c) || c.subset || c.set)}</p>
             <p class="vp-serial serial">${serialOf(c) || "SIN NUMERAR"}</p>
-            <p class="vp-price">${money(c.price)}</p>
+            <p class="vp-price">${money(c.price, c)}</p>
             <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
               <a class="btn btn-sm" href="#/cards/${c.slug}">Ver carta</a>
               <button class="btn btn-sm" data-vitrina="${c.id}">◈ Vitrina</button>
@@ -4446,7 +5368,7 @@ function pageHome(){
             </div>
             <h3>${esc(co.title)}</h3>
             <p class="vp-set">${esc(co.desc || "")}</p>
-            <p class="vp-price">${co.status==="sold" ? "Vendido" : money(co.price)}</p>
+            <p class="vp-price">${co.status==="sold" ? "Vendido" : money(co.price, co)}</p>
             <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
               <a class="btn btn-sm btn-gold" href="#/combos/${co.slug}">Ver combo</a>
             </p>
@@ -4471,8 +5393,8 @@ function pageHome(){
     <div class="wrap group-band-in">
       <div>
         <p class="eyebrow">Grupo de WhatsApp</p>
-        <h2>Enterate de las <em>cartas nuevas</em></h2>
-        <p class="gb-sub">Sumate al grupo de Final Cards. Ahí publicamos las cartas que entran, los combos y las novedades.</p>
+        <h2>Cartas nuevas y <em>ventas exclusivas</em></h2>
+        <p class="gb-sub">Sumate al grupo de Final Cards. Ahí publicamos las cartas que entran, los combos y las novedades, y hay ventas exclusivas que solo salen por el grupo.</p>
       </div>
       <div>${groupBtn("Sumate al grupo")}</div>
     </div>
@@ -4595,7 +5517,7 @@ function pageShop(params){
               ${many ? `<button type="button" class="fmore" data-facet-all>Ver los ${vals.length}</button>` : ""}
             </div></details>`;
         }).join("")}
-        <details class="fgroup" open><summary>Precio (USD)</summary>
+        <details class="fgroup" open><summary>Precio ($)</summary>
           <div class="frange">
             <input type="number" id="priceMin" placeholder="Mín" value="${S.filters.priceMin||""}" aria-label="Precio mínimo">
             <span class="muted">—</span>
@@ -4628,7 +5550,7 @@ function pageShop(params){
         ${activeFilterCount() ? `<div class="active-filters">${
           FILTER_DEFS.flatMap(d => (S.filters[d.key]||[]).map(v =>
             `<span class="afilter">${esc(v)} <button data-remove="${d.key}" data-val="${esc(v)}" aria-label="Quitar filtro">×</button></span>`)).join("")
-        }${S.filters.priceMin?`<span class="afilter">mín ${S.filters.priceMin} <button data-remove="priceMin" aria-label="Quitar">×</button></span>`:""}${S.filters.priceMax?`<span class="afilter">máx ${S.filters.priceMax} <button data-remove="priceMax" aria-label="Quitar">×</button></span>`:""}</div>` : ""}
+        }${S.filters.priceMin?`<span class="afilter">mín $ ${Number(S.filters.priceMin).toLocaleString("es-AR")} <button data-remove="priceMin" aria-label="Quitar">×</button></span>`:""}${S.filters.priceMax?`<span class="afilter">máx $ ${Number(S.filters.priceMax).toLocaleString("es-AR")} <button data-remove="priceMax" aria-label="Quitar">×</button></span>`:""}</div>` : ""}
         ${cardGrid(list.slice(0, S.shopLimit || SHOP_PAGE), S.view)}
         ${list.length > (S.shopLimit || SHOP_PAGE) ? `<p class="shop-more"><button class="btn" data-more>Ver más cartas <span>${list.length - (S.shopLimit || SHOP_PAGE)} más</span></button></p>` : ""}
       </div>
@@ -4657,7 +5579,7 @@ function pageProduct(slug){
     ["Serial", ser || "Sin numerar"], ["Tirada", c.printRun ? plural(c.printRun, "copia", "copias") : "No disponible"],
     ["Rookie", c.rookie ? "Sí" : "No"], ["Autógrafo", c.auto ? "Sí" : "No"],
     ["Memorabilia", c.memorabilia ? "Sí" : "No"],
-    ["Tipo de memorabilia", c.memorabilia ? c.memType : "—"], ["Estado", c.condition],
+    ["Tipo de memorabilia", c.memorabilia ? c.memType : "—"],
     ["Grading", c.gradeCompany === "RAW" ? "Raw (sin gradear)" : c.gradeCompany + " " + c.grade],
     ["N° de certificación", c.cert || "—"]
   ];
@@ -4698,7 +5620,7 @@ function pageProduct(slug){
         </div>
 
         <div style="margin-top:26px; display:flex; align-items:baseline; gap:18px; flex-wrap:wrap">
-          <span class="pdp-price">${sold ? '<small>VENDIDA EN</small>' + Number(c.soldPrice||c.price).toLocaleString("es-AR") : '<small>USD</small>' + Number(c.price).toLocaleString("es-AR")}</span>
+          <span class="pdp-price">${sold ? '<small>VENDIDA EN</small>' + Number(c.soldPrice||c.price).toLocaleString("es-AR") : '<small>' + curLbl(c) + '</small>' + priceNum(c)}</span>
           <span class="stock"><span class="dot ${sold?"sold":(auc?"auction":"")}"></span>${sold ? "Vendida el " + c.soldDate : (auc ? "Subasta en curso" : "Disponible · 1 unidad")}</span>
         </div>
 
@@ -4777,7 +5699,7 @@ function pageVault(){
   <section class="page-hero"><div class="wrap ph-inner" style="text-align:center">
     <p class="eyebrow gold">Selección · ${plural(pieces.length, "carta", "cartas")}</p>
     <h1 class="display" style="font-size:clamp(40px,8vw,96px); font-variation-settings:normal; text-transform:none">Premium</h1>
-    <p class="ph-sub" style="margin-inline:auto">Las cartas más importantes de The NBA Vault: las de más de ${money(SETTINGS.vaultOver)}, ordenadas de mayor a menor.</p>
+    <p class="ph-sub" style="margin-inline:auto">Las cartas más importantes de The NBA Vault: las de ${vaultLbl().toLowerCase()}, ordenadas de mayor a menor.</p>
     <p style="margin-top:24px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
       <button class="btn btn-gold" data-vitrina="vault">◈ Recorrer en modo vitrina</button>
       <button class="btn" data-sala>Entrar a la sala</button>
@@ -4799,7 +5721,7 @@ function pageVault(){
           <p style="margin-top:24px; display:flex; gap:10px; align-items:center; flex-wrap:wrap">
             <a class="btn btn-solid" href="#/cards/${c.slug}">Ver carta</a>
             <button class="btn btn-sm" data-vitrina="${c.id}">◈ Vitrina</button>
-            <span class="pdp-price" style="font-size:22px"><small>USD</small>${Number(c.price).toLocaleString("es-AR")}</span>
+            <span class="pdp-price" style="font-size:22px"><small>${curLbl(c)}</small>${priceNum(c)}</span>
           </p>
         </div>
       </div>`).join("")}
@@ -5025,6 +5947,26 @@ function pageCollection(slug){
   </div>`;
 }
 
+/* subcategorías de combos: se calculan solas con el contenido de cada combo.
+   Un combo puede estar en varias. Para forzar una, agregar cats:["stars"] (u otra clave) en el combo. */
+const COMBO_CATS = [
+  ["argentinos", "Argentinos"],
+  ["jugador",    "De un jugador"],
+  ["equipo",     "De un equipo"],
+  ["stars",      "Combo Stars"],
+  ["top",        "Combo Top"],
+  ["lotes",      "Lotes grandes (10+)"]
+];
+function comboCats(co){
+  const items = co.includes || [];
+  const players = items.map(i => i.split("—")[0].trim()).filter(Boolean);
+  const set = new Set(co.cats || []);
+  if (players.length >= 2 && new Set(players).size === 1) set.add("jugador");
+  const slug = t => norm(t).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  if (players.some(n => ARGENTINA_SLUGS.includes(slug(n)))) set.add("argentinos");
+  if (items.length >= 10) set.add("lotes");
+  return set;
+}
 function pageCombos(){
   const sortFns = {
     new: (a,b) => COMBOS.indexOf(b) - COMBOS.indexOf(a),
@@ -5032,7 +5974,9 @@ function pageCombos(){
     "price-desc": (a,b) => b.price - a.price
   };
   const sortKey = sortFns[S.comboSort] ? S.comboSort : "new";
-  const list = COMBOS.slice().sort(sortFns[sortKey]);
+  const cats = COMBO_CATS.map(([k, l]) => [k, l, COMBOS.filter(co => comboCats(co).has(k)).length]).filter(c => c[2]);
+  const cat = cats.some(c => c[0] === S.tab) ? S.tab : "all";
+  const list = COMBOS.filter(co => cat === "all" || comboCats(co).has(cat)).sort(sortFns[sortKey]);
   return `
   <div class="wrap">
     <p class="crumbs"><a href="#/">Inicio</a> / Combos</p>
@@ -5044,6 +5988,10 @@ function pageCombos(){
       <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--silver);fill:none;stroke-width:1.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
       <input id="comboSearch" type="search" placeholder="Buscá por jugador, equipo o nombre del combo..." aria-label="Buscar combos" style="font-size:clamp(15px,2vw,18px)">
     </div>
+    ${cats.length ? `<div class="tabs combo-tabs" role="tablist" aria-label="Tipos de combo">
+      <button data-tab="all" class="${cat==="all"?"on":""}" role="tab" aria-selected="${cat==="all"}">Todos <span style="color:var(--silver-dim)">${COMBOS.length}</span></button>
+      ${cats.map(([k, l, n]) => `<button data-tab="${k}" class="${cat===k?"on":""}" role="tab" aria-selected="${cat===k}">${esc(l)} <span style="color:var(--silver-dim)">${n}</span></button>`).join("")}
+    </div>` : ""}
     <div class="shop-toolbar" style="border:0; padding-bottom:0; margin-bottom:18px">
       <select class="sortsel" id="comboSort" aria-label="Ordenar combos" style="margin-left:auto">
         <option value="new"${sortKey==="new"?" selected":""}>Más nuevos primero</option>
@@ -5067,7 +6015,7 @@ function pageCombo(slug){
     <p class="crumbs"><a href="#/">Inicio</a> / <a href="#/combos">Combos</a> / ${esc(combo.title)}</p>
     <div class="pdp" style="padding-bottom:40px">
       <div class="pdp-media">
-        <div class="pdp-frame" style="cursor:default">
+        <div class="pdp-frame combo-zoom" data-combo-zoom title="Tocá para agrandar">
           ${imgs.length
             ? `<img id="pdpImg" src="${imgs[0]}" alt="${esc(combo.title)}">`
             : `<span class="cat-empty" style="width:120px; aspect-ratio:1086/1448">◇</span>`}
@@ -5082,7 +6030,7 @@ function pageCombo(slug){
         ${combo.desc ? `<p class="pdp-set">${esc(combo.desc)}</p>` : ""}
 
         <div style="margin-top:26px; display:flex; align-items:baseline; gap:18px; flex-wrap:wrap">
-          <span class="pdp-price">${sold ? '<small>VENDIDO</small>' : '<small>USD</small>'}${sold ? "" : Number(combo.price).toLocaleString("es-AR")}</span>
+          <span class="pdp-price">${sold ? '<small>VENDIDO</small>' : '<small>' + curLbl(combo) + '</small>'}${sold ? "" : priceNum(combo)}</span>
           <span class="stock"><span class="dot ${sold?"sold":""}"></span>${sold ? "Combo vendido" : "Disponible · lote único"}</span>
         </div>
 
@@ -5112,12 +6060,13 @@ function comboWhy(combo){
   const out = [];
   if (n){
     const avg = combo.price / n;
-    const avgTxt = avg < 1 ? "menos de USD 1 por carta" : money(Math.round(avg)) + " por carta";
-    out.push(`${plural(n, "carta", "cartas")} por ${money(combo.price)} — sale a ${avgTxt} en promedio.`);
+    const avgTxt = isArs(combo) ? "$ " + Math.round(combo.priceArs / n).toLocaleString("es-AR") + " por carta"
+      : avg < 1 ? "menos de USD 1 por carta" : money(Math.round(avg)) + " por carta";
+    out.push(`${plural(n, "carta", "cartas")} por ${money(combo.price, combo)} — sale a ${avgTxt} en promedio.`);
   }
   const rookies = items.filter(i => /\bRC\b/.test(i)).length;
   if (rookies) out.push(`Trae ${plural(rookies, "rookie", "rookies")} adentro del lote.`);
-  const teams = new Set(items.map(i => (i.split("—")[1] || "").split(",")[0].trim()).filter(Boolean));
+  const teams = new Set(items.map(i => (i.split("—")[1] || "").split(",").map(x => x.trim()).filter(x => x && x !== "RC")[0]).filter(Boolean));
   if (teams.size > 1) out.push(`Equipos mezclados: buena forma de arrancar o sumar variedad a la colección de un tirón.`);
   else if (teams.size === 1) out.push(`Lote enfocado en un solo plantel, ideal si seguís a ${[...teams][0]}.`);
   out.push("Se vende como lote único: todo el combo junto, no carta por carta.");
@@ -5173,7 +6122,7 @@ function pageCompare(){
     ["Rookie", c => c.rookie ? "Sí" : "No"],
     ["Serial", c => serialOf(c) || "Sin numerar"],
     ["Grading", c => c.gradeCompany === "RAW" ? "Raw" : esc(c.gradeCompany + " " + c.grade)],
-    ["Precio", c => c.status === "sold" ? "Vendida" : money(c.price)],
+    ["Precio", c => c.status === "sold" ? "Vendida" : money(c.price, c)],
     ["", c => `<a class="btn btn-sm" href="#/cards/${c.slug}">Ver</a> <button class="btn btn-sm btn-ghost" data-compare="${c.id}">Quitar</button>`]
   ];
   return `
@@ -5284,7 +6233,7 @@ function quickView(id){
         <p class="pdp-serial serial" style="font-size:30px; margin:0">${serialOf(c) || "Sin numerar"}</p>
         <div class="badges" style="margin-top:14px">${(c.badges||[]).map(b=>`<span class="badge ${badgeClass(b)}">${esc(b)}</span>`).join("")}</div>
         <p style="margin-top:18px; color:var(--bone-dim); font-size:14px">${esc((c.story||"").split(". ").slice(0,2).join(". ")+".")}</p>
-        <p class="pdp-price" style="margin-top:18px; font-size:26px"><small>USD</small>${Number(c.price).toLocaleString("es-AR")}</p>
+        <p class="pdp-price" style="margin-top:18px; font-size:26px"><small>${curLbl(c)}</small>${priceNum(c)}</p>
         <div style="display:grid; gap:8px; margin-top:16px">
           ${c.status==="sold" ? `<span class="btn" style="border-style:dashed; cursor:default">Vendida el ${esc(c.soldDate||"")}</span>` :
             waBtn(c)}
@@ -5296,7 +6245,7 @@ function quickView(id){
 }
 function offerModal(id){
   const c = byId(id); if (!c) return;
-  openModal(`${modalHead("Hacer una oferta", c.player + " · " + (serialOf(c) || "sin numerar") + " · pide " + money(c.price))}
+  openModal(`${modalHead("Hacer una oferta", c.player + " · " + (serialOf(c) || "sin numerar") + " · pide " + money(c.price, c))}
     <form id="offerForm">
       <label class="field"><span>Tu oferta (USD)</span><input name="amount" type="number" required min="1" placeholder="${Math.round(c.price*0.85)}"></label>
       <label class="field"><span>Email</span><input name="email" type="email" required placeholder="vos@email.com"></label>
@@ -5421,7 +6370,7 @@ function paintShowcase(){
   paintScBack(c);
   $("#scBuy").innerHTML = c.status === "sold"
     ? `<span class="btn btn-sm" style="border-style:dashed; cursor:default">Vendida</span>`
-    : `<span class="sc-price"><small>USD</small>${Number(c.price).toLocaleString("es-AR")}</span>
+    : `<span class="sc-price"><small>${curLbl(c)}</small>${priceNum(c)}</span>
        ${waBtn(c, "Consultar", "btn-sm")}`;
   paintShowcaseTools();
   $("#scStrip").innerHTML = SC.list.map((x,i) =>
@@ -5776,7 +6725,7 @@ function pkInfo(c, i){
   const hit = i === 4;
   return `<span class="pi-tag">${hit ? "◆ Premium" : "Carta " + (i + 1) + " de 5"}</span>
     <span class="pi-name">${esc(c.player)}</span>
-    <span class="pi-set">${esc(c.season + " " + c.product + " · " + c.set)} · ${money(c.price)}</span>
+    <span class="pi-set">${esc(c.season + " " + c.product + " · " + c.set)} · ${money(c.price, c)}</span>
     <span class="pi-serial serial" id="pkSerial">${serialOf(c) || (hit ? "" : "Sin numerar")}</span>`;
 }
 function pkAdvance(){
@@ -5859,7 +6808,7 @@ function pkSummary(){
           <p class="pks-meta">${esc(c.season + " " + c.product)}<br>${esc(c.set)}</p>
           <div class="pks-row">
             ${serialOf(c) ? `<span class="serial" style="font-family:var(--mono); font-size:13px">${serialOf(c)}</span>` : `<span class="muted" style="font-family:var(--mono); font-size:10px; letter-spacing:.1em">SIN NUMERAR</span>`}
-            <span style="font-family:var(--mono); font-size:14px">${money(c.price)}</span>
+            <span style="font-family:var(--mono); font-size:14px">${money(c.price, c)}</span>
           </div>
           <div class="pks-btns">
             ${waBtn(c, "Consultar", "btn-sm")}
@@ -6114,7 +7063,7 @@ function slApply(f){
     ctx.fillText((c.season + " · " + c.product).toUpperCase(), pw / 2, y, pw - 16);
     y += 7 + h * .027;
     ctx.fillStyle = "#e2c572"; ctx.font = `${(h * .026).toFixed(1)}px "IBM Plex Mono", monospace`;
-    ctx.fillText((serialOf(c) || "Sin numerar") + " · " + money(c.price), pw / 2, y, pw - 16);
+    ctx.fillText((serialOf(c) || "Sin numerar") + " · " + money(c.price, c), pw / 2, y, pw - 16);
     ctx.setTransform(SL.dpr, 0, 0, SL.dpr, 0, 0);
     SL.hits.push({ i, x0: L.x - 8 * L.s, x1: Rr.x + 8 * Rr.s, y0: cy - (h / 2 + 8) * Math.max(L.s, Rr.s), y1: cy + (h / 2) * Math.max(L.s, Rr.s) + 26 * M.s + ph * M.s });
   }
@@ -6135,7 +7084,7 @@ function slPaintNow(){
   $("#slCount").textContent = String(SL.idx + 1).padStart(2, "0") + " / " + String(SL.list.length).padStart(2, "0");
   $("#slNow").innerHTML = `<p class="eyebrow">${esc(room)}</p>
     <h2>${esc(c.player)}</h2>
-    <p>${esc(c.season + " " + c.product + " · " + c.set)} · <span class="serial">${serialOf(c) || "sin numerar"}</span> · ${money(c.price)}</p>`;
+    <p>${esc(c.season + " " + c.product + " · " + c.set)} · <span class="serial">${serialOf(c) || "sin numerar"}</span> · ${money(c.price, c)}</p>`;
   $("#slActs").innerHTML = `
     <button class="btn btn-sm btn-gold" data-sl-act="vitrina">◈ Verla de cerca</button>
     <a class="btn btn-sm" href="#/cards/${c.slug}">Ver ficha</a>
@@ -7368,7 +8317,7 @@ function afterRender(parts, pathChanged){
     if (c && c.status !== "sold"){
       sticky.innerHTML = `<div style="flex:1; min-width:0">
           <p style="font-family:var(--mono); font-size:11px; color:var(--silver); white-space:nowrap; overflow:hidden; text-overflow:ellipsis">${esc(c.player)} · ${serialOf(c)||"sin numerar"}</p>
-          <p style="font-family:var(--mono); font-size:16px">${money(c.price)}</p>
+          <p style="font-family:var(--mono); font-size:16px">${money(c.price, c)}</p>
         </div>
         ${waBtn(c, "Consultar", "btn-sm")}`;
       sticky.classList.add("show");
@@ -7500,7 +8449,7 @@ function wire(){
           <span class="r-name">${esc(c.player)}</span>
           <span class="r-meta">${esc(c.season+" "+c.product+" · "+c.set)} · ${serialOf(c)||"sin numerar"}</span>
         </span>
-        <span class="r-price">${money(c.price)}</span>
+        <span class="r-price">${money(c.price, c)}</span>
       </a>`).join("");
     if (comboRes.length) html += head("Combos") + comboRes.map(combo => `
       <a class="sresult" href="#/combos/${combo.slug}" data-close-search>
@@ -7509,7 +8458,7 @@ function wire(){
           <span class="r-name">${esc(combo.title)}</span>
           <span class="r-meta">Combo · ${plural((combo.includes||[]).length, "carta", "cartas")}</span>
         </span>
-        <span class="r-price">${combo.status==="sold" ? "VENDIDO" : money(combo.price)}</span>
+        <span class="r-price">${combo.status==="sold" ? "VENDIDO" : money(combo.price, combo)}</span>
       </a>`).join("");
     if (q && all.length > cardRes.length) html += `<a class="sr-all" href="#/cards?q=${encodeURIComponent(q)}" data-close-search>Ver las ${all.length} cartas que coinciden →</a>`;
     $("#searchResults").innerHTML = html || `<p class="muted" style="padding:20px 12px">Nada coincide con “${esc(q)}”. Probá un jugador, un equipo, un set o una tirada como /25.</p><div style="padding:0 12px 18px">${groupNote("¿Todavía no la tenemos?")}</div>`;
@@ -7635,6 +8584,7 @@ function wire(){
     const want = hit("[data-wantlist]"); if (want){ e.preventDefault(); toast("Anotada en tu lista de búsqueda"); return; }
     const lb = hit("[data-lightbox]"); if (lb){ e.preventDefault(); openLightbox(lb.dataset.lightbox, 0); return; }
 
+    const cz = hit("[data-combo-zoom]"); if (cz){ cz.classList.toggle("z130"); return; }
     const thumb = hit(".pdp-thumb[data-img]");
     if (thumb){ $("#pdpImg").src = thumb.dataset.img; $$(".pdp-thumb").forEach(x => x.classList.remove("on")); thumb.classList.add("on"); return; }
     if (hit("#rotateBtn")){
