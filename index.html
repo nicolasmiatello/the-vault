@@ -661,6 +661,9 @@ select.sortsel{background:var(--field); border:1px solid var(--hair); padding:9p
 .vault-piece.vp-combo .tilt{aspect-ratio:1/1; width:min(300px,80%); display:grid; place-items:center; border-radius:6px;
   background:radial-gradient(70% 60% at 50% 40%, rgba(244,243,239,.06), transparent 70%), #0a0a0c; box-shadow:0 0 0 1px rgba(244,243,239,.08), 0 40px 70px -30px rgba(0,0,0,.95)}
 .vault-piece.vp-combo .tilt img{width:100%; height:100%; object-fit:contain; padding:8px; box-shadow:none; -webkit-box-reflect:unset}
+/* inicio: todos los combos en el mismo marco vertical, la foto horizontal se centra sin achicar el marco */
+.vault-piece.vp-combo .tilt{aspect-ratio:3/4; position:relative}
+.vault-piece.vp-combo .tilt img{position:absolute; inset:0}
 .cc-n{position:absolute; left:10px; bottom:10px; font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:#1a1405; background:linear-gradient(140deg,var(--gold-soft),var(--gold)); padding:5px 9px; border-radius:2px; font-weight:600}
 .cc-img .flag{position:absolute; top:10px; left:10px}
 .cc-body{display:flex; flex-direction:column; gap:8px; padding:16px 16px 18px; flex:1}
@@ -3597,7 +3600,7 @@ const CARDS = [
     cardNo: "9", serialNum: 130, printRun: 250,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 100000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    price: 100000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido", noStage: true,
     imgs: [IMG.dybantsaf, IMG.dybantsab],
     badges: ["/250", "REFRACTOR"],
     why: ["Numerada 130 de 250", "Refractor violeta de Bowman's Best University", "Uno de los prospectos más seguidos de la camada universitaria 2025-26"],
@@ -3732,7 +3735,7 @@ const CARDS = [
     cardNo: "84", serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 100000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    price: 100000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido", stage: true,
     imgs: [IMG.mjrairf, IMG.mjrairb],
     badges: ["HALL OF FAME", "VINTAGE"],
     why: ["Michael Jordan con la 23 de los Bulls", "Serie Decade of Dominance de Upper Deck, con fotos de Walter Iooss", "Carta horizontal con dos imágenes de juego"],
@@ -3927,7 +3930,7 @@ const CARDS = [
     cardNo: "14", serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 150000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    price: 150000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido", noStage: true,
     imgs: [IMG.pgf, IMG.pgb],
     badges: ["ALL-STAR", "DRAKE EN LA TRIBUNA"],
     why: ["La rareza: Drake aparece en la tribuna, detrás de Paul George", "Paul George con la camiseta del Este en el All-Star 2016 de Toronto", "Inserto All-Stars de Donruss 2016-17"],
@@ -3942,7 +3945,7 @@ const CARDS = [
     cardNo: "GD-DR1", serialNum: 8, printRun: 40,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 70000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    price: 70000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido", stage: true,
     imgs: [IMG.rodmanf, IMG.rodmanb],
     badges: ["AUTO", "/40", "HALL OF FAME"],
     why: ["Numerada 08 de 40", "Autógrafo garantizado por Leaf Trading Cards", "Rodman con la 10 de los Pistons"],
@@ -4186,6 +4189,7 @@ COMBOS.push({
   title: "Combo Leandro Bolmaro — 2 rookies NBA Hoops 2020-21",
   desc: "Las dos rookie cards de Bolmaro en NBA Hoops 2020-21: la base y la Rookie Ink autografiada.",
   imgs: ["img/g-bolmarof.webp", "img/g-bolmarob.webp"],
+  cover: "img/g-bolmaro-portada.webp",   // portada vertical solo para el inicio y la lista de combos; el detalle muestra la foto real
   includes: [
     "Leandro Bolmaro — RC, Timberwolves, base N° 247 de NBA Hoops 2020-21",
     "Leandro Bolmaro — RC, Timberwolves, Rookie Ink autografiada (N° RI-LBA), autógrafo garantizado por Panini"
@@ -4835,7 +4839,7 @@ function comboBlob(combo){
 function comboTile(combo){
   const n = (combo.includes || []).length, sold = combo.status === "sold";
   return `<a class="combo-card${sold ? " is-sold" : ""}" href="#/combos/${combo.slug}" data-combo-name="${esc(comboBlob(combo))}" data-combo-price="${combo.price}">
-    <span class="cc-img">${combo.imgs && combo.imgs[0] ? `<img src="${combo.imgs[0]}" alt="" loading="lazy">` : ""}
+    <span class="cc-img">${combo.imgs && combo.imgs[0] ? `<img src="${combo.cover || combo.imgs[0]}" alt="" loading="lazy">` : ""}
       <span class="cc-n">${n ? plural(n, "carta", "cartas") : "Lote"}</span>
       ${sold ? `<span class="flag flag-sold">Vendido</span>` : ""}</span>
     <span class="cc-body">
@@ -5092,7 +5096,8 @@ function pageHome(){
     const out = []; for (let i = 0; out.length < list.length; i++) order.forEach(o => { if (by[o][i]) out.push(by[o][i]); });
     return out;
   };
-  const stageCards = fairMix(byPrice).slice(0, 5);
+  // stage:true fija una carta en el carrusel de arriba (va primero en el turno de su dueño); noStage:true la saca
+  const stageCards = fairMix(byPrice.filter(c => !c.noStage).sort((a,b) => (b.stage?1:0) - (a.stage?1:0))).slice(0, 5);
   // sección Premium del inicio: premium que no están girando arriba, para no repetir
   const premRest = premiumAll.filter(c => !stageCards.includes(c));
   const premShow = (premRest.length >= 2 ? premRest : premiumAll).filter(c => c.homePremium !== false);   // homePremium:false en una carta la saca de esta sección del inicio
@@ -5104,7 +5109,7 @@ function pageHome(){
   const freshNew = pool.filter(isNew).sort((a,b) => b.price - a.price);
   const freshList = fairMix(freshNew).concat(pool.filter(c => !isNew(c)).sort(SORTS.new)).slice(0, 8);
   const homeRest = list => { const r = list.filter(c => !stageIds.has(c.id)); return fairMix(r.length >= 4 ? r : list); };
-  const homeCombos = fairMix(COMBOS.filter(co => co.status !== "sold").sort((a,b) => b.price - a.price)).slice(0, 3);
+  const homeCombos = fairMix(COMBOS.filter(co => co.status !== "sold").sort((a,b) => b.price - a.price)).slice(0, 4);
   const rookies = pool.filter(c => c.rookie);
   const worn = pool.filter(c => c.memorabilia);
   const lowNo = pool.filter(c => c.printRun && c.printRun <= 49).sort((a,b) => a.printRun - b.printRun);
@@ -5361,7 +5366,7 @@ function pageHome(){
       <div class="vault-row">
         ${homeCombos.map((co,i) => `
           <div class="vault-piece vp-combo">
-            <a class="tilt" data-tilt href="#/combos/${co.slug}"><img src="${co.imgs[0]}" alt="${esc(co.title)}"></a>
+            <a class="tilt" data-tilt href="#/combos/${co.slug}"><img src="${co.cover || co.imgs[0]}" alt="${esc(co.title)}"></a>
             <div class="plaque">
               <span class="pl-t">Combo ${String(i+1).padStart(2,"0")}</span>
               <span class="pl-s">${plural((co.includes||[]).length, "carta", "cartas")}</span>
