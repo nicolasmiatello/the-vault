@@ -5325,9 +5325,38 @@ function pageHome(){
     })()}
   </section>
 
+  ${COMBOS.length ? `<section class="vault-band" style="background:linear-gradient(180deg,#0b0904,#000)">
+    <div class="wrap section rv">
+      ${sec("03 — Combos", plural(COMBOS.length, "combo armado", "combos armados"))}
+      <div class="vault-hero">
+        <h2 class="display">Lotes que se venden<br><em style="font-style:italic; color:var(--gold-soft)">enteros</em>, a mejor precio.</h2>
+        <p>Varias cartas juntas por menos de lo que saldrían por separado. Cada combo se vende entero, tal como está armado.</p>
+      </div>
+      <div class="vault-row">
+        ${homeCombos.map((co,i) => `
+          <div class="vault-piece vp-combo">
+            <a class="tilt" data-tilt href="#/combos/${co.slug}"><img src="${co.cover || co.imgs[0]}" alt="${esc(co.title)}"></a>
+            <div class="plaque">
+              <span class="pl-t">Combo ${String(i+1).padStart(2,"0")}</span>
+              <span class="pl-s">${plural((co.includes||[]).length, "carta", "cartas")}</span>
+            </div>
+            <h3>${esc(co.title)}</h3>
+            <p class="vp-set">${esc(co.desc || "")}</p>
+            <p class="vp-price">${co.status==="sold" ? "Vendido" : money(co.price, co)}</p>
+            <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
+              <a class="btn btn-sm btn-gold" href="#/combos/${co.slug}">Ver combo</a>
+            </p>
+          </div>`).join("")}
+      </div>
+      <p class="more-cta">
+        <a class="btn btn-gold" href="#/combos">Ver todos los combos</a>
+      </p>
+    </div>
+  </section>` : ""}
+
   ${vaultPieces.length ? `<section class="vault-band">
     <div class="wrap section rv">
-      ${sec("03 — Premium", vaultLbl())}
+      ${sec("04 — Premium", vaultLbl())}
       <div class="vault-hero">
         <h2 class="display">Cartas excepcionales para colecciones excepcionales.</h2>
         <p>Las cartas más importantes de la bóveda. Hay ${plural(premiumAll.length, "carta premium", "cartas premium")} en stock.</p>
@@ -5352,35 +5381,6 @@ function pageHome(){
       </div>
       <p class="more-cta">
         <a class="btn btn-gold" href="#/premium">Ver todas las cartas premium</a>
-      </p>
-    </div>
-  </section>` : ""}
-
-  ${COMBOS.length ? `<section class="vault-band" style="background:linear-gradient(180deg,#0b0904,#000)">
-    <div class="wrap section rv">
-      ${sec("04 — Combos", plural(COMBOS.length, "combo armado", "combos armados"))}
-      <div class="vault-hero">
-        <h2 class="display">Lotes que se venden<br><em style="font-style:italic; color:var(--gold-soft)">enteros</em>, a mejor precio.</h2>
-        <p>Varias cartas juntas por menos de lo que saldrían por separado. Cada combo se vende entero, tal como está armado.</p>
-      </div>
-      <div class="vault-row">
-        ${homeCombos.map((co,i) => `
-          <div class="vault-piece vp-combo">
-            <a class="tilt" data-tilt href="#/combos/${co.slug}"><img src="${co.cover || co.imgs[0]}" alt="${esc(co.title)}"></a>
-            <div class="plaque">
-              <span class="pl-t">Combo ${String(i+1).padStart(2,"0")}</span>
-              <span class="pl-s">${plural((co.includes||[]).length, "carta", "cartas")}</span>
-            </div>
-            <h3>${esc(co.title)}</h3>
-            <p class="vp-set">${esc(co.desc || "")}</p>
-            <p class="vp-price">${co.status==="sold" ? "Vendido" : money(co.price, co)}</p>
-            <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
-              <a class="btn btn-sm btn-gold" href="#/combos/${co.slug}">Ver combo</a>
-            </p>
-          </div>`).join("")}
-      </div>
-      <p class="more-cta">
-        <a class="btn btn-gold" href="#/combos">Ver todos los combos</a>
       </p>
     </div>
   </section>` : ""}
