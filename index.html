@@ -2725,7 +2725,7 @@ html, body{overflow-x:clip}
       <a href="#/players">Jugadores</a>
       <a href="#/teams">Equipos</a>
       <a href="#/collections">Colecciones</a>
-      <a href="#/combos">Combos</a>
+      <a href="#/combos">Lotes</a>
     </nav>
     <div class="hdr-actions">
       <button class="search-pill" id="searchBtn" aria-label="Buscar" title="Buscar (/)">
@@ -2758,7 +2758,7 @@ html, body{overflow-x:clip}
   <a href="#/players">Jugadores</a>
   <a href="#/teams">Equipos</a>
   <a href="#/collections">Colecciones</a>
-  <a href="#/combos">Combos</a>
+  <a href="#/combos">Lotes</a>
   <a href="#" data-group class="mnav-wa"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.2-3.6A7.8 7.8 0 1 1 8.4 18.6z"/><path d="M9.2 9.3c.3 1.9 1.8 3.8 3.9 4.6l1.1-1 1.6.8c-.2.9-.9 1.5-1.8 1.5-2.9-.2-5.6-2.9-5.9-5.8 0-.9.6-1.6 1.5-1.8l.8 1.6z"/></svg>Grupo de WhatsApp</a>
   <p class="mnav-h">Por tipo de carta</p>
   <div class="mnav-sub" id="mnavTypes"></div>
@@ -2803,7 +2803,7 @@ html, body{overflow-x:clip}
         <a href="#/rookies">Rookies</a>
         <a href="#/autographs">Autógrafos</a>
         <a href="#/game-worn">Game-worn</a>
-        <a href="#/combos">Combos</a>
+        <a href="#/combos">Lotes</a>
             </div>
       <div class="foot-col">
         <h5>Explorar</h5>
@@ -2845,7 +2845,7 @@ html, body{overflow-x:clip}
   <a href="#" id="bnSearch"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>Buscar</span></a>
   <a href="#/players" data-bn="/players"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c1.2-4 4-6 7-6s5.8 2 7 6"/></svg><span>Jugadores</span></a>
   <a href="#/teams" data-bn="/teams"><svg viewBox="0 0 24 24"><path d="M12 3.5l7 3v5.2c0 4.3-3 7.6-7 8.8-4-1.2-7-4.5-7-8.8V6.5z"/><path d="M9 11.5h6M12 8.5v6"/></svg><span>Equipos</span></a>
-  <a href="#/combos" data-bn="/combos"><svg viewBox="0 0 24 24"><rect x="5" y="9" width="11" height="11" rx="1.5"/><path d="M8 9V6.5A1.5 1.5 0 0 1 9.5 5H18a1.5 1.5 0 0 1 1.5 1.5V15a1.5 1.5 0 0 1-1.5 1.5H17"/></svg><span>Combos</span></a>
+  <a href="#/combos" data-bn="/combos"><svg viewBox="0 0 24 24"><rect x="5" y="9" width="11" height="11" rx="1.5"/><path d="M8 9V6.5A1.5 1.5 0 0 1 9.5 5H18a1.5 1.5 0 0 1 1.5 1.5V15a1.5 1.5 0 0 1-1.5 1.5H17"/></svg><span>Lotes</span></a>
 </nav>
 
 <div class="sticky-buy" id="stickyBuy"></div>
@@ -4179,7 +4179,7 @@ const COMBOS = [
   },
   {
     slug: "combo-knicks-campeones-2025-26-topps-now",
-    title: "Combo Knicks Campeones 2025-26 — Topps Now",
+    title: "Lote Knicks Campeones 2025-26 — Topps Now",
     desc: "15 cartas Topps Now conmemorativas de los Knicks campeones 2025-26, todo el plantel.",
     imgs: ["img/1790632554874.webp", "img/1790632554875.webp", "img/1790632554876.webp"],
     includes: [
@@ -4189,11 +4189,26 @@ const COMBOS = [
       "Pacôme Dadiet", "Tyler Kolek"
     ],
     price: 90000, cur: "ARS", status: "available", owner: "nico", cats: ["equipo"]
+  },
+  {
+    slug: "set-completo-topps-2000-01-series-1",
+    title: "Set Topps 2000-01 Series 1 — 132 cartas",
+    desc: "La Series 1 de Topps NBA 2000-01: las regulares #1 a #124 más las Season Leaders #150 a #155, con Shaq, Duncan, Nowitzki, Vince Carter, Pippen, Stockton y Ewing. No incluye las rookies.",
+    imgs: ["img/n-topps0001-1.webp", "img/n-topps0001-2.webp", "img/n-topps0001-3.webp", "img/n-topps0001-4.webp", "img/n-topps0001-5.webp"],
+    count: 132,
+    includes: [
+      "Cartas regulares #1 a #124 de Topps 2000-01 Series 1",
+      "Season Leaders #150 a #155: Scoring, Rebounds, Assists, Blocks y Steals, más la de NBA Champions 1999-2000 de los Lakers",
+      "Figuras: Shaquille O'Neal, Tim Duncan, Dirk Nowitzki, Vince Carter, Kevin Garnett, Scottie Pippen, Reggie Miller, Ray Allen, John Stockton, Patrick Ewing, Jason Kidd, Paul Pierce y Dikembe Mutombo",
+      "No incluye las rookie cards (RC) de la serie"
+    ],
+    why: ["Colección completa de hace 25 años, armada y lista: conseguirla carta por carta lleva mucho tiempo."],
+    price: 170000, cur: "ARS", status: "available", owner: "nico", cats: ["lotes"]
   }
 ];
 COMBOS.push({
   slug: "combo-leandro-bolmaro-rookies-nba-hoops-2020-21",
-  title: "Combo Leandro Bolmaro — 2 rookies NBA Hoops 2020-21",
+  title: "Set Leandro Bolmaro — 2 rookies NBA Hoops 2020-21",
   desc: "Las dos rookie cards de Bolmaro en NBA Hoops 2020-21: la base y la Rookie Ink autografiada.",
   imgs: ["img/g-bolmarof.webp", "img/g-bolmarob.webp"],
   cover: "img/g-bolmaro-portada.webp",   // portada vertical solo para el inicio y la lista de combos; el detalle muestra la foto real
@@ -4205,7 +4220,7 @@ COMBOS.push({
 });
 COMBOS.push({
   slug: "combo-manu-ginobili-x4-numeradas-y-swatch",
-  title: "Combo Manu Ginóbili ×4 — tres numeradas y un swatch de juego",
+  title: "Set Manu Ginóbili ×4 — tres numeradas y un swatch de juego",
   desc: "Cuatro cartas de Manu con los Spurs: 1952 Style /499, Swatch Kings con tela de juego /349, Triple Threads /899 y Brilliance.",
   imgs: ["img/g-manu4f.webp", "img/g-manu4b.webp"],
   includes: [
@@ -4218,7 +4233,7 @@ COMBOS.push({
 });
 COMBOS.push({
   slug: "combo-manu-ginobili-x3",
-  title: "Combo Manu Ginóbili ×3",
+  title: "Set Manu Ginóbili ×3",
   desc: "Tres cartas de Manu con los Spurs: Excalibur, Reflections de Upper Deck y Rookies & Stars Longevity /199.",
   imgs: ["img/g-manu3f.webp", "img/g-manu3b.webp"],
   includes: [
@@ -4230,7 +4245,7 @@ COMBOS.push({
 });
 COMBOS.push({
   slug: "combo-pablo-prigioni-x2-elite-rookie-y-euroliga",
-  title: "Combo Pablo Prigioni ×2 — Elite Rookie /599 y Prizm EuroLeague",
+  title: "Set Pablo Prigioni ×2 — Elite Rookie /599 y Prizm EuroLeague",
   desc: "Dos cartas del Pope: su Elite Rookie numerada con los Knicks y la Prizm EuroLeague con el Baskonia.",
   imgs: ["img/g-prig2f.webp", "img/g-prig2b.webp"],
   includes: [
@@ -4241,7 +4256,7 @@ COMBOS.push({
 });
 COMBOS.push({
   slug: "combo-luis-scola-x2-excalibur-y-euroliga",
-  title: "Combo Luis Scola ×2 — Excalibur y Prizm EuroLeague",
+  title: "Set Luis Scola ×2 — Excalibur y Prizm EuroLeague",
   desc: "Dos cartas de Luifa: Excalibur 2015-16 con los Raptors y Prizm EuroLeague con el Armani Milán.",
   imgs: ["img/g-scola2f.webp", "img/g-scola2b.webp"],
   includes: [
@@ -4606,12 +4621,12 @@ function waLink(text, label, cls){ return `<a class="btn btn-wa ${cls || ""}" hr
 /* ---------- combos ---------- */
 function comboWaMsg(combo){
   const items = (combo.includes || []).map(t => `• ${t}`).join("\n");
-  return `Hola! Vi el combo "${combo.title}" en Final Cards y me interesa:\n${items}\nPrecio del combo: ${money(combo.price, combo)}\n¿Sigue disponible?`;
+  return `Hola! Vi el ${comboKindL(combo)} "${combo.title}" en Final Cards y me interesa:\n${items}\nPrecio del ${comboKindL(combo)}: ${money(combo.price, combo)}\n¿Sigue disponible?`;
 }
 function comboWaBtn(combo, cls){
   if (combo.status === "sold") return "";
   const href = "https://wa.me/" + ownerOf({ owner: combo.owner }).wa + "?text=" + encodeURIComponent(comboWaMsg(combo));
-  return `<a class="btn btn-wa ${cls || ""}" href="${href}" target="_blank" rel="noopener">${WA_ICON}Consultar combo por WhatsApp</a>`;
+  return `<a class="btn btn-wa ${cls || ""}" href="${href}" target="_blank" rel="noopener">${WA_ICON}Consultar ${comboKindL(combo)} por WhatsApp</a>`;
 }
 
 /* COMPARTIR — texto para WhatsApp y una imagen armada para Instagram */
@@ -4843,8 +4858,12 @@ function catTile(o){
 function comboBlob(combo){
   return norm([combo.title, combo.desc, ...(combo.includes||[])].filter(Boolean).join(" "));
 }
+const comboN = co => co.count || (co.includes || []).length;
+// en la página se llaman "Lotes"; si son pocas cartas (menos de 10) cada uno se llama "Set"
+const comboKind = co => comboN(co) >= 10 ? "Lote" : "Set";
+const comboKindL = co => comboKind(co).toLowerCase();   // count: para sets/lotes grandes donde includes describe en vez de listar carta por carta
 function comboTile(combo){
-  const n = (combo.includes || []).length, sold = combo.status === "sold";
+  const n = comboN(combo), sold = combo.status === "sold";
   return `<a class="combo-card${sold ? " is-sold" : ""}" href="#/combos/${combo.slug}" data-combo-name="${esc(comboBlob(combo))}" data-combo-price="${combo.price}">
     <span class="cc-img">${combo.imgs && combo.imgs[0] ? `<img src="${combo.cover || combo.imgs[0]}" alt="" loading="lazy">` : ""}
       <span class="cc-n">${n ? plural(n, "carta", "cartas") : "Lote"}</span>
@@ -4852,7 +4871,7 @@ function comboTile(combo){
     <span class="cc-body">
       <b>${esc(combo.title)}</b>
       ${combo.desc ? `<span class="cc-desc">${esc(combo.desc)}</span>` : ""}
-      <span class="cc-foot"><span class="cc-price">${sold ? "Vendido" : `<small>${curLbl(combo)}</small>${priceNum(combo)}`}</span><span class="cc-go">Ver combo →</span></span>
+      <span class="cc-foot"><span class="cc-price">${sold ? "Vendido" : `<small>${curLbl(combo)}</small>${priceNum(combo)}`}</span><span class="cc-go">Ver ${comboKindL(combo)} →</span></span>
     </span>
   </a>`;
 }
@@ -5223,7 +5242,7 @@ function pageHome(){
         </a>
         <a class="fd-tile" href="#/combos">
           <span class="fd-tile-icon"><svg viewBox="0 0 24 24"><rect x="5" y="9" width="11" height="11" rx="1.5"/><path d="M8 9V6.5A1.5 1.5 0 0 1 9.5 5H18a1.5 1.5 0 0 1 1.5 1.5V15a1.5 1.5 0 0 1-1.5 1.5H17"/></svg></span>
-          <span class="fd-tile-body"><b>Combos</b><span>${COMBOS.length ? plural(COMBOS.length, "combo armado", "combos armados") : "Ver combos"}</span><i class="fd-short">${COMBOS.length ? plural(COMBOS.length, "armado", "armados") : "Ver"}</i></span>
+          <span class="fd-tile-body"><b>Lotes</b><span>${COMBOS.length ? plural(COMBOS.length, "lote armado", "lotes armados") : "Ver lotes"}</span><i class="fd-short">${COMBOS.length ? plural(COMBOS.length, "armado", "armados") : "Ver"}</i></span>
           <span class="fd-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
       </div>
@@ -5310,8 +5329,8 @@ function pageHome(){
           wanted: ["RPA", "Rookies /25", "PSA 10"]
         },
         combos: {
-          label: "Combos", pick: "Lotes que se venden enteros, a mejor precio", list: COMBOS.filter(co => co.status !== "sold"), unit: ["combo", "combos"], isCombo: true,
-          href: "#/combos", h2: "Combos armados", sub: "Varias cartas juntas por menos de lo que saldrían por separado. Cada combo se vende entero, tal como está armado."
+          label: "Lotes", pick: "Se venden enteros, a mejor precio", list: COMBOS.filter(co => co.status !== "sold"), unit: ["lote", "lotes"], isCombo: true,
+          href: "#/combos", h2: "Lotes armados", sub: "Varias cartas juntas por menos de lo que saldrían por separado. Cada lote se vende entero, tal como está armado."
         }
       };
       const homeTab = homeSets[S.tab] ? S.tab : "autos";
@@ -5338,29 +5357,29 @@ function pageHome(){
 
   ${COMBOS.length ? `<section class="vault-band" style="background:linear-gradient(180deg,#0b0904,#000)">
     <div class="wrap section rv">
-      ${sec("03 — Combos", plural(COMBOS.length, "combo armado", "combos armados"))}
+      ${sec("03 — Lotes", plural(COMBOS.length, "lote armado", "lotes armados"))}
       <div class="vault-hero">
         <h2 class="display">Lotes que se venden<br><em style="font-style:italic; color:var(--gold-soft)">enteros</em>, a mejor precio.</h2>
-        <p>Varias cartas juntas por menos de lo que saldrían por separado. Cada combo se vende entero, tal como está armado.</p>
+        <p>Varias cartas juntas por menos de lo que saldrían por separado. Cada lote se vende entero, tal como está armado.</p>
       </div>
       <div class="vault-row">
         ${homeCombos.map((co,i) => `
           <div class="vault-piece vp-combo">
             <a class="tilt" data-tilt href="#/combos/${co.slug}"><img src="${co.cover || co.imgs[0]}" alt="${esc(co.title)}"></a>
             <div class="plaque">
-              <span class="pl-t">Combo ${String(i+1).padStart(2,"0")}</span>
-              <span class="pl-s">${plural((co.includes||[]).length, "carta", "cartas")}</span>
+              <span class="pl-t">${comboKind(co)} ${String(i+1).padStart(2,"0")}</span>
+              <span class="pl-s">${plural(comboN(co), "carta", "cartas")}</span>
             </div>
             <h3>${esc(co.title)}</h3>
             <p class="vp-set">${esc(co.desc || "")}</p>
             <p class="vp-price">${co.status==="sold" ? "Vendido" : money(co.price, co)}</p>
             <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
-              <a class="btn btn-sm btn-gold" href="#/combos/${co.slug}">Ver combo</a>
+              <a class="btn btn-sm btn-gold" href="#/combos/${co.slug}">Ver ${comboKindL(co)}</a>
             </p>
           </div>`).join("")}
       </div>
       <p class="more-cta">
-        <a class="btn btn-gold" href="#/combos">Ver todos los combos</a>
+        <a class="btn btn-gold" href="#/combos">Ver todos los lotes</a>
       </p>
     </div>
   </section>` : ""}
@@ -5410,7 +5429,7 @@ function pageHome(){
       <div>
         <p class="eyebrow">Grupo de WhatsApp</p>
         <h2>Cartas nuevas y <em>ventas exclusivas</em></h2>
-        <p class="gb-sub">Sumate al grupo de Final Cards. Ahí publicamos las cartas que entran, los combos y las novedades, y hay ventas exclusivas que solo salen por el grupo.</p>
+        <p class="gb-sub">Sumate al grupo de Final Cards. Ahí publicamos las cartas que entran, los lotes y las novedades, y hay ventas exclusivas que solo salen por el grupo.</p>
       </div>
       <div>${groupBtn("Sumate al grupo")}</div>
     </div>
@@ -5445,7 +5464,7 @@ function pageHome(){
         ["Ficha completa","Producto, set, subset, número de carta, tirada, tipo de autógrafo y estado quedan registrados para cada carta."],
         ["Autenticidad a la vista","Si la carta viene gradeada, se publica con su número de certificación para que lo puedas verificar."],
         ["Envíos con tracking","A todo el país, siempre con seguimiento y cotizados antes de pagar."],
-        ["Ofertas, según la carta","Algunas cartas y combos aceptan ofertas y otros no. Se consulta por WhatsApp."],
+        ["Ofertas, según la carta","Algunas cartas y lotes aceptan ofertas y otros no. Se consulta por WhatsApp."],
         ["Trato directo","Ofertas y listas de búsqueda las contesta la persona que tiene la carta."]
       ].map(([h,p],i) => `<div class="trust"><span class="t-n">${String(i+1).padStart(2,"0")}</span><h4>${h}</h4><p>${p}</p></div>`).join("")}
     </div>
@@ -5966,8 +5985,8 @@ const COMBO_CATS = [
   ["argentinos", "Argentinos"],
   ["jugador",    "De un jugador"],
   ["equipo",     "De un equipo"],
-  ["stars",      "Combo Stars"],
-  ["top",        "Combo Top"],
+  ["stars",      "Lotes Stars"],
+  ["top",        "Lotes Top"],
   ["lotes",      "Lotes grandes (10+)"]
 ];
 function comboCats(co){
@@ -5977,7 +5996,7 @@ function comboCats(co){
   if (players.length >= 2 && new Set(players).size === 1) set.add("jugador");
   const slug = t => norm(t).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   if (players.some(n => ARGENTINA_SLUGS.includes(slug(n)))) set.add("argentinos");
-  if (items.length >= 10) set.add("lotes");
+  if (comboN(co) >= 10) set.add("lotes");
   return set;
 }
 function pageCombos(){
@@ -5992,40 +6011,40 @@ function pageCombos(){
   const list = COMBOS.filter(co => cat === "all" || comboCats(co).has(cat)).sort(sortFns[sortKey]);
   return `
   <div class="wrap">
-    <p class="crumbs"><a href="#/">Inicio</a> / Combos</p>
-    <div class="section-head"><div><p class="eyebrow gold">Combos</p><h2>Lotes armados</h2>
-      <p class="sub">Varias cartas juntas a un precio de combo: del mismo jugador, del mismo equipo o mezcladas entre equipos.</p></div>
-      <p class="eyebrow">${plural(COMBOS.length, "combo", "combos")}</p></div>
+    <p class="crumbs"><a href="#/">Inicio</a> / Lotes</p>
+    <div class="section-head"><div><p class="eyebrow gold">Lotes</p><h2>Lotes y sets armados</h2>
+      <p class="sub">Varias cartas juntas a mejor precio: del mismo jugador, del mismo equipo o mezcladas entre equipos.</p></div>
+      <p class="eyebrow">${plural(COMBOS.length, "lote", "lotes")}</p></div>
     ${COMBOS.length ? `
     <div class="search-field" style="border-color:var(--hair); margin-bottom:20px">
       <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--silver);fill:none;stroke-width:1.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      <input id="comboSearch" type="search" placeholder="Buscá por jugador, equipo o nombre del combo..." aria-label="Buscar combos" style="font-size:clamp(15px,2vw,18px)">
+      <input id="comboSearch" type="search" placeholder="Buscá por jugador, equipo o nombre del lote..." aria-label="Buscar lotes" style="font-size:clamp(15px,2vw,18px)">
     </div>
-    ${cats.length ? `<div class="tabs combo-tabs" role="tablist" aria-label="Tipos de combo">
+    ${cats.length ? `<div class="tabs combo-tabs" role="tablist" aria-label="Tipos de lote">
       <button data-tab="all" class="${cat==="all"?"on":""}" role="tab" aria-selected="${cat==="all"}">Todos <span style="color:var(--silver-dim)">${COMBOS.length}</span></button>
       ${cats.map(([k, l, n]) => `<button data-tab="${k}" class="${cat===k?"on":""}" role="tab" aria-selected="${cat===k}">${esc(l)} <span style="color:var(--silver-dim)">${n}</span></button>`).join("")}
     </div>` : ""}
     <div class="shop-toolbar" style="border:0; padding-bottom:0; margin-bottom:18px">
-      <select class="sortsel" id="comboSort" aria-label="Ordenar combos" style="margin-left:auto">
+      <select class="sortsel" id="comboSort" aria-label="Ordenar lotes" style="margin-left:auto">
         <option value="new"${sortKey==="new"?" selected":""}>Más nuevos primero</option>
         <option value="price-desc"${sortKey==="price-desc"?" selected":""}>Precio: mayor a menor</option>
         <option value="price-asc"${sortKey==="price-asc"?" selected":""}>Precio: menor a mayor</option>
       </select>
     </div>
     <div class="combo-grid" id="comboGrid">${list.map(comboTile).join("")}</div>
-    <p class="muted" id="comboEmpty" hidden style="padding:30px 0">Ningún combo coincide con esa búsqueda.</p>`
+    <p class="muted" id="comboEmpty" hidden style="padding:30px 0">Ningún lote coincide con esa búsqueda.</p>`
       : emptyState("Todavía no armamos ningún combo. Mientras tanto, mirá la bóveda completa.")}
   </div>`;
 }
 function pageCombo(slug){
   const combo = COMBOS.find(x => x.slug === slug);
-  if (!combo) return `<div class="wrap section">${emptyState("Ese combo no está disponible.")}</div>`;
+  if (!combo) return `<div class="wrap section">${emptyState("Ese lote no está disponible.")}</div>`;
   const sold = combo.status === "sold";
   const imgs = combo.imgs && combo.imgs.length ? combo.imgs : [];
-  const n = (combo.includes || []).length;
+  const n = comboN(combo);
   return `
   <div class="wrap">
-    <p class="crumbs"><a href="#/">Inicio</a> / <a href="#/combos">Combos</a> / ${esc(combo.title)}</p>
+    <p class="crumbs"><a href="#/">Inicio</a> / <a href="#/combos">Lotes</a> / ${esc(combo.title)}</p>
     <div class="pdp" style="padding-bottom:40px">
       <div class="pdp-media">
         <div class="pdp-frame combo-zoom" data-combo-zoom title="Tocá para agrandar">
@@ -6038,18 +6057,18 @@ function pageCombo(slug){
         </div>` : ""}
       </div>
       <div class="pdp-info">
-        <p class="pdp-team">Combo · ${n ? plural(n, "carta", "cartas") : "lote"}</p>
+        <p class="pdp-team">${comboKind(combo)} · ${n ? plural(n, "carta", "cartas") : "lote"}</p>
         <h1>${esc(combo.title)}</h1>
         ${combo.desc ? `<p class="pdp-set">${esc(combo.desc)}</p>` : ""}
 
         <div style="margin-top:26px; display:flex; align-items:baseline; gap:18px; flex-wrap:wrap">
           <span class="pdp-price">${sold ? '<small>VENDIDO</small>' : '<small>' + curLbl(combo) + '</small>'}${sold ? "" : priceNum(combo)}</span>
-          <span class="stock"><span class="dot ${sold?"sold":""}"></span>${sold ? "Combo vendido" : "Disponible · lote único"}</span>
+          <span class="stock"><span class="dot ${sold?"sold":""}"></span>${sold ? "Vendido" : "Disponible · se vende entero"}</span>
         </div>
 
         <div class="pdp-actions">
           ${sold
-            ? `<a class="btn btn-block" href="#/combos">Ver otros combos</a>`
+            ? `<a class="btn btn-block" href="#/combos">Ver otros lotes</a>`
             : comboWaBtn(combo, "btn-block")}
         </div>
 
@@ -6068,8 +6087,8 @@ function pageCombo(slug){
 }
 /* razones genéricas pero calculadas a partir de los datos reales del combo */
 function comboWhy(combo){
-  const items = combo.includes || [];
-  const n = items.length;
+  const items = combo.count ? [] : (combo.includes || []);   // en sets descriptos no se analizan rookies/equipos línea por línea
+  const n = comboN(combo);
   const out = [];
   if (n){
     const avg = combo.price / n;
@@ -6080,9 +6099,10 @@ function comboWhy(combo){
   const rookies = items.filter(i => /\bRC\b/.test(i)).length;
   if (rookies) out.push(`Trae ${plural(rookies, "rookie", "rookies")} adentro del lote.`);
   const teams = new Set(items.map(i => (i.split("—")[1] || "").split(",").map(x => x.trim()).filter(x => x && x !== "RC")[0]).filter(Boolean));
+  if (combo.why) combo.why.forEach(w => out.push(w));
   if (teams.size > 1) out.push(`Equipos mezclados: buena forma de arrancar o sumar variedad a la colección de un tirón.`);
   else if (teams.size === 1) out.push(`Lote enfocado en un solo plantel, ideal si seguís a ${[...teams][0]}.`);
-  out.push("Se vende como lote único: todo el combo junto, no carta por carta.");
+  out.push(`Se vende entero: todo el ${comboKindL(combo)} junto, no carta por carta.`);
   return out;
 }
 
@@ -6201,7 +6221,7 @@ function pageStatic(kind){
       <p>También se puede coordinar la entrega en persona.</p>`],
     payments: ["Pagos", "Cómo se compra", `<p>Cada carta tiene un botón “Consultar por WhatsApp” que abre un chat directo con quien la tiene, con el mensaje ya armado. Ahí se confirma la disponibilidad y se acuerdan el pago y el envío.</p>`],
     faq: ["Preguntas", "Lo que más se pregunta", `<p><b>¿Las fotos son de la carta real?</b> Las imágenes muestran la carta que se vende, con tratamiento profesional de imagen, así que el color y el brillo pueden variar respecto de la carta en mano. Si querés verla tal cual es, pedí fotos por WhatsApp antes de comprar.</p>
-      <p><b>¿Aceptás ofertas?</b> Depende de la carta o del combo: en algunos sí y en otros no. Consultá desde “Consultar por WhatsApp” en la ficha.</p>
+      <p><b>¿Aceptás ofertas?</b> Depende de la carta o del lote: en algunos sí y en otros no. Consultá desde “Consultar por WhatsApp” en la ficha.</p>
       <p><b>¿Gradeás antes de vender?</b> Algunas. Las raw se describen con honestidad y se cotizan como raw: el grado lo vas a buscar vos.</p>`],
     contact: ["Contacto", "Hablar con la bóveda", `<p>Ofertas y listas de búsqueda: contesta la persona que tiene la carta, por WhatsApp.</p>
       <p style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">${waLink("Hola! Te escribo desde Final Cards.", "Escribir por WhatsApp")}</p>`],
@@ -6262,7 +6282,7 @@ function offerModal(id){
     <form id="offerForm">
       <label class="field"><span>Tu oferta (USD)</span><input name="amount" type="number" required min="1" placeholder="${Math.round(c.price*0.85)}"></label>
       <label class="field"><span>Email</span><input name="email" type="email" required placeholder="vos@email.com"></label>
-      <label class="field"><span>Mensaje</span><textarea name="message" placeholder="Lo que ayude: canjes, combos, forma de pago..."></textarea></label>
+      <label class="field"><span>Mensaje</span><textarea name="message" placeholder="Lo que ayude: lotes, forma de pago..."></textarea></label>
       <button class="btn btn-gold btn-block" type="submit">Enviar oferta</button>
       <p class="muted" style="font-size:12px; margin-top:12px">Las ofertas se responden dentro de las 24 horas. No se cobra nada ahora.</p>
     </form>`);
@@ -8213,7 +8233,7 @@ function paintMenus(){
     const here = location.hash || "#/";
     // orden pedido: Todas, Autógrafos, Combos, Game-Worn y patches, Argentina, y después el resto
     const ty = l => types.find(t => t[0] === l);
-    const first = [["Todas", "#/cards", pool.length], ty("Autógrafos"), COMBOS.length ? ["Combos", "#/combos", COMBOS.length] : null,
+    const first = [["Todas", "#/cards", pool.length], ty("Autógrafos"), COMBOS.length ? ["Lotes", "#/combos", COMBOS.length] : null,
       ty("Game-Worn y patches"), argN ? ["Argentina", "#/collections/argentina", argN] : null].filter(Boolean);
     const rest = types.filter(t => !["Autógrafos", "Game-Worn y patches", "Numeradas"].includes(t[0])).concat([["Premium", "#/premium", pool.filter(c => c.vault).length]]);
     const items = first.concat(rest);
@@ -8464,12 +8484,12 @@ function wire(){
         </span>
         <span class="r-price">${money(c.price, c)}</span>
       </a>`).join("");
-    if (comboRes.length) html += head("Combos") + comboRes.map(combo => `
+    if (comboRes.length) html += head("Lotes") + comboRes.map(combo => `
       <a class="sresult" href="#/combos/${combo.slug}" data-close-search>
         <img src="${(combo.imgs && combo.imgs[0]) || ""}" alt="">
         <span class="r-main">
           <span class="r-name">${esc(combo.title)}</span>
-          <span class="r-meta">Combo · ${plural((combo.includes||[]).length, "carta", "cartas")}</span>
+          <span class="r-meta">${comboKind(combo)} · ${plural(comboN(combo), "carta", "cartas")}</span>
         </span>
         <span class="r-price">${combo.status==="sold" ? "VENDIDO" : money(combo.price, combo)}</span>
       </a>`).join("");
