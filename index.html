@@ -4175,7 +4175,7 @@ const COMBOS = [
       "Hugo González — RC, Celtics, insert Rookie Class Edition", "Ryan Kalkbrenner — RC, Hornets",
       "Noah Penda — RC, Magic", "Al Horford — Warriors"
     ],
-    price: 21000, cur: "ARS", status: "available", owner: "nico"
+    price: 26000, cur: "ARS", status: "available", owner: "nico"
   },
   {
     slug: "combo-knicks-campeones-2025-26-topps-now",
@@ -4188,7 +4188,7 @@ const COMBOS = [
       "Mohamed Diawara — RC", "Ariel Hukporti", "Jose Alvarado", "Miles McBride",
       "Pacôme Dadiet", "Tyler Kolek"
     ],
-    price: 90000, cur: "ARS", status: "available", owner: "nico", cats: ["equipo"]
+    price: 90000, cur: "ARS", status: "available", owner: "nico", cats: ["equipo"], team: "new-york-knicks"
   },
   {
     slug: "set-completo-topps-2000-01-series-1",
@@ -4204,6 +4204,65 @@ const COMBOS = [
     ],
     why: ["Colección completa de hace 25 años, armada y lista: conseguirla carta por carta lleva mucho tiempo."],
     price: 170000, cur: "ARS", status: "available", owner: "nico", cats: ["lotes"]
+  },
+  {
+    slug: "set-charles-barkley-x8",
+    title: "Set Charles Barkley ×8 — Suns, 76ers y All-Star",
+    desc: "Ocho cartas de Sir Charles, Hall of Fame: Suns, 76ers y All-Star Weekend, con insertos Sky Slams y Earth Shakers.",
+    imgs: ["img/n-barkley8-1.webp"],
+    cover: "img/n-barkley8-portada.webp",
+    includes: [
+      "Charles Barkley — Suns, NBA Hoops / SkyBox",
+      "Charles Barkley — Suns, NBA Hoops, volcada ante los Lakers",
+      "Charles Barkley — Suns, SkyBox, inserto Sky Slams",
+      "Charles Barkley — All-Star, SkyBox NBA All-Star Weekend Highlight 1990-91",
+      "Charles Barkley — Suns, NBA Hoops, inserto Earth Shakers",
+      "Charles Barkley — 76ers, Fleer 1990-91",
+      "Charles Barkley — All-Star West, Upper Deck All-Star Weekend",
+      "Charles Barkley — Suns, Topps Stadium Club"
+    ],
+    price: 32000, cur: "ARS", status: "available", owner: "nico"
+  },
+  {
+    slug: "set-kobe-bryant-x2",
+    title: "Set Kobe Bryant ×2 — Impulse '98 y Panini Kobe",
+    desc: "Dos cartas de Kobe con los Lakers: la Collector's Edge Impulse '98 N° 51, de sus primeros años, y la Panini Kobe con la 24.",
+    imgs: ["img/n-kobe2-1.webp"],
+    cover: "img/n-kobe2-portada.webp",
+    includes: [
+      "Kobe Bryant — Lakers, Collector's Edge Impulse '98 N° 51",
+      "Kobe Bryant — Lakers, Panini Kobe, con la 24"
+    ],
+    price: 38000, cur: "ARS", status: "available", owner: "nico"
+  },
+  {
+    slug: "set-dream-team-usa-1992-1996",
+    title: "Set Dream Team USA ×2 — 1992 y 1996",
+    desc: "Las cartas de equipo de los dos Dream Team: el original de Barcelona 1992, con Jordan, Magic y Bird, y el de Atlanta 1996.",
+    imgs: ["img/n-dreamteam2-1.webp"],
+    includes: [
+      "Dream Team 1992 — SkyBox USA Basketball, carta de equipo: Jordan, Magic Johnson, Larry Bird, Barkley, Pippen, Ewing, Stockton, Malone, Robinson, Mullin y el coach Chuck Daly",
+      "Dream Team 1996 — SkyBox USA Basketball, carta \"The Team\" con el plantel de Atlanta 1996"
+    ],
+    price: 17000, cur: "ARS", status: "available", owner: "nico"
+  },
+  {
+    slug: "set-leyendas-de-los-90-x8",
+    title: "Set Leyendas Bases de los 90 ×8 — Magic, Iverson, Stockton, Nash y más",
+    desc: "Ocho cartas base de los 90 con cinco Hall of Famers: Magic Johnson, Allen Iverson, John Stockton, Steve Nash y Gary Payton, más Penny Hardaway.",
+    imgs: ["img/n-leyendas90-1.webp"],
+    cover: "img/n-leyendas90-portada.webp",
+    includes: [
+      "Allen Iverson — 76ers, 1996-97, temporada rookie",
+      "Magic Johnson — Lakers, NBA Hoops, Magic Moments 1980",
+      "Steve Nash — Suns, Upper Deck UD Choice",
+      "John Stockton — Jazz, SkyBox 1990-91",
+      "Gary Payton — SuperSonics, Topps Stadium Club",
+      "Anfernee Hardaway — Magic, Topps",
+      "Johnny Dawkins — 76ers, Fleer 1990-91",
+      "Collector's Choice NBA Fundamentals, jugador de los Mavericks"
+    ],
+    price: 32000, cur: "ARS", status: "available", owner: "nico"
   }
 ];
 COMBOS.push({
@@ -4859,6 +4918,37 @@ function comboBlob(combo){
   return norm([combo.title, combo.desc, ...(combo.includes||[])].filter(Boolean).join(" "));
 }
 const comboN = co => co.count || (co.includes || []).length;
+/* jugadores que trae cada set/lote: el nombre antes de "—" en cada línea de includes, más el campo opcional players:[...]
+   (para lotes grandes que no listan carta por carta). Así un jugador aparece en su página aunque solo esté dentro de un set. */
+const pslug = t => norm(t).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+function comboPlayerNames(co){
+  const names = new Set(co.players || []);
+  (co.includes || []).forEach(i => {
+    const n = i.split("—")[0].trim();
+    if (n && !/[0-9:#(]/.test(n) && n.split(/\s+/).length <= 4) names.add(n);
+  });
+  return Array.from(names);
+}
+// un set/lote aparece en la página (y el filtro) de un jugador solo si es exclusivo de ese jugador;
+// los lotes grandes de muchos jugadores no se cuelgan de cada uno
+const comboSoloPlayer = co => { const n = comboPlayerNames(co); return n.length === 1 ? n[0] : null; };
+// un set/lote aparece en la página de un jugador si es exclusivo de él, o si es un set chico (menos de 10 cartas) que lo incluye;
+// los lotes grandes de muchos jugadores no se cuelgan de cada uno
+const comboLinksPlayers = co => comboSoloPlayer(co) || comboN(co) < 10;
+const combosOfPlayer = slug => COMBOS.filter(co => co.status !== "sold" && comboLinksPlayers(co) && comboPlayerNames(co).some(n => pslug(n) === slug));
+// equipo de un set/lote: el campo team (slug) o, si todas sus cartas son de un mismo equipo NBA, ese equipo
+function comboTeamSlug(co){
+  if (co.team) return co.team;
+  const found = new Set();
+  (co.includes || []).forEach(i => (i.split("—")[1] || "").split(",").map(x => norm(x.trim())).filter(Boolean).forEach(tok => {
+    const t = TEAMS.find(t => norm(t[0]) === tok || norm(t[0]).split(" ").slice(-1)[0] === tok || norm(t[0]).endsWith(" " + tok));
+    if (t) found.add(t[2]);
+  }));
+  return found.size === 1 ? [...found][0] : null;
+}
+const combosOfTeam = slug => COMBOS.filter(co => co.status !== "sold" && comboTeamSlug(co) === slug);
+const kindsLbl = list => { const k = new Set(list.map(comboKindL)); return k.size > 1 ? "sets y lotes" : k.has("set") ? "sets" : "lotes"; };
+const combosCountLbl = list => list.length === 1 ? "1 " + comboKindL(list[0]) : list.length + " " + kindsLbl(list);
 // en la página se llaman "Lotes"; si son pocas cartas (menos de 10) cada uno se llama "Set"
 const comboKind = co => comboN(co) >= 10 ? "Lote" : "Set";
 const comboKindL = co => comboKind(co).toLowerCase();   // count: para sets/lotes grandes donde includes describe en vez de listar carta por carta
@@ -5583,6 +5673,11 @@ function pageShop(params){
           FILTER_DEFS.flatMap(d => (S.filters[d.key]||[]).map(v =>
             `<span class="afilter">${esc(v)} <button data-remove="${d.key}" data-val="${esc(v)}" aria-label="Quitar filtro">×</button></span>`)).join("")
         }${S.filters.priceMin?`<span class="afilter">mín $ ${Number(S.filters.priceMin).toLocaleString("es-AR")} <button data-remove="priceMin" aria-label="Quitar">×</button></span>`:""}${S.filters.priceMax?`<span class="afilter">máx $ ${Number(S.filters.priceMax).toLocaleString("es-AR")} <button data-remove="priceMax" aria-label="Quitar">×</button></span>`:""}</div>` : ""}
+        ${(() => {
+          const selP = (S.filters.player || []).map(pslug), selT = (S.filters.team || []).map(v => (TEAMS.find(t => t[0] === v) || [])[2]).filter(Boolean);
+          const pcs = COMBOS.filter(co => co.status !== "sold" && ((comboLinksPlayers(co) && comboPlayerNames(co).some(n => selP.includes(pslug(n)))) || (selT.length && selT.includes(comboTeamSlug(co)))));
+          return pcs.length ? `<div style="margin:6px 0 26px"><p class="eyebrow gold" style="margin-bottom:12px">También en sets y lotes · ${pcs.length}</p><div class="combo-grid">${pcs.map(comboTile).join("")}</div></div>` : "";
+        })()}
         ${cardGrid(list.slice(0, S.shopLimit || SHOP_PAGE), S.view)}
         ${list.length > (S.shopLimit || SHOP_PAGE) ? `<p class="shop-more"><button class="btn" data-more>Ver más cartas <span>${list.length - (S.shopLimit || SHOP_PAGE)} más</span></button></p>` : ""}
       </div>
@@ -5766,17 +5861,18 @@ function pageVault(){
 function pageTeams(){
   const counts = {};
   S.inventory.forEach(c => counts[c.teamSlug] = (counts[c.teamSlug]||0) + (c.status==="sold"?0:1));
+  const tc = {}; COMBOS.filter(co => co.status !== "sold").forEach(co => { const t = comboTeamSlug(co); if (t){ tc[t] = (tc[t]||0) + 1; counts[t] = counts[t] || 0; } });
   const tile = ([name,abbr,slug,c1,c2]) => {
-    const n = counts[slug] || 0;
+    const n = counts[slug] || 0, k = tc[slug] || 0;
     return `<a class="team-tile${n?" live":""}" href="#/teams/${slug}" data-name="${esc(norm(name + " " + abbr))}">
       <span class="bar" style="background:linear-gradient(180deg,${c1},${c2})"></span>
       <span class="abbr impact">${abbr}</span>
       <span class="tname">${esc(name)}</span>
-      <span class="tcount">${n ? plural(n, "carta", "cartas") + " →" : "Próximamente"}</span>
+      <span class="tcount">${n || k ? [n ? plural(n, "carta", "cartas") : "", k ? combosCountLbl(combosOfTeam(slug)) : ""].filter(Boolean).join(" · ") + " →" : "Próximamente"}</span>
     </a>`;
   };
-  const withCards = TEAMS.filter(t => counts[t[2]]).sort((a,b) => counts[b[2]] - counts[a[2]]);
-  const rest = TEAMS.filter(t => !counts[t[2]]).sort((a,b) => a[0].localeCompare(b[0], "es"));
+  const withCards = TEAMS.filter(t => counts[t[2]] || tc[t[2]]).sort((a,b) => (counts[b[2]] + (tc[b[2]]||0)) - (counts[a[2]] + (tc[a[2]]||0)));
+  const rest = TEAMS.filter(t => !counts[t[2]] && !tc[t[2]]).sort((a,b) => a[0].localeCompare(b[0], "es"));
   return `
   <div class="wrap" id="teamsPage">
     <p class="crumbs"><a href="#/">Inicio</a> / Equipos</p>
@@ -5800,6 +5896,7 @@ function pageTeam(slug){
   if (!t) return `<div class="wrap section">${emptyState("Equipo desconocido.")}</div>`;
   const [name, abbr, , c1, c2] = t;
   const all = S.inventory.filter(c => c.teamSlug === slug);
+  const tcs = combosOfTeam(slug);
   const tab = S.tab || "all";
   const sets = {
     all: all.filter(c => c.status !== "sold"),
@@ -5817,12 +5914,13 @@ function pageTeam(slug){
     <div class="wrap ph-inner">
       <p class="eyebrow gold">Colección de equipo</p>
       <h1>${esc(name)}</h1>
-      <p class="ph-sub">${sets.all.length ? "Todas las cartas de esta franquicia en stock." : "Todavía no hay cartas de esta franquicia. Si buscás una, escribinos y la salimos a buscar."}</p>
+      <p class="ph-sub">${sets.all.length ? "Todas las cartas de esta franquicia en stock." : tcs.length ? "Por ahora no hay cartas sueltas de esta franquicia, pero hay " + (tcs.length === 1 ? "un " + comboKindL(tcs[0]) : tcs.length + " " + kindsLbl(tcs)) + " del equipo." : "Todavía no hay cartas de esta franquicia. Si buscás una, escribinos y la salimos a buscar."}</p>
       <p style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap; align-items:center">
         <span class="badge badge-num">${plural(sets.all.length, "disponible", "disponibles")}</span>
         ${sets.autos.length ? `<span class="badge">${plural(sets.autos.length, "autógrafo", "autógrafos")}</span>` : ""}
         ${sets.low.length ? `<span class="badge">${sets.low.length} numeradas /49 o menos</span>` : ""}
         ${sets.sold.length ? `<span class="badge badge-sold">${plural(sets.sold.length, "vendida", "vendidas")}</span>` : ""}
+        ${tcs.length ? `<span class="badge">${combosCountLbl(tcs)}</span>` : ""}
         ${sets.all.length ? `<button class="btn btn-sm btn-gold" data-vitrina="team:${slug}">◈ Vitrina</button>` : ""}
       </p>
     </div>
@@ -5833,7 +5931,10 @@ function pageTeam(slug){
         .filter(([l,v]) => v === "all" || sets[v].length)
         .map(([l,v]) => `<button data-tab="${v}" class="${tab===v?"on":""}">${l} <span style="color:var(--silver-dim)">${sets[v].length}</span></button>`).join("")}
     </div>
-    ${cardGrid(sets[tab] || [], S.view)}
+    ${sets.all.length || !tcs.length ? cardGrid(sets[tab] || [], S.view) : ""}
+    ${tcs.length ? `<section style="margin:${sets.all.length ? "50px" : "10px"} 0 40px">
+      <p class="eyebrow gold" style="margin-bottom:14px">${kindsLbl(tcs).replace(/^./, x => x.toUpperCase())} de ${esc(name)} · ${tcs.length}</p>
+      <div class="combo-grid">${tcs.map(comboTile).join("")}</div></section>` : ""}
   </div>`;
 }
 
@@ -5845,14 +5946,19 @@ function pagePlayers(){
     const p = pl[c.playerSlug] = pl[c.playerSlug] || { slug:c.playerSlug, name:c.player, teams:new Set(), n:0, hof:false };
     p.n++; p.teams.add(c.team); if (c.hof) p.hof = true;
   });
+  COMBOS.filter(co => co.status !== "sold" && comboLinksPlayers(co)).forEach(co => comboPlayerNames(co).forEach(n => {
+    const k = pslug(n);
+    const p = pl[k] = pl[k] || { slug:k, name:n, teams:new Set(), n:0, hof:false };
+    p.c = (p.c || 0) + 1;
+  }));
   const have = Object.values(pl);
-  const byCount = have.slice().sort((a,b) => b.n - a.n || a.name.localeCompare(b.name, "es"));
+  const byCount = have.slice().sort((a,b) => (b.n + (b.c||0)) - (a.n + (a.c||0)) || a.name.localeCompare(b.name, "es"));
   const byName = have.slice().sort((a,b) => a.name.localeCompare(b.name, "es"));
   const tile = p => {
     const m = PLAYERS_META[p.slug];
     return `<a class="player-tile" href="#/players/${p.slug}" data-name="${esc(norm(p.name + " " + Array.from(p.teams).join(" ")))}"><b>${esc(p.name)}</b>
       <span>${esc(m ? m.pos + " · " + m.years : Array.from(p.teams).join(" · "))}</span>
-      <span class="pt-n">${plural(p.n, "carta", "cartas")}${p.hof ? " · HOF" : ""}</span></a>`;
+      <span class="pt-n">${[p.n ? plural(p.n, "carta", "cartas") : "", p.c ? combosCountLbl(combosOfPlayer(p.slug)) : ""].filter(Boolean).join(" · ")}${p.hof ? " · HOF" : ""}</span></a>`;
   };
   const haveNames = new Set(have.map(p => p.name));
   const wanted = Array.from(new Set(WANTED.argentina.concat(WANTED.legends))).filter(n => !haveNames.has(n));
@@ -5862,7 +5968,7 @@ function pagePlayers(){
   <div class="wrap">
     <p class="crumbs"><a href="#/">Inicio</a> / Jugadores</p>
     <div class="section-head"><div><p class="eyebrow gold">Por jugador</p><h2>Jugadores</h2>
-      <p class="sub">${plural(have.length, "jugador", "jugadores")} con cartas en stock. Escribí un nombre o un equipo para filtrar.</p></div></div>
+      <p class="sub">${plural(have.length, "jugador", "jugadores")} con cartas, sets o lotes en stock. Escribí un nombre o un equipo para filtrar.</p></div></div>
     <div class="search-field" style="border-color:var(--hair); margin-bottom:34px">
       <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--silver);fill:none;stroke-width:1.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
       <input id="playerSearch" type="search" placeholder="Buscá un jugador o un equipo..." aria-label="Buscar jugadores" style="font-size:clamp(18px,3vw,28px)">
@@ -5893,7 +5999,12 @@ function pagePlayers(){
 function pagePlayer(slug){
   const m = PLAYERS_META[slug];
   const all = S.inventory.filter(c => c.playerSlug === slug);
-  if (!m && !all.length) return `<div class="wrap section">${emptyState("Todavía no hay cartas de ese jugador.")}</div>`;
+  const pc = combosOfPlayer(slug);
+  if (!m && !all.length && !pc.length) return `<div class="wrap section">${emptyState("Todavía no hay cartas de ese jugador.")}</div>`;
+  const pName = m ? m.name : (all[0] ? all[0].player : (pc.length ? (comboPlayerNames(pc[0]).find(n => pslug(n) === slug) || slug) : slug));
+  const combosBlock = pc.length ? `<section style="margin:${all.length ? "50px" : "10px"} 0 40px">
+      <p class="eyebrow gold" style="margin-bottom:14px">${kindsLbl(pc).replace(/^./, x => x.toUpperCase())} con ${esc(pName)} · ${pc.length}</p>
+      <div class="combo-grid">${pc.map(comboTile).join("")}</div></section>` : "";
   const tab = S.tab || "cards";
   const sets = {
     cards: all.filter(c => c.status !== "sold"),
@@ -5906,12 +6017,14 @@ function pagePlayer(slug){
   const hero = (sets.cards[0] || all[0]);
   return `
   <div class="wrap">
-    <p class="crumbs"><a href="#/">Inicio</a> / <a href="#/players">Jugadores</a> / ${esc(m ? m.name : (all[0] ? all[0].player : slug))}</p>
+    <p class="crumbs"><a href="#/">Inicio</a> / <a href="#/players">Jugadores</a> / ${esc(pName)}</p>
     <div class="player-head section-tight">
       <div>
         <p class="eyebrow" style="color:var(--knicks-orange)">${esc(all[0] ? all[0].team : "")}</p>
-        <h1 class="impact" style="font-size:clamp(34px,6.4vw,78px); margin-top:8px">${esc(m ? m.name : (all[0] ? all[0].player : slug))}</h1>
+        <h1 class="impact" style="font-size:clamp(34px,6.4vw,78px); margin-top:8px">${esc(pName)}</h1>
         ${m ? `<p style="margin-top:16px; color:var(--bone-dim); max-width:56ch">${esc(m.note)}.</p>` : ""}
+        ${!all.length && pc.length ? `<p style="margin-top:16px; color:var(--bone-dim); max-width:56ch">Por ahora no hay cartas sueltas de ${esc(pName)}, pero está dentro de ${pc.length === 1 ? "este " + comboKindL(pc[0]) : "estos " + kindsLbl(pc)}. Se venden enteros.</p>
+          ${pc.length === 1 ? `<p style="margin-top:18px"><a class="btn btn-sm btn-gold" href="#/combos/${pc[0].slug}">Ver el ${comboKindL(pc[0])}</a></p>` : ""}` : ""}
         ${m ? `<div class="badges" style="margin-top:18px">
           <span class="badge">${esc(m.pos)}</span><span class="badge">${esc(m.years)}</span>
           ${m.hof ? '<span class="badge badge-hof">Hall of Fame</span>' : ""}
@@ -5919,21 +6032,23 @@ function pagePlayer(slug){
         ${sets.cards.length ? `<p style="margin-top:18px"><button class="btn btn-sm btn-gold" data-vitrina="player:${slug}">◈ Ver en vitrina</button></p>` : ""}
       </div>
       <div style="display:grid; gap:14px">
-        ${hero ? `<a href="#/cards/${hero.slug}"><img src="${hero.imgs[0]}" alt="${esc(m?m.name:slug)}" style="border-radius:4px; box-shadow:0 30px 60px -30px #000"></a>` : ""}
-        <div class="pstats">
+        ${hero ? `<a href="#/cards/${hero.slug}"><img src="${hero.imgs[0]}" alt="${esc(pName)}" style="border-radius:4px; box-shadow:0 30px 60px -30px #000"></a>`
+          : pc[0] ? `<a href="#/combos/${pc[0].slug}"><img src="${pc[0].cover || pc[0].imgs[0]}" alt="${esc(pName)}" style="border-radius:4px; box-shadow:0 30px 60px -30px #000"></a>` : ""}
+        ${all.length ? `<div class="pstats">
           <div class="pstat"><b>${sets.cards.length}</b><span>Disponibles</span></div>
           <div class="pstat"><b>${sets.autographs.length}</b><span>Autógrafos</span></div>
           <div class="pstat"><b>${sets.numbered.length}</b><span>Numeradas</span></div>
-          <div class="pstat"><b>${sets.sold.length}</b><span>Vendidas</span></div>
-        </div>
+          ${pc.length ? `<div class="pstat"><b>${pc.length}</b><span>${kindsLbl(pc).replace(/^./, x => x.toUpperCase())}</span></div>` : `<div class="pstat"><b>${sets.sold.length}</b><span>Vendidas</span></div>`}
+        </div>` : ""}
       </div>
     </div>
-    <div class="tabs">
+    ${all.length ? `<div class="tabs">
       ${[["Cartas","cards"],["Autógrafos","autographs"],["Rookies","rookies"],["Patches","patches"],["Numeradas","numbered"],["Vendidas","sold"]]
         .filter(([l,v]) => v === "cards" || sets[v].length)
         .map(([l,v]) => `<button data-tab="${v}" class="${tab===v?"on":""}">${l} <span style="color:var(--silver-dim)">${sets[v].length}</span></button>`).join("")}
-    </div>
-    ${cardGrid(sets[tab] || [], S.view)}
+    </div>` : ""}
+    ${all.length || !pc.length ? cardGrid(sets[tab] || [], S.view) : ""}
+    ${combosBlock}
   </div>`;
 }
 
