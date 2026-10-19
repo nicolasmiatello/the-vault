@@ -5114,8 +5114,12 @@ function pageHome(){
   const stageIds = new Set(stageCards.concat(vaultPieces).map(c => c.id));
   // recién llegadas: primero las nuevas de la semana ordenadas por importancia (precio), después las más recientes
   const freshNew = pool.filter(isNew).sort((a,b) => b.price - a.price);
-  const freshList = fairMix(freshNew).concat(pool.filter(c => !isNew(c)).sort(SORTS.new)).slice(0, 8);
-  const homeRest = list => { const r = list.filter(c => !stageIds.has(c.id)); return fairMix(r.length >= 4 ? r : list); };
+  // se intercalan los dueños (una de cada socio por turno) para que nadie quede todo arriba o todo abajo
+  const freshList = fairMix(freshNew.concat(pool.filter(c => !isNew(c)).sort(SORTS.new))).slice(0, 8);
+  // las secciones de abajo empiezan con cartas que no se vieron arriba (carrusel, premium, recién llegadas);
+  // las repetidas siguen en la lista pero van al final
+  const seenIds = new Set(Array.from(stageIds).concat(freshList.map(c => c.id)));
+  const homeRest = list => fairMix(list.filter(c => !seenIds.has(c.id))).concat(fairMix(list.filter(c => seenIds.has(c.id))));
   const homeCombos = fairMix(COMBOS.filter(co => co.status !== "sold").sort((a,b) => b.price - a.price)).slice(0, 4);
   const rookies = pool.filter(c => c.rookie);
   const worn = pool.filter(c => c.memorabilia);
@@ -5317,7 +5321,7 @@ function pageHome(){
       <div class="fmt-pick" role="tablist" aria-label="Formatos de la bóveda">
         ${Object.keys(homeSets).map(k => { const h = homeSets[k], n = h.list.length, on = k === homeTab; return `
         <button class="fmt${on ? " on" : ""}" data-tab="${k}" role="tab" aria-selected="${on}">
-          <span class="fmt-thumbs">${h.list.slice(0,3).map(c => `<img src="${c.imgs[0]}" alt="" loading="lazy">`).join("")}</span>
+          <span class="fmt-thumbs">${(h.isCombo ? h.list : homeRest(h.list)).slice(0,3).map(c => `<img src="${c.imgs[0]}" alt="" loading="lazy">`).join("")}</span>
           <span class="fmt-txt"><b>${esc(h.label)}</b><span class="fmt-n">${n ? plural(n, ...(h.unit || ["carta", "cartas"])) : "Próximamente"}</span><span class="fmt-sub">${esc(h.pick)}</span></span>
           <span class="fmt-go">${on ? "Viendo" : "Ver →"}</span>
         </button>`; }).join("")}
@@ -5433,17 +5437,7 @@ function pageHome(){
   </section>
 
   <section class="section-tight wrap rv">
-    ${sec("06 — Explorá", "Solo lo que hay en stock")}
-    <div class="section-head"><div><h2>Por jugador y por equipo</h2></div>
-      <p style="display:flex; gap:8px; flex-wrap:wrap"><a class="btn btn-sm" href="#/players">Todos los jugadores</a><a class="btn btn-sm" href="#/teams">Todos los equipos</a></p></div>
-    <p class="eyebrow xp-h">Jugadores</p>
-    <div class="xp-row">${topPlayers.map(([slug, name, n]) => `<a class="xp" href="#/players/${slug}">${esc(name)}<span>${n}</span></a>`).join("")}</div>
-    <p class="eyebrow xp-h">Equipos</p>
-    <div class="xp-row">${topTeams.map(([slug, name, n, c1]) => `<a class="xp" href="#/teams/${slug}"><i style="background:${c1}"></i>${esc(name)}<span>${n}</span></a>`).join("")}</div>
-  </section>
-
-  <section class="section-tight wrap rv">
-    ${sec("07 — Confianza")}
+    ${sec("06 — Confianza")}
     <div class="section-head"><div><h2>Cómo funciona la bóveda</h2></div></div>
     <div class="trust-grid">
       ${[
