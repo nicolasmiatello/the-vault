@@ -5353,6 +5353,15 @@ const plural = (n, s, p) => n + " " + (n === 1 ? s : p);
 
 /* WhatsApp: arma el link al dueño de la carta con el mensaje ya escrito */
 function ownerOf(c){ return OWNERS[c && c.owner] || OWNERS[DEFAULT_OWNER]; }
+/* mezcla pareja de dueños a lo largo de toda la lista: cada socio queda repartido de punta a punta
+   (si uno tiene más cartas, las suyas se intercalan más seguido), sin cambiar el orden dentro de cada dueño */
+function spreadMix(list){
+  const by = {};
+  list.forEach(x => { const o = x.owner || DEFAULT_OWNER; (by[o] = by[o] || []).push(x); });
+  const keyed = [];
+  Object.keys(by).forEach((o, k) => by[o].forEach((x, i) => keyed.push({ x, key:(i + .5) / by[o].length, k })));
+  return keyed.sort((a, b) => a.key - b.key || a.k - b.k).map(o => o.x);
+}
 function waMsg(cards){
   const line = c => `• ${c.player} — ${c.season} ${c.set.startsWith(c.product) ? c.set : c.product + " " + c.set}${serialOf(c) ? " · " + serialOf(c) : ""} · ${money(c.price, c)}`;
   return cards.length === 1
@@ -5937,7 +5946,7 @@ function pageHome(){
   // las secciones de abajo empiezan con cartas que no se vieron arriba (carrusel, premium, recién llegadas);
   // las repetidas siguen en la lista pero van al final
   const seenIds = new Set(Array.from(stageIds).concat(freshList.map(c => c.id)));
-  const homeRest = list => fairMix(list.filter(c => !seenIds.has(c.id))).concat(fairMix(list.filter(c => seenIds.has(c.id))));
+  const homeRest = list => spreadMix(list);   // secciones por formato: los dos socios mezclados parejo de punta a punta
   const homeCombos = fairMix(COMBOS.filter(co => co.status !== "sold").sort((a,b) => b.price - a.price)).slice(0, 4);
   const rookies = pool.filter(c => c.rookie);
   const worn = pool.filter(c => c.memorabilia);
@@ -6310,6 +6319,7 @@ function pageShop(params){
   let list = applyFilters(pool);
   if (S.q) list = searchCards(S.q, list);
   list = list.slice().sort(SORTS[S.sort] || SORTS.new);
+  if ((S.sort || "new") === "new") list = spreadMix(list);   // orden por defecto: socios mezclados
 
   const subTabs = params.preset === "autographs"
     ? [["Todas","all"],["Rookie autos","rookie"],["Hall of Fame","hof"],["Numeradas bajo","low"]]
