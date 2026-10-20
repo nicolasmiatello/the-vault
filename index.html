@@ -2735,6 +2735,22 @@ html, body{overflow-x:clip}
 .pdp-trust li::before{content:"✓"; color:var(--gold-soft); font-size:12px}
 .wa-note{font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--silver-dim); line-height:1.6; text-align:center}
 </style>
+<style>
+/* lotes del inicio: carrusel que se desliza */
+.combos-band{background:radial-gradient(80% 60% at 50% 0%, rgba(201,162,39,.10), transparent 70%), linear-gradient(180deg,#0b0904,#000)}
+.rail-combos{align-items:stretch}
+.rail-combos > *{flex:0 0 clamp(250px,27vw,320px); display:flex}
+.rail-combos .combo-card{flex:1}
+.rail-ctl{display:flex; gap:8px; align-items:center}
+.rail-arrow{width:38px; height:38px; display:grid; place-items:center; border:1px solid var(--hair-strong); border-radius:50%; color:var(--bone-dim); transition:.2s var(--ease)}
+.rail-arrow:hover{border-color:var(--gold-soft); color:var(--gold-soft)}
+.rail-arrow svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.6}
+.rail-hint{display:none; text-align:center; margin-top:10px; font-family:var(--mono); font-size:9.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--silver-dim)}
+@media(hover:none){ .rail-arrow{display:none} .rail-hint{display:block} }
+@media(max-width:760px){ .rail-combos > *{flex-basis:76vw} }
+.pdp-combos .section-head .sub{max-width:60ch}
+</style>
+
 </head>
 <body>
 <header class="site-header" id="siteHeader">
@@ -5947,7 +5963,7 @@ function pageHome(){
   // las repetidas siguen en la lista pero van al final
   const seenIds = new Set(Array.from(stageIds).concat(freshList.map(c => c.id)));
   const homeRest = list => spreadMix(list);   // secciones por formato: los dos socios mezclados parejo de punta a punta
-  const homeCombos = fairMix(COMBOS.filter(co => co.status !== "sold").sort((a,b) => b.price - a.price)).slice(0, 4);
+  const homeCombos = fairMix(COMBOS.filter(co => co.status !== "sold").sort((a,b) => b.price - a.price)).slice(0, 8);   // carrusel de lotes del inicio: 8, mezclados entre socios
   const rookies = pool.filter(c => c.rookie);
   const worn = pool.filter(c => c.memorabilia);
   const lowNo = pool.filter(c => c.printRun && c.printRun <= 49).sort((a,b) => a.printRun - b.printRun);
@@ -6066,6 +6082,23 @@ function pageHome(){
     ${cardGrid(freshList)}
   </section>
 
+  ${homeCombos.length ? `<section class="vault-band combos-band">
+    <div class="wrap section rv">
+      ${sec("02 — Lotes", plural(COMBOS.filter(co => co.status !== "sold").length, "lote armado", "lotes armados"))}
+      <div class="section-head">
+        <div><h2>Lotes y sets armados</h2>
+          <p class="sub">Varias cartas juntas por menos de lo que saldrían por separado. Cada uno se vende entero, tal como está armado.</p></div>
+        <div class="rail-ctl">
+          <button class="rail-arrow" data-rail-go="-1" aria-label="Lotes anteriores"><svg viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6"/></svg></button>
+          <button class="rail-arrow" data-rail-go="1" aria-label="Más lotes"><svg viewBox="0 0 24 24"><path d="M10 6l6 6-6 6"/></svg></button>
+          <a class="btn btn-sm btn-gold" href="#/combos">Ver todos</a>
+        </div>
+      </div>
+      <div class="rail rail-combos" id="comboRail">${homeCombos.map(co => `<div>${comboTile(co)}</div>`).join("")}</div>
+      <p class="rail-hint" aria-hidden="true">‹ Deslizá para ver más lotes ›</p>
+    </div>
+  </section>` : ""}
+
   <section class="section-tight wrap rv">
     ${(() => {
       const autos = pool.filter(c => c.auto).sort((a,b) => b.price - a.price);
@@ -6141,7 +6174,7 @@ function pageHome(){
       const homeTab = homeSets[S.tab] ? S.tab : "autos";
       const hs = homeSets[homeTab];
       return `
-      ${sec("02 — Por formato", "Elegí un formato")}
+      ${sec("03 — Por formato", "Elegí un formato")}
       <div class="fmt-pick" role="tablist" aria-label="Formatos de la bóveda">
         ${Object.keys(homeSets).map(k => { const h = homeSets[k], n = h.list.length, on = k === homeTab; return `
         <button class="fmt${on ? " on" : ""}" data-tab="${k}" role="tab" aria-selected="${on}">
@@ -6159,35 +6192,6 @@ function pageHome(){
       }) : emptyState()}`;
     })()}
   </section>
-
-  ${COMBOS.length ? `<section class="vault-band" style="background:linear-gradient(180deg,#0b0904,#000)">
-    <div class="wrap section rv">
-      ${sec("03 — Lotes", plural(COMBOS.length, "lote armado", "lotes armados"))}
-      <div class="vault-hero">
-        <h2 class="display">Lotes que se venden<br><em style="font-style:italic; color:var(--gold-soft)">enteros</em>, a mejor precio.</h2>
-        <p>Varias cartas juntas por menos de lo que saldrían por separado. Cada lote se vende entero, tal como está armado.</p>
-      </div>
-      <div class="vault-row">
-        ${homeCombos.map((co,i) => `
-          <div class="vault-piece vp-combo">
-            <a class="tilt" data-tilt href="#/combos/${co.slug}"><img src="${co.cover || co.imgs[0]}" alt="${esc(co.title)}"></a>
-            <div class="plaque">
-              <span class="pl-t">${comboKind(co)} ${String(i+1).padStart(2,"0")}</span>
-              <span class="pl-s">${plural(comboN(co), "carta", "cartas")}</span>
-            </div>
-            <h3>${esc(co.title)}</h3>
-            <p class="vp-set">${esc(co.desc || "")}</p>
-            <p class="vp-price">${co.status==="sold" ? "Vendido" : money(co.price, co)}</p>
-            <p style="margin-top:16px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap">
-              <a class="btn btn-sm btn-gold" href="#/combos/${co.slug}">Ver ${comboKindL(co)}</a>
-            </p>
-          </div>`).join("")}
-      </div>
-      <p class="more-cta">
-        <a class="btn btn-gold" href="#/combos">Ver todos los lotes</a>
-      </p>
-    </div>
-  </section>` : ""}
 
   ${vaultPieces.length ? `<section class="vault-band">
     <div class="wrap section rv">
@@ -6534,6 +6538,22 @@ function pageProduct(slug){
       <div class="section-head"><div><p class="eyebrow gold">Seguí mirando</p><h2>Otras cartas que te pueden interesar</h2></div></div>
       ${cardGrid(related)}
     </section>
+
+    ${(() => {
+      // lotes y sets donde aparece este jugador; si no hay, los lotes de su equipo
+      const names = c.player.split(" · ").map(n => norm(n.trim())).filter(n => n.length > 3);
+      const withP = COMBOS.filter(co => co.status !== "sold" && names.some(n => comboBlob(co).includes(n)));
+      const list = (withP.length ? withP : combosOfTeam(c.teamSlug)).slice(0, 4);
+      if (!list.length) return "";
+      const last = c.player.split(" · ")[0].split(" ").slice(-1)[0];
+      return `<section class="section-tight pdp-combos">
+        <div class="section-head"><div><p class="eyebrow gold">En lotes</p>
+          <h2>${withP.length ? esc(last) + " también está en estos " + kindsLbl(list) : kindsLbl(list).replace(/^./, x => x.toUpperCase()) + " de " + esc(c.team)}</h2>
+          <p class="sub">${withP.length ? "Si te interesa el jugador, también lo podés conseguir dentro de un lote armado, junto con otras cartas." : "Cartas del mismo equipo, armadas en lote y a mejor precio."}</p></div>
+          <a class="btn btn-sm" href="#/combos">Ver todos los lotes</a></div>
+        <div class="combo-grid">${list.map(comboTile).join("")}</div>
+      </section>`;
+    })()}
 
     ${recent.length ? `<section class="section-tight">
       <div class="section-head"><div><p class="eyebrow gold">Vistas hace poco</p><h2>Volvé donde estabas</h2></div></div>
@@ -9398,6 +9418,9 @@ function wire(){
     if (hit("[data-open-search]")){ e.preventDefault(); $("#searchBtn").click(); return; }
     if (hit("[data-close-modal]")){ closeModal(); }
     if (t === modal.el) closeModal();
+
+    const rg = hit("[data-rail-go]");
+    if (rg){ const r = rg.closest("section").querySelector(".rail"); if (r) r.scrollBy({ left:+rg.dataset.railGo * r.clientWidth * .9, behavior:"smooth" }); return; }
 
     const hint = hit("[data-hint]");
     if (hint){ $("#searchInput").value = hint.dataset.hint; $("#searchInput").dispatchEvent(new Event("input")); return; }
