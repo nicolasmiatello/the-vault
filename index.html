@@ -600,6 +600,20 @@ section{position:relative}
 .socios-inner{position:relative; z-index:1; display:flex; justify-content:center}
 .socios-img{display:block; width:auto; height:min(760px, 75vw); max-width:100%; object-fit:contain; box-shadow:0 0 60px rgba(0,0,0,.6)}
 @media(max-width:720px){ .socios-img{width:100%; height:auto} .socios-bg, .socios-band::after{display:none} }
+.socios-team{position:relative; z-index:1; max-width:980px; margin:0 auto; padding:clamp(22px,4vw,40px) 16px clamp(28px,5vw,48px)}
+.socios-list{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); text-align:center}
+.socios-list li{display:flex; flex-direction:column; gap:4px; padding:4px 10px}
+.socios-list li + li{border-left:1px solid rgba(212,175,55,.45)}
+.socios-list b{font-family:var(--ui); font-weight:800; font-size:clamp(15px,2.2vw,22px); color:#fff}
+.socios-list a{text-decoration:none} .socios-list a b{color:#fff; border-bottom:1px solid rgba(212,175,55,.6)} .socios-list a:hover b{color:var(--gold)}
+.socios-list span{font-size:clamp(12px,1.6vw,15px); color:rgba(244,243,239,.75)}
+.socios-list i{font-style:normal; font-weight:700; font-size:clamp(12px,1.6vw,15px); color:#fff}
+.socios-follow{margin:clamp(18px,3vw,28px) auto 0; max-width:720px; border:1.5px solid var(--gold); border-radius:999px; padding:12px 18px; text-align:center;
+  font-family:var(--ui); font-weight:800; letter-spacing:.12em; text-transform:uppercase; font-size:clamp(11px,1.7vw,16px); color:#fff; box-shadow:0 0 24px rgba(201,162,39,.25)}
+.socios-follow a{color:#fff; text-decoration:none} .socios-follow a:hover{color:var(--gold)}
+.socios-follow em{font-style:normal; color:var(--gold); margin:0 .8em}
+.socios-follow a{white-space:nowrap}
+@media(max-width:560px){ .socios-list li{padding:2px 4px} .socios-list b{font-size:13px} .socios-list span, .socios-list i{font-size:11px} .socios-follow{letter-spacing:.04em; font-size:11px; padding:10px 12px} .socios-follow em{margin:0 .5em} }
 .site-footer{background:var(--ink); border-top:1px solid var(--hair); padding-block:clamp(40px,5vw,70px) 28px}
 .foot-grid{display:grid; gap:34px; grid-template-columns:1fr}
 @media(min-width:760px){.foot-grid{grid-template-columns:1.4fr repeat(3,1fr)}}
@@ -3020,7 +3034,7 @@ const IMG = {
   shrewf:     "img/g-shrewf.webp",      shrewb:     "img/g-shrewb.webp",
   sensf:      "img/g-sensf.webp",       sensb:      "img/g-sensb.webp",
   // tanda 3 de Guido
-  currymessif: "img/g-currymessif.webp", currymessib: "img/g-currymessib.webp",
+  currymessip: "img/g-currymessi-portada.webp", currymessif: "img/g-currymessif.webp", currymessib: "img/g-currymessib.webp",
   lanierf:    "img/g-lanierf.webp",     lanierb:    "img/g-lanierb.webp",
   collierf:   "img/g-collierf.webp",    collierb:   "img/g-collierb.webp",
   // tanda 4 de Guido
@@ -3518,7 +3532,7 @@ const CARDS = [
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "PSA", grade: "6 (EX-MT)", cert: "153539338",
     price: 80000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
-    imgs: [IMG.currymessif, IMG.currymessib],
+    imgs: [IMG.currymessip, IMG.currymessib],
     badges: ["PSA 6", "TOPPS NOW"],
     why: ["Gradeada PSA 6 (EX-MT), certificado 153539338", "Curry y Messi en la misma carta", "Topps Now: cartas que retratan un momento puntual de la temporada"],
     story: "Topps Now de la MLS 2024 que junta a dos íconos con el mismo festejo: el \"night night\" que Curry hizo famoso con Team USA y que Messi repitió con la rosa de Inter Miami. Viene encapsulada y gradeada por PSA con nota 6 (EX-MT)."
@@ -4203,7 +4217,7 @@ const COMBOS = [
       "No incluye las rookie cards (RC) de la serie"
     ],
     why: ["Colección completa de hace 25 años, armada y lista: conseguirla carta por carta lleva mucho tiempo."],
-    price: 155000, cur: "ARS", status: "available", owner: "nico", cats: ["lotes"]
+    price: 149000, cur: "ARS", status: "available", owner: "nico", cats: ["lotes"]
   },
   {
     slug: "set-charles-barkley-x8",
@@ -4650,6 +4664,304 @@ const COMBOS = [
     price: 30000, cur: "ARS", status: "available", owner: "nico"
   }
 ];
+COMBOS.unshift(
+  {
+    slug: "lote-bulls-x35",
+    title: "Lote Chicago Bulls ×35 — Jordan, Pippen, Rodman y más",
+    desc: "35 cartas de los Chicago Bulls de los 90, con Michael Jordan, Scottie Pippen, Dennis Rodman, Toni Kukoc, Steve Kerr y Phil Jackson. Trae ocho de Pippen, entre ellas la NBA Hoops 1989-90, la del All-Star 1990 y la de USA 1992.",
+    imgs: ["img/gl-bulls-1.webp", "img/gl-bulls-2.webp", "img/gl-bulls-3.webp", "img/gl-bulls-4.webp"],
+    count: 35,
+    includes: ["35 cartas de los Chicago Bulls, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Michael Jordan, Scottie Pippen, Dennis Rodman, Toni Kukoc, Steve Kerr y Phil Jackson", "Trae ocho de Pippen, entre ellas la NBA Hoops 1989-90, la del All-Star 1990 y la de USA 1992"],
+    price: 50000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "chicago-bulls"
+  },
+  {
+    slug: "lote-knicks-x27",
+    title: "Lote New York Knicks ×27 — Ewing, Starks, Oakley y más",
+    desc: "27 cartas de los New York Knicks de los 90, con Patrick Ewing, John Starks, Charles Oakley, Larry Johnson, Anthony Mason y Derek Harper.",
+    imgs: ["img/gl-knicks-1.webp", "img/gl-knicks-2.webp", "img/gl-knicks-3.webp"],
+    count: 27,
+    includes: ["27 cartas de los New York Knicks, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Patrick Ewing, John Starks, Charles Oakley, Larry Johnson, Anthony Mason y Derek Harper"],
+    price: 20000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "new-york-knicks"
+  },
+  {
+    slug: "lote-lakers-x20",
+    title: "Lote Los Angeles Lakers ×20 — Magic Johnson, Eddie Jones, Van Exel y más",
+    desc: "20 cartas de los Los Angeles Lakers de los 90, con Magic Johnson, Eddie Jones, Nick Van Exel, Derek Fisher y Elden Campbell. Con dos de Magic Johnson: SkyBox 1990-91 y 1991-92.",
+    imgs: ["img/gl-lakers-1.webp", "img/gl-lakers-2.webp"],
+    count: 20,
+    includes: ["20 cartas de los Los Angeles Lakers, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Magic Johnson, Eddie Jones, Nick Van Exel, Derek Fisher y Elden Campbell", "Con dos de Magic Johnson: SkyBox 1990-91 y 1991-92"],
+    price: 20000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "los-angeles-lakers"
+  },
+  {
+    slug: "lote-spurs-x25",
+    title: "Lote San Antonio Spurs ×25 — Robinson, Duncan, Rodman y más",
+    desc: "25 cartas de los San Antonio Spurs de los 90, con David Robinson, Tim Duncan, Dennis Rodman, Sean Elliott y Avery Johnson. Con la Topps 1997-98 de Tim Duncan, su temporada rookie, y la All-Rookie Team 1990 de Robinson.",
+    imgs: ["img/gl-spurs-1.webp", "img/gl-spurs-2.webp", "img/gl-spurs-3.webp"],
+    count: 25,
+    includes: ["25 cartas de los San Antonio Spurs, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: David Robinson, Tim Duncan, Dennis Rodman, Sean Elliott y Avery Johnson", "Con la Topps 1997-98 de Tim Duncan, su temporada rookie, y la All-Rookie Team 1990 de Robinson"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "san-antonio-spurs"
+  },
+  {
+    slug: "lote-suns-x27",
+    title: "Lote Phoenix Suns ×27 — Barkley, Nash, Kevin Johnson y más",
+    desc: "27 cartas de los Phoenix Suns de los 90, con Charles Barkley, Steve Nash, Kevin Johnson, Michael Finley y Dan Majerle. Seis de Barkley y la Fleer 1996-97 de Steve Nash, su temporada rookie.",
+    imgs: ["img/gl-suns-1.webp", "img/gl-suns-2.webp"],
+    count: 27,
+    includes: ["27 cartas de los Phoenix Suns, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Charles Barkley, Steve Nash, Kevin Johnson, Michael Finley y Dan Majerle", "Seis de Barkley y la Fleer 1996-97 de Steve Nash, su temporada rookie"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "phoenix-suns"
+  },
+  {
+    slug: "lote-sonics-x27",
+    title: "Lote Seattle SuperSonics ×27 — Kemp, Payton, Schrempf y más",
+    desc: "27 cartas de los Seattle SuperSonics de los 90, con Shawn Kemp, Gary Payton, Detlef Schrempf, Hersey Hawkins y Sarunas Marciulionis. Con la SkyBox 1990-91 de Gary Payton del draft, su rookie card.",
+    imgs: ["img/gl-sonics-1.webp", "img/gl-sonics-2.webp", "img/gl-sonics-3.webp"],
+    count: 27,
+    includes: ["27 cartas de los Seattle SuperSonics, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Shawn Kemp, Gary Payton, Detlef Schrempf, Hersey Hawkins y Sarunas Marciulionis", "Con la SkyBox 1990-91 de Gary Payton del draft, su rookie card"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"]
+  },
+  {
+    slug: "lote-rockets-x18",
+    title: "Lote Houston Rockets ×18 — Olajuwon, Drexler, Cassell y más",
+    desc: "18 cartas de los Houston Rockets de los 90, con Hakeem Olajuwon, Clyde Drexler, Sam Cassell, Robert Horry y Kenny Smith.",
+    imgs: ["img/gl-rockets-1.webp", "img/gl-rockets-2.webp"],
+    count: 18,
+    includes: ["18 cartas de los Houston Rockets, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Hakeem Olajuwon, Clyde Drexler, Sam Cassell, Robert Horry y Kenny Smith"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "houston-rockets"
+  },
+  {
+    slug: "lote-heat-x27",
+    title: "Lote Miami Heat ×27 — Mourning, Tim Hardaway, Glen Rice y más",
+    desc: "27 cartas de los Miami Heat de los 90, con Alonzo Mourning, Tim Hardaway, Glen Rice, P.J. Brown y Brent Barry.",
+    imgs: ["img/gl-heat-1.webp", "img/gl-heat-2.webp", "img/gl-heat-3.webp"],
+    count: 27,
+    includes: ["27 cartas de los Miami Heat, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Alonzo Mourning, Tim Hardaway, Glen Rice, P.J. Brown y Brent Barry"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "miami-heat"
+  },
+  {
+    slug: "lote-magic-x24",
+    title: "Lote Orlando Magic ×24 — Shaq, Penny Hardaway, Horace Grant y más",
+    desc: "24 cartas de los Orlando Magic de los 90, con Shaquille O'Neal, Penny Hardaway, Horace Grant, Nick Anderson y Dennis Scott.",
+    imgs: ["img/gl-magic-1.webp", "img/gl-magic-2.webp"],
+    count: 24,
+    includes: ["24 cartas de los Orlando Magic, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Shaquille O'Neal, Penny Hardaway, Horace Grant, Nick Anderson y Dennis Scott"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "orlando-magic"
+  },
+  {
+    slug: "lote-pacers-x25",
+    title: "Lote Indiana Pacers ×25 — Miller, Smits, Mullin y más",
+    desc: "25 cartas de los Indiana Pacers de los 90, con Reggie Miller, Rik Smits, Chris Mullin, Mark Jackson y Dale Davis.",
+    imgs: ["img/gl-pacers-1.webp", "img/gl-pacers-2.webp", "img/gl-pacers-3.webp"],
+    count: 25,
+    includes: ["25 cartas de los Indiana Pacers, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Reggie Miller, Rik Smits, Chris Mullin, Mark Jackson y Dale Davis"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "indiana-pacers"
+  },
+  {
+    slug: "lote-pistons-x27",
+    title: "Lote Detroit Pistons ×27 — Hill, Dumars, Hunter y más",
+    desc: "27 cartas de los Detroit Pistons de los 90, con Grant Hill, Joe Dumars, Allan Houston y Lindsey Hunter.",
+    imgs: ["img/gl-pistons-1.webp", "img/gl-pistons-2.webp", "img/gl-pistons-3.webp"],
+    count: 27,
+    includes: ["27 cartas de los Detroit Pistons, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Grant Hill, Joe Dumars, Allan Houston y Lindsey Hunter"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "detroit-pistons"
+  },
+  {
+    slug: "lote-jazz-x20",
+    title: "Lote Utah Jazz ×20 — Malone, Stockton, Hornacek y más",
+    desc: "20 cartas de los Utah Jazz de los 90, con Karl Malone, John Stockton y Jeff Hornacek.",
+    imgs: ["img/gl-jazz-1.webp", "img/gl-jazz-2.webp"],
+    count: 20,
+    includes: ["20 cartas de los Utah Jazz, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Karl Malone, John Stockton y Jeff Hornacek"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "utah-jazz"
+  },
+  {
+    slug: "lote-hornets-x32",
+    title: "Lote Charlotte Hornets ×32 — Mourning, Larry Johnson, Rice y más",
+    desc: "32 cartas de los Charlotte Hornets de los 90, con Alonzo Mourning, Larry Johnson, Glen Rice, Muggsy Bogues y Robert Parish.",
+    imgs: ["img/gl-hornets-1.webp", "img/gl-hornets-2.webp", "img/gl-hornets-3.webp"],
+    count: 32,
+    includes: ["32 cartas de los Charlotte Hornets, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Alonzo Mourning, Larry Johnson, Glen Rice, Muggsy Bogues y Robert Parish"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "charlotte-hornets"
+  },
+  {
+    slug: "lote-warriors-x31",
+    title: "Lote Golden State Warriors ×31 — Sprewell, Mullin, Tim Hardaway y más",
+    desc: "31 cartas de los Golden State Warriors de los 90, con Latrell Sprewell, Chris Mullin, Tim Hardaway, Muggsy Bogues y Joe Smith.",
+    imgs: ["img/gl-warriors-1.webp", "img/gl-warriors-2.webp", "img/gl-warriors-3.webp"],
+    count: 31,
+    includes: ["31 cartas de los Golden State Warriors, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Latrell Sprewell, Chris Mullin, Tim Hardaway, Muggsy Bogues y Joe Smith"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "golden-state-warriors"
+  },
+  {
+    slug: "lote-washington-x28",
+    title: "Lote Washington Bullets / Wizards ×28 — Webber, Howard, Muresan y más",
+    desc: "28 cartas de los Washington Bullets y Wizards de los 90, con Chris Webber, Juwan Howard, Gheorghe Muresan, Rasheed Wallace y Calbert Cheaney. Con la Fleer All-Star de Juwan Howard.",
+    imgs: ["img/gl-washington-1.webp", "img/gl-washington-2.webp"],
+    count: 28,
+    includes: ["28 cartas de los Washington Bullets / Wizards, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Chris Webber, Juwan Howard, Gheorghe Muresan, Rasheed Wallace y Calbert Cheaney", "Con la Fleer All-Star de Juwan Howard"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "washington-wizards"
+  },
+  {
+    slug: "lote-sixers-x22",
+    title: "Lote Philadelphia 76ers ×22 — Stackhouse, Weatherspoon, Coleman y más",
+    desc: "22 cartas de los Philadelphia 76ers de los 90, con Jerry Stackhouse, Clarence Weatherspoon, Derrick Coleman, Tim Thomas y Jim Jackson.",
+    imgs: ["img/gl-sixers-1.webp", "img/gl-sixers-2.webp"],
+    count: 22,
+    includes: ["22 cartas de los Philadelphia 76ers, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Jerry Stackhouse, Clarence Weatherspoon, Derrick Coleman, Tim Thomas y Jim Jackson"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "philadelphia-76ers"
+  },
+  {
+    slug: "lote-nuggets-x25",
+    title: "Lote Denver Nuggets ×25 — Mutombo, McDyess, Jalen Rose y más",
+    desc: "25 cartas de los Denver Nuggets de los 90, con Dikembe Mutombo, Antonio McDyess, Jalen Rose y Bryant Stith. Con la NBA Hoops de Mutombo del draft.",
+    imgs: ["img/gl-nuggets-1.webp", "img/gl-nuggets-2.webp", "img/gl-nuggets-3.webp"],
+    count: 25,
+    includes: ["25 cartas de los Denver Nuggets, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Dikembe Mutombo, Antonio McDyess, Jalen Rose y Bryant Stith", "Con la NBA Hoops de Mutombo del draft"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "denver-nuggets"
+  },
+  {
+    slug: "lote-blazers-x21",
+    title: "Lote Portland Trail Blazers ×21 — Sabonis, Rasheed Wallace, Jermaine O'Neal y más",
+    desc: "21 cartas de los Portland Trail Blazers de los 90, con Arvydas Sabonis, Rasheed Wallace, Jermaine O'Neal y Kenny Anderson.",
+    imgs: ["img/gl-blazers-1.webp", "img/gl-blazers-2.webp"],
+    count: 21,
+    includes: ["21 cartas de los Portland Trail Blazers, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Arvydas Sabonis, Rasheed Wallace, Jermaine O'Neal y Kenny Anderson"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "portland-trail-blazers"
+  },
+  {
+    slug: "lote-celtics-x18",
+    title: "Lote Boston Celtics ×18 — Antoine Walker, Billups, Radja y más",
+    desc: "18 cartas de los Boston Celtics de los 90, con Antoine Walker, Chauncey Billups, Dino Radja, Rick Fox y Eric Montross.",
+    imgs: ["img/gl-celtics-1.webp", "img/gl-celtics-2.webp"],
+    count: 18,
+    includes: ["18 cartas de los Boston Celtics, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Antoine Walker, Chauncey Billups, Dino Radja, Rick Fox y Eric Montross"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "boston-celtics"
+  },
+  {
+    slug: "lote-hawks-x27",
+    title: "Lote Atlanta Hawks ×27 — Wilkins, Blaylock, Laettner y más",
+    desc: "27 cartas de los Atlanta Hawks de los 90, con Dominique Wilkins, Mookie Blaylock, Christian Laettner y Steve Smith.",
+    imgs: ["img/gl-hawks-1.webp", "img/gl-hawks-2.webp", "img/gl-hawks-3.webp"],
+    count: 27,
+    includes: ["27 cartas de los Atlanta Hawks, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Dominique Wilkins, Mookie Blaylock, Christian Laettner y Steve Smith"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "atlanta-hawks"
+  },
+  {
+    slug: "lote-mavs-x27",
+    title: "Lote Dallas Mavericks ×27 — Kidd, Mashburn, Finley y más",
+    desc: "27 cartas de los Dallas Mavericks de los 90, con Jason Kidd, Jamal Mashburn, Jim Jackson, Michael Finley y Shawn Bradley.",
+    imgs: ["img/gl-mavs-1.webp", "img/gl-mavs-2.webp", "img/gl-mavs-3.webp"],
+    count: 27,
+    includes: ["27 cartas de los Dallas Mavericks, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Jason Kidd, Jamal Mashburn, Jim Jackson, Michael Finley y Shawn Bradley"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "dallas-mavericks"
+  },
+  {
+    slug: "lote-wolves-x26",
+    title: "Lote Minnesota Timberwolves ×26 — Garnett, Laettner, Gugliotta y más",
+    desc: "26 cartas de los Minnesota Timberwolves de los 90, con Kevin Garnett, Christian Laettner, Isaiah Rider y Tom Gugliotta.",
+    imgs: ["img/gl-wolves-1.webp", "img/gl-wolves-2.webp", "img/gl-wolves-3.webp"],
+    count: 26,
+    includes: ["26 cartas de los Minnesota Timberwolves, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Kevin Garnett, Christian Laettner, Isaiah Rider y Tom Gugliotta"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "minnesota-timberwolves"
+  },
+  {
+    slug: "lote-bucks-x18",
+    title: "Lote Milwaukee Bucks ×18 — Glenn Robinson, Vin Baker y más",
+    desc: "18 cartas de los Milwaukee Bucks de los 90, con Glenn Robinson, Vin Baker y Sherman Douglas.",
+    imgs: ["img/gl-bucks-1.webp", "img/gl-bucks-2.webp"],
+    count: 18,
+    includes: ["18 cartas de los Milwaukee Bucks, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Glenn Robinson, Vin Baker y Sherman Douglas"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "milwaukee-bucks"
+  },
+  {
+    slug: "lote-kings-x18",
+    title: "Lote Sacramento Kings ×18 — Richmond, Brian Grant, Spud Webb y más",
+    desc: "18 cartas de los Sacramento Kings de los 90, con Mitch Richmond, Brian Grant y Spud Webb.",
+    imgs: ["img/gl-kings-1.webp", "img/gl-kings-2.webp"],
+    count: 18,
+    includes: ["18 cartas de los Sacramento Kings, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Mitch Richmond, Brian Grant y Spud Webb"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "sacramento-kings"
+  },
+  {
+    slug: "lote-grizzlies-x12",
+    title: "Lote Vancouver Grizzlies ×12 — Bryant Reeves, Greg Anthony y más",
+    desc: "12 cartas de los Vancouver Grizzlies de los 90, con Bryant Reeves y Greg Anthony. Con Bryant Reeves de Finest Gladiators.",
+    imgs: ["img/gl-grizzlies-1.webp"],
+    count: 12,
+    includes: ["12 cartas de los Vancouver Grizzlies, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Bryant Reeves y Greg Anthony", "Con Bryant Reeves de Finest Gladiators"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "memphis-grizzlies"
+  },
+  {
+    slug: "lote-clippers-x26",
+    title: "Lote Los Angeles Clippers ×26 — Loy Vaught, Brent Barry, Rodney Rogers y más",
+    desc: "26 cartas de los Los Angeles Clippers de los 90, con Loy Vaught, Brent Barry, Rodney Rogers y Pooh Richardson.",
+    imgs: ["img/gl-clippers-1.webp", "img/gl-clippers-2.webp", "img/gl-clippers-3.webp"],
+    count: 26,
+    includes: ["26 cartas de los Los Angeles Clippers, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Loy Vaught, Brent Barry, Rodney Rogers y Pooh Richardson"],
+    price: 10000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "la-clippers"
+  },
+  {
+    slug: "lote-cavs-x24",
+    title: "Lote Cleveland Cavaliers ×24 — Shawn Kemp, Ilgauskas, Brandon y más",
+    desc: "24 cartas de los Cleveland Cavaliers de los 90, con Shawn Kemp, Zydrunas Ilgauskas, Terrell Brandon, Mark Price y Wesley Person.",
+    imgs: ["img/gl-cavs-1.webp", "img/gl-cavs-2.webp"],
+    count: 24,
+    includes: ["24 cartas de los Cleveland Cavaliers, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Shawn Kemp, Zydrunas Ilgauskas, Terrell Brandon, Mark Price y Wesley Person"],
+    price: 10000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "cleveland-cavaliers"
+  },
+  {
+    slug: "lote-nets-x21",
+    title: "Lote New Jersey Nets ×21 — Van Horn, Coleman, Kittles y más",
+    desc: "21 cartas de los New Jersey Nets de los 90, con Keith Van Horn, Derrick Coleman, Kerry Kittles, Kenny Anderson y Jayson Williams. Con la New School de Van Horn.",
+    imgs: ["img/gl-nets-1.webp", "img/gl-nets-2.webp"],
+    count: 21,
+    includes: ["21 cartas de los New Jersey Nets, en su mayoría de los 90 (Collector's Choice, Fleer, Topps, NBA Hoops, SkyBox y Upper Deck)", "Figuras: Keith Van Horn, Derrick Coleman, Kerry Kittles, Kenny Anderson y Jayson Williams", "Con la New School de Van Horn"],
+    price: 10000, cur: "ARS", status: "available", owner: "guido", cats: ["equipo"], team: "brooklyn-nets"
+  },
+  {
+    slug: "lote-topps2526-x32",
+    title: "Lote Topps 2025-26 ×32 — Cade, Giannis, Tatum, Chet y más",
+    desc: "32 cartas de jugadores actuales de Topps 2025-26, de varios equipos: Cade Cunningham, Giannis Antetokounmpo, Jayson Tatum, Chet Holmgren, Evan Mobley y Kristaps Porzingis, más Allen Iverson retro y las rookies de Nolan Traore y Collin Murray-Boyles.",
+    imgs: ["img/gl-topps2526-1.webp", "img/gl-topps2526-2.webp"],
+    count: 32,
+    includes: ["Figuras: Cade Cunningham, Giannis Antetokounmpo, Jayson Tatum, Chet Holmgren, Evan Mobley, Kristaps Porzingis y Allen Iverson", "Rookies (RC): Nolan Traore y Collin Murray-Boyles"],
+    price: 15000, cur: "ARS", status: "available", owner: "guido"
+  },
+  {
+    slug: "lote-bowman2526-x16",
+    title: "Lote Bowman 2025-26 ×16 — Brunson, Cade y rookies",
+    desc: "16 cartas Bowman de jugadores actuales de varios equipos: Jalen Brunson, Cade Cunningham, Derrick White y Jalen Duren, más las rookies de Carter Bryant (Chrome) y Cedric Coward.",
+    imgs: ["img/gl-bowman2526-1.webp"],
+    count: 16,
+    includes: ["Figuras: Jalen Brunson, Cade Cunningham, Derrick White, Jalen Duren y Bilal Coulibaly", "Rookies (RC): Carter Bryant (Chrome) y Cedric Coward"],
+    price: 10000, cur: "ARS", status: "available", owner: "guido"
+  },
+  {
+    slug: "lote-ncaa-actuales-x11",
+    title: "Lote NCAA actuales ×11 — Bowman University",
+    desc: "11 cartas Bowman University de jugadores universitarios actuales, futuros prospectos del draft.",
+    imgs: ["img/gl-ncaa-actuales-1.webp"],
+    count: 11,
+    includes: ["Bowman University: jugadores universitarios actuales, con refractors"],
+    price: 10000, cur: "ARS", status: "available", owner: "guido"
+  },
+  {
+    slug: "lote-ncaa-90s-x12",
+    title: "Lote NCAA de los 90 ×12 — Classic Draft Picks 1995",
+    desc: "12 cartas Classic y Basketball Rookies de 1995 con los jugadores en sus universidades, antes de llegar a la NBA: Jason Caffey, Howard Eisley, Travis Ford y más.",
+    imgs: ["img/gl-ncaa-90s-1.webp"],
+    count: 12,
+    includes: ["Classic Draft Picks 1995 y Basketball Rookies", "Jason Caffey, Howard Eisley, Travis Ford, Clayton Ritter, Robert Shannon y más"],
+    price: 10000, cur: "ARS", status: "available", owner: "guido"
+  },
+  {
+    slug: "set-toronto-raptors-x9-mcgrady-stoudamire",
+    title: "Set Toronto Raptors ×9 — McGrady, Stoudamire y más",
+    desc: "Nueve cartas de los Raptors de fines de los 90, con la Topps 1997-98 de Tracy McGrady de su temporada rookie y Damon Stoudamire.",
+    imgs: ["img/gl-raptors-1.webp"],
+    includes: ["Tracy McGrady — Raptors, Topps 1997-98, temporada rookie", "Damon Stoudamire — Raptors, Fleer 1996-97", "Walt Williams — Raptors, Fleer 1996-97", "Sharone Wright — Raptors, Fleer 1996-97", "Oliver Miller — Raptors, Fleer 1996-97", "Oliver Miller — Raptors, Collector's Choice, Fun", "Shawn Respert — Raptors, Collector's Choice 1997-98 N° 316", "Carlos Rogers — Raptors, Topps 1997-98", "Toronto Raptors — Fleer 1996-97, carta del equipo"],
+    price: 10000, cur: "ARS", status: "available", owner: "guido", team: "toronto-raptors", cats: ["equipo"]
+  }
+);
 COMBOS.push({
   slug: "combo-leandro-bolmaro-rookies-nba-hoops-2020-21",
   title: "Set Leandro Bolmaro — 2 rookies NBA Hoops 2020-21",
@@ -5580,8 +5892,10 @@ function pageHome(){
   const topTeamCount = _tc[topTeamSlug] || 0;
   const garden = live().filter(c => c.teamSlug === topTeamSlug).slice(0, 5);
   const runs = pool.map(c => c.printRun).filter(Boolean);
+  // total de la bóveda: cartas sueltas + las que vienen dentro de sets y lotes disponibles
+  const totalCards = pool.length + COMBOS.filter(co => co.status !== "sold").reduce((t, co) => t + comboN(co), 0);
   const stats = [
-    { n: String(pool.length), l: "Cartas en la bóveda" },
+    { n: totalCards.toLocaleString("es-AR"), l: "Cartas en la bóveda" },
     { n: String(new Set(pool.map(c => c.playerSlug)).size), l: "Jugadores" },
     { n: runs.length ? "/" + Math.min(...runs) : "—", l: "Tirada más baja" },
     { n: String(pool.filter(c => c.auto).length), l: "Autografiadas" }
@@ -5677,7 +5991,7 @@ function pageHome(){
       <p style="text-align:center; margin:-12px 0 24px"><button class="btn btn-sm btn-holo" data-gyro hidden>✦ Activar foil con movimiento</button></p>
 
       <div class="hero-copy">
-        <span class="kicker"><i></i>${plural(pool.length, "carta en la vitrina", "cartas en la vitrina")}</span>
+        <span class="kicker"><i></i>${totalCards.toLocaleString("es-AR")} cartas en la bóveda</span>
         <h1 class="hero-h1 impact">Cada carta<span class="line2">tiene su historia.</span></h1>
         <p class="hero-sub">Autógrafos · Rookies · Game-Worn · Numeradas</p>
         <div class="hero-cta">
@@ -5959,7 +6273,15 @@ function pageHome(){
   <section class="socios-band">
     <div class="socios-bg" aria-hidden="true"></div>
     <div class="socios-inner">
-      <img class="socios-img" src="img/socios.webp" alt="Final Cards — los tres socios: @camisetas_nba2, Knicks y @juanposite" width="1448" height="1086" loading="lazy" decoding="async">
+      <img class="socios-img" src="img/socios.webp" alt="Final Cards — los tres socios: @camisetas_nba2, Knicks y @juanposite" width="1312" height="1203" loading="lazy" decoding="async">
+    </div>
+    <div class="socios-team">
+      <ul class="socios-list">
+        <li><a href="https://www.instagram.com/camisetas_nba2/" target="_blank" rel="noopener"><b>@camisetas_nba2</b></a><span>+10 años en el mundo NBA</span><i>Co-founder</i></li>
+        <li><b>Knicks</b><span>Desarrollador</span><i>Co-founder</i></li>
+        <li><a href="https://www.instagram.com/juanposite/" target="_blank" rel="noopener"><b>@juanposite</b></a><span>Creador de contenido</span><i>Co-founder</i></li>
+      </ul>
+      <p class="socios-follow">Seguinos en <a href="https://www.instagram.com/camisetas_nba2/" target="_blank" rel="noopener">@camisetas_nba2</a><em>|</em><a href="https://final-cards.com" target="_blank" rel="noopener">final-cards.com</a></p>
     </div>
   </section>`;
 }
@@ -8515,8 +8837,8 @@ function playRoomFilm(after, startAt){
 const LOBBY = { open:false, pending:null };
 const LOBBY_ROOMS = [
   { k:"nba",    name:"NBA",        sub:"Autógrafos, parches y numeradas de cualquier equipo", open:true },
-  { k:"f1",     name:"Fórmula 1",  sub:"Pilotos, campeones y piezas numeradas de la parrilla", open:false },
   { k:"futbol", name:"Fútbol",     sub:"Selecciones, clubes y los ídolos de siempre", open:false },
+  { k:"f1",     name:"Fórmula 1",  sub:"Pilotos, campeones y piezas numeradas de la parrilla", open:false },
   { k:"varios", name:"Varios",     sub:"Tenis, boxeo, música, cómics y rarezas que no entran en otra sala", open:false }
 ];
 const FILM_Q = () => (innerWidth <= 820 ? "720" : "1080");
