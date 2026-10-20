@@ -595,7 +595,7 @@ section{position:relative}
 /* ---------- footer ---------- */
 /* placa de los socios, al final del inicio */
 .socios-band{position:relative; overflow:hidden; background:#000; border-top:1px solid rgba(212,175,55,.25); border-bottom:1px solid rgba(212,175,55,.25)}
-.socios-bg{position:absolute; inset:-60px; background:url(img/socios.webp) center/cover no-repeat; filter:blur(38px) brightness(.55) saturate(1.2); transform:translateZ(0)}
+.socios-bg{position:absolute; inset:-60px; background:url(img/socios-v2.webp) center/cover no-repeat; filter:blur(38px) brightness(.55) saturate(1.2); transform:translateZ(0)}
 .socios-band::after{content:""; position:absolute; inset:0; background:linear-gradient(90deg, rgba(0,0,0,.55), transparent 28%, transparent 72%, rgba(0,0,0,.55)); pointer-events:none}
 .socios-inner{position:relative; z-index:1; display:flex; justify-content:center}
 .socios-img{display:block; width:auto; height:min(760px, 75vw); max-width:100%; object-fit:contain; box-shadow:0 0 60px rgba(0,0,0,.6)}
@@ -6273,7 +6273,7 @@ function pageHome(){
   <section class="socios-band">
     <div class="socios-bg" aria-hidden="true"></div>
     <div class="socios-inner">
-      <img class="socios-img" src="img/socios.webp" alt="Final Cards — los tres socios: @camisetas_nba2, Knicks y @juanposite" width="1312" height="1203" loading="lazy" decoding="async">
+      <img class="socios-img" src="img/socios-v2.webp" alt="Final Cards — los tres socios: @camisetas_nba2, Knicks y @juanposite" width="1312" height="1203" loading="lazy" decoding="async">
     </div>
     <div class="socios-team">
       <ul class="socios-list">
@@ -8892,7 +8892,7 @@ function lobbyMarkupRaw(){
         <span class="lb-body">
           <span class="lb-num">Sala ${String(i + 1).padStart(2, "0")}</span>
           <span class="lb-name">${r.name}</span>
-          ${r.open ? `<span class="lb-live">Abierta · ${n} cartas</span>` : ""}
+          ${r.open ? `<span class="lb-live">Abierta · ${(n + COMBOS.filter(co => co.status !== "sold").reduce((t, co) => t + comboN(co), 0)).toLocaleString("es-AR")} cartas</span>` : ""}
           <span class="lb-sub">${r.sub}</span>
           ${r.open ? `<span class="lb-go">Entrar <i>→</i></span>` : `<span class="lb-soon">${lock} Próximamente</span>`}
         </span>
