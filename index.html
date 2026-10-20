@@ -2749,6 +2749,20 @@ html, body{overflow-x:clip}
 @media(hover:none){ .rail-arrow{display:none} .rail-hint{display:block} }
 @media(max-width:760px){ .rail-combos > *{flex-basis:76vw} }
 .pdp-combos .section-head .sub{max-width:60ch}
+/* lotes del inicio: 4 en fila en compu, 2×2 en celular */
+.home-combos{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px}
+@media(max-width:1023px){ .home-combos{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media(max-width:760px){
+  .home-combos{gap:10px}
+  .home-combos .cc-img img{padding:6px}
+  .home-combos .cc-n{left:6px; bottom:6px; font-size:9px; letter-spacing:.1em; padding:4px 6px}
+  .home-combos .cc-body{padding:10px 10px 12px; gap:6px}
+  .home-combos .cc-body b{font-size:12.5px; line-height:1.2; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden}
+  .home-combos .cc-desc, .home-combos .cc-go{display:none}
+  .home-combos .cc-foot{padding-top:8px}
+  .home-combos .cc-price{font-size:15px}
+  .home-combos .cc-price small{font-size:9px}
+}
 </style>
 
 </head>
@@ -5963,7 +5977,7 @@ function pageHome(){
   // las repetidas siguen en la lista pero van al final
   const seenIds = new Set(Array.from(stageIds).concat(freshList.map(c => c.id)));
   const homeRest = list => spreadMix(list);   // secciones por formato: los dos socios mezclados parejo de punta a punta
-  const homeCombos = fairMix(COMBOS.filter(co => co.status !== "sold").sort((a,b) => b.price - a.price)).slice(0, 8);   // carrusel de lotes del inicio: 8, mezclados entre socios
+  const homeCombos = fairMix(COMBOS.filter(co => co.status !== "sold").sort((a,b) => b.price - a.price)).slice(0, 4);   // lotes del inicio: 4 en grilla (2×2 en celular), mezclados entre socios
   const rookies = pool.filter(c => c.rookie);
   const worn = pool.filter(c => c.memorabilia);
   const lowNo = pool.filter(c => c.printRun && c.printRun <= 49).sort((a,b) => a.printRun - b.printRun);
@@ -6088,14 +6102,9 @@ function pageHome(){
       <div class="section-head">
         <div><h2>Lotes y sets armados</h2>
           <p class="sub">Varias cartas juntas por menos de lo que saldrían por separado. Cada uno se vende entero, tal como está armado.</p></div>
-        <div class="rail-ctl">
-          <button class="rail-arrow" data-rail-go="-1" aria-label="Lotes anteriores"><svg viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6"/></svg></button>
-          <button class="rail-arrow" data-rail-go="1" aria-label="Más lotes"><svg viewBox="0 0 24 24"><path d="M10 6l6 6-6 6"/></svg></button>
-          <a class="btn btn-sm btn-gold" href="#/combos">Ver todos</a>
-        </div>
       </div>
-      <div class="rail rail-combos" id="comboRail">${homeCombos.map(co => `<div>${comboTile(co)}</div>`).join("")}</div>
-      <p class="rail-hint" aria-hidden="true">‹ Deslizá para ver más lotes ›</p>
+      <div class="home-combos">${homeCombos.map(comboTile).join("")}</div>
+      <p class="more-cta"><a class="btn btn-gold" href="#/combos">Ver los ${COMBOS.filter(co => co.status !== "sold").length} lotes</a></p>
     </div>
   </section>` : ""}
 
