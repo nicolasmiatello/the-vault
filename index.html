@@ -2745,6 +2745,9 @@ html, body{overflow-x:clip}
 .pdp-trust{display:grid; gap:6px; margin-top:6px; padding-top:14px; border-top:1px solid var(--hair)}
 .pdp-trust li{display:flex; gap:9px; align-items:baseline; font-size:13px; color:var(--bone-dim)}
 .pdp-trust li::before{content:"✓"; color:var(--gold-soft); font-size:12px}
+.btn-ig{background:linear-gradient(90deg,#f58529,#dd2a7b 45%,#8134af 75%,#515bd4); border-color:transparent; color:#fff}
+.btn-ig:hover{filter:brightness(1.08); color:#fff}
+.btn-ig[disabled]{opacity:.55}
 .wa-note{font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--silver-dim); line-height:1.6; text-align:center}
 </style>
 <style>
@@ -5478,8 +5481,8 @@ function shareText(c){
   return `${c.player} — ${c.season} ${set}${serialOf(c) ? " · " + serialOf(c) : ""} · ${money(c.price, c)}\nMirala en Final Cards: ${cardUrl(c)}`;
 }
 function loadImg(src){ return new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; }); }
-async function shareImage(c){
-  // 1080 × 1350 (formato de publicación de Instagram): la carta, el nombre, el serial y el precio
+/* imagen 1080 × 1350 (formato de Instagram) para cartas y lotes */
+async function shareCanvas(o){
   const W = 1080, H = 1350, cv = document.createElement("canvas"); cv.width = W; cv.height = H;
   const g = cv.getContext("2d");
   const bg = g.createRadialGradient(W/2, H*.36, 40, W/2, H*.4, H*.8);
@@ -5492,72 +5495,84 @@ async function shareImage(c){
   g.textAlign = "center"; g.textBaseline = "alphabetic";
   g.fillStyle = "#F4F3EF"; g.font = '600 44px "Bodoni Moda", Didot, serif';
   g.fillText("FINAL CARDS", W/2, 120);
-  const img = await loadImg(c.imgs[0]);
-  const boxW = 620, boxH = 800, sc = Math.min(boxW / img.naturalWidth, boxH / img.naturalHeight);
+  const img = await loadImg(o.img);
+  const boxW = o.wide ? 940 : 620, boxH = 800, sc = Math.min(boxW / img.naturalWidth, boxH / img.naturalHeight);
   const iw = img.naturalWidth * sc, ih = img.naturalHeight * sc, ix = (W - iw) / 2, iy = 170 + (boxH - ih) / 2;
   g.save(); g.shadowColor = "rgba(0,0,0,.8)"; g.shadowBlur = 60; g.shadowOffsetY = 30;
   g.drawImage(img, ix, iy, iw, ih); g.restore();
   g.fillStyle = "#F4F3EF"; g.font = '500 62px "Bodoni Moda", Didot, serif';
-  g.fillText(c.player, W/2, 1070, W - 140);
+  g.fillText(o.title, W/2, 1070, W - 140);
   g.fillStyle = "#9ea3ab"; g.font = '26px "IBM Plex Mono", Menlo, monospace';
-  const set = c.set.startsWith(c.product) ? c.set : c.product + " · " + c.set;
-  g.fillText((c.season + " " + set).toUpperCase(), W/2, 1120, W - 140);
+  g.fillText(o.sub.toUpperCase(), W/2, 1120, W - 140);
   g.fillStyle = "#E2C572"; g.font = '500 44px "IBM Plex Mono", Menlo, monospace';
-  g.fillText([serialOf(c), money(c.price, c)].filter(Boolean).join("   ·   "), W/2, 1196, W - 140);
+  g.fillText(o.line, W/2, 1196, W - 140);
   g.fillStyle = "#8E97A4"; g.font = '22px "IBM Plex Mono", Menlo, monospace';
-  g.fillText("CONSULTAS POR WHATSAPP · +" + ownerOf(c).wa, W/2, 1262, W - 140);
+  g.fillText("FINAL-CARDS.COM · WHATSAPP +" + o.wa, W/2, 1262, W - 140);
   return cv;
 }
-async function shareModal(id){
-  const c = byId(id); if (!c) return;
-  const text = shareText(c);
-  openModal(`${modalHead("Compartir carta", c.player + " · " + (serialOf(c) || "sin numerar"))}
+const IG_ICON = `<svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg>`;
+async function copyTxt(t){
+  try { await navigator.clipboard.writeText(t); return true; }
+  catch(e){ const a = document.createElement("textarea"); a.value = t; document.body.appendChild(a); a.select(); let ok = false; try { ok = document.execCommand("copy"); } catch(_){} a.remove(); return ok; }
+}
+/* ventana de compartir: Instagram (imagen + link copiado), WhatsApp (texto con link), descargar y copiar */
+async function openShare(o){
+  openModal(`${modalHead(o.head, o.headSub)}
     <div class="share-prev" id="sharePrev"><span class="muted" style="font-size:12px">Armando la imagen…</span></div>
     <div class="share-acts">
-      <a class="btn btn-wa btn-block" href="https://wa.me/?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">${WA_ICON}Mandar por WhatsApp</a>
-      <button class="btn btn-block" id="shareNative" hidden>Compartir imagen (Instagram y más)</button>
+      <button class="btn btn-ig btn-block" id="shareIg" disabled>${IG_ICON}Compartir en Instagram</button>
+      <a class="btn btn-wa btn-block" href="https://wa.me/?text=${encodeURIComponent(o.text)}" target="_blank" rel="noopener">${WA_ICON}Mandar por WhatsApp</a>
       <button class="btn btn-block" id="shareDl" hidden>Descargar imagen</button>
-      <button class="btn btn-block" id="shareCopy">Copiar texto</button>
+      <button class="btn btn-block" id="shareCopy">Copiar link</button>
     </div>
-    <p class="wa-note" style="margin-top:12px">Para Instagram: descargá la imagen (o mantenela apretada en el celular para guardarla) y subila como publicación o historia.</p>`);
-  $("#shareCopy").onclick = async () => {
-    try { await navigator.clipboard.writeText(text); toast("Texto copiado"); }
-    catch(e){ const t = document.createElement("textarea"); t.value = text; document.body.appendChild(t); t.select(); try{ document.execCommand("copy"); toast("Texto copiado"); }catch(_){ toast("No se pudo copiar"); } t.remove(); }
+    <p class="wa-note" style="margin-top:12px">Instagram: elegí Historia, Publicación o Mensaje. El link queda copiado: en una historia pegalo con el sticker "Enlace"; en una publicación, en la descripción.</p>`);
+  $("#shareCopy").onclick = async () => toast(await copyTxt(o.url) ? "Link copiado" : "No se pudo copiar");
+  let blob = null, file = null;
+  const save = async () => {
+    const dlApi = window.claude && window.claude.use ? await window.claude.use("downloads").catch(() => null) : null;
+    if (dlApi){ try { await dlApi.save({ filename: o.fname, data: blob }); return true; } catch(err){ return false; } }
+    const u = URL.createObjectURL(blob), a = document.createElement("a");
+    a.href = u; a.download = o.fname; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(u), 4000); return true;
   };
   try {
-    const cv = await shareImage(c);
-    const url = cv.toDataURL("image/png");
+    const cv = await shareCanvas(o);
     const prev = $("#sharePrev"); if (!prev) return;
-    prev.innerHTML = `<img src="${url}" alt="Imagen para compartir de ${esc(c.player)}">`;
-    cv.toBlob(async blob => {
-      if (!blob) return;
-      // descarga a través del visor de Claude (pide confirmación); si no está disponible, queda "mantener apretada"
-      const dlApi = window.claude && window.claude.use ? await window.claude.use("downloads").catch(() => null) : null;
-      const dl = $("#shareDl");
-      if (dlApi && dl){
-        dl.hidden = false;
-        dl.onclick = async () => {
-          try { await dlApi.save({ filename: "final-cards-" + c.slug + ".png", data: blob }); toast("Imagen descargada"); }
-          catch(err){ if (err && err.code !== "declined") toast("No se pudo descargar · mantené apretada la imagen para guardarla"); }
-        };
-      } else if (dl){
-        // sitio propio: descarga directa del navegador
-        dl.hidden = false;
-        dl.onclick = () => {
-          const u = URL.createObjectURL(blob), a = document.createElement("a");
-          a.href = u; a.download = "final-cards-" + c.slug + ".png"; document.body.appendChild(a); a.click(); a.remove();
-          setTimeout(() => URL.revokeObjectURL(u), 4000); toast("Imagen descargada");
-        };
-      }
-      const file = new File([blob], "final-cards-" + c.slug + ".png", { type:"image/png" });
+    prev.innerHTML = `<img src="${cv.toDataURL("image/png")}" alt="Imagen para compartir">`;
+    blob = await new Promise(r => cv.toBlob(r, "image/png"));
+    if (!blob) return;
+    file = new File([blob], o.fname, { type:"image/png" });
+    const dl = $("#shareDl"); if (dl){ dl.hidden = false; dl.onclick = async () => { if (await save()) toast("Imagen descargada"); }; }
+    const ig = $("#shareIg"); if (!ig) return; ig.disabled = false;
+    ig.onclick = async () => {
+      await copyTxt(o.url);
       if (navigator.canShare && navigator.canShare({ files:[file] })){
-        const b = $("#shareNative"); if (!b) return; b.hidden = false;
-        b.onclick = () => navigator.share({ files:[file], text }).catch(() => {});
+        toast("Link copiado · elegí Instagram");
+        navigator.share({ files:[file] }).catch(() => {});
+      } else {
+        // compu: no se puede abrir Instagram con la imagen; se descarga para subirla desde el celular
+        if (await save()) toast("Imagen descargada y link copiado · subila a Instagram");
       }
-    }, "image/png");
+    };
   } catch(e){
-    const prev = $("#sharePrev"); if (prev) prev.innerHTML = `<img src="${c.imgs[0]}" alt="${esc(c.player)}">`;
+    const prev = $("#sharePrev"); if (prev) prev.innerHTML = `<img src="${o.img}" alt="">`;
   }
+}
+function shareModal(id){
+  const c = byId(id); if (!c) return;
+  const set = c.set.startsWith(c.product) ? c.set : c.product + " · " + c.set;
+  openShare({ head:"Compartir carta", headSub: c.player + " · " + (serialOf(c) || "sin numerar"),
+    img: c.imgs[0], title: c.player, sub: c.season + " " + set,
+    line: [serialOf(c), money(c.price, c)].filter(Boolean).join("   ·   "), wa: ownerOf(c).wa,
+    text: shareText(c), url: cardUrl(c), fname: "final-cards-" + c.slug + ".png" });
+}
+function shareComboModal(slug){
+  const co = COMBOS.find(x => x.slug === slug); if (!co) return;
+  const [t, rest] = co.title.split(" — ");
+  openShare({ head:"Compartir " + comboKindL(co), headSub: co.title,
+    img: co.imgs[0], wide: true, title: t, sub: rest || plural(comboN(co), "carta", "cartas"),
+    line: [plural(comboN(co), "carta", "cartas"), money(co.price, co)].join("   ·   "), wa: ownerOf({ owner: co.owner }).wa,
+    text: co.title + " · " + money(co.price, co) + "\nMiralo en Final Cards: " + comboUrl(co), url: comboUrl(co), fname: "final-cards-" + co.slug + ".png" });
 }
 
 function toast(msg){
@@ -6976,7 +6991,7 @@ function pageCombo(slug){
           ${sold
             ? `<a class="btn btn-block" href="#/combos">Ver otros lotes</a>`
             : comboWaBtn(combo, "btn-block")}
-          <a class="btn btn-block" href="https://wa.me/?text=${encodeURIComponent(combo.title + " · " + money(combo.price, combo) + "\nMiralo en Final Cards: " + comboUrl(combo))}" target="_blank" rel="noopener">↗ Compartir ${comboKindL(combo)} por WhatsApp</a>
+          <button class="btn btn-block" data-share-combo="${combo.slug}">↗ Compartir este ${comboKindL(combo)}</button>
         </div>
 
         <div class="panel">
@@ -9515,6 +9530,7 @@ function wire(){
       return;
     }
 
+    const shc = hit("[data-share-combo]"); if (shc){ e.preventDefault(); shareComboModal(shc.dataset.shareCombo); return; }
     const sh = hit("[data-share]"); if (sh){ e.preventDefault(); if (SC.open) closeShowcase(); shareModal(sh.dataset.share); return; }
     const q = hit("[data-quick]"); if (q){ e.preventDefault(); quickView(q.dataset.quick); return; }
     const add = hit("[data-add]") || hit("[data-buy]");
