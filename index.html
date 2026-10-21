@@ -726,6 +726,18 @@ select.sortsel{background:var(--field); border:1px solid var(--hair); padding:9p
 @media(min-width:960px){.pdp{grid-template-columns:1fr 1fr}}
 .pdp-media{position:sticky; top:92px}
 @media(max-width:959px){.pdp-media{position:static}}
+/* celular: foto → nombre, precio y WhatsApp → recién después las herramientas (vitrina, foil, jugada, zoom, comparar) */
+@media(max-width:959px){
+  .pdp{row-gap:0}
+  .pdp-media{display:contents}
+  .pdp-frame{order:1} .pdp-thumbs{order:2}
+  .pdp-info{display:contents}
+  .pdp-info > *{order:3; min-width:0}
+  .pdp-info > :first-child{margin-top:22px}
+  .pdp .media-tools{order:4; margin-top:22px}
+  .pdp .gyro-status{order:4}
+  .pdp-info > .pdp-actions ~ *{order:5}
+}
 .pdp-frame{
   position:relative; background:radial-gradient(70% 55% at 50% 35%, rgba(244,243,239,.08), transparent 72%), #08090b;
   border:1px solid var(--hair); border-radius:4px; padding:clamp(18px,3vw,44px); display:grid; place-items:center; cursor:zoom-in;
@@ -5414,10 +5426,14 @@ function spreadMix(list){
   Object.keys(by).forEach((o, k) => by[o].forEach((x, i) => keyed.push({ x, key:(i + .5) / by[o].length, k })));
   return keyed.sort((a, b) => a.key - b.key || a.k - b.k).map(o => o.x);
 }
+/* link directo a una carta o lote: siempre apunta a final-cards.com (también desde el artifact) */
+const SITE = /final-cards\.com$/i.test(location.hostname) ? location.origin : "https://final-cards.com";
+const cardUrl  = c  => SITE + "/#/cards/" + c.slug;
+const comboUrl = co => SITE + "/#/combos/" + co.slug;
 function waMsg(cards){
   const line = c => `• ${c.player} — ${c.season} ${c.set.startsWith(c.product) ? c.set : c.product + " " + c.set}${serialOf(c) ? " · " + serialOf(c) : ""} · ${money(c.price, c)}`;
   return cards.length === 1
-    ? `Hola! Vi esta carta en Final Cards y me interesa:\n${line(cards[0])}\n¿Sigue disponible?`
+    ? `Hola! Vi esta carta en Final Cards y me interesa:\n${line(cards[0])}\n${cardUrl(cards[0])}\n¿Sigue disponible?`
     : `Hola! Vi estas cartas en Final Cards y me interesan:\n${cards.map(line).join("\n")}\n¿Siguen disponibles?`;
 }
 function waHref(cards){
@@ -5448,7 +5464,7 @@ function waLink(text, label, cls){ return `<a class="btn btn-wa ${cls || ""}" hr
 /* ---------- combos ---------- */
 function comboWaMsg(combo){
   const items = (combo.includes || []).map(t => `• ${t}`).join("\n");
-  return `Hola! Vi el ${comboKindL(combo)} "${combo.title}" en Final Cards y me interesa:\n${items}\nPrecio del ${comboKindL(combo)}: ${money(combo.price, combo)}\n¿Sigue disponible?`;
+  return `Hola! Vi el ${comboKindL(combo)} "${combo.title}" en Final Cards y me interesa:\n${items}\nPrecio del ${comboKindL(combo)}: ${money(combo.price, combo)}\n${comboUrl(combo)}\n¿Sigue disponible?`;
 }
 function comboWaBtn(combo, cls){
   if (combo.status === "sold") return "";
@@ -5459,7 +5475,7 @@ function comboWaBtn(combo, cls){
 /* COMPARTIR — texto para WhatsApp y una imagen armada para Instagram */
 function shareText(c){
   const set = c.set.startsWith(c.product) ? c.set : c.product + " " + c.set;
-  return `${c.player} — ${c.season} ${set}${serialOf(c) ? " · " + serialOf(c) : ""} · ${money(c.price, c)}\nDisponible en Final Cards. Consultas por WhatsApp: wa.me/${ownerOf(c).wa}`;
+  return `${c.player} — ${c.season} ${set}${serialOf(c) ? " · " + serialOf(c) : ""} · ${money(c.price, c)}\nMirala en Final Cards: ${cardUrl(c)}`;
 }
 function loadImg(src){ return new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; }); }
 async function shareImage(c){
@@ -6960,6 +6976,7 @@ function pageCombo(slug){
           ${sold
             ? `<a class="btn btn-block" href="#/combos">Ver otros lotes</a>`
             : comboWaBtn(combo, "btn-block")}
+          <a class="btn btn-block" href="https://wa.me/?text=${encodeURIComponent(combo.title + " · " + money(combo.price, combo) + "\nMiralo en Final Cards: " + comboUrl(combo))}" target="_blank" rel="noopener">↗ Compartir ${comboKindL(combo)} por WhatsApp</a>
         </div>
 
         <div class="panel">
@@ -8904,7 +8921,7 @@ function playRoomFilm(after, startAt){
    ============================================================ */
 const LOBBY = { open:false, pending:null };
 const LOBBY_ROOMS = [
-  { k:"nba",    name:"NBA",        sub:"Autógrafos, parches y numeradas de cualquier equipo", open:true },
+  { k:"nba",    name:"NBA",        sub:"Lotes y sets armados, autógrafos, parches y numeradas de cualquier equipo", open:true },
   { k:"futbol", name:"Fútbol",     sub:"Selecciones, clubes y los ídolos de siempre", open:false },
   { k:"f1",     name:"Fórmula 1",  sub:"Pilotos, campeones y piezas numeradas de la parrilla", open:false },
   { k:"varios", name:"Varios",     sub:"Tenis, boxeo, música, cómics y rarezas que no entran en otra sala", open:false }
@@ -9656,6 +9673,8 @@ document.documentElement.lang = "es";
 document.body.classList.add("has-bottom-nav");
 wire();
 render();
+// si se entra por un link directo (una carta, un lote, una página), se va derecho ahí: sin intro ni hall
+if (location.hash && !/^#\/?$/.test(location.hash)){ try { sessionStorage.setItem("vault:intro", "1"); } catch(e){} }
 playIntro();
 </script>
 </body>
