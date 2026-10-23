@@ -3065,7 +3065,7 @@ const IMG = {
   houston2:  "img/1790610395400.webp?v=261",
   houston2b: "img/1790610396034.webp?v=261",
   delfino:   "img/1790610704556.webp?v=261",
-  delfino2:  "img/1790610705043.webp?v=261",
+  delfino2:  "img/1790610705043.webp?v=295",
   nocioni:   "img/1790610705424.webp?v=261",
   nocioni2:  "img/1790610705775.webp?v=261",
   kthomas:   "img/1790612236274.webp?v=261",
@@ -3362,7 +3362,7 @@ const CARDS = [
     cardNo: "AG-CD", serialNum: 20, printRun: 30,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: true, memType: "Jersey",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 92000, cur: "ARS", status: "available", addedOn: "2026-10-09", vault: false, demo: true, owner: "nico",
+    price: 95000, cur: "ARS", status: "available", addedOn: "2026-10-09", vault: false, demo: true, owner: "nico",
     imgs: [IMG.delfino, IMG.delfino2],
     badges: ["JERSEY", "/30"],
     why: ["Numerada 20 de 30", "Autógrafo más parche de camiseta de juego", "Parte de la Generación Dorada, oro olímpico en Atenas 2004", "Certificado de autenticidad Fleer/SkyBox en el dorso"],
@@ -3482,7 +3482,7 @@ const CARDS = [
     cardNo: "508", serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 8000, cur: "ARS", status: "available", addedOn: "2026-10-21", vault: false, demo: true, owner: "nico",
+    price: 12000, cur: "ARS", status: "available", addedOn: "2026-10-21", vault: false, demo: true, owner: "nico",
     imgs: [IMG.maloneF, IMG.maloneB],
     badges: ["HALL OF FAME", "VINTAGE"],
     why: ["Karl Malone como \"The Mailman\", superhéroe de historieta con la 32 de Utah", "Subset FaniMation de Upper Deck 1993-94, con arte de Marc Silvestri", "Pieza de los 90 de un Hall of Famer, segundo máximo anotador de la historia al retirarse"],
@@ -5483,33 +5483,132 @@ function shareText(c){
 function loadImg(src){ return new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; }); }
 /* imagen 1080 × 1350 (formato de Instagram) para cartas y lotes */
 async function shareCanvas(o){
+  // pieza 1080 × 1350 para Instagram: estilo afiche, con la tipografía del sitio (Archivo condensada)
   const W = 1080, H = 1350, cv = document.createElement("canvas"); cv.width = W; cv.height = H;
   const g = cv.getContext("2d");
-  const bg = g.createRadialGradient(W/2, H*.36, 40, W/2, H*.4, H*.8);
-  bg.addColorStop(0, "#1a1c21"); bg.addColorStop(.55, "#0b0c0e"); bg.addColorStop(1, "#040405");
-  g.fillStyle = bg; g.fillRect(0, 0, W, H);
-  const glow = g.createRadialGradient(W/2, H*.4, 0, W/2, H*.4, 520);
-  glow.addColorStop(0, "rgba(201,162,39,.20)"); glow.addColorStop(1, "rgba(201,162,39,0)");
-  g.fillStyle = glow; g.fillRect(0, 0, W, H);
-  g.strokeStyle = "rgba(201,162,39,.45)"; g.lineWidth = 2; g.strokeRect(36, 36, W - 72, H - 72);
-  g.textAlign = "center"; g.textBaseline = "alphabetic";
-  g.fillStyle = "#F4F3EF"; g.font = '600 44px "Bodoni Moda", Didot, serif';
-  g.fillText("FINAL CARDS", W/2, 120);
+  const SANS = '"Archivo", "DejaVu Sans Condensed", "Arial Narrow", sans-serif', MONO = '"IBM Plex Mono", Menlo, monospace';
+  try { await Promise.all(["900 100px Archivo", "700 30px Archivo", "400 30px Archivo", "500 24px \"IBM Plex Mono\""].map(f => document.fonts.load(f))); } catch(e){}
+  const GOLD = "#E2C572", GOLD2 = "#C9A227";
+  const font = (w, px, stretch) => { g.font = `${w} ${px}px ${SANS}`; try { g.fontStretch = stretch || "normal"; } catch(e){} };
+  const fit = (txt, maxW, px, w, stretch, min) => { do { font(w, px, stretch); if (g.measureText(txt).width <= maxW) break; px -= 4; } while (px > (min || 40)); return px; };
+  const rr = (x, y, w, h, r) => { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); };
+
+  // fondo con el color del equipo: luz detrás de la carta, haz en diagonal, número gigante de fondo y trama de puntos
+  const TC = o.color || "#C9A227";
+  const hex = (h, a) => { const n = parseInt(h.slice(1), 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${a})`; };
+  g.fillStyle = "#060607"; g.fillRect(0, 0, W, H);
+  const wash = g.createLinearGradient(0, 0, W, H);
+  wash.addColorStop(0, hex(TC, .55)); wash.addColorStop(.55, hex(TC, .12)); wash.addColorStop(1, "rgba(0,0,0,0)");
+  g.fillStyle = wash; g.fillRect(0, 0, W, H);
+  const spot = g.createRadialGradient(W/2, 470, 30, W/2, 470, 620);
+  spot.addColorStop(0, hex(TC, .55)); spot.addColorStop(.45, hex(TC, .18)); spot.addColorStop(1, "rgba(0,0,0,0)");
+  g.fillStyle = spot; g.fillRect(0, 0, W, H);
+  // número / sigla gigante, solo contorno
+  if (o.big){
+    g.save(); g.textAlign = "center"; g.textBaseline = "middle";
+    font(900, 760, "condensed"); let bpx = 760;
+    while (g.measureText(o.big).width > W * 1.05 && bpx > 200){ bpx -= 40; font(900, bpx, "condensed"); }
+    g.lineWidth = 4; g.strokeStyle = hex(TC === "#C9A227" ? "#E2C572" : TC, .38);
+    g.strokeText(o.big, W/2, 480); g.fillStyle = hex(TC, .10); g.fillText(o.big, W/2, 480);
+    g.restore();
+  }
+  // haz diagonal con línea dorada
+  g.save(); g.translate(W/2, 470); g.rotate(-0.42);
+  const beam = g.createLinearGradient(0, -200, 0, 200);
+  beam.addColorStop(0, "rgba(255,255,255,0)"); beam.addColorStop(.5, "rgba(255,240,200,.10)"); beam.addColorStop(1, "rgba(255,255,255,0)");
+  g.fillStyle = beam; g.fillRect(-1100, -200, 2200, 400);
+  g.fillStyle = "rgba(226,197,114,.6)"; g.fillRect(-1100, -2, 2200, 4);
+  g.restore();
+  // trama de puntos (esquina inferior), estilo afiche
+  for (let yy = 760; yy < H; yy += 22) for (let xx = 0; xx < W; xx += 22){
+    const d = Math.hypot(xx - W, yy - H) / 900; if (d > 1) continue;
+    g.fillStyle = `rgba(255,255,255,${(1 - d) * .07})`; g.beginPath(); g.arc(xx, yy, 2.2 * (1 - d) + .6, 0, 7); g.fill();
+  }
+  // oscurecer abajo para que el texto se lea
+  const fade = g.createLinearGradient(0, 760, 0, H); fade.addColorStop(0, "rgba(6,6,7,0)"); fade.addColorStop(.35, "rgba(6,6,7,.75)"); fade.addColorStop(1, "rgba(6,6,7,.92)");
+  g.fillStyle = fade; g.fillRect(0, 760, W, H - 760);
+  g.strokeStyle = "rgba(226,197,114,.35)"; g.lineWidth = 2; g.strokeRect(24, 24, W - 48, H - 48);
+
+  // encabezado: logo + etiqueta
+  try {
+    const [mk, wd] = await Promise.all([loadImg(IMG_LOGO.mark), loadImg(IMG_LOGO.word)]);
+    const mh = 64, mw = mk.naturalWidth * mh / mk.naturalHeight, ww = 250, wh = wd.naturalHeight * ww / wd.naturalWidth;
+    g.drawImage(mk, 64, 58, mw, mh); g.drawImage(wd, 64 + mw + 16, 58 + (mh - wh) / 2, ww, wh);
+  } catch(e){ g.fillStyle = GOLD; font(900, 40, "condensed"); g.textAlign = "left"; g.fillText("FINAL CARDS", 64, 104); }
+  if (o.tag){
+    g.font = `600 22px ${MONO}`; const tw = g.measureText(o.tag).width + 64, tx = W - 64 - tw;
+    rr(tx, 64, tw, 52, 26); g.fillStyle = GOLD; g.fill();
+    g.fillStyle = "#0b0b0c"; g.textAlign = "center"; g.fillText(o.tag, tx + tw / 2, 98);
+  }
+
+  // la carta (o la foto del lote)
   const img = await loadImg(o.img);
-  const boxW = o.wide ? 940 : 620, boxH = 800, sc = Math.min(boxW / img.naturalWidth, boxH / img.naturalHeight);
-  const iw = img.naturalWidth * sc, ih = img.naturalHeight * sc, ix = (W - iw) / 2, iy = 170 + (boxH - ih) / 2;
-  g.save(); g.shadowColor = "rgba(0,0,0,.8)"; g.shadowBlur = 60; g.shadowOffsetY = 30;
-  g.drawImage(img, ix, iy, iw, ih); g.restore();
-  g.fillStyle = "#F4F3EF"; g.font = '500 62px "Bodoni Moda", Didot, serif';
-  g.fillText(o.title, W/2, 1070, W - 140);
-  g.fillStyle = "#9ea3ab"; g.font = '26px "IBM Plex Mono", Menlo, monospace';
-  g.fillText(o.sub.toUpperCase(), W/2, 1120, W - 140);
-  g.fillStyle = "#E2C572"; g.font = '500 44px "IBM Plex Mono", Menlo, monospace';
-  g.fillText(o.line, W/2, 1196, W - 140);
-  g.fillStyle = "#8E97A4"; g.font = '22px "IBM Plex Mono", Menlo, monospace';
-  g.fillText("FINAL-CARDS.COM · WHATSAPP +" + o.wa, W/2, 1262, W - 140);
+  const boxW = o.wide ? 880 : 430, boxH = 590, sc = Math.min(boxW / img.naturalWidth, boxH / img.naturalHeight);
+  const iw = img.naturalWidth * sc, ih = img.naturalHeight * sc, cy = 150 + boxH / 2 + 10;
+  g.save(); g.translate(W/2, cy); if (!o.wide) g.rotate(-0.045);
+  g.shadowColor = "rgba(226,197,114,.35)"; g.shadowBlur = 80;
+  g.fillStyle = "#000"; g.fillRect(-iw/2, -ih/2, iw, ih);
+  g.shadowColor = "rgba(0,0,0,.9)"; g.shadowBlur = 50; g.shadowOffsetY = 30;
+  g.drawImage(img, -iw/2, -ih/2, iw, ih);
+  g.restore();
+
+  // nombre grande
+  g.textAlign = "center"; g.fillStyle = "#F4F3EF";
+  const name = o.title.toUpperCase();
+  const px = fit(name, W - 120, 124, 900, "condensed", 56);
+  g.fillText(name, W/2, 900);
+  // set / temporada
+  g.fillStyle = GOLD; g.font = `500 25px ${MONO}`; try { g.fontStretch = "normal"; } catch(e){}
+  g.fillText(o.sub.toUpperCase(), W/2, 948, W - 120);
+
+  // etiquetas (Hall of Fame, Rookie, 20/30…)
+  let y = 984;
+  const chips = (o.chips || []).filter(Boolean).slice(0, 4);
+  if (chips.length){
+    g.font = `600 21px ${MONO}`;
+    const ws = chips.map(c => g.measureText(c).width + 40), tot = ws.reduce((a, b) => a + b, 0) + 12 * (chips.length - 1);
+    let x = (W - tot) / 2;
+    chips.forEach((c, k) => {
+      rr(x, y, ws[k], 44, 22); g.strokeStyle = "rgba(226,197,114,.7)"; g.lineWidth = 2; g.stroke();
+      g.fillStyle = "#F4F3EF"; g.fillText(c, x + ws[k] / 2, y + 29); x += ws[k] + 12;
+    });
+    y += 44;
+  }
+
+  // descripción breve (hasta 2 líneas)
+  if (o.desc){
+    font(400, 29); g.fillStyle = "#c9c6bd";
+    const maxW = W - 180, words = o.desc.replace(/\s+/g, " ").trim().split(" "), lines = [];
+    let cur = "";
+    for (const w of words){
+      const t = cur ? cur + " " + w : w;
+      if (g.measureText(t).width <= maxW) cur = t; else { lines.push(cur); cur = w; if (lines.length === 2) break; }
+    }
+    if (lines.length < 2 && cur) lines.push(cur);
+    if (lines.length === 2 && words.join(" ").length > (lines[0] + " " + lines[1]).length){
+      let l = lines[1]; while (g.measureText(l + "…").width > maxW && l.includes(" ")) l = l.slice(0, l.lastIndexOf(" "));
+      lines[1] = l.replace(/[,.;:]$/, "") + "…";
+    }
+    lines.slice(0, 2).forEach((l, k) => g.fillText(l, W/2, y + (chips.length ? 50 : 30) + k * 40));
+  }
+
+  // cierre: llamado a tocar el link + espacio libre abajo para el sticker "Enlace" de Instagram
+  const cta = o.cta || "TOCÁ EL LINK PARA VERLA", by = 1182;
+  g.textAlign = "center"; g.fillStyle = "#F4F3EF";
+  fit(cta, W - 200, 46, 900, "condensed", 26);
+  g.fillText(cta, W/2, by);
+  // flecha hacia abajo
+  g.strokeStyle = GOLD; g.lineWidth = 5; g.lineCap = "round"; g.lineJoin = "round";
+  g.beginPath(); g.moveTo(W/2, by + 16); g.lineTo(W/2, by + 48); g.moveTo(W/2 - 14, by + 34); g.lineTo(W/2, by + 48); g.lineTo(W/2 + 14, by + 34); g.stroke();
+  // zona del link: guía sutil (queda debajo del sticker)
+  g.setLineDash([10, 10]); g.strokeStyle = "rgba(226,197,114,.45)"; g.lineWidth = 2;
+  rr(W/2 - 220, by + 62, 440, 74, 37); g.stroke(); g.setLineDash([]);
+  g.fillStyle = GOLD; g.font = `500 24px ${MONO}`; try { g.fontStretch = "normal"; } catch(e){}
+  g.fillText("FINAL-CARDS.COM", W/2, by + 107);
+  g.textAlign = "center";
   return cv;
 }
+const IMG_LOGO = { mark: "img/logo-mark.webp?v=261", word: "img/logo-word.webp?v=261" };
 const IG_ICON = `<svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg>`;
 async function copyTxt(t){
   try { await navigator.clipboard.writeText(t); return true; }
@@ -5545,11 +5644,17 @@ async function openShare(o){
     const dl = $("#shareDl"); if (dl){ dl.hidden = false; dl.onclick = async () => { if (await save()) toast("Imagen descargada"); }; }
     const ig = $("#shareIg"); if (!ig) return; ig.disabled = false;
     ig.onclick = async () => {
-      await copyTxt(o.url);
+      // el menú de compartir tiene que abrirse en el mismo toque (si se espera antes, el celular lo bloquea)
       if (navigator.canShare && navigator.canShare({ files:[file] })){
-        toast("Link copiado · elegí Instagram");
-        navigator.share({ files:[file] }).catch(() => {});
+        const sharing = navigator.share({ files:[file] });
+        copyTxt(o.url);
+        toast("Elegí Instagram · el link quedó copiado");
+        sharing.catch(async err => {
+          if (err && err.name === "AbortError") return;
+          if (await save()) toast("Imagen guardada y link copiado · subila desde Instagram");
+        });
       } else {
+        copyTxt(o.url);
         // compu: no se puede abrir Instagram con la imagen; se descarga para subirla desde el celular
         if (await save()) toast("Imagen descargada y link copiado · subila a Instagram");
       }
@@ -5558,12 +5663,22 @@ async function openShare(o){
     const prev = $("#sharePrev"); if (prev) prev.innerHTML = `<img src="${o.img}" alt="">`;
   }
 }
+/* color del equipo para el fondo de la imagen (si es casi blanco o casi negro, usa el secundario) */
+function teamTint(slug){
+  const t = TEAMS.find(x => x[2] === slug); if (!t) return null;
+  const lum = h => { const n = parseInt(h.slice(1), 16); return (.299 * (n >> 16 & 255) + .587 * (n >> 8 & 255) + .114 * (n & 255)) / 255; };
+  const ok = h => h && /^#[0-9a-f]{6}$/i.test(h) && lum(h) > .08 && lum(h) < .85;
+  return ok(t[3]) ? t[3] : ok(t[4]) ? t[4] : null;
+}
 function shareModal(id){
   const c = byId(id); if (!c) return;
   const set = c.set.startsWith(c.product) ? c.set : c.product + " · " + c.set;
   openShare({ head:"Compartir carta", headSub: c.player + " · " + (serialOf(c) || "sin numerar"),
     img: c.imgs[0], title: c.player, sub: c.season + " " + set,
     line: [serialOf(c), money(c.price, c)].filter(Boolean).join("   ·   "), wa: ownerOf(c).wa,
+    desc: (c.why || [])[0] || "", price: money(c.price, c), tag: isNew(c) ? "NUEVA" : (c.vault ? "PREMIUM" : "DISPONIBLE"),
+    color: teamTint(c.teamSlug), big: c.jersey != null && c.jersey !== "" ? String(c.jersey) : ((TEAMS.find(x => x[2] === c.teamSlug) || [])[1] || ""),
+    chips: [].concat(serialOf(c) ? ["N° " + serialOf(c)] : [], (c.badges || []).filter(b => !(serialOf(c) && serialOf(c).includes(b.replace(/^\//, ""))))),
     text: shareText(c), url: cardUrl(c), fname: "final-cards-" + c.slug + ".png" });
 }
 function shareComboModal(slug){
@@ -5572,6 +5687,9 @@ function shareComboModal(slug){
   openShare({ head:"Compartir " + comboKindL(co), headSub: co.title,
     img: co.imgs[0], wide: true, title: t, sub: rest || plural(comboN(co), "carta", "cartas"),
     line: [plural(comboN(co), "carta", "cartas"), money(co.price, co)].join("   ·   "), wa: ownerOf({ owner: co.owner }).wa,
+    desc: co.desc || "",
+    color: teamTint(comboTeamSlug(co)), big: "×" + comboN(co),
+    cta: "TOCÁ EL LINK PARA VERLO", price: money(co.price, co), priceLbl: "PRECIO DEL " + comboKind(co).toUpperCase(), tag: comboKind(co).toUpperCase() + " · " + plural(comboN(co), "CARTA", "CARTAS"),
     text: co.title + " · " + money(co.price, co) + "\nMiralo en Final Cards: " + comboUrl(co), url: comboUrl(co), fname: "final-cards-" + co.slug + ".png" });
 }
 
