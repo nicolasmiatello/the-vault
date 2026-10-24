@@ -5482,130 +5482,237 @@ function shareText(c){
 }
 function loadImg(src){ return new Promise((ok, ko) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ko; i.src = src; }); }
 /* imagen 1080 × 1350 (formato de Instagram) para cartas y lotes */
+/* saca el fondo negro de una foto de cartas: borra lo oscuro que toca los bordes (el paño o la mesa)
+   sin tocar lo oscuro que está adentro de cada carta, y recorta al tamaño de las cartas */
+function trimDark(img){
+  try {
+    const w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, 480 / Math.max(w, h));
+    const sw = Math.max(1, Math.round(w * k)), sh = Math.max(1, Math.round(h * k));
+    const t = document.createElement("canvas"); t.width = sw; t.height = sh;
+    const tg = t.getContext("2d"); tg.drawImage(img, 0, 0, sw, sh);
+    const px = tg.getImageData(0, 0, sw, sh), d = px.data, N = sw * sh;
+    const dark = new Uint8Array(N);
+    for (let i = 0; i < N; i++){ const r = d[i*4], g2 = d[i*4+1], b = d[i*4+2], mx = Math.max(r, g2, b), mn = Math.min(r, g2, b); dark[i] = (mx < 70 && mx - mn < 40) ? 1 : 0; }
+    // relleno desde los bordes
+    const bg = new Uint8Array(N), st = [];
+    const push = i => { if (dark[i] && !bg[i]){ bg[i] = 1; st.push(i); } };
+    for (let x = 0; x < sw; x++){ push(x); push((sh - 1) * sw + x); }
+    for (let y = 0; y < sh; y++){ push(y * sw); push(y * sw + sw - 1); }
+    while (st.length){ const i = st.pop(), x = i % sw, y = (i / sw) | 0;
+      if (x > 0) push(i - 1); if (x < sw - 1) push(i + 1); if (y > 0) push(i - sw); if (y < sh - 1) push(i + sw); }
+    // las cartas son rectángulos: cada grupo de cartas se conserva entero (su rectángulo), así no se borra
+    // lo oscuro de una carta oscura que toca el fondo; se saca solo lo que queda afuera de todos los rectángulos
+    const lab = new Int32Array(N), boxes = [];
+    for (let s0 = 0; s0 < N; s0++){
+      if (bg[s0] || lab[s0]) continue;
+      const id = boxes.length + 1, q = [s0]; lab[s0] = id; let cnt = 0, bx0 = sw, by0 = sh, bx1 = -1, by1 = -1;
+      while (q.length){ const i = q.pop(), x = i % sw, y = (i / sw) | 0; cnt++;
+        if (x < bx0) bx0 = x; if (x > bx1) bx1 = x; if (y < by0) by0 = y; if (y > by1) by1 = y;
+        const nb = [x > 0 ? i - 1 : -1, x < sw - 1 ? i + 1 : -1, y > 0 ? i - sw : -1, y < sh - 1 ? i + sw : -1];
+        for (const j of nb) if (j >= 0 && !bg[j] && !lab[j]){ lab[j] = id; q.push(j); } }
+      boxes.push({ cnt, bx0, by0, bx1, by1 });
+    }
+    const keep = boxes.filter(b => b.cnt > N * .01);
+    if (!keep.length) return img;
+    bg.fill(1);
+    let x0 = sw, y0 = sh, x1 = -1, y1 = -1;
+    keep.forEach(b => { for (let y = b.by0; y <= b.by1; y++) for (let x = b.bx0; x <= b.bx1; x++) bg[y * sw + x] = 0;
+      x0 = Math.min(x0, b.bx0); y0 = Math.min(y0, b.by0); x1 = Math.max(x1, b.bx1); y1 = Math.max(y1, b.by1); });
+    let n = 0; for (let i = 0; i < N; i++) if (!bg[i]) n++;
+    if (n < N * .25 || n > N * .985) return img;            // nada que sacar, o algo raro: dejar la foto como está
+    // máscara (con un borde apenas suavizado) aplicada sobre la foto a tamaño real
+    for (let i = 0; i < N; i++){ d[i*4] = d[i*4+1] = d[i*4+2] = 255; d[i*4+3] = bg[i] ? 0 : 255; }
+    tg.putImageData(px, 0, 0);
+    const X = Math.max(0, x0 / k - 1), Y = Math.max(0, y0 / k - 1), W2 = Math.min(w, (x1 + 1) / k + 1) - X, H2 = Math.min(h, (y1 + 1) / k + 1) - Y;
+    const c = document.createElement("canvas"); c.width = Math.round(W2); c.height = Math.round(H2);
+    const cg = c.getContext("2d");
+    cg.drawImage(img, X, Y, W2, H2, 0, 0, c.width, c.height);
+    cg.globalCompositeOperation = "destination-in"; cg.imageSmoothingEnabled = true;
+    cg.filter = "blur(0.6px)";
+    cg.drawImage(t, X * k, Y * k, W2 * k, H2 * k, 0, 0, c.width, c.height);
+    c.naturalWidth = c.width; c.naturalHeight = c.height; c.cutout = true;
+    return c;
+  } catch(e){ return img; }
+}
 async function shareCanvas(o){
-  // pieza 1080 × 1350 para Instagram: estilo afiche, con la tipografía del sitio (Archivo condensada)
-  const W = 1080, H = 1350, cv = document.createElement("canvas"); cv.width = W; cv.height = H;
+  // pieza vertical 1080 × 1920 (historia de Instagram), estilo premium: vidrio, luz, piso reflejado y tipografía serif dorada
+  const W = 1080, H = 1920, cv = document.createElement("canvas"); cv.width = W; cv.height = H;
   const g = cv.getContext("2d");
-  const SANS = '"Archivo", "DejaVu Sans Condensed", "Arial Narrow", sans-serif', MONO = '"IBM Plex Mono", Menlo, monospace';
-  try { await Promise.all(["900 100px Archivo", "700 30px Archivo", "400 30px Archivo", "500 24px \"IBM Plex Mono\""].map(f => document.fonts.load(f))); } catch(e){}
-  const GOLD = "#E2C572", GOLD2 = "#C9A227";
-  const font = (w, px, stretch) => { g.font = `${w} ${px}px ${SANS}`; try { g.fontStretch = stretch || "normal"; } catch(e){} };
-  const fit = (txt, maxW, px, w, stretch, min) => { do { font(w, px, stretch); if (g.measureText(txt).width <= maxW) break; px -= 4; } while (px > (min || 40)); return px; };
+  const SERIF = '"Bodoni Moda", "Didot", "DejaVu Serif", Georgia, serif', SANS = '"Archivo", "DejaVu Sans", Arial, sans-serif';
+  try { await Promise.all(['800 200px "Bodoni Moda"', '600 100px "Bodoni Moda"', '600 40px Archivo', '900 400px Archivo', '500 30px Archivo'].map(f => document.fonts.load(f))); } catch(e){}
+  const GOLD = "#E2C572";
+  const TC = o.color || "#B8892A";
+  const rgba = (h, a) => { const n = parseInt(h.slice(1), 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${a})`; };
   const rr = (x, y, w, h, r) => { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); };
+  const spaced = (txt, x, y, sp) => {            // texto con espaciado entre letras, centrado en x
+    const ch = [...txt], ws = ch.map(c => g.measureText(c).width), tot = ws.reduce((a, b) => a + b, 0) + sp * (ch.length - 1);
+    let cx = x - tot / 2; const al = g.textAlign; g.textAlign = "left";
+    ch.forEach((c, k) => { g.fillText(c, cx, y); cx += ws[k] + sp; }); g.textAlign = al; return tot;
+  };
+  const fitFont = (txt, maxW, px, mk, min, sp) => { for (;;){ g.font = mk(px); const w = g.measureText(txt).width + (sp || 0) * ([...txt].length - 1); if (w <= maxW || px <= (min || 30)) return px; px -= 4; } };
+  const FLOOR = 1000;
 
-  // fondo con el color del equipo: luz detrás de la carta, haz en diagonal, número gigante de fondo y trama de puntos
-  const TC = o.color || "#C9A227";
-  const hex = (h, a) => { const n = parseInt(h.slice(1), 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${a})`; };
-  g.fillStyle = "#060607"; g.fillRect(0, 0, W, H);
-  const wash = g.createLinearGradient(0, 0, W, H);
-  wash.addColorStop(0, hex(TC, .55)); wash.addColorStop(.55, hex(TC, .12)); wash.addColorStop(1, "rgba(0,0,0,0)");
-  g.fillStyle = wash; g.fillRect(0, 0, W, H);
-  const spot = g.createRadialGradient(W/2, 470, 30, W/2, 470, 620);
-  spot.addColorStop(0, hex(TC, .55)); spot.addColorStop(.45, hex(TC, .18)); spot.addColorStop(1, "rgba(0,0,0,0)");
-  g.fillStyle = spot; g.fillRect(0, 0, W, H);
-  // número / sigla gigante, solo contorno
+  // fondo: negro profundo + resplandor del color del equipo arriba
+  g.fillStyle = "#040405"; g.fillRect(0, 0, W, H);
+  let gr = g.createRadialGradient(W/2, 560, 40, W/2, 600, 820);
+  gr.addColorStop(0, rgba(TC, .85)); gr.addColorStop(.35, rgba(TC, .38)); gr.addColorStop(.75, rgba(TC, .08)); gr.addColorStop(1, "rgba(0,0,0,0)");
+  g.fillStyle = gr; g.fillRect(0, 0, W, FLOOR + 80);
+  gr = g.createRadialGradient(W/2, 600, 0, W/2, 600, 380); gr.addColorStop(0, "rgba(255,225,170,.22)"); gr.addColorStop(1, "rgba(255,225,170,0)");
+  g.fillStyle = gr; g.fillRect(0, 0, W, FLOOR);
+
+  // número gigante de fondo (contorno), como marca de agua
   if (o.big){
     g.save(); g.textAlign = "center"; g.textBaseline = "middle";
-    font(900, 760, "condensed"); let bpx = 760;
-    while (g.measureText(o.big).width > W * 1.05 && bpx > 200){ bpx -= 40; font(900, bpx, "condensed"); }
-    g.lineWidth = 4; g.strokeStyle = hex(TC === "#C9A227" ? "#E2C572" : TC, .38);
-    g.strokeText(o.big, W/2, 480); g.fillStyle = hex(TC, .10); g.fillText(o.big, W/2, 480);
+    let bp = 900; g.font = `900 ${bp}px ${SANS}`; try { g.fontStretch = "condensed"; } catch(e){}
+    while (g.measureText(o.big).width > W * 1.1 && bp > 300){ bp -= 40; g.font = `900 ${bp}px ${SANS}`; }
+    const ng = g.createLinearGradient(0, 160, 0, FLOOR); ng.addColorStop(0, rgba(TC, .7)); ng.addColorStop(1, rgba(TC, .05));
+    g.lineWidth = 5; g.strokeStyle = ng; g.strokeText(o.big, W/2, 600);
+    g.fillStyle = rgba(TC, .10); g.fillText(o.big, W/2, 600);
+    try { g.fontStretch = "normal"; } catch(e){}
     g.restore();
   }
-  // haz diagonal con línea dorada
-  g.save(); g.translate(W/2, 470); g.rotate(-0.42);
-  const beam = g.createLinearGradient(0, -200, 0, 200);
-  beam.addColorStop(0, "rgba(255,255,255,0)"); beam.addColorStop(.5, "rgba(255,240,200,.10)"); beam.addColorStop(1, "rgba(255,255,255,0)");
-  g.fillStyle = beam; g.fillRect(-1100, -200, 2200, 400);
-  g.fillStyle = "rgba(226,197,114,.6)"; g.fillRect(-1100, -2, 2200, 4);
-  g.restore();
-  // trama de puntos (esquina inferior), estilo afiche
-  for (let yy = 760; yy < H; yy += 22) for (let xx = 0; xx < W; xx += 22){
-    const d = Math.hypot(xx - W, yy - H) / 900; if (d > 1) continue;
-    g.fillStyle = `rgba(255,255,255,${(1 - d) * .07})`; g.beginPath(); g.arc(xx, yy, 2.2 * (1 - d) + .6, 0, 7); g.fill();
-  }
-  // oscurecer abajo para que el texto se lea
-  const fade = g.createLinearGradient(0, 760, 0, H); fade.addColorStop(0, "rgba(6,6,7,0)"); fade.addColorStop(.35, "rgba(6,6,7,.75)"); fade.addColorStop(1, "rgba(6,6,7,.92)");
-  g.fillStyle = fade; g.fillRect(0, 760, W, H - 760);
-  g.strokeStyle = "rgba(226,197,114,.35)"; g.lineWidth = 2; g.strokeRect(24, 24, W - 48, H - 48);
 
-  // encabezado: logo + etiqueta
+  // haces de luz en diagonal (líneas doradas con brillo)
+  const streak = (x0, y0, x1, y1, a, wdt) => {
+    g.save(); g.globalCompositeOperation = "lighter";
+    const lg = g.createLinearGradient(x0, y0, x1, y1);
+    lg.addColorStop(0, "rgba(255,200,120,0)"); lg.addColorStop(.5, `rgba(255,214,150,${a})`); lg.addColorStop(1, "rgba(255,200,120,0)");
+    g.strokeStyle = lg; g.lineWidth = wdt; g.shadowColor = "rgba(255,190,110,1)"; g.shadowBlur = 34;
+    g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke(); g.restore();
+  };
+  const streaks = () => { streak(-60, 1000, 1140, 300, 1, 4.5); streak(-60, 980, 1140, 560, .75, 3); streak(-60, 760, 1140, 120, .5, 2); streak(240, 1000, 1140, 700, .6, 2.5); };
+  streaks(); streaks();
+
+  // piso: mármol negro pulido con vetas doradas, brillo de luz y viñeta
+  const floorG = g.createLinearGradient(0, FLOOR, 0, H); floorG.addColorStop(0, "#15110c"); floorG.addColorStop(.18, "#0a0807"); floorG.addColorStop(.6, "#060506"); floorG.addColorStop(1, "#020203");
+  g.fillStyle = floorG; g.fillRect(0, FLOOR, W, H - FLOOR);
+  let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  g.save(); g.beginPath(); g.rect(0, FLOOR, W, H - FLOOR); g.clip();
+  // nubes del mármol
+  for (let k = 0; k < 14; k++){
+    const x = rnd() * W, y = FLOOR + 80 + rnd() * (H - FLOOR), r = 160 + rnd() * 320;
+    const cg2 = g.createRadialGradient(x, y, 0, x, y, r); cg2.addColorStop(0, `rgba(70,60,48,${.10 + rnd() * .10})`); cg2.addColorStop(1, "rgba(70,60,48,0)");
+    g.fillStyle = cg2; g.fillRect(x - r, y - r, r * 2, r * 2);
+  }
+  // vetas: finas grises y algunas doradas con brillo
+  const vein = (gold) => {
+    let x = rnd() * W * 1.2 - W * .1, y = FLOOR + 40 + rnd() * (H - FLOOR);
+    g.beginPath(); g.moveTo(x, y);
+    for (let s2 = 0; s2 < 6; s2++){ const nx = x + 120 + rnd() * 260, ny = y + (rnd() - .5) * 220; g.quadraticCurveTo((x + nx) / 2 + (rnd() - .5) * 140, (y + ny) / 2 + (rnd() - .5) * 120, nx, ny); x = nx; y = ny; }
+    if (gold){ g.strokeStyle = `rgba(214,170,80,${.18 + rnd() * .22})`; g.lineWidth = .8 + rnd() * 1.6; g.shadowColor = "rgba(230,180,90,.6)"; g.shadowBlur = 8; }
+    else { g.strokeStyle = `rgba(235,228,215,${.03 + rnd() * .06})`; g.lineWidth = .5 + rnd() * 2.2; g.shadowBlur = 0; }
+    g.stroke();
+  };
+  for (let k = 0; k < 30; k++) vein(false);
+  for (let k = 0; k < 9; k++) vein(true);
+  g.shadowBlur = 0;
+  // brillo pulido: cono de luz que baja desde el horizonte
+  const cone = g.createRadialGradient(W/2, FLOOR, 10, W/2, FLOOR + 160, 760);
+  cone.addColorStop(0, "rgba(255,214,150,.20)"); cone.addColorStop(.5, "rgba(255,200,120,.06)"); cone.addColorStop(1, "rgba(0,0,0,0)");
+  g.fillStyle = cone; g.fillRect(0, FLOOR, W, H - FLOOR);
+  // polvo dorado
+  for (let k = 0; k < 90; k++){
+    const x = rnd() * W, y = FLOOR + rnd() * (H - FLOOR), r = rnd() * 1.8 + .3;
+    g.fillStyle = `rgba(255,220,150,${rnd() * .35})`; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill();
+  }
+  // viñeta lateral e inferior
+  let vg = g.createLinearGradient(0, 0, W, 0); vg.addColorStop(0, "rgba(0,0,0,.65)"); vg.addColorStop(.22, "rgba(0,0,0,0)"); vg.addColorStop(.78, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(0,0,0,.65)");
+  g.fillStyle = vg; g.fillRect(0, FLOOR, W, H - FLOOR);
+  vg = g.createLinearGradient(0, H - 260, 0, H); vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(0,0,0,.6)");
+  g.fillStyle = vg; g.fillRect(0, H - 260, W, 260);
+  g.restore();
+  // marco dorado fino en la parte de abajo
+  g.save(); g.strokeStyle = "rgba(226,197,114,.35)"; g.lineWidth = 1.5;
+  g.beginPath(); g.moveTo(36, FLOOR + 40); g.lineTo(36, H - 36); g.lineTo(W - 36, H - 36); g.lineTo(W - 36, FLOOR + 40); g.stroke();
+  const corner = (x, y, dx, dy) => { g.beginPath(); g.moveTo(x, y + dy * 26); g.lineTo(x, y); g.lineTo(x + dx * 26, y); g.strokeStyle = "rgba(240,210,130,.9)"; g.lineWidth = 3; g.stroke(); };
+  corner(36, H - 36, 1, -1); corner(W - 36, H - 36, -1, -1);
+  const fd = g.createLinearGradient(0, FLOOR + 40, 0, FLOOR + 220); fd.addColorStop(0, "rgba(6,6,7,1)"); fd.addColorStop(1, "rgba(6,6,7,0)");
+  g.fillStyle = fd; g.fillRect(30, FLOOR + 36, 12, 190); g.fillRect(W - 42, FLOOR + 36, 12, 190);
+  g.restore();
+  const hz = g.createLinearGradient(0, 0, W, 0); hz.addColorStop(0, "rgba(226,197,114,0)"); hz.addColorStop(.5, "rgba(255,226,160,1)"); hz.addColorStop(1, "rgba(226,197,114,0)");
+  g.save(); g.shadowColor = "rgba(255,200,120,.9)"; g.shadowBlur = 30; g.fillStyle = hz; g.fillRect(0, FLOOR - 1.5, W, 3); g.restore();
+  gr = g.createRadialGradient(W/2, FLOOR, 0, W/2, FLOOR, 520); gr.addColorStop(0, "rgba(255,210,140,.28)"); gr.addColorStop(1, "rgba(255,210,140,0)");
+  g.fillStyle = gr; g.fillRect(0, FLOOR - 200, W, 400);
+
+  // la carta: grande, inclinada, con brillo, apoyada en el piso, con reflejo
+  const img = trimDark(await loadImg(o.img));
+  const boxW = o.wide ? 940 : 600, boxH = o.wide ? 720 : 770;
+  const sc = Math.min(boxW / img.naturalWidth, boxH / img.naturalHeight), iw = img.naturalWidth * sc, ih = img.naturalHeight * sc;
+  const ang = o.wide ? 0 : -0.06, cy = FLOOR - 30 - ih / 2;
+  // reflejo
+  g.save(); g.beginPath(); g.rect(0, FLOOR, W, 240); g.clip();
+  g.translate(W/2, FLOOR + (FLOOR - cy) - 30); g.scale(1, -1); g.rotate(ang); g.globalAlpha = .16; g.drawImage(img, -iw/2, -ih/2, iw, ih); g.restore();
+  const rf = g.createLinearGradient(0, FLOOR, 0, FLOOR + 240); rf.addColorStop(0, "rgba(5,5,6,.3)"); rf.addColorStop(1, "rgba(5,5,6,1)");
+  g.fillStyle = rf; g.fillRect(0, FLOOR, W, 240);
+  // brillo dorado y sombra
+  g.save(); g.translate(W/2, cy); g.rotate(ang);
+  g.shadowColor = "rgba(255,200,120,.55)"; g.shadowBlur = 90; g.drawImage(img, -iw/2, -ih/2, iw, ih);
+  g.shadowColor = "rgba(0,0,0,.85)"; g.shadowBlur = 40; g.shadowOffsetY = 26; g.drawImage(img, -iw/2, -ih/2, iw, ih);
+  g.shadowColor = "transparent"; g.drawImage(img, -iw/2, -ih/2, iw, ih);
+  // reflejo de vidrio en diagonal
+  g.save(); g.beginPath(); g.rect(-iw/2, -ih/2, iw, ih); g.clip(); g.globalCompositeOperation = "screen";
+  const gl = g.createLinearGradient(-iw/2, -ih/2, iw/2, ih/2);
+  gl.addColorStop(0, "rgba(255,255,255,0)"); gl.addColorStop(.28, "rgba(255,255,255,0)"); gl.addColorStop(.33, "rgba(255,255,255,.16)"); gl.addColorStop(.40, "rgba(255,255,255,0)");
+  gl.addColorStop(.62, "rgba(255,255,255,0)"); gl.addColorStop(.66, "rgba(255,255,255,.07)"); gl.addColorStop(.70, "rgba(255,255,255,0)");
+  g.fillStyle = gl; g.fillRect(-iw/2, -ih/2, iw, ih); g.restore();
+  g.restore();
+  // una raya dorada fina que cruza por delante de la carta (como en la referencia)
+  streak(-60, FLOOR - 40, 1140, FLOOR - 640, .55, 1.6);
+  // destellos
+  const flare = (x, y, r, a) => { const f = g.createRadialGradient(x, y, 0, x, y, r); f.addColorStop(0, `rgba(255,240,210,${a})`); f.addColorStop(.25, `rgba(255,210,150,${a * .45})`); f.addColorStop(1, "rgba(255,200,120,0)"); g.fillStyle = f; g.fillRect(x - r, y - r, r * 2, r * 2); };
+  g.save(); g.globalCompositeOperation = "lighter"; flare(W/2 + iw/2 - 10, cy - ih/2 + 40, 120, .55); flare(W/2 - iw/2 + 20, FLOOR - 6, 160, .45); g.restore();
+
+  // encabezado: logo + etiqueta dorada
   try {
     const [mk, wd] = await Promise.all([loadImg(IMG_LOGO.mark), loadImg(IMG_LOGO.word)]);
-    const mh = 64, mw = mk.naturalWidth * mh / mk.naturalHeight, ww = 250, wh = wd.naturalHeight * ww / wd.naturalWidth;
-    g.drawImage(mk, 64, 58, mw, mh); g.drawImage(wd, 64 + mw + 16, 58 + (mh - wh) / 2, ww, wh);
-  } catch(e){ g.fillStyle = GOLD; font(900, 40, "condensed"); g.textAlign = "left"; g.fillText("FINAL CARDS", 64, 104); }
+    const mh = 78, mw = mk.naturalWidth * mh / mk.naturalHeight, ww = 300, wh = wd.naturalHeight * ww / wd.naturalWidth;
+    g.drawImage(mk, 60, 62, mw, mh); g.drawImage(wd, 60 + mw + 18, 62 + (mh - wh) / 2, ww, wh);
+  } catch(e){}
   if (o.tag){
-    g.font = `600 22px ${MONO}`; const tw = g.measureText(o.tag).width + 64, tx = W - 64 - tw;
-    rr(tx, 64, tw, 52, 26); g.fillStyle = GOLD; g.fill();
-    g.fillStyle = "#0b0b0c"; g.textAlign = "center"; g.fillText(o.tag, tx + tw / 2, 98);
+    g.font = `700 30px ${SANS}`; const tw = g.measureText(o.tag).width + 30 + 80, tx = W - 60 - tw;
+    const pg = g.createLinearGradient(tx, 0, tx + tw, 0); pg.addColorStop(0, "#F3DC97"); pg.addColorStop(.5, "#D4AF4E"); pg.addColorStop(1, "#B8892A");
+    rr(tx, 70, tw, 64, 32); g.fillStyle = pg; g.fill();
+    g.fillStyle = "#17120a"; g.textAlign = "center"; g.textBaseline = "alphabetic"; spaced(o.tag, tx + tw / 2, 113, 3);
   }
 
-  // la carta (o la foto del lote)
-  const img = await loadImg(o.img);
-  const boxW = o.wide ? 880 : 430, boxH = 590, sc = Math.min(boxW / img.naturalWidth, boxH / img.naturalHeight);
-  const iw = img.naturalWidth * sc, ih = img.naturalHeight * sc, cy = 150 + boxH / 2 + 10;
-  g.save(); g.translate(W/2, cy); if (!o.wide) g.rotate(-0.045);
-  g.shadowColor = "rgba(226,197,114,.35)"; g.shadowBlur = 80;
-  g.fillStyle = "#000"; g.fillRect(-iw/2, -ih/2, iw, ih);
-  g.shadowColor = "rgba(0,0,0,.9)"; g.shadowBlur = 50; g.shadowOffsetY = 30;
-  g.drawImage(img, -iw/2, -ih/2, iw, ih);
-  g.restore();
-
-  // nombre grande
-  g.textAlign = "center"; g.fillStyle = "#F4F3EF";
-  const name = o.title.toUpperCase();
-  const px = fit(name, W - 120, 124, 900, "condensed", 56);
-  g.fillText(name, W/2, 900);
-  // set / temporada
-  g.fillStyle = GOLD; g.font = `500 25px ${MONO}`; try { g.fontStretch = "normal"; } catch(e){}
-  g.fillText(o.sub.toUpperCase(), W/2, 948, W - 120);
-
-  // etiquetas (Hall of Fame, Rookie, 20/30…)
-  let y = 984;
-  const chips = (o.chips || []).filter(Boolean).slice(0, 4);
-  if (chips.length){
-    g.font = `600 21px ${MONO}`;
-    const ws = chips.map(c => g.measureText(c).width + 40), tot = ws.reduce((a, b) => a + b, 0) + 12 * (chips.length - 1);
-    let x = (W - tot) / 2;
-    chips.forEach((c, k) => {
-      rr(x, y, ws[k], 44, 22); g.strokeStyle = "rgba(226,197,114,.7)"; g.lineWidth = 2; g.stroke();
-      g.fillStyle = "#F4F3EF"; g.fillText(c, x + ws[k] / 2, y + 29); x += ws[k] + 12;
-    });
-    y += 44;
+  // nombre: primera línea blanca, segunda gigante en dorado
+  g.textAlign = "center"; g.textBaseline = "alphabetic";
+  const l1 = (o.name1 || "").toUpperCase(), l2 = (o.name2 || o.title).toUpperCase();
+  let y = 1150;
+  if (l1){
+    fitFont(l1, W - 160, 112, px => `600 ${px}px ${SERIF}`, 50, 6);
+    g.fillStyle = "#F7F4EC"; g.shadowColor = "rgba(0,0,0,.6)"; g.shadowBlur = 20; spaced(l1, W/2, y, 6); g.shadowBlur = 0;
+    y += 190;
+  } else y += 90;
+  const p2 = fitFont(l2, W - 120, 230, px => `800 ${px}px ${SERIF}`, 70);
+  const gg = g.createLinearGradient(0, y - p2 * .8, 0, y + 10);
+  gg.addColorStop(0, "#FFF1C2"); gg.addColorStop(.35, "#F0CF7A"); gg.addColorStop(.6, "#C9962E"); gg.addColorStop(.8, "#E8C46A"); gg.addColorStop(1, "#9C7120");
+  g.save(); g.shadowColor = "rgba(0,0,0,.7)"; g.shadowBlur = 24; g.shadowOffsetY = 8; g.fillStyle = gg; g.fillText(l2, W/2, y); g.restore();
+  y += 92;
+  // destacado (Autógrafo + Jersey, Rookie, Hall of Fame…)
+  if (o.hl){
+    fitFont(o.hl, W - 140, 50, px => `600 ${px}px ${SANS}`, 26, 12);
+    g.fillStyle = "#F4F1E8"; spaced(o.hl.toUpperCase(), W/2, y, 12); y += 70;
   }
-
-  // descripción breve (hasta 2 líneas)
-  if (o.desc){
-    font(400, 29); g.fillStyle = "#c9c6bd";
-    const maxW = W - 180, words = o.desc.replace(/\s+/g, " ").trim().split(" "), lines = [];
-    let cur = "";
-    for (const w of words){
-      const t = cur ? cur + " " + w : w;
-      if (g.measureText(t).width <= maxW) cur = t; else { lines.push(cur); cur = w; if (lines.length === 2) break; }
-    }
-    if (lines.length < 2 && cur) lines.push(cur);
-    if (lines.length === 2 && words.join(" ").length > (lines[0] + " " + lines[1]).length){
-      let l = lines[1]; while (g.measureText(l + "…").width > maxW && l.includes(" ")) l = l.slice(0, l.lastIndexOf(" "));
-      lines[1] = l.replace(/[,.;:]$/, "") + "…";
-    }
-    lines.slice(0, 2).forEach((l, k) => g.fillText(l, W/2, y + (chips.length ? 50 : 30) + k * 40));
+  // set entre líneas doradas
+  g.font = `600 36px ${SANS}`; g.fillStyle = GOLD;
+  const sub = o.sub.toUpperCase(); fitFont(sub, W - 380, 36, px => `600 ${px}px ${SANS}`, 22, 4);
+  const sw2 = spaced(sub, W/2, y, 4);
+  g.fillStyle = "rgba(226,197,114,.75)"; g.fillRect(70, y - 12, Math.max(30, (W - sw2) / 2 - 100), 2); g.fillRect(W - 70 - Math.max(30, (W - sw2) / 2 - 100), y - 12, Math.max(30, (W - sw2) / 2 - 100), 2);
+  y += 60;
+  // línea gris (numeración o descripción corta)
+  if (o.note){
+    g.font = `400 34px ${SANS}`; g.fillStyle = "#B9B4AA";
+    let t = o.note; while (g.measureText(t).width > W - 160 && t.includes(" ")) t = t.slice(0, t.lastIndexOf(" ")) + "…";
+    g.fillText(t, W/2, y);
   }
-
-  // cierre: llamado a tocar el link + espacio libre abajo para el sticker "Enlace" de Instagram
-  const cta = o.cta || "TOCÁ EL LINK PARA VERLA", by = 1182;
-  g.textAlign = "center"; g.fillStyle = "#F4F3EF";
-  fit(cta, W - 200, 46, 900, "condensed", 26);
-  g.fillText(cta, W/2, by);
-  // flecha hacia abajo
+  // cierre: flecha, llamado y lugar para el sticker del link
+  const cy2 = Math.max(y + 150, 1690);
   g.strokeStyle = GOLD; g.lineWidth = 5; g.lineCap = "round"; g.lineJoin = "round";
-  g.beginPath(); g.moveTo(W/2, by + 16); g.lineTo(W/2, by + 48); g.moveTo(W/2 - 14, by + 34); g.lineTo(W/2, by + 48); g.lineTo(W/2 + 14, by + 34); g.stroke();
-  // zona del link: guía sutil (queda debajo del sticker)
-  g.setLineDash([10, 10]); g.strokeStyle = "rgba(226,197,114,.45)"; g.lineWidth = 2;
-  rr(W/2 - 220, by + 62, 440, 74, 37); g.stroke(); g.setLineDash([]);
-  g.fillStyle = GOLD; g.font = `500 24px ${MONO}`; try { g.fontStretch = "normal"; } catch(e){}
-  g.fillText("FINAL-CARDS.COM", W/2, by + 107);
-  g.textAlign = "center";
+  g.beginPath(); g.moveTo(W/2 - 22, cy2 - 82); g.lineTo(W/2, cy2 - 60); g.lineTo(W/2 + 22, cy2 - 82); g.stroke();
+  g.font = `700 44px ${SANS}`; g.fillStyle = "#F4F1E8"; spaced(o.cta || "TOCÁ EL LINK PARA VERLA", W/2, cy2, 7);
+  g.setLineDash([12, 10]); g.strokeStyle = "rgba(226,197,114,.7)"; g.lineWidth = 2.5;
+  rr(W/2 - 250, cy2 + 46, 500, 108, 54); g.stroke(); g.setLineDash([]);
   return cv;
 }
 const IMG_LOGO = { mark: "img/logo-mark.webp?v=261", word: "img/logo-word.webp?v=261" };
@@ -5677,6 +5784,10 @@ function shareModal(id){
     img: c.imgs[0], title: c.player, sub: c.season + " " + set,
     line: [serialOf(c), money(c.price, c)].filter(Boolean).join("   ·   "), wa: ownerOf(c).wa,
     desc: (c.why || [])[0] || "", price: money(c.price, c), tag: isNew(c) ? "NUEVA" : (c.vault ? "PREMIUM" : "DISPONIBLE"),
+    name1: c.player.split(" ").slice(0, -1).join(" "), name2: c.player.split(" ").slice(-1)[0],
+    hl: [c.rookie ? "Rookie" : "", c.auto ? "Autógrafo" : "", c.memorabilia ? (c.memType || "Jersey") : ""].filter(Boolean).join(" + ") || (c.hof ? "Hall of Fame" : (c.subset && c.subset !== c.set ? c.subset : "")),
+    sub: c.season + " " + brandProd(c),
+    note: serialOf(c) ? "Numerada " + serialOf(c).replace("/", " de ") : ((c.why || [])[0] || ""),
     color: teamTint(c.teamSlug), big: c.jersey != null && c.jersey !== "" ? String(c.jersey) : ((TEAMS.find(x => x[2] === c.teamSlug) || [])[1] || ""),
     chips: [].concat(serialOf(c) ? ["N° " + serialOf(c)] : [], (c.badges || []).filter(b => !(serialOf(c) && serialOf(c).includes(b.replace(/^\//, ""))))),
     text: shareText(c), url: cardUrl(c), fname: "final-cards-" + c.slug + ".png" });
@@ -5689,6 +5800,7 @@ function shareComboModal(slug){
     line: [plural(comboN(co), "carta", "cartas"), money(co.price, co)].join("   ·   "), wa: ownerOf({ owner: co.owner }).wa,
     desc: co.desc || "",
     color: teamTint(comboTeamSlug(co)), big: "×" + comboN(co),
+    name1: "", name2: t.replace(/^(Set|Lote)\s+/i, ""), hl: comboKind(co) + " de " + plural(comboN(co), "carta", "cartas"), note: co.desc || "",
     cta: "TOCÁ EL LINK PARA VERLO", price: money(co.price, co), priceLbl: "PRECIO DEL " + comboKind(co).toUpperCase(), tag: comboKind(co).toUpperCase() + " · " + plural(comboN(co), "CARTA", "CARTAS"),
     text: co.title + " · " + money(co.price, co) + "\nMiralo en Final Cards: " + comboUrl(co), url: comboUrl(co), fname: "final-cards-" + co.slug + ".png" });
 }
