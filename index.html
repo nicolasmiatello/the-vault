@@ -2788,6 +2788,8 @@ html, body{overflow-x:clip}
 .soon::before{content:""; position:absolute; inset:0; background:url("img/hero-court.jpg?v=261") 50% 40% / cover no-repeat; opacity:.28; filter:saturate(.8)}
 .soon::after{content:""; position:absolute; inset:0; background:radial-gradient(60% 50% at 50% 42%, rgba(201,162,39,.16), transparent 70%), linear-gradient(0deg, #030304 6%, rgba(3,3,4,.55) 50%, #030304 98%)}
 .soon-in{position:relative; z-index:1; display:grid; justify-items:center; gap:18px; max-width:560px}
+.soon-photo{width:auto; height:auto; max-width:min(400px,78vw); max-height:36vh; border-radius:16px; border:1px solid rgba(201,162,39,.45); box-shadow:0 24px 60px rgba(0,0,0,.75), 0 0 0 6px rgba(201,162,39,.06); animation:rise 1s var(--ease) both}
+.soon-in{gap:14px}
 .soon-logo{width:min(250px,62vw); height:auto; filter:drop-shadow(0 20px 40px rgba(0,0,0,.7)); animation:rise 1s var(--ease) both}
 .soon .eyebrow{letter-spacing:.34em; animation:rise 1s .12s var(--ease) both}
 .soon h1{font-family:var(--display); font-weight:500; font-size:clamp(52px,12vw,108px); line-height:.95; letter-spacing:.01em; color:var(--bone); animation:rise 1s .2s var(--ease) both}
@@ -3233,7 +3235,7 @@ const SETTINGS = {
   demo: true,
   groupUrl: "https://chat.whatsapp.com/COB0Sr7wz6p4uPTrcqn8li",             // link de invitación al grupo o canal de WhatsApp (https://chat.whatsapp.com/...). Vacío: el botón abre un chat pidiendo que lo sumen
   roomFilm: false,          // video largo al entrar a la Sala NBA: apagado. Poner true para volver a mostrarlo
-  soon: false,              // pantalla "Muy pronto" en final-cards.com (se entra igual con ?ver=1). Poner false el día del lanzamiento
+  soon: true,               // pantalla "Muy pronto" en final-cards.com (se entra igual con ?ver=1). Poner false el día del lanzamiento
   soonPreview: false,       // muestra la pantalla también en el artifact, con botón para cerrarla (solo para verla)
   vaultOver: 60,            // una carta es "Premium" cuando su precio supera este valor (USD)
   auctions: false,          // subastas apagadas por ahora: poner true para volver a mostrarlas
@@ -11024,7 +11026,7 @@ function showSoon(){
   const el = $("#soon"), live = /final-cards\.com$/i.test(location.hostname);
   el.innerHTML = `${live ? "" : `<button class="soon-x" id="soonX">Vista previa · cerrar</button>`}
     <div class="soon-in">
-      <img class="soon-logo" src="img/logo-full.webp?v=261" alt="Final Cards" width="520" height="386">
+      <img class="soon-photo" src="img/socios-v2.webp?v=261" alt="Final Cards — los tres socios" width="1312" height="1199">
       <p class="eyebrow gold">The NBA Vault</p>
       <h1>Muy <em>pronto</em></h1>
       <span class="soon-rule"></span>
