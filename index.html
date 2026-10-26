@@ -2781,8 +2781,28 @@ html, body{overflow-x:clip}
 }
 </style>
 
+<style>
+/* MUY PRONTO — tapa el sitio hasta el lanzamiento */
+.soon{position:fixed; inset:0; z-index:400; background:#030304; display:grid; place-items:center; overflow:hidden; text-align:center; padding:24px 18px calc(24px + env(safe-area-inset-bottom,0px))}
+.soon[hidden]{display:none}
+.soon::before{content:""; position:absolute; inset:0; background:url("img/hero-court.jpg?v=261") 50% 40% / cover no-repeat; opacity:.28; filter:saturate(.8)}
+.soon::after{content:""; position:absolute; inset:0; background:radial-gradient(60% 50% at 50% 42%, rgba(201,162,39,.16), transparent 70%), linear-gradient(0deg, #030304 6%, rgba(3,3,4,.55) 50%, #030304 98%)}
+.soon-in{position:relative; z-index:1; display:grid; justify-items:center; gap:18px; max-width:560px}
+.soon-logo{width:min(250px,62vw); height:auto; filter:drop-shadow(0 20px 40px rgba(0,0,0,.7)); animation:rise 1s var(--ease) both}
+.soon .eyebrow{letter-spacing:.34em; animation:rise 1s .12s var(--ease) both}
+.soon h1{font-family:var(--display); font-weight:500; font-size:clamp(52px,12vw,108px); line-height:.95; letter-spacing:.01em; color:var(--bone); animation:rise 1s .2s var(--ease) both}
+.soon h1 em{font-style:italic; color:var(--gold-soft)}
+.soon-rule{width:min(320px,70vw); height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.soon p.soon-sub{color:var(--bone-dim); font-size:clamp(14px,2.2vw,16px); line-height:1.7; max-width:44ch; animation:rise 1s .3s var(--ease) both}
+.soon .btn-group{margin-top:6px; padding:16px 26px; font-size:12px; animation:rise 1s .4s var(--ease) both}
+.soon-site{font-family:var(--mono); font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--silver-dim); margin-top:8px}
+.soon-x{position:absolute; top:calc(14px + env(safe-area-inset-top,0px)); right:14px; z-index:2; font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--silver); padding:9px 12px; border:1px dashed var(--hair-strong); border-radius:2px; background:rgba(0,0,0,.5)}
+body.soon-on{overflow:hidden}
+</style>
+
 </head>
 <body>
+<div class="soon" id="soon" hidden role="dialog" aria-label="Final Cards · Muy pronto"></div>
 <header class="site-header" id="siteHeader">
   <div class="wrap-wide hdr">
     <a class="brand" href="#/" aria-label="Final Cards · inicio">
@@ -2836,6 +2856,7 @@ html, body{overflow-x:clip}
   <div class="mnav-sub">
     <a href="#/premium">Premium</a>
     <a href="#/cards?sort=new">Recién llegadas</a>
+    <a href="#/archive">Vendidas</a>
     <a href="#" data-pack>Abrí un sobre</a>
     <a href="#" data-sala>Recorré la sala</a>
     <a href="#" data-lobby>Cambiar de sala</a>
@@ -2874,6 +2895,7 @@ html, body{overflow-x:clip}
         <a href="#/autographs">Autógrafos</a>
         <a href="#/game-worn">Game-worn</a>
         <a href="#/combos">Lotes</a>
+        <a href="#/archive">Vendidas</a>
             </div>
       <div class="foot-col">
         <h5>Explorar</h5>
@@ -3105,6 +3127,23 @@ const IMG = {
   scolaFeF:  "img/n-scola-fef.webp?v=341", scolaFeB: "img/n-scola-feb.webp?v=341",
   campMidF:  "img/n-campazzo-midf.webp?v=342", campMidB: "img/n-campazzo-midb.webp?v=342",
   campSelF:  "img/n-campazzo-self.webp?v=344", campSelB: "img/n-campazzo-selb.webp?v=344",
+  nocAtF:    "img/n-nocioni-atf.webp?v=357", nocAtB: "img/n-nocioni-atb.webp?v=357",
+  scolaFbF:  "img/n-scola-fbaf.webp?v=357", scolaFbB: "img/n-scola-fbab.webp?v=357",
+  laproVtF:  "img/n-lapro-vtf.webp?v=357", laproVtB: "img/n-lapro-vtb.webp?v=357",
+  scolaSsF:  "img/n-scola-ssf.webp?v=357", scolaSsB: "img/n-scola-ssb.webp?v=357",
+  campAmF:   "img/n-campazzo-amf.webp?v=357", campAmB: "img/n-campazzo-amb.webp?v=357",
+  campImF:   "img/n-campazzo-imf.webp?v=357", campImB: "img/n-campazzo-imb.webp?v=357",
+  rodmanPcF: "img/n-rodman-pcf.webp?v=357", rodmanPcB: "img/n-rodman-pcb.webp?v=357",
+  embiidF:   "img/n-embiid-itgf.webp?v=357", embiidB: "img/n-embiid-itgb.webp?v=357",
+  manuFinF:  "img/n-manu-finf.webp?v=357", manuFinB: "img/n-manu-finb.webp?v=357",
+  pipJrF:    "img/n-pippenjr-ssf.webp?v=357", pipJrB: "img/n-pippenjr-ssb.webp?v=357",
+  campNtF:   "img/n-campazzo-ntf.webp?v=357", campNtB: "img/n-campazzo-ntb.webp?v=357",
+  delfBsF:   "img/n-delfino-bsf.webp?v=357", delfBsB: "img/n-delfino-bsb.webp?v=357",
+  scolaHpF:  "img/n-scola-hpf.webp?v=357", scolaHpB: "img/n-scola-hpb.webp?v=357",
+  nocStF:    "img/n-nocioni-stf.webp?v=357", nocStB: "img/n-nocioni-stb.webp?v=357",
+  dengItnF:  "img/n-deng-itnf.webp?v=357", dengItnB: "img/n-deng-itnb.webp?v=357",
+  nocSpsF:   "img/n-nocioni-spsf.webp?v=357", nocSpsB: "img/n-nocioni-spsb.webp?v=357",
+  manuUdbF:  "img/n-manu-udbf.webp?v=357", manuUdbB: "img/n-manu-udbb.webp?v=357",
   // tanda 1 de Guido
   arenas49f:  "img/g-arenas99f.webp?v=261",   arenas49b:  "img/g-arenas99b.webp?v=261",
   arenasAf:   "img/g-arenasautof.webp?v=261", arenasAb:   "img/g-arenasautob.webp?v=261",
@@ -3166,6 +3205,10 @@ const IMG = {
   wolkof:     "img/g-wolkof.webp?v=261",      wolkob:     "img/g-wolkob.webp?v=261",
   tysonf:     "img/g-tysonf.webp?v=261",      tysonb:     "img/g-tysonb.webp?v=261",
   richardf:   "img/g-richardf.webp?v=261",    richardb:   "img/g-richardb.webp?v=261",
+  // tanda 13 de Guido
+  prosperf:   "img/g-prosperf.webp?v=357",    prosperb:   "img/g-prosperb.webp?v=357",
+  dybmcdf:    "img/g-dybmcdf.webp?v=357",     dybmcdb:    "img/g-dybmcdb.webp?v=357",
+  powellf:    "img/g-powellf.webp?v=357",     powellb:    "img/g-powellb.webp?v=357",
   sprewell2: "img/1790612814653.webp?v=261",
   houstonb:  "img/1790612815049.webp?v=261",
   wardb2:    "img/1790612815341.webp?v=261",
@@ -3189,6 +3232,8 @@ const SETTINGS = {
   demo: true,
   groupUrl: "https://chat.whatsapp.com/COB0Sr7wz6p4uPTrcqn8li",             // link de invitación al grupo o canal de WhatsApp (https://chat.whatsapp.com/...). Vacío: el botón abre un chat pidiendo que lo sumen
   roomFilm: false,          // video largo al entrar a la Sala NBA: apagado. Poner true para volver a mostrarlo
+  soon: false,              // pantalla "Muy pronto" en final-cards.com (se entra igual con ?ver=1). Poner false el día del lanzamiento
+  soonPreview: false,       // muestra la pantalla también en el artifact, con botón para cerrarla (solo para verla)
   vaultOver: 60,            // una carta es "Premium" cuando su precio supera este valor (USD)
   auctions: false,          // subastas apagadas por ahora: poner true para volver a mostrarlas
   heroStats: null,          // se calculan solas con el stock (ver heroStatsLive)
@@ -3856,6 +3901,261 @@ const CARDS = [
     badges: ["PATCH AUTO", "/75", "ARGENTINA"],
     why: ["Firma de Facu con su \"7\" más un pedazo grande de camiseta, garantizada por Panini", "Numerada 55 de 75", "Campazzo con la 7 del Real Madrid, temporada 2025-26 de la EuroLiga", "Select Prizm, con acabado holográfico"],
     story: "De vuelta en el Real Madrid después de su paso por la NBA, Facu Campazzo es la cara de la EuroLiga, y Panini lo eligió para Select EuroLeague 2025-26. En la serie Prime Selections aparece con la camiseta blanca y la 7, acabado holográfico en azul y dorado, una ventana grande con un pedazo de camiseta y su firma \"FC7\" en tinta azul. Numerada 55 de 75. Como aclara el dorso, el material es auténtico pero no corresponde a un partido puntual."
+  },
+  {
+    id: "c45", slug: "andres-nocioni-contenders-euroleague-airlines-ticket-auto-24-25",
+    player: "Andrés Nocioni", playerSlug: "andres-nocioni", jersey: 6, hof: false,
+    team: "Real Madrid", teamSlug: "euroliga-real-madrid",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2000s",
+    brand: "Panini", product: "Contenders EuroLeague", set: "Airlines Ticket", subset: "Airlines Ticket Autograph",
+    cardNo: "AT-NOC", serialNum: 24, printRun: 25,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 69000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.nocAtF, IMG.nocAtB],
+    badges: ["AUTO", "/25", "ARGENTINA"],
+    why: ["Firma del Chapu en tinta azul, garantizada por Panini", "Numerada 24 de 25", "Nocioni con la 6 del Real Madrid campeón de la EuroLiga 2014-15", "Contenders EuroLeague 2025-26, con acabado holográfico"],
+    story: "En 2014-15 el Chapu Nocioni llegó al Real Madrid con muchos títulos encima, pero le faltaba la EuroLiga. La ganó ese mismo año: en la final ante Olympiacos, que el Madrid se llevó 78-59, metió 12 puntos, 7 rebotes y 2 asistencias saliendo del banco, como recuerda el dorso. Contenders EuroLeague 2025-26 lo pone en la serie Airlines Ticket, con diseño de entrada (temporada 2014-15, asiento 6), la camiseta blanca con la 6, fondo holográfico plateado y su firma en tinta azul sobre un sticker. Numerada 24 de 25."
+  },
+  {
+    id: "c46", slug: "luis-scola-mosaic-fast-break-autographs-prizm-fba-lsc",
+    player: "Luis Scola", playerSlug: "luis-scola", jersey: 4, hof: false,
+    team: "Indiana Pacers", teamSlug: "indiana-pacers",
+    season: "2021-22", year: 2022, era: "2020s", playerEra: "2000s",
+    brand: "Panini", product: "Mosaic", set: "Fast Break Autographs", subset: "Fast Break Autographs Prizm",
+    cardNo: "FBA-LSC", serialNum: null, printRun: null,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 49000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.scolaFbF, IMG.scolaFbB],
+    badges: ["AUTO", "PRIZM", "ARGENTINA"],
+    why: ["Firma de Luifa en tinta azul, garantizada por Panini", "Mosaic Prizm con fondo holográfico de lentejuelas", "Scola con la camiseta retro azul y la 4 de los Indiana Pacers"],
+    story: "Scola jugó dos temporadas en Indiana, y el dorso recuerda una noche en la que fue titular: el 9 de abril de 2014, a los 33 años, le hizo 24 puntos con 11 de 17 de campo y 9 rebotes a los Bucks en una victoria 104-102. Mosaic 2021-22 lo pone en la serie Fast Break Autographs, con la camiseta retro azul de Indiana y la 4, fondo Prizm de lentejuelas plateadas y su firma en tinta azul sobre un sticker."
+  },
+  {
+    id: "c47", slug: "nicolas-laprovittola-contenders-euroleague-veteran-ticket-auto-vst-lap",
+    player: "Nicolás Laprovíttola", playerSlug: "nicolas-laprovittola", jersey: 20, hof: false,
+    team: "FC Barcelona", teamSlug: "euroliga-barcelona",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "Contenders EuroLeague", set: "Veteran Ticket", subset: "Veteran Ticket Autograph Prizm",
+    cardNo: "VST-LAP", serialNum: null, printRun: null,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 44000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.laproVtF, IMG.laproVtB],
+    badges: ["AUTO", "PRIZM", "ARGENTINA"],
+    why: ["Firma de Nico Laprovíttola con su \"20\", garantizada por Panini", "Lapro con la 20 del Barça en la EuroLiga 2025-26", "Contenders EuroLeague Prizm, con acabado holográfico plateado"],
+    story: "Nicolás Laprovíttola, el base argentino que hizo carrera en la ACB y la EuroLiga, aparece con la camiseta azulgrana y la 20 del Barça en Contenders EuroLeague 2025-26. El dorso destaca su tiro de tres en la temporada 2023-24: 6,1 intentos por partido con 40,4% de acierto. La serie Veteran Ticket tiene diseño de entrada (asiento 20, fila 64, sección 180), acabado holográfico Prizm y su firma en tinta azul con el 20 al lado."
+  },
+  {
+    id: "c48", slug: "luis-scola-upper-deck-2008-09-star-signings-auto-ss-ls",
+    player: "Luis Scola", playerSlug: "luis-scola", jersey: 4, hof: false,
+    team: "Houston Rockets", teamSlug: "houston-rockets",
+    season: "2008-09", year: 2008, era: "2000s", playerEra: "2000s",
+    brand: "Upper Deck", product: "Upper Deck", set: "Star Signings", subset: "Star Signings",
+    cardNo: "SS-LS", serialNum: null, printRun: null,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 49000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.scolaSsF, IMG.scolaSsB],
+    badges: ["AUTO", "ARGENTINA"],
+    why: ["Firma de Luifa en tinta azul, certificada por Upper Deck", "Su segunda temporada en la NBA, con la 4 de los Houston Rockets", "Upper Deck 2008-09 Star Signings"],
+    story: "En 2008-09 Scola jugaba su segunda temporada en la NBA y ya era titular en los Rockets de Yao Ming y Tracy McGrady. Upper Deck lo puso en la serie Star Signings: de cuerpo entero con la camiseta roja y la 4 de Houston, fondo de estrellas y su firma en tinta azul sobre un sticker transparente. El dorso es el certificado de autenticidad firmado por Richard McWilliam, presidente de Upper Deck."
+  },
+  {
+    id: "c49", slug: "facundo-campazzo-mosaic-autographs-prizm-am-fcz",
+    player: "Facundo Campazzo", playerSlug: "facundo-campazzo", jersey: 7, hof: false,
+    team: "Denver Nuggets", teamSlug: "denver-nuggets",
+    season: "2021-22", year: 2022, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "Mosaic", set: "Autographs", subset: "Mosaic Autographs Prizm",
+    cardNo: "AM-FCZ", serialNum: null, printRun: null,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 51000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.campAmF, IMG.campAmB],
+    badges: ["AUTO", "PRIZM", "ARGENTINA"],
+    why: ["Firma de Facu con su \"7\", garantizada por Panini", "Campazzo con la 7 de los Denver Nuggets", "Mosaic Prizm, con fondo holográfico de mosaico"],
+    story: "En 2021-22 Facu Campazzo jugaba su segunda temporada con los Denver Nuggets, con la 7 en la espalda. Mosaic 2021-22 lo pone en la serie Autographs: con la camiseta blanca de Denver, manejando la pelota sobre un fondo Prizm de mosaico plateado, y su firma \"FC7\" en tinta azul sobre un sticker."
+  },
+  {
+    id: "c50", slug: "facundo-campazzo-immaculate-rookie-patch-auto-140-66-99",
+    player: "Facundo Campazzo", playerSlug: "facundo-campazzo", jersey: 7, hof: false,
+    team: "Denver Nuggets", teamSlug: "denver-nuggets",
+    season: "2020-21", year: 2021, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "Immaculate Collection", set: "Immaculate Collection", subset: "Rookie Patch Autograph",
+    cardNo: "140", serialNum: 66, printRun: 99,
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: true, memType: "Jersey",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 89000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.campImF, IMG.campImB],
+    badges: ["ROOKIE AUTO", "JERSEY", "/99", "ARGENTINA"],
+    why: ["Carta de rookie de Facu con su firma \"FC7\" y un pedazo de camiseta, garantizada por Panini", "Immaculate Collection, una de las líneas más altas de Panini", "Numerada 66 de 99", "Temporada 2020-21, su llegada a la NBA con los Denver Nuggets"],
+    story: "En 2020-21 Facundo Campazzo llegó a la NBA con los Denver Nuggets, y el dorso recuerda una tarde suya: el 17 de marzo de 2021 repartió 10 asistencias y robó 4 pelotas en la victoria 129-104 sobre Charlotte. Immaculate Collection lo pone en su serie de rookies: Facu con la camiseta blanca de Denver, marcos dorados en relieve, una ventana grande con un pedazo de camiseta azul con vivo amarillo, el sello RC y su firma \"FC7\" en tinta azul. Numerada 66 de 99. Como aclara el dorso, el material es auténtico pero no corresponde a un partido puntual."
+  },
+  {
+    id: "c51", slug: "facundo-campazzo-national-treasures-rookie-patch-auto-110-15-49",
+    player: "Facundo Campazzo", playerSlug: "facundo-campazzo", jersey: 7, hof: false,
+    team: "Denver Nuggets", teamSlug: "denver-nuggets",
+    season: "2020-21", year: 2021, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "National Treasures", set: "National Treasures", subset: "Rookie Patch Autograph",
+    cardNo: "110", serialNum: 15, printRun: 49,
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: true, memType: "Patch",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 139000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: true, demo: true, owner: "nico",
+    imgs: [IMG.campNtF, IMG.campNtB],
+    badges: ["RPA", "PATCH", "/49", "ARGENTINA"],
+    why: ["RPA de Facu: carta de rookie con parche grande y firma, garantizada por Panini", "National Treasures, la línea más alta de Panini", "Numerada 15 de 49", "Parche de varios colores con costura amarilla en relieve"],
+    story: "La rookie patch auto (RPA) es la carta más buscada del primer año de un jugador, y la de National Treasures es la más alta de todas. Esta es la de Facundo Campazzo en 2020-21, su temporada de debut con los Denver Nuggets: Facu con la camiseta azul y la 7, una ventana enorme con un parche bordó, blanco y amarillo con costura en relieve, el sello RC y su firma en tinta azul. Es una carta horizontal. Numerada 15 de 49. Como aclara el dorso, el material es auténtico pero no corresponde a un partido puntual."
+  },
+  {
+    id: "c52", slug: "carlos-delfino-bowman-signature-rookie-auto-73-016-249",
+    player: "Carlos Delfino", playerSlug: "carlos-delfino", jersey: 20, hof: false,
+    team: "Detroit Pistons", teamSlug: "detroit-pistons",
+    season: "2003-04", year: 2004, era: "2000s", playerEra: "2000s",
+    brand: "Topps", product: "Bowman Signature", set: "Bowman Signature", subset: "Rookie Autograph",
+    cardNo: "73", serialNum: 16, printRun: 249,
+    rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 48000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.delfBsF, IMG.delfBsB],
+    badges: ["ROOKIE AUTO", "/249", "ARGENTINA"],
+    why: ["Carta de rookie de Delfino con su firma, certificada por Topps (holograma en el dorso)", "Numerada 016 de 249", "Delfino con la gorra de los Pistons el día del draft 2003, elegido en el puesto 25"],
+    story: "Carlos Delfino fue elegido por los Detroit Pistons en el puesto 25 del draft 2003, después de jugar en Italia. Bowman Signature 2003-04 lo muestra con traje y la gorra de los Pistons el día del draft, con su firma \"C. Delfino\" en tinta azul sobre un sticker. El dorso trae sus números en la liga italiana, el holograma de autenticidad de Topps y la numeración en dorado: 016 de 249."
+  },
+  {
+    id: "c53", slug: "luis-scola-nba-hoops-2011-12-auto-75",
+    player: "Luis Scola", playerSlug: "luis-scola", jersey: 4, hof: false,
+    team: "Houston Rockets", teamSlug: "houston-rockets",
+    season: "2011-12", year: 2012, era: "2010s", playerEra: "2000s",
+    brand: "Panini", product: "NBA Hoops", set: "NBA Hoops", subset: "Autographs",
+    cardNo: "75", serialNum: null, printRun: null,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 45000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.scolaHpF, IMG.scolaHpB],
+    badges: ["AUTO", "ARGENTINA"],
+    why: ["Firma de Luifa en tinta azul, garantizada por Panini", "Scola con la camiseta retro roja y amarilla y la 4 de los Rockets", "NBA Hoops 2011-12, con sus números de las cuatro temporadas en Houston en el dorso"],
+    story: "En 2011-12 Scola arrancaba su quinta temporada en Houston, y NBA Hoops lo puso con la camiseta retro roja y amarilla y la 4, tirando en el aire, con su firma en tinta azul sobre un sticker. El dorso trae sus números con los Rockets desde 2007-08, con su mejor año en 2010-11: 18,3 puntos por partido."
+  },
+  {
+    id: "c54", slug: "andres-nocioni-panini-studio-2009-10-kings-49",
+    player: "Andrés Nocioni", playerSlug: "andres-nocioni", jersey: 5, hof: false,
+    team: "Sacramento Kings", teamSlug: "sacramento-kings",
+    season: "2009-10", year: 2010, era: "2000s", playerEra: "2000s",
+    brand: "Panini", product: "Studio", set: "Studio", subset: "Base",
+    cardNo: "49", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 9000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.nocStF, IMG.nocStB],
+    badges: ["ARGENTINA"],
+    why: ["El Chapu con la 5 de los Sacramento Kings", "Panini Studio 2009-10, carta horizontal con dos fotos", "Para la colección de argentinos en la NBA"],
+    story: "En 2009-10 el Chapu Nocioni jugaba su primera temporada completa en Sacramento, como el veterano del quinteto de los Kings. Panini Studio 2009-10 lo muestra en una carta horizontal: un primer plano con la camiseta violeta de los Kings y, de fondo, una foto en blanco y negro tirando una bandeja. El dorso trae sus números de las seis temporadas en la NBA."
+  },
+  {
+    id: "c55", slug: "luol-deng-prestige-2012-13-inside-the-numbers-jersey-35",
+    player: "Luol Deng", playerSlug: "luol-deng", jersey: 9, hof: false,
+    team: "Chicago Bulls", teamSlug: "chicago-bulls",
+    season: "2012-13", year: 2012, era: "2010s", playerEra: "2010s",
+    brand: "Panini", product: "Prestige", set: "Inside the Numbers", subset: "Inside the Numbers Jersey",
+    cardNo: "35", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: true, memType: "Jersey",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 21000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.dengItnF, IMG.dengItnB],
+    badges: ["JERSEY"],
+    why: ["Pedazo de camiseta blanca usada en partido, garantizado por Panini", "Luol Deng con la 9 de los Chicago Bulls", "Serie Inside the Numbers de Prestige 2012-13: 39,4 minutos por partido, el máximo de la NBA"],
+    story: "En 2011-12 Luol Deng jugó toda la temporada con una lesión en la muñeca que necesitaba cirugía, y aun así promedió 15,3 puntos, 7,6 rebotes y 2,5 asistencias, y fue el jugador con más minutos por partido de la NBA: 39,4, como recuerda el dorso. Prestige 2012-13 lo pone en la serie Inside the Numbers, una carta horizontal con ese número gigante, Deng con la camiseta blanca y la 9 de los Bulls y una ventana con un pedazo de camiseta usada en partido."
+  },
+  {
+    id: "c56", slug: "andres-nocioni-sp-authentic-2005-06-sp-signatures-auto-sp-no",
+    player: "Andrés Nocioni", playerSlug: "andres-nocioni", jersey: 5, hof: false,
+    team: "Chicago Bulls", teamSlug: "chicago-bulls",
+    season: "2005-06", year: 2005, era: "2000s", playerEra: "2000s",
+    brand: "Upper Deck", product: "SP Authentic", set: "SP Signatures", subset: "SP Signatures",
+    cardNo: "SP-NO", serialNum: null, printRun: null,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 65000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.nocSpsF, IMG.nocSpsB],
+    badges: ["AUTO", "ARGENTINA"],
+    why: ["Firma del Chapu en tinta azul, certificada por Upper Deck", "Nocioni con la 5 de los Chicago Bulls, su segunda temporada en la NBA", "SP Authentic 2005-06, serie SP Signatures"],
+    story: "En 2005-06 el Chapu Nocioni jugaba su segunda temporada con los Chicago Bulls, ya como pieza fija de la rotación. Upper Deck lo puso en SP Authentic, en la serie SP Signatures: una carta horizontal con Nocioni yendo a la bandeja con la camiseta roja y la 5, dentro de un marco hexagonal, y su firma en tinta azul. El dorso es el certificado de autenticidad de Upper Deck, firmado por su presidente Richard McWilliam."
+  },
+  {
+    id: "c57", slug: "manu-ginobili-ud-black-2006-07-quad-jersey-10",
+    player: "Manu Ginóbili", playerSlug: "manu-ginobili", jersey: 20, hof: true,
+    team: "San Antonio Spurs", teamSlug: "san-antonio-spurs",
+    season: "2006-07", year: 2007, era: "2000s", playerEra: "2000s",
+    brand: "Upper Deck", product: "UD Black", set: "UD Black", subset: "Game Jersey (cuatro pedazos)",
+    cardNo: "10", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: true, memType: "Jersey cuádruple",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 89000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.manuUdbF, IMG.manuUdbB],
+    badges: ["JERSEY", "ARGENTINA", "HALL OF FAME"],
+    why: ["Cuatro pedazos de camiseta de Manu usada en un partido NBA, certificados por Upper Deck", "UD Black, la línea más alta de Upper Deck en 2006-07", "Manu con la 20 de los Spurs, la temporada de su tercer anillo"],
+    story: "2006-07 fue la temporada del tercer anillo de Manu con los Spurs. Upper Deck lo guardó en UD Black, su producto más alto de ese año: una carta horizontal con Manu con la camiseta blanca y la 20, acabado plateado holográfico con el logo de la NBA y cuatro ventanas con pedazos de camiseta, tres negros y uno gris. El dorso certifica que el material fue usado en un partido de la NBA, con la firma de Richard McWilliam, presidente de Upper Deck."
+  },
+  {
+    id: "s1", slug: "dennis-rodman-leaf-pop-century-signatures-auto-ba-dr3-6-15",
+    player: "Dennis Rodman", playerSlug: "dennis-rodman", jersey: 91, hof: true,
+    team: "Chicago Bulls", teamSlug: "chicago-bulls",
+    season: "2021", year: 2021, era: "2020s", playerEra: "1990s",
+    brand: "Leaf", product: "Pop Century", set: "Pop Century Signatures", subset: "Pink",
+    cardNo: "BA-DR3", serialNum: 6, printRun: 15,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 0, cur: "ARS", status: "sold", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.rodmanPcF, IMG.rodmanPcB],
+    badges: ["AUTO", "/15", "HALL OF FAME"],
+    why: ["Firma de Rodman en tinta azul, garantizada por Leaf Trading Cards", "Numerada 6 de 15", "Acabado rosa holográfico de Leaf Pop Century 2021"],
+    story: "Dennis Rodman en Leaf Pop Century 2021, serie Signatures: el pelo rubio, la camiseta roja y la firma en tinta azul sobre un sticker holográfico, en versión rosa. Numerada 6 de 15. Es un producto Leaf con licencia del jugador, sin logos oficiales de la NBA."
+  },
+  {
+    id: "s2", slug: "joel-embiid-leaf-in-the-game-used-memorabilia-gum-27-51-99",
+    player: "Joel Embiid", playerSlug: "joel-embiid", jersey: 21, hof: false,
+    team: "Philadelphia 76ers", teamSlug: "philadelphia-76ers",
+    season: "2024", year: 2024, era: "2020s", playerEra: "2020s",
+    brand: "Leaf", product: "In The Game Used", set: "Game-Used Memorabilia", subset: "",
+    cardNo: "GUM-27", serialNum: 51, printRun: 99,
+    rookie: false, auto: false, autoType: null, memorabilia: true, memType: "Jersey",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 0, cur: "ARS", status: "sold", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.embiidF, IMG.embiidB],
+    badges: ["JERSEY", "/99"],
+    why: ["Pedazo de camiseta usada en partido, garantizado por Leaf Trading Cards", "Numerada 51 de 99", "Diseño con la camiseta azul y la 21 de Philadelphia"],
+    story: "Joel Embiid en Leaf In The Game Used Sports 2024: la camiseta azul con la 21 de los 76ers dibujada de fondo y una ventana con un pedazo rojo de camiseta usada en partido. Numerada 51 de 99. Es un producto Leaf sin licencia de la NBA."
+  },
+  {
+    id: "s3", slug: "manu-ginobili-topps-finest-2023-24-refractor-59-42-74",
+    player: "Manu Ginóbili", playerSlug: "manu-ginobili", jersey: 20, hof: true,
+    team: "San Antonio Spurs", teamSlug: "san-antonio-spurs",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "2000s",
+    brand: "Topps", product: "Topps Finest", set: "Topps Finest", subset: "Refractor /74",
+    cardNo: "59", serialNum: 42, printRun: 74,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 0, cur: "ARS", status: "sold", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.manuFinF, IMG.manuFinB],
+    badges: ["/74", "REFRACTOR", "ARGENTINA", "HALL OF FAME"],
+    why: ["Refractor de Topps Finest numerada 42 de 74", "Manu con la camiseta negra de los Spurs", "El dorso recuerda sus 48 puntos en Phoenix en 2005"],
+    story: "Manu en Topps Finest, en refractor numerada 42 de 74. El dorso recuerda el mejor de sus seis partidos de 40 puntos: el 21 de enero de 2005 le metió 48 a Phoenix con 16 de 22 de campo, en una victoria 128-123 de San Antonio."
+  },
+  {
+    id: "s4", slug: "scotty-pippen-jr-donruss-2023-24-signature-series-auto-ss-spj",
+    player: "Scotty Pippen Jr.", playerSlug: "scotty-pippen-jr", jersey: 14, hof: false,
+    team: "Los Angeles Lakers", teamSlug: "los-angeles-lakers",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "Donruss", set: "Signature Series", subset: "",
+    cardNo: "SS-SPJ", serialNum: null, printRun: null,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 0, cur: "ARS", status: "sold", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    imgs: [IMG.pipJrF, IMG.pipJrB],
+    badges: ["AUTO"],
+    why: ["Firma del hijo de Scottie Pippen, garantizada por Panini", "Con la 14 de los Los Angeles Lakers", "Donruss 2023-24 Signature Series, acabado holográfico"],
+    story: "Scotty Pippen Jr., hijo de Scottie Pippen, con la camiseta amarilla y la 14 de los Lakers en Donruss 2023-24 Signature Series, con su firma en tinta azul. El dorso recuerda su temporada en la G League con los South Bay Lakers: 21,4 puntos y 5 asistencias por partido."
   },
   {
     id: "c20", slug: "karl-malone-upper-deck-fanimation-the-mailman-508",
@@ -4607,6 +4907,51 @@ const CARDS = [
     badges: ["ARGENTINA"],
     why: ["Wolkowyski con la 45 de los Seattle SuperSonics", "Upper Deck Game Edition 2000-01", "Uno de los dos primeros argentinos en jugar en la NBA"],
     story: "Rubén \"Colo\" Wolkowyski con la 45 de los Seattle SuperSonics en Upper Deck Game Edition 2000-01. El dorso recuerda su historia: brilló en Quilmes, Boca y Estudiantes de Olavarría, con el que ganó la Liga Nacional 1999-2000, y el 31 de octubre de 2000 se convirtió, junto a Pepe Sánchez, en uno de los dos primeros argentinos en jugar un partido de la NBA."
+  },
+  {
+    id: "g50", slug: "olivier-maxence-prosper-donruss-optic-2024-25-signature-series-auto-ss-omp",
+    player: "Olivier-Maxence Prosper", playerSlug: "olivier-maxence-prosper", jersey: 8, hof: false,
+    team: "Dallas Mavericks", teamSlug: "dallas-mavericks",
+    season: "2024-25", year: 2025, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "Donruss Optic", set: "Signature Series", subset: "",
+    cardNo: "SS-OMP", serialNum: null, printRun: null,
+    rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 8000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, owner: "guido",
+    imgs: [IMG.prosperf, IMG.prosperb],
+    badges: ["AUTO"],
+    why: ["Autógrafo garantizado por Panini America", "Con la 8 de los Dallas Mavericks", "Donruss Optic 2024-25 Signature Series"],
+    story: "Olivier-Maxence Prosper, alero canadiense de los Dallas Mavericks, con la camiseta blanca y la 8 en Donruss Optic 2024-25 Signature Series: la firma en tinta azul sobre el sticker y el escudo de los Mavs en el dorso."
+  },
+  {
+    id: "g51", slug: "aj-dybantsa-topps-chrome-mcdonalds-all-american-2025-7",
+    player: "AJ Dybantsa", playerSlug: "aj-dybantsa", jersey: 3, hof: false,
+    team: "BYU", teamSlug: "ncaa-byu",
+    season: "2025", year: 2025, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Chrome McDonald's All American", set: "McDonald's All American", subset: "Orange Refractor",
+    cardNo: "7", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 15000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, owner: "guido",
+    imgs: [IMG.dybmcdf, IMG.dybmcdb],
+    badges: ["REFRACTOR", "MCDONALD'S AA"],
+    why: ["Dybantsa con la camiseta del McDonald's All American Game 2025", "Topps Chrome, versión refractor naranja", "Uno de los prospectos más seguidos de la camada universitaria 2025-26"],
+    story: "AJ Dybantsa con la 3 del Oeste en el McDonald's All American Game 2025, en Topps Chrome con refractor naranja. El dorso cuenta que fue el segundo goleador del Oeste en ese partido, con 17 puntos, en la victoria 105-92, antes de llegar a BYU desde Utah Prep Academy."
+  },
+  {
+    id: "g52", slug: "drake-powell-topps-2025-26-roundball-remnants-rookie-jersey-rrr-dp",
+    player: "Drake Powell", playerSlug: "drake-powell", jersey: 4, hof: false,
+    team: "Brooklyn Nets", teamSlug: "brooklyn-nets",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps", set: "Roundball Remnants", subset: "Rookie Relic",
+    cardNo: "RRR-DP", serialNum: null, printRun: null,
+    rookie: true, auto: false, autoType: null, memorabilia: true, memType: "Jersey",
+    condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 8000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, owner: "guido",
+    imgs: [IMG.powellf, IMG.powellb],
+    badges: ["RC", "JERSEY"],
+    why: ["Pedazo de camiseta usada por el jugador, certificado por Topps", "Rookie card de los Brooklyn Nets, con el escudo RC", "Topps 2025-26 Roundball Remnants"],
+    story: "Drake Powell, rookie de los Brooklyn Nets, con la camiseta negra y la 4 en Topps 2025-26 Roundball Remnants: una carta horizontal con el escudo RC y una ventana redonda con un pedazo de camiseta blanca usada por el jugador. El dorso destaca su defensa y su 37,9% en triples en 2024-25."
   }
 ];
 
@@ -5482,6 +5827,32 @@ COMBOS.push({
   ],
   price: 5000, cur: "ARS", status: "available", owner: "guido"
 });
+COMBOS.push({
+  slug: "set-manu-ginobili-x4-donruss-hot-prospects-artifacts-topps",
+  title: "Set Manu Ginóbili ×4 — Donruss, Hot Prospects, Artifacts y Topps",
+  desc: "Cuatro cartas de Manu con los Spurs: Donruss 2015-16, Fleer Hot Prospects 2007-08, Upper Deck Artifacts 2006-07 y Topps 2006-07.",
+  imgs: ["img/n-manu4b-1.webp?v=357", "img/n-manu4b-2.webp?v=357"],
+  includes: [
+    "Manu Ginóbili — Spurs, Donruss 2015-16 N° 145",
+    "Manu Ginóbili — Spurs, Fleer Hot Prospects 2007-08 N° 31",
+    "Manu Ginóbili — Spurs, Upper Deck Artifacts 2006-07 N° 86",
+    "Manu Ginóbili — Spurs, Topps 2006-07 N° 145"
+  ],
+  price: 20000, cur: "ARS", status: "available", owner: "nico"
+});
+COMBOS.push({
+  slug: "set-manu-ginobili-x4-bowman-prizm-threads-diamond-prosigs",
+  title: "Set Manu Ginóbili ×4 — Bowman, Prizm, Threads y Diamond ProSigs",
+  desc: "Cuatro cartas de Manu con los Spurs: Bowman N° 72, Prizm 2023-24, Panini Threads 2012-13 y Upper Deck Diamond ProSigs.",
+  imgs: ["img/n-manu4c-1.webp?v=357", "img/n-manu4c-2.webp?v=357"],
+  includes: [
+    "Manu Ginóbili — Spurs, Bowman N° 72",
+    "Manu Ginóbili — Spurs, Prizm 2023-24 N° 190",
+    "Manu Ginóbili — Spurs, Panini Threads 2012-13 N° 129",
+    "Manu Ginóbili — Spurs, Upper Deck Diamond ProSigs N° 78"
+  ],
+  price: 20000, cur: "ARS", status: "available", owner: "nico"
+});
 COMBOS.forEach(toUsdNorm);
 
 /* Subastas en vivo — lotes demo armados con cartas que ya están en la bóveda */
@@ -5547,6 +5918,12 @@ const PLAYERS_META = {
   "will-richard":      { name:"Will Richard",         years:"2025–",     teams:"Warriors",    pos:"Escolta", hof:false, era:"2020s", note:"Rookie de los Golden State Warriors en 2025-26" },
   "jaylon-tyson":      { name:"Jaylon Tyson",         years:"2024–",     teams:"Cavaliers",   pos:"Alero",   hof:false, era:"2020s", note:"Alero de los Cleveland Cavaliers" },
   "ruben-wolkowyski":  { name:"Rubén Wolkowyski",     years:"2000–2002", teams:"SuperSonics · Celtics", pos:"Ala-pivot", hof:false, era:"2000s", note:"Uno de los dos primeros argentinos en la NBA, junto a Pepe Sánchez" },
+  "nicolas-laprovittola": { name:"Nicolás Laprovíttola", years:"2008–", teams:"Barça", pos:"Base", hof:false, era:"2020s", note:"Base argentino del Barça en la EuroLiga" },
+  "luol-deng":         { name:"Luol Deng",            years:"2004–2019", teams:"Bulls · Cavaliers · Heat · Lakers · Wolves", pos:"Alero", hof:false, era:"2010s", note:"Dos veces All-Star con los Chicago Bulls" },
+  "joel-embiid":       { name:"Joel Embiid",          years:"2016–", teams:"76ers", pos:"Pivot", hof:false, era:"2020s", note:"MVP de la NBA en 2023 con Philadelphia" },
+  "scotty-pippen-jr":  { name:"Scotty Pippen Jr.",    years:"2022–", teams:"Lakers · Grizzlies", pos:"Base", hof:false, era:"2020s", note:"Hijo de Scottie Pippen" },
+  "olivier-maxence-prosper": { name:"Olivier-Maxence Prosper", years:"2023–", teams:"Mavericks", pos:"Alero", hof:false, era:"2020s", note:"Alero canadiense de los Dallas Mavericks" },
+  "drake-powell":      { name:"Drake Powell",         years:"2025–", teams:"Nets", pos:"Alero", hof:false, era:"2020s", note:"Rookie de los Brooklyn Nets en 2025-26" },
   "victor-wembanyama": { name:"Victor Wembanyama",    years:"2023–",     teams:"Spurs", pos:"Pivot", hof:false, era:"2020s", note:"Elegido N°1 del draft 2023, récord de puntos en debut de temporada para San Antonio" }
 };
 
@@ -5557,7 +5934,7 @@ const WANTED = {
 };
 /* jugadores argentinos: alcanza con que un jugador esté acá para que sus cartas
    aparezcan solas en la colección "Argentina", sin tocar nada más */
-const ARGENTINA_SLUGS = ["ruben-wolkowyski","manu-ginobili","luis-scola","pablo-prigioni","fabricio-oberto","carlos-delfino","pepe-sanchez","andres-nocioni","facundo-campazzo","leandro-bolmaro","gabriel-deck"];
+const ARGENTINA_SLUGS = ["ruben-wolkowyski","manu-ginobili","luis-scola","pablo-prigioni","fabricio-oberto","carlos-delfino","pepe-sanchez","andres-nocioni","facundo-campazzo","leandro-bolmaro","gabriel-deck","nicolas-laprovittola"];
 
 const TEAMS = [
   ["Atlanta Hawks","ATL","atlanta-hawks","#E03A3E","#C1D32F"],["Boston Celtics","BOS","boston-celtics","#007A33","#BA9653"],
@@ -6274,7 +6651,7 @@ function cardTile(c){
       '<div class="pcard-foot">'+
         (ser ? '<span class="pcard-serial serial">'+ser+'</span>' : '<span class="pcard-serial muted" style="font-size:10px">SIN NUMERAR</span>')+
         '<span class="pcard-price">'+(sold
-          ? '<small>VENDIDA</small>'+ (c.soldPrice ? Number(c.soldPrice).toLocaleString("es-AR") : "")
+          ? '<small>VENDIDA</small>'
           : '<small>'+curLbl(c)+'</small>'+priceNum(c))+'</span>'+
       '</div>'+
     '</div>'+
@@ -6556,7 +6933,7 @@ function runMap(c){
     const cls = ["rm-cell"];
     let t = `Copia ${pad(i)}/${run} · paradero desconocido`;
     if (i === mine){ cls.push("lit"); t = `Esta carta · ${pad(i)}/${run}`; }
-    else if (sold.has(i)){ const x = sold.get(i); cls.push("sold"); t = `${pad(i)}/${run} · vendida por la bóveda el ${x.soldDate} en ${money(x.soldPrice)}`; }
+    else if (sold.has(i)){ const x = sold.get(i); cls.push("sold"); t = `${pad(i)}/${run} · vendida por la bóveda`; }
     if (c.jersey && i === c.jersey){ cls.push("jersey"); t += ` · coincide con la camiseta #${c.jersey}`; }
     cells.push(`<span class="${cls.join(" ")}" data-n="${i}" data-tip="${esc(t)}" title="${esc(t)}">${pad(i)}</span>`);
   }
@@ -6570,7 +6947,7 @@ function runMap(c){
   else if (mine && mine < 10 && run >= 25) notes.push(`<p class="rm-note"><b>Un dígito</b><span>Los seriales de un solo dígito suelen buscarse aparte dentro de la misma tirada.</span></p>`);
   if (c.jersey && c.jersey <= run && mine !== c.jersey)
     notes.push(`<p class="rm-note blue"><b>Camiseta #${c.jersey}</b><span>La copia ${pad(c.jersey)}/${run} es la que coincide con su número de camiseta.</span></p>`);
-  sold.forEach(x => notes.push(`<p class="rm-note"><b>Pasó por acá</b><span>La ${pad(x.serialNum)}/${run} se vendió desde la bóveda el ${esc(x.soldDate)} en ${money(x.soldPrice)}. <a href="#/cards/${x.slug}" style="color:var(--gold-soft)">Ver en el archivo →</a></span></p>`));
+  sold.forEach(x => notes.push(`<p class="rm-note"><b>Pasó por acá</b><span>La ${pad(x.serialNum)}/${run} se vendió desde la bóveda. <a href="#/cards/${x.slug}" style="color:var(--gold-soft)">Ver en el archivo →</a></span></p>`));
   return `<div class="panel runmap">
     <h3>La tirada</h3>
     <div class="rm-head">
@@ -6679,7 +7056,7 @@ function pageHome(){
   const tickerItems = pool.slice().sort(SORTS.new).slice(0,6).map(c =>
       `<span class="tk"><span class="tdot"></span>Nueva en la bóveda <b>${esc(c.player)}</b> ${esc(c.set)} <span class="tprice">${money(c.price, c)}</span></span>`)
     .concat(soldCards().map(c =>
-      `<span class="tk"><span class="tdot sold"></span>Vendida <b>${esc(c.player)}</b> ${serialOf(c)||""} <span class="tprice">${money(c.soldPrice||c.price)}</span></span>`))
+      `<span class="tk"><span class="tdot sold"></span>Vendida <b>${esc(c.player)}</b> ${serialOf(c)||""}</span>`))
     .concat([`<span class="tk"><span class="tdot"></span>Consultas directas por <b>WhatsApp</b></span>`,
              `<span class="tk"><span class="tdot"></span>Envíos a todo el país desde <b>Buenos Aires</b></span>`]);
 
@@ -6982,24 +7359,29 @@ function pageHome(){
   </section>`;
 }
 
+/* vendidas al final de cualquier lista */
+const soldLast = arr => arr.filter(c => c.status !== "sold").concat(arr.filter(c => c.status === "sold"));
 /* ---------- tienda ---------- */
 function pageShop(params){
-  let pool = live();
+  let pool = live(), spool = soldCards();
   let title = "Todas las cartas", eyebrow = "Tienda", sub = "";
 
-  if (params.preset === "rookies"){ pool = pool.filter(c => c.rookie); title = "Rookie Center"; eyebrow = "Rookies"; sub = "Rookie cards, rookie autographs y RPA. Solo cartas de primer año."; }
-  if (params.preset === "autographs"){ pool = pool.filter(c => c.auto); title = "La sala de autógrafos"; eyebrow = "Autógrafos"; sub = "Firmas de leyendas, rookies y Hall of Fame."; }
-  if (params.preset === "game-worn"){ pool = pool.filter(c => c.memorabilia); title = "Game-Worn"; eyebrow = "Memorabilia"; sub = "Cartas con jersey, patch o prime swatch."; }
-  if (params.f === "patch") pool = pool.filter(c => c.memorabilia);
-  if (params.f === "numbered") pool = pool.filter(c => c.printRun);
-  if (params.f === "graded") pool = pool.filter(c => c.gradeCompany && c.gradeCompany !== "RAW");
-  if (params.f === "oneofone") pool = pool.filter(c => c.printRun === 1);
+  if (params.preset === "rookies"){ { const F = c => c.rookie; pool = pool.filter(F); spool = spool.filter(F); } title = "Rookie Center"; eyebrow = "Rookies"; sub = "Rookie cards, rookie autographs y RPA. Solo cartas de primer año."; }
+  if (params.preset === "autographs"){ { const F = c => c.auto; pool = pool.filter(F); spool = spool.filter(F); } title = "La sala de autógrafos"; eyebrow = "Autógrafos"; sub = "Firmas de leyendas, rookies y Hall of Fame."; }
+  if (params.preset === "game-worn"){ { const F = c => c.memorabilia; pool = pool.filter(F); spool = spool.filter(F); } title = "Game-Worn"; eyebrow = "Memorabilia"; sub = "Cartas con jersey, patch o prime swatch."; }
+  if (params.f === "patch") { const F = c => c.memorabilia; pool = pool.filter(F); spool = spool.filter(F); }
+  if (params.f === "numbered") { const F = c => c.printRun; pool = pool.filter(F); spool = spool.filter(F); }
+  if (params.f === "graded") { const F = c => c.gradeCompany && c.gradeCompany !== "RAW"; pool = pool.filter(F); spool = spool.filter(F); }
+  if (params.f === "oneofone") { const F = c => c.printRun === 1; pool = pool.filter(F); spool = spool.filter(F); }
 
   const basePool = pool;
   let list = applyFilters(pool);
   if (S.q) list = searchCards(S.q, list);
   list = list.slice().sort(SORTS[S.sort] || SORTS.new);
   if ((S.sort || "new") === "new") list = spreadMix(list);   // orden por defecto: socios mezclados
+  // al buscar, las vendidas que coinciden aparecen al final (sin precio)
+  // las vendidas que coinciden van siempre al final (sin precio)
+  list = list.concat(S.q ? searchCards(S.q, applyFilters(spool)) : applyFilters(spool));
 
   const subTabs = params.preset === "autographs"
     ? [["Todas","all"],["Rookie autos","rookie"],["Hall of Fame","hof"],["Numeradas bajo","low"]]
@@ -7151,8 +7533,8 @@ function pageProduct(slug){
         </div>
 
         <div style="margin-top:26px; display:flex; align-items:baseline; gap:18px; flex-wrap:wrap">
-          <span class="pdp-price">${sold ? '<small>VENDIDA EN</small>' + Number(c.soldPrice||c.price).toLocaleString("es-AR") : '<small>' + curLbl(c) + '</small>' + priceNum(c)}</span>
-          <span class="stock"><span class="dot ${sold?"sold":(auc?"auction":"")}"></span>${sold ? "Vendida el " + c.soldDate : (auc ? "Subasta en curso" : "Disponible · 1 unidad")}</span>
+          <span class="pdp-price">${sold ? 'VENDIDA' : '<small>' + curLbl(c) + '</small>' + priceNum(c)}</span>
+          <span class="stock"><span class="dot ${sold?"sold":(auc?"auction":"")}"></span>${sold ? "Vendida" : (auc ? "Subasta en curso" : "Disponible · 1 unidad")}</span>
         </div>
 
         ${auc ? `<div class="panel" style="margin-top:18px"><h3>Subasta en vivo</h3>
@@ -7318,14 +7700,15 @@ function pageTeam(slug){
   const all = S.inventory.filter(c => c.teamSlug === slug);
   const tcs = combosOfTeam(slug);
   const tab = S.tab || "all";
+  const nAv = all.filter(c => c.status !== "sold").length;
   const sets = {
-    all: all.filter(c => c.status !== "sold"),
-    legends: all.filter(c => c.status !== "sold" && ["1970s","1980s","1990s"].includes(c.playerEra)),
-    current: all.filter(c => c.status !== "sold" && c.playerEra === "2020s"),
-    rookies: all.filter(c => c.status !== "sold" && c.rookie),
-    autos: all.filter(c => c.status !== "sold" && c.auto),
-    patches: all.filter(c => c.status !== "sold" && c.memorabilia),
-    low: all.filter(c => c.status !== "sold" && c.printRun && c.printRun <= 49),
+    all: soldLast(all),
+    legends: soldLast(all.filter(c => ["1970s","1980s","1990s"].includes(c.playerEra))),
+    current: soldLast(all.filter(c => c.playerEra === "2020s")),
+    rookies: soldLast(all.filter(c => c.rookie)),
+    autos: soldLast(all.filter(c => c.auto)),
+    patches: soldLast(all.filter(c => c.memorabilia)),
+    low: soldLast(all.filter(c => c.printRun && c.printRun <= 49)),
     sold: all.filter(c => c.status === "sold")
   };
   return `
@@ -7334,14 +7717,14 @@ function pageTeam(slug){
     <div class="wrap ph-inner">
       <p class="eyebrow gold">Colección de equipo</p>
       <h1>${esc(name)}</h1>
-      <p class="ph-sub">${sets.all.length ? "Todas las cartas de esta franquicia en stock." : tcs.length ? "Por ahora no hay cartas sueltas de esta franquicia, pero hay " + (tcs.length === 1 ? "un " + comboKindL(tcs[0]) : tcs.length + " " + kindsLbl(tcs)) + " del equipo." : "Todavía no hay cartas de esta franquicia. Si buscás una, escribinos y la salimos a buscar."}</p>
+      <p class="ph-sub">${nAv ? "Todas las cartas de esta franquicia en stock." : tcs.length ? "Por ahora no hay cartas sueltas de esta franquicia, pero hay " + (tcs.length === 1 ? "un " + comboKindL(tcs[0]) : tcs.length + " " + kindsLbl(tcs)) + " del equipo." : "Todavía no hay cartas de esta franquicia. Si buscás una, escribinos y la salimos a buscar."}</p>
       <p style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap; align-items:center">
-        <span class="badge badge-num">${plural(sets.all.length, "disponible", "disponibles")}</span>
+        <span class="badge badge-num">${plural(nAv, "disponible", "disponibles")}</span>
         ${sets.autos.length ? `<span class="badge">${plural(sets.autos.length, "autógrafo", "autógrafos")}</span>` : ""}
         ${sets.low.length ? `<span class="badge">${sets.low.length} numeradas /49 o menos</span>` : ""}
         ${sets.sold.length ? `<span class="badge badge-sold">${plural(sets.sold.length, "vendida", "vendidas")}</span>` : ""}
         ${tcs.length ? `<span class="badge">${combosCountLbl(tcs)}</span>` : ""}
-        ${sets.all.length ? `<button class="btn btn-sm btn-gold" data-vitrina="team:${slug}">◈ Vitrina</button>` : ""}
+        ${nAv ? `<button class="btn btn-sm btn-gold" data-vitrina="team:${slug}">◈ Vitrina</button>` : ""}
       </p>
     </div>
   </section>
@@ -7426,12 +7809,13 @@ function pagePlayer(slug){
       <p class="eyebrow gold" style="margin-bottom:14px">${kindsLbl(pc).replace(/^./, x => x.toUpperCase())} con ${esc(pName)} · ${pc.length}</p>
       <div class="combo-grid">${pc.map(comboTile).join("")}</div></section>` : "";
   const tab = S.tab || "cards";
+  const nAv = all.filter(c => c.status !== "sold").length;
   const sets = {
-    cards: all.filter(c => c.status !== "sold"),
-    autographs: all.filter(c => c.status !== "sold" && c.auto),
-    rookies: all.filter(c => c.status !== "sold" && c.rookie),
-    patches: all.filter(c => c.status !== "sold" && c.memorabilia),
-    numbered: all.filter(c => c.status !== "sold" && c.printRun),
+    cards: soldLast(all),
+    autographs: soldLast(all.filter(c => c.auto)),
+    rookies: soldLast(all.filter(c => c.rookie)),
+    patches: soldLast(all.filter(c => c.memorabilia)),
+    numbered: soldLast(all.filter(c => c.printRun)),
     sold: all.filter(c => c.status === "sold")
   };
   const hero = (sets.cards[0] || all[0]);
@@ -7448,14 +7832,14 @@ function pagePlayer(slug){
         ${m ? `<div class="badges" style="margin-top:18px">
           <span class="badge">${esc(m.pos)}</span><span class="badge">${esc(m.years)}</span>
           ${m.hof ? '<span class="badge badge-hof">Hall of Fame</span>' : ""}
-          <span class="badge badge-num">${plural(sets.cards.length, "carta en la bóveda", "cartas en la bóveda")}</span></div>` : ""}
-        ${sets.cards.length ? `<p style="margin-top:18px"><button class="btn btn-sm btn-gold" data-vitrina="player:${slug}">◈ Ver en vitrina</button></p>` : ""}
+          <span class="badge badge-num">${plural(nAv, "carta en la bóveda", "cartas en la bóveda")}</span></div>` : ""}
+        ${nAv ? `<p style="margin-top:18px"><button class="btn btn-sm btn-gold" data-vitrina="player:${slug}">◈ Ver en vitrina</button></p>` : ""}
       </div>
       <div style="display:grid; gap:14px">
         ${hero ? `<a href="#/cards/${hero.slug}"><img src="${hero.imgs[0]}" alt="${esc(pName)}" style="border-radius:4px; box-shadow:0 30px 60px -30px #000"></a>`
           : pc[0] ? `<a href="#/combos/${pc[0].slug}"><img src="${pc[0].cover || pc[0].imgs[0]}" alt="${esc(pName)}" style="border-radius:4px; box-shadow:0 30px 60px -30px #000"></a>` : ""}
         ${all.length ? `<div class="pstats">
-          <div class="pstat"><b>${sets.cards.length}</b><span>Disponibles</span></div>
+          <div class="pstat"><b>${nAv}</b><span>Disponibles</span></div>
           <div class="pstat"><b>${sets.autographs.length}</b><span>Autógrafos</span></div>
           <div class="pstat"><b>${sets.numbered.length}</b><span>Numeradas</span></div>
           ${pc.length ? `<div class="pstat"><b>${pc.length}</b><span>${kindsLbl(pc).replace(/^./, x => x.toUpperCase())}</span></div>` : `<div class="pstat"><b>${sets.sold.length}</b><span>Vendidas</span></div>`}
@@ -7499,7 +7883,7 @@ function pageCollections(){
 function pageCollection(slug){
   const col = COLLECTIONS.find(c => c.slug === slug);
   if (!col) return `<div class="wrap section">${emptyState("Colección desconocida.")}</div>`;
-  const list = live().filter(col.test);
+  const list = soldLast(S.inventory.filter(col.test));
   const wanted = col.wanted ? WANTED[col.wanted] : null;
   return `
   <div class="wrap">
@@ -7644,28 +8028,15 @@ function comboWhy(combo){
 
 /* ---------- archivo / guardadas / comparador ---------- */
 function pageArchive(){
-  const list = soldCards().slice().sort((a,b) => (b.soldDate||"").localeCompare(a.soldDate||""));
-  const total = list.reduce((s,c) => s + (c.soldPrice||0), 0);
+  const list = soldCards();
   return `
   <div class="wrap">
-    <p class="crumbs"><a href="#/">Inicio</a> / El archivo</p>
-    <div class="section-head"><div><p class="eyebrow gold">Vendidas</p><h2>El archivo</h2>
-      <p class="sub">Cartas que encontraron otra colección. Nada se borra cuando se vende: el archivo es la historia de la bóveda.</p></div>
-      <p class="eyebrow">${plural(list.length, "vendida", "vendidas")} · ${money(total)} <span class="badge badge-demo" style="margin-left:6px">Muestra</span></p></div>
-    <div class="table-wrap" style="margin-bottom:30px">
-      <table class="data">
-        <thead><tr><th></th><th>Carta</th><th>Set</th><th>Serial</th><th>Vendida en</th><th>Fecha</th></tr></thead>
-        <tbody>${list.map(c => `<tr>
-          <td><img src="${c.imgs[0]}" alt="" style="width:34px; border-radius:2px"></td>
-          <td><a href="#/cards/${c.slug}" style="font-variation-settings:'wdth' 88,'wght' 700; text-transform:uppercase; font-size:12px; letter-spacing:.04em">${esc(c.player)}</a><br><span class="muted" style="font-size:11px">${esc(c.season)}</span></td>
-          <td class="muted">${esc(prodSet(c))}</td>
-          <td class="serial" style="font-family:var(--mono)">${serialOf(c) || "—"}</td>
-          <td style="font-family:var(--mono)">${c.soldPrice ? money(c.soldPrice) : "—"}</td>
-          <td class="muted" style="font-family:var(--mono); font-size:12px">${esc(c.soldDate||"—")}</td>
-        </tr>`).join("")}</tbody>
-      </table>
-    </div>
+    <p class="crumbs"><a href="#/">Inicio</a> / Vendidas</p>
+    <div class="section-head"><div><p class="eyebrow gold">Vendidas</p><h2>Cartas vendidas</h2>
+      <p class="sub">Cartas que ya encontraron otra colección.</p></div>
+      <p class="eyebrow">${plural(list.length, "vendida", "vendidas")}</p></div>
     ${cardGrid(list, S.view)}
+    ${groupNote("¿Buscás una parecida?")}
   </div>`;
 }
 function pageWatchlist(){
@@ -7804,7 +8175,7 @@ function quickView(id){
         <p style="margin-top:18px; color:var(--bone-dim); font-size:14px">${esc((c.story||"").split(". ").slice(0,2).join(". ")+".")}</p>
         <p class="pdp-price" style="margin-top:18px; font-size:26px"><small>${curLbl(c)}</small>${priceNum(c)}</p>
         <div style="display:grid; gap:8px; margin-top:16px">
-          ${c.status==="sold" ? `<span class="btn" style="border-style:dashed; cursor:default">Vendida el ${esc(c.soldDate||"")}</span>` :
+          ${c.status==="sold" ? `<span class="btn" style="border-style:dashed; cursor:default">Vendida</span>` :
             waBtn(c)}
           <button class="btn" data-vitrina="${c.id}">◈ Modo vitrina</button>
           <a class="btn" href="#/cards/${c.slug}" data-close-modal>Ver ficha completa</a>
@@ -9982,7 +10353,7 @@ function wire(){
   }
   function renderSearch(){
     const q = si.value.trim();
-    const all = q ? searchCards(q).filter(c => c.status !== "sold") : [];
+    const all = q ? searchCards(q).sort((a,b) => (a.status === "sold") - (b.status === "sold")) : [];
     const cardRes = q ? all.slice(0, 6) : live().slice().sort(SORTS.new).slice(0, 5);
     const comboRes = q ? searchCombos(q).slice(0, 3) : [];
     const head = t => `<p class="sr-h">${t}</p>`;
@@ -10018,7 +10389,7 @@ function wire(){
           <span class="r-name">${esc(c.player)}</span>
           <span class="r-meta">${esc(c.season+" "+c.product+" · "+c.set)} · ${serialOf(c)||"sin numerar"}</span>
         </span>
-        <span class="r-price">${money(c.price, c)}</span>
+        <span class="r-price">${c.status === "sold" ? "VENDIDA" : money(c.price, c)}</span>
       </a>`).join("");
     if (comboRes.length) html += head("Lotes") + comboRes.map(combo => `
       <a class="sresult" href="#/combos/${combo.slug}" data-close-search>
@@ -10305,7 +10676,35 @@ wire();
 render();
 // si se entra por un link directo (una carta, un lote, una página), se va derecho ahí: sin intro ni hall
 if (location.hash && !/^#\/?$/.test(location.hash)){ try { sessionStorage.setItem("vault:intro", "1"); } catch(e){} }
-playIntro();
+/* MUY PRONTO: en final-cards.com tapa el sitio; ?ver=1 lo abre (y queda abierto en ese navegador), ?ver=0 lo vuelve a cerrar */
+function soonActive(){
+  if (!SETTINGS.soon) return false;
+  const live = /final-cards\.com$/i.test(location.hostname);
+  try {
+    const q = new URLSearchParams(location.search).get("ver");
+    if (q === "1") localStorage.setItem("vault:ver", "1");
+    if (q === "0") localStorage.removeItem("vault:ver");
+    if (localStorage.getItem("vault:ver") === "1") return false;
+  } catch(e){}
+  return live || SETTINGS.soonPreview;
+}
+function showSoon(){
+  const el = $("#soon"), live = /final-cards\.com$/i.test(location.hostname);
+  el.innerHTML = `${live ? "" : `<button class="soon-x" id="soonX">Vista previa · cerrar</button>`}
+    <div class="soon-in">
+      <img class="soon-logo" src="img/logo-full.webp?v=261" alt="Final Cards" width="520" height="386">
+      <p class="eyebrow gold">The NBA Vault</p>
+      <h1>Muy <em>pronto</em></h1>
+      <span class="soon-rule"></span>
+      <p class="soon-sub">Estamos terminando de armar la bóveda: autógrafos, rookies, game-worn y lotes. Sumate al grupo de WhatsApp y enterate primero de la apertura y de las cartas que van entrando.</p>
+      ${groupBtn("Sumate al grupo de WhatsApp")}
+      <p class="soon-site">final-cards.com</p>
+    </div>`;
+  el.hidden = false; document.body.classList.add("soon-on");
+  const x = $("#soonX"); if (x) x.onclick = () => { el.hidden = true; el.innerHTML = ""; document.body.classList.remove("soon-on"); };
+}
+const SOON = soonActive();
+if (SOON) showSoon(); else playIntro();
 </script>
 </body>
 </html>
