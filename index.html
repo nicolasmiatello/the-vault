@@ -593,27 +593,6 @@ section{position:relative}
 .closer .sig{margin-top:22px; font-family:var(--mono); font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--silver-dim)}
 
 /* ---------- footer ---------- */
-/* placa de los socios, al final del inicio */
-.socios-band{position:relative; overflow:hidden; background:#000; border-top:1px solid rgba(212,175,55,.25); border-bottom:1px solid rgba(212,175,55,.25)}
-.socios-bg{position:absolute; inset:-60px; background:url(img/socios-v2.webp?v=261) center/cover no-repeat; filter:blur(38px) brightness(.55) saturate(1.2); transform:translateZ(0)}
-.socios-band::after{content:""; position:absolute; inset:0; background:linear-gradient(90deg, rgba(0,0,0,.55), transparent 28%, transparent 72%, rgba(0,0,0,.55)); pointer-events:none}
-.socios-inner{position:relative; z-index:1; display:flex; justify-content:center}
-.socios-img{display:block; width:auto; height:min(760px, 75vw); max-width:100%; object-fit:contain; box-shadow:0 0 60px rgba(0,0,0,.6)}
-@media(max-width:720px){ .socios-img{width:100%; height:auto} .socios-bg, .socios-band::after{display:none} }
-.socios-team{position:relative; z-index:1; max-width:980px; margin:0 auto; padding:clamp(22px,4vw,40px) 16px clamp(28px,5vw,48px)}
-.socios-list{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); text-align:center}
-.socios-list li{display:flex; flex-direction:column; gap:4px; padding:4px 10px}
-.socios-list li + li{border-left:1px solid rgba(212,175,55,.45)}
-.socios-list b{font-family:var(--ui); font-weight:800; font-size:clamp(15px,2.2vw,22px); color:#fff}
-.socios-list a{text-decoration:none} .socios-list a b{color:#fff; border-bottom:1px solid rgba(212,175,55,.6)} .socios-list a:hover b{color:var(--gold)}
-.socios-list span{font-size:clamp(12px,1.6vw,15px); color:rgba(244,243,239,.75)}
-.socios-list i{font-style:normal; font-weight:700; font-size:clamp(12px,1.6vw,15px); color:#fff}
-.socios-follow{margin:clamp(18px,3vw,28px) auto 0; max-width:720px; border:1.5px solid var(--gold); border-radius:999px; padding:12px 18px; text-align:center;
-  font-family:var(--ui); font-weight:800; letter-spacing:.12em; text-transform:uppercase; font-size:clamp(11px,1.7vw,16px); color:#fff; box-shadow:0 0 24px rgba(201,162,39,.25)}
-.socios-follow a{color:#fff; text-decoration:none} .socios-follow a:hover{color:var(--gold)}
-.socios-follow em{font-style:normal; color:var(--gold); margin:0 .8em}
-.socios-follow a{white-space:nowrap}
-@media(max-width:560px){ .socios-list li{padding:2px 4px} .socios-list b{font-size:13px} .socios-list span, .socios-list i{font-size:11px} .socios-follow{letter-spacing:.04em; font-size:11px; padding:10px 12px} .socios-follow em{margin:0 .5em} }
 .site-footer{background:var(--ink); border-top:1px solid var(--hair); padding-block:clamp(40px,5vw,70px) 28px}
 .foot-grid{display:grid; gap:34px; grid-template-columns:1fr}
 @media(min-width:760px){.foot-grid{grid-template-columns:1.4fr repeat(3,1fr)}}
@@ -2788,8 +2767,6 @@ html, body{overflow-x:clip}
 .soon::before{content:""; position:absolute; inset:0; background:url("img/hero-court.jpg?v=261") 50% 40% / cover no-repeat; opacity:.28; filter:saturate(.8)}
 .soon::after{content:""; position:absolute; inset:0; background:radial-gradient(60% 50% at 50% 42%, rgba(201,162,39,.16), transparent 70%), linear-gradient(0deg, #030304 6%, rgba(3,3,4,.55) 50%, #030304 98%)}
 .soon-in{position:relative; z-index:1; display:grid; justify-items:center; gap:18px; max-width:560px}
-.soon-photo{width:auto; height:auto; max-width:min(400px,78vw); max-height:36vh; border-radius:16px; border:1px solid rgba(201,162,39,.45); box-shadow:0 24px 60px rgba(0,0,0,.75), 0 0 0 6px rgba(201,162,39,.06); animation:rise 1s var(--ease) both}
-.soon-in{gap:14px}
 .soon-logo{width:min(250px,62vw); height:auto; filter:drop-shadow(0 20px 40px rgba(0,0,0,.7)); animation:rise 1s var(--ease) both}
 .soon .eyebrow{letter-spacing:.34em; animation:rise 1s .12s var(--ease) both}
 .soon h1{font-family:var(--display); font-weight:500; font-size:clamp(52px,12vw,108px); line-height:.95; letter-spacing:.01em; color:var(--bone); animation:rise 1s .2s var(--ease) both}
@@ -3235,7 +3212,7 @@ const SETTINGS = {
   demo: true,
   groupUrl: "https://chat.whatsapp.com/COB0Sr7wz6p4uPTrcqn8li",             // link de invitación al grupo o canal de WhatsApp (https://chat.whatsapp.com/...). Vacío: el botón abre un chat pidiendo que lo sumen
   roomFilm: false,          // video largo al entrar a la Sala NBA: apagado. Poner true para volver a mostrarlo
-  soon: true,               // pantalla "Muy pronto" en final-cards.com (se entra igual con ?ver=1). Poner false el día del lanzamiento
+  soon: false,              // pantalla "Muy pronto" en final-cards.com (se entra igual con ?ver=1). Poner false el día del lanzamiento
   soonPreview: false,       // muestra la pantalla también en el artifact, con botón para cerrarla (solo para verla)
   vaultOver: 60,            // una carta es "Premium" cuando su precio supera este valor (USD)
   auctions: false,          // subastas apagadas por ahora: poner true para volver a mostrarlas
@@ -7675,21 +7652,6 @@ function pageHome(){
       </p>
       <p class="sig">Para coleccionistas. Por coleccionistas.</p>
     </div>
-  </section>
-
-  <section class="socios-band">
-    <div class="socios-bg" aria-hidden="true"></div>
-    <div class="socios-inner">
-      <img class="socios-img" src="img/socios-v2.webp?v=261" alt="Final Cards — los tres socios: @camisetas_nba2, Knicks y @juanposite" width="1312" height="1203" loading="lazy" decoding="async">
-    </div>
-    <div class="socios-team">
-      <ul class="socios-list">
-        <li><a href="https://www.instagram.com/camisetas_nba2/" target="_blank" rel="noopener"><b>@camisetas_nba2</b></a><span>+10 años en el mundo NBA</span><i>Co-founder</i></li>
-        <li><b>Knicks</b><span>Desarrollador</span><i>Co-founder</i></li>
-        <li><a href="https://www.instagram.com/juanposite/" target="_blank" rel="noopener"><b>@juanposite</b></a><span>Creador de contenido</span><i>Co-founder</i></li>
-      </ul>
-      <p class="socios-follow">Seguinos en <a href="https://www.instagram.com/camisetas_nba2/" target="_blank" rel="noopener">@camisetas_nba2</a><em>|</em><a href="https://final-cards.com" target="_blank" rel="noopener">final-cards.com</a></p>
-    </div>
   </section>`;
 }
 
@@ -11026,7 +10988,7 @@ function showSoon(){
   const el = $("#soon"), live = /final-cards\.com$/i.test(location.hostname);
   el.innerHTML = `${live ? "" : `<button class="soon-x" id="soonX">Vista previa · cerrar</button>`}
     <div class="soon-in">
-      <img class="soon-photo" src="img/socios-v2.webp?v=261" alt="Final Cards — los tres socios" width="1312" height="1199">
+      <img class="soon-logo" src="img/logo-full.webp?v=261" alt="Final Cards" width="520" height="386">
       <p class="eyebrow gold">The NBA Vault</p>
       <h1>Muy <em>pronto</em></h1>
       <span class="soon-rule"></span>
