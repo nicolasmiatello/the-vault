@@ -6554,7 +6554,17 @@ function loadImg(src){ return new Promise((ok, ko) => { const i = new Image(); i
 /* imagen 1080 × 1350 (formato de Instagram) para cartas y lotes */
 /* saca el fondo negro de una foto de cartas: borra lo oscuro que toca los bordes (el paño o la mesa)
    sin tocar lo oscuro que está adentro de cada carta, y recorta al tamaño de las cartas */
-function trimDark(img){
+/* abre (erosión + dilatación) la máscara del fondo: saca los huecos negros grandes pero no las rayitas oscuras finas de entre/dentro de las cartas */
+function openMask(m, w, h, r){
+  const sq = (src, mode) => {   // mode 0: erosión (min), 1: dilatación (max); ventana cuadrada (2r+1), separable
+    const tmp = new Uint8Array(w * h), out = new Uint8Array(w * h);
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++){ let v = mode ? 0 : 1; for (let dx = -r; dx <= r; dx++){ const xx = x + dx, s = (xx < 0 || xx >= w) ? (mode ? 0 : 1) : src[y * w + xx]; if (mode ? s : !s){ v = mode ? 1 : 0; break; } } tmp[y * w + x] = v; }
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++){ let v = mode ? 0 : 1; for (let dy = -r; dy <= r; dy++){ const yy = y + dy, s = (yy < 0 || yy >= h) ? (mode ? 0 : 1) : tmp[yy * w + x]; if (mode ? s : !s){ v = mode ? 1 : 0; break; } } out[y * w + x] = v; }
+    return out;
+  };
+  const o = sq(sq(m, 0), 1); for (let i = 0; i < m.length; i++) o[i] = o[i] && m[i] ? 1 : 0; return o;
+}
+function trimDark(img, precise){
   try {
     const w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, 480 / Math.max(w, h));
     const sw = Math.max(1, Math.round(w * k)), sh = Math.max(1, Math.round(h * k));
@@ -6570,6 +6580,7 @@ function trimDark(img){
     for (let y = 0; y < sh; y++){ push(y * sw); push(y * sw + sw - 1); }
     while (st.length){ const i = st.pop(), x = i % sw, y = (i / sw) | 0;
       if (x > 0) push(i - 1); if (x < sw - 1) push(i + 1); if (y > 0) push(i - sw); if (y < sh - 1) push(i + sw); }
+    if (precise){ const op = openMask(bg, sw, sh, 3); bg.set(op); }   // sets/lotes: se quita el negro de los huecos, no solo el de afuera
     // las cartas son rectángulos: cada grupo de cartas se conserva entero (su rectángulo), así no se borra
     // lo oscuro de una carta oscura que toca el fondo; se saca solo lo que queda afuera de todos los rectángulos
     const lab = new Int32Array(N), boxes = [];
@@ -6584,10 +6595,16 @@ function trimDark(img){
     }
     const keep = boxes.filter(b => b.cnt > N * .01);
     if (!keep.length) return img;
-    bg.fill(1);
     let x0 = sw, y0 = sh, x1 = -1, y1 = -1;
-    keep.forEach(b => { for (let y = b.by0; y <= b.by1; y++) for (let x = b.bx0; x <= b.bx1; x++) bg[y * sw + x] = 0;
-      x0 = Math.min(x0, b.bx0); y0 = Math.min(y0, b.by0); x1 = Math.max(x1, b.bx1); y1 = Math.max(y1, b.by1); });
+    if (precise){
+      const ok = new Uint8Array(boxes.length + 1); boxes.forEach((b, idx) => { if (b.cnt > N * .01) ok[idx + 1] = 1; });
+      for (let i = 0; i < N; i++) if (!bg[i] && !ok[lab[i]]) bg[i] = 1;
+      keep.forEach(b => { x0 = Math.min(x0, b.bx0); y0 = Math.min(y0, b.by0); x1 = Math.max(x1, b.bx1); y1 = Math.max(y1, b.by1); });
+    } else {
+      bg.fill(1);
+      keep.forEach(b => { for (let y = b.by0; y <= b.by1; y++) for (let x = b.bx0; x <= b.bx1; x++) bg[y * sw + x] = 0;
+        x0 = Math.min(x0, b.bx0); y0 = Math.min(y0, b.by0); x1 = Math.max(x1, b.bx1); y1 = Math.max(y1, b.by1); });
+    }
     let n = 0; for (let i = 0; i < N; i++) if (!bg[i]) n++;
     if (n < N * .25 || n > N * .985) return img;            // nada que sacar, o algo raro: dejar la foto como está
     // máscara (con un borde apenas suavizado) aplicada sobre la foto a tamaño real
@@ -6705,7 +6722,7 @@ async function shareCanvas(o){
   g.fillStyle = gr; g.fillRect(0, FLOOR - 200, W, 400);
 
   // la carta: grande, inclinada, con brillo, apoyada en el piso, con reflejo
-  const img = trimDark(await loadImg(o.img));
+  const img = trimDark(await loadImg(o.img), !!o.wide);
   const boxW = o.wide ? 920 : 485, boxH = o.wide ? 580 : 620;
   const sc = Math.min(boxW / img.naturalWidth, boxH / img.naturalHeight), iw = img.naturalWidth * sc, ih = img.naturalHeight * sc;
   const ang = o.wide ? 0 : -0.06, cy = FLOOR - 30 - ih / 2;
