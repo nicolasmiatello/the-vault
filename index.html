@@ -2767,12 +2767,22 @@ html, body{overflow-x:clip}
 .soon::before{content:""; position:absolute; inset:0; background:url("img/soon-vault.webp?v=382") 50% 50% / cover no-repeat; opacity:.5; transform-origin:50% 50%; transition:transform 3.2s cubic-bezier(.6,0,.2,1), opacity 3.2s ease, filter 3.2s ease}
 .soon::after{content:""; position:absolute; inset:0; background:radial-gradient(60% 50% at 50% 42%, rgba(201,162,39,.16), transparent 70%), linear-gradient(0deg, #030304 6%, rgba(3,3,4,.6) 50%, #030304 98%); transition:opacity 1.6s ease}
 /* cuenta regresiva */
-.soon-cd{display:flex; gap:clamp(8px,2vw,16px); justify-content:center; animation:rise 1s .26s var(--ease) both}
-.soon-cd div{display:grid; justify-items:center; gap:8px}
-.soon-cd b{display:block; min-width:clamp(62px,15vw,92px); padding:clamp(8px,1.6vh,14px) 6px; border:1.5px solid rgba(212,175,55,.75); border-radius:10px;
-  background:linear-gradient(180deg,#141210,#050505); box-shadow:inset 0 0 18px rgba(0,0,0,.9), 0 0 22px rgba(212,175,55,.18);
-  font-family:var(--ui); font-weight:800; font-variant-numeric:tabular-nums; font-size:clamp(30px,min(8vw,6.4vh),54px); line-height:1; color:#FFD877; text-shadow:0 0 14px rgba(255,190,80,.75), 0 0 2px #fff3c4}
+.soon-cd{--dh:clamp(30px,min(9vw,7.4vh),64px); --dw:calc(var(--dh)*.8); display:flex; gap:clamp(14px,3vw,26px); justify-content:center; animation:rise 1s .26s var(--ease) both}
+.soon-cd .lk{display:grid; justify-items:center; gap:8px}
 .soon-cd span{font-family:var(--mono); font-size:9px; letter-spacing:.28em; text-transform:uppercase; color:var(--silver)}
+/* cada número es un par de rodillos de combinación de la bóveda; la fila del medio, iluminada en dorado, marca el valor */
+.lk-w{position:relative; display:flex; gap:3px; padding:3px; background:linear-gradient(180deg,#1a1814,#050505); border:1.5px solid rgba(212,175,55,.7); border-radius:9px; box-shadow:0 10px 30px rgba(0,0,0,.7), 0 0 20px rgba(212,175,55,.12)}
+.wh{position:relative; width:var(--dw); height:calc(var(--dh) * 2.2); overflow:hidden; border-radius:5px;
+  background:linear-gradient(90deg,#3e3b36 0%,#9c968a 12%,#ddd7ca 38%,#f4efe3 50%,#c9c2b3 72%,#7d776c 88%,#34312d 100%)}
+.wh::after{content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(180deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.45) 20%,rgba(0,0,0,0) 34%,rgba(0,0,0,0) 66%,rgba(0,0,0,.45) 80%,rgba(0,0,0,.88) 100%)}
+.wh-s{position:absolute; left:0; right:0; top:calc(var(--dh) * .6); transition:transform .7s cubic-bezier(.34,1.32,.5,1); will-change:transform}
+.wh-s.snap{transition:none}
+.wh em{display:block; height:var(--dh); line-height:var(--dh); font-style:normal; font-family:var(--ui); font-weight:800; font-variant-numeric:tabular-nums; font-size:calc(var(--dh) * .72); color:#2a2722; text-shadow:0 1px 0 rgba(255,255,255,.55), 0 -1px 0 rgba(0,0,0,.25); transition:color .4s, text-shadow .4s}
+.wh em.on{color:#241703; text-shadow:0 1px 0 rgba(255,244,205,.8), 0 0 10px rgba(255,200,90,.55)}
+.lk-w::before{content:""; position:absolute; left:3px; right:3px; top:calc(3px + var(--dh) * .6); height:var(--dh); z-index:1; pointer-events:none; border-top:1.5px solid rgba(255,214,120,.9); border-bottom:1.5px solid rgba(255,214,120,.9);
+  background:linear-gradient(180deg,rgba(255,200,90,.16),rgba(255,236,170,.06) 50%,rgba(255,200,90,.16)); box-shadow:0 0 16px rgba(255,190,80,.35), inset 0 0 12px rgba(255,200,90,.25)}
+.lk-w::after{content:""; position:absolute; left:3px; right:3px; top:calc(3px + var(--dh) * .6); height:var(--dh); z-index:2; pointer-events:none; background:linear-gradient(180deg,rgba(255,235,170,0),rgba(255,226,150,.38) 50%,rgba(255,235,170,0)); mix-blend-mode:soft-light}
+.lk-ptr{position:absolute; right:calc(-1 * clamp(10px,2vw,14px)); top:calc(3px + var(--dh) * 1.1 - 7px); width:0; height:0; border-top:7px solid transparent; border-bottom:7px solid transparent; border-right:clamp(8px,1.6vw,11px) solid #E2C572; filter:drop-shadow(0 0 6px rgba(255,200,100,.8))}
 .soon-date{font-family:var(--mono); font-size:12px; letter-spacing:.4em; color:var(--bone); display:flex; align-items:center; gap:14px}
 .soon-date::before, .soon-date::after{content:""; width:46px; height:1px; background:linear-gradient(90deg,transparent,var(--gold))}
 .soon-date::after{transform:scaleX(-1)}
@@ -11100,9 +11110,9 @@ function showSoon(){
       <img class="soon-logo" src="img/logo-full.webp?v=261" alt="Final Cards" width="520" height="386">
       <p class="eyebrow gold">The NBA Vault</p>
       <h1>Falta <em>muy poco</em></h1>
-      <div class="soon-cd" id="soonCd" aria-live="polite">${["Días","Horas","Min","Seg"].map(l => `<div><b>00</b><span>${l}</span></div>`).join("")}</div>
+      <div class="soon-cd" id="soonCd" aria-label="Cuenta regresiva">${["Días","Horas","Min","Seg"].map(l => `<div class="lk"><div class="lk-w">${'<div class="wh"><div class="wh-s">' + [9,0,1,2,3,4,5,6,7,8,9].map(d => `<em>${d}</em>`).join("") + '</div></div>'}${'<div class="wh"><div class="wh-s">' + [9,0,1,2,3,4,5,6,7,8,9].map(d => `<em>${d}</em>`).join("") + '</div></div>'}<i class="lk-ptr"></i></div><span>${l}</span></div>`).join("")}</div>
       <p class="soon-date">${SOON_DATE_TXT}</p>
-      <p class="soon-sub">Estamos terminando de armar la bóveda: autógrafos, rookies, game-worn y lotes. Sumate al grupo de WhatsApp y enterate primero de la apertura y de las cartas que van entrando.</p>
+      <p class="soon-sub">Muy pronto se abre la bóveda: autógrafos, rookies, game-worn y lotes. Sumate al grupo de WhatsApp y enterate primero de la apertura y de las cartas que van entrando.</p>
       ${groupBtn("Sumate al grupo de WhatsApp")}
       <p class="soon-site">final-cards.com</p>
     </div>`;
@@ -11110,11 +11120,20 @@ function showSoon(){
   el.hidden = false; document.body.classList.add("soon-on");
   const x = $("#soonX"); if (x) x.onclick = () => { clearInterval(el._cd); el.hidden = true; el.innerHTML = ""; document.body.classList.remove("soon-on"); };
   // cuenta regresiva hasta la apertura; al llegar a cero se abre la bóveda sola, sin recargar
-  const boxes = [...el.querySelectorAll(".soon-cd b")], pad = n => String(n).padStart(2, "0");
+  // rodillos: la tira es 9,0,1…9 (11 números); el dígito d queda en el medio en la posición d+1 (el 9 también en la 0, para pasar de 0 a 9 girando)
+  const wheels = [...el.querySelectorAll(".wh-s")], pad = n => String(Math.min(99, n)).padStart(2, "0");
+  const roll = (w, d) => {
+    if (w._d === d) return;
+    const go = (k, snap) => { w.classList.toggle("snap", !!snap); w.style.transform = `translateY(calc(var(--dh) * ${-k}))`; w.querySelectorAll("em").forEach((e, j) => e.classList.toggle("on", j === k)); };
+    if (w._d === undefined){ go(d + 1, true); }
+    else if (w._d === 0 && d === 9){ go(0); setTimeout(() => { if (w._d === 9){ go(10, true); void w.offsetHeight; w.classList.remove("snap"); } }, 750); }
+    else go(d + 1);
+    w._d = d;
+  };
   const tick = () => {
     let s = Math.max(0, Math.floor((soonOpenAt() - Date.now()) / 1000));
     const v = [Math.floor(s / 86400), Math.floor(s / 3600) % 24, Math.floor(s / 60) % 60, s % 60];
-    boxes.forEach((b, i) => { const t = pad(v[i]); if (b.textContent !== t) b.textContent = t; });
+    v.map(pad).join("").split("").forEach((c, i) => roll(wheels[i], +c));
     if (s <= 0){ clearInterval(el._cd); openVault(); }
   };
   tick(); el._cd = setInterval(tick, 1000);
