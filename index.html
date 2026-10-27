@@ -6620,7 +6620,7 @@ async function shareCanvas(o){
     ch.forEach((c, k) => { g.fillText(c, cx, y); cx += ws[k] + sp; }); g.textAlign = al; return tot;
   };
   const fitFont = (txt, maxW, px, mk, min, sp) => { for (;;){ g.font = mk(px); const w = g.measureText(txt).width + (sp || 0) * ([...txt].length - 1); if (w <= maxW || px <= (min || 30)) return px; px -= 4; } };
-  const FLOOR = 870, SH = FLOOR - 1000;   // piso más arriba: deja lugar abajo para el sticker del link de Instagram
+  const FLOOR = 910, SH = FLOOR - 1000;   // piso más arriba: deja lugar abajo para el sticker del link de Instagram
 
   // fondo: negro profundo + resplandor del color del equipo arriba
   g.fillStyle = "#040405"; g.fillRect(0, 0, W, H);
@@ -6706,7 +6706,7 @@ async function shareCanvas(o){
 
   // la carta: grande, inclinada, con brillo, apoyada en el piso, con reflejo
   const img = trimDark(await loadImg(o.img));
-  const boxW = o.wide ? 940 : 560, boxH = o.wide ? 640 : 700;
+  const boxW = o.wide ? 920 : 485, boxH = o.wide ? 580 : 620;
   const sc = Math.min(boxW / img.naturalWidth, boxH / img.naturalHeight), iw = img.naturalWidth * sc, ih = img.naturalHeight * sc;
   const ang = o.wide ? 0 : -0.06, cy = FLOOR - 30 - ih / 2;
   // reflejo
@@ -6732,33 +6732,34 @@ async function shareCanvas(o){
   const flare = (x, y, r, a) => { const f = g.createRadialGradient(x, y, 0, x, y, r); f.addColorStop(0, `rgba(255,240,210,${a})`); f.addColorStop(.25, `rgba(255,210,150,${a * .45})`); f.addColorStop(1, "rgba(255,200,120,0)"); g.fillStyle = f; g.fillRect(x - r, y - r, r * 2, r * 2); };
   g.save(); g.globalCompositeOperation = "lighter"; flare(W/2 + iw/2 - 10, cy - ih/2 + 40, 120, .55); flare(W/2 - iw/2 + 20, FLOOR - 6, 160, .45); g.restore();
 
-  // encabezado: logo + etiqueta dorada
+  // encabezado: logo + etiqueta dorada (bajado: arriba Instagram pone la foto de perfil, el nombre y los botones)
+  const HY = 172;
   try {
     const [mk, wd] = await Promise.all([loadImg(IMG_LOGO.mark), loadImg(IMG_LOGO.word)]);
     const mh = 78, mw = mk.naturalWidth * mh / mk.naturalHeight, ww = 300, wh = wd.naturalHeight * ww / wd.naturalWidth;
-    g.drawImage(mk, 60, 62, mw, mh); g.drawImage(wd, 60 + mw + 18, 62 + (mh - wh) / 2, ww, wh);
+    g.drawImage(mk, 60, HY, mw, mh); g.drawImage(wd, 60 + mw + 18, HY + (mh - wh) / 2, ww, wh);
   } catch(e){}
   if (o.tag){
     g.font = `700 30px ${SANS}`; const tw = g.measureText(o.tag).width + 30 + 80, tx = W - 60 - tw;
     const pg = g.createLinearGradient(tx, 0, tx + tw, 0); pg.addColorStop(0, "#F3DC97"); pg.addColorStop(.5, "#D4AF4E"); pg.addColorStop(1, "#B8892A");
-    rr(tx, 70, tw, 64, 32); g.fillStyle = pg; g.fill();
-    g.fillStyle = "#17120a"; g.textAlign = "center"; g.textBaseline = "alphabetic"; spaced(o.tag, tx + tw / 2, 113, 3);
+    rr(tx, HY + 8, tw, 64, 32); g.fillStyle = pg; g.fill();
+    g.fillStyle = "#17120a"; g.textAlign = "center"; g.textBaseline = "alphabetic"; spaced(o.tag, tx + tw / 2, HY + 51, 3);
   }
 
   // nombre: primera línea blanca, segunda gigante en dorado
   g.textAlign = "center"; g.textBaseline = "alphabetic";
   const l1 = (o.name1 || "").toUpperCase(), l2 = (o.name2 || o.title).toUpperCase();
-  let y = FLOOR + 150;
+  let y = FLOOR + 120;
   if (l1){
     fitFont(l1, W - 160, 112, px => `600 ${px}px ${SERIF}`, 50, 6);
     g.fillStyle = "#F7F4EC"; g.shadowColor = "rgba(0,0,0,.6)"; g.shadowBlur = 20; spaced(l1, W/2, y, 6); g.shadowBlur = 0;
-    y += 184;
+    y += 180;
   } else y += 90;
   const p2 = fitFont(l2, W - 120, 230, px => `800 ${px}px ${SERIF}`, 70);
   const gg = g.createLinearGradient(0, y - p2 * .8, 0, y + 10);
   gg.addColorStop(0, "#FFF1C2"); gg.addColorStop(.35, "#F0CF7A"); gg.addColorStop(.6, "#C9962E"); gg.addColorStop(.8, "#E8C46A"); gg.addColorStop(1, "#9C7120");
   g.save(); g.shadowColor = "rgba(0,0,0,.7)"; g.shadowBlur = 24; g.shadowOffsetY = 8; g.fillStyle = gg; g.fillText(l2, W/2, y); g.restore();
-  y += 88;
+  y += 86;
   // destacado (Autógrafo + Jersey, Rookie, Hall of Fame…)
   if (o.hl){
     fitFont(o.hl, W - 140, 50, px => `600 ${px}px ${SANS}`, 26, 12);
@@ -6769,7 +6770,7 @@ async function shareCanvas(o){
   const sub = o.sub.toUpperCase(); fitFont(sub, W - 380, 36, px => `600 ${px}px ${SANS}`, 22, 4);
   const sw2 = spaced(sub, W/2, y, 4);
   g.fillStyle = "rgba(226,197,114,.75)"; g.fillRect(70, y - 12, Math.max(30, (W - sw2) / 2 - 100), 2); g.fillRect(W - 70 - Math.max(30, (W - sw2) / 2 - 100), y - 12, Math.max(30, (W - sw2) / 2 - 100), 2);
-  y += 56;
+  y += 54;
   // línea gris (numeración o descripción corta)
   if (o.note){
     g.font = `400 34px ${SANS}`; g.fillStyle = "#B9B4AA";
@@ -6777,7 +6778,7 @@ async function shareCanvas(o){
     g.fillText(t, W/2, y);
   }
   // cierre: flecha, llamado y lugar para el sticker del link
-  const cy2 = y + 112;   // el cierre sube con el resto: abajo queda libre para pegar el link (Instagram manda al tacho lo que queda en el borde de abajo)
+  const cy2 = y + 106;   // el cierre sube con el resto: abajo queda libre para pegar el link (Instagram manda al tacho lo que queda en el borde de abajo)
   g.strokeStyle = GOLD; g.lineWidth = 5; g.lineCap = "round"; g.lineJoin = "round";
   g.beginPath(); g.moveTo(W/2 - 22, cy2 - 82); g.lineTo(W/2, cy2 - 60); g.lineTo(W/2 + 22, cy2 - 82); g.stroke();
   g.font = `700 44px ${SANS}`; g.fillStyle = "#F4F1E8"; spaced(o.cta || "TOCÁ EL LINK PARA VERLA", W/2, cy2, 7);
