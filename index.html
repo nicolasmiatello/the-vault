@@ -2762,14 +2762,14 @@ html, body{overflow-x:clip}
 
 <style>
 /* MUY PRONTO — tapa el sitio hasta el lanzamiento */
-.soon{position:fixed; inset:0; z-index:400; background:#030304; display:grid; place-items:center; overflow:hidden; text-align:center; padding:24px 18px calc(24px + env(safe-area-inset-bottom,0px))}
+.soon{position:fixed; inset:0; z-index:400; background:#030304; display:flex; overflow-x:hidden; overflow-y:auto; text-align:center; padding:24px 18px calc(24px + env(safe-area-inset-bottom,0px))}
 .soon[hidden]{display:none}
 .soon::before{content:""; position:absolute; inset:0; background:url("img/hero-court.jpg?v=261") 50% 40% / cover no-repeat; opacity:.28; filter:saturate(.8)}
 .soon::after{content:""; position:absolute; inset:0; background:radial-gradient(60% 50% at 50% 42%, rgba(201,162,39,.16), transparent 70%), linear-gradient(0deg, #030304 6%, rgba(3,3,4,.55) 50%, #030304 98%)}
-.soon-in{position:relative; z-index:1; display:grid; justify-items:center; gap:18px; max-width:560px}
-.soon-logo{width:min(250px,62vw); height:auto; filter:drop-shadow(0 20px 40px rgba(0,0,0,.7)); animation:rise 1s var(--ease) both}
+.soon-in{position:relative; z-index:1; display:grid; justify-items:center; gap:clamp(8px,2vh,18px); max-width:560px; margin:auto}
+.soon-logo{width:auto; height:auto; max-width:min(250px,62vw); max-height:22vh; filter:drop-shadow(0 20px 40px rgba(0,0,0,.7)); animation:rise 1s var(--ease) both}
 .soon .eyebrow{letter-spacing:.34em; animation:rise 1s .12s var(--ease) both}
-.soon h1{font-family:var(--display); font-weight:500; font-size:clamp(52px,12vw,108px); line-height:.95; letter-spacing:.01em; color:var(--bone); animation:rise 1s .2s var(--ease) both}
+.soon h1{font-family:var(--display); font-weight:500; font-size:clamp(44px,min(12vw,10.5vh),108px); line-height:.95; white-space:nowrap; letter-spacing:.01em; color:var(--bone); animation:rise 1s .2s var(--ease) both}
 .soon h1 em{font-style:italic; color:var(--gold-soft)}
 .soon-rule{width:min(320px,70vw); height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .soon p.soon-sub{color:var(--bone-dim); font-size:clamp(14px,2.2vw,16px); line-height:1.7; max-width:44ch; animation:rise 1s .3s var(--ease) both}
@@ -5056,7 +5056,7 @@ const COMBOS = [
       "Diseño de Topps 1999-00 con borde naranja"
     ],
     why: ["Colección completa de hace más de 25 años, armada y lista: conseguirla carta por carta lleva mucho tiempo."],
-    price: 122000, cur: "ARS", status: "available", owner: "nico", cats: ["lotes"]
+    price: 119000, cur: "ARS", status: "available", owner: "nico", cats: ["lotes"]
   },
   {
     slug: "set-shaquille-oneal-x2",
@@ -6620,14 +6620,14 @@ async function shareCanvas(o){
     ch.forEach((c, k) => { g.fillText(c, cx, y); cx += ws[k] + sp; }); g.textAlign = al; return tot;
   };
   const fitFont = (txt, maxW, px, mk, min, sp) => { for (;;){ g.font = mk(px); const w = g.measureText(txt).width + (sp || 0) * ([...txt].length - 1); if (w <= maxW || px <= (min || 30)) return px; px -= 4; } };
-  const FLOOR = 1000;
+  const FLOOR = 870, SH = FLOOR - 1000;   // piso más arriba: deja lugar abajo para el sticker del link de Instagram
 
   // fondo: negro profundo + resplandor del color del equipo arriba
   g.fillStyle = "#040405"; g.fillRect(0, 0, W, H);
-  let gr = g.createRadialGradient(W/2, 560, 40, W/2, 600, 820);
+  let gr = g.createRadialGradient(W/2, 560 + SH, 40, W/2, 600 + SH, 820);
   gr.addColorStop(0, rgba(TC, .85)); gr.addColorStop(.35, rgba(TC, .38)); gr.addColorStop(.75, rgba(TC, .08)); gr.addColorStop(1, "rgba(0,0,0,0)");
   g.fillStyle = gr; g.fillRect(0, 0, W, FLOOR + 80);
-  gr = g.createRadialGradient(W/2, 600, 0, W/2, 600, 380); gr.addColorStop(0, "rgba(255,225,170,.22)"); gr.addColorStop(1, "rgba(255,225,170,0)");
+  gr = g.createRadialGradient(W/2, 600 + SH, 0, W/2, 600 + SH, 380); gr.addColorStop(0, "rgba(255,225,170,.22)"); gr.addColorStop(1, "rgba(255,225,170,0)");
   g.fillStyle = gr; g.fillRect(0, 0, W, FLOOR);
 
   // número gigante de fondo (contorno), como marca de agua
@@ -6636,8 +6636,8 @@ async function shareCanvas(o){
     let bp = 900; g.font = `900 ${bp}px ${SANS}`; try { g.fontStretch = "condensed"; } catch(e){}
     while (g.measureText(o.big).width > W * 1.1 && bp > 300){ bp -= 40; g.font = `900 ${bp}px ${SANS}`; }
     const ng = g.createLinearGradient(0, 160, 0, FLOOR); ng.addColorStop(0, rgba(TC, .7)); ng.addColorStop(1, rgba(TC, .05));
-    g.lineWidth = 5; g.strokeStyle = ng; g.strokeText(o.big, W/2, 600);
-    g.fillStyle = rgba(TC, .10); g.fillText(o.big, W/2, 600);
+    g.lineWidth = 5; g.strokeStyle = ng; g.strokeText(o.big, W/2, 600 + SH);
+    g.fillStyle = rgba(TC, .10); g.fillText(o.big, W/2, 600 + SH);
     try { g.fontStretch = "normal"; } catch(e){}
     g.restore();
   }
@@ -6650,7 +6650,7 @@ async function shareCanvas(o){
     g.strokeStyle = lg; g.lineWidth = wdt; g.shadowColor = "rgba(255,190,110,1)"; g.shadowBlur = 34;
     g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke(); g.restore();
   };
-  const streaks = () => { streak(-60, 1000, 1140, 300, 1, 4.5); streak(-60, 980, 1140, 560, .75, 3); streak(-60, 760, 1140, 120, .5, 2); streak(240, 1000, 1140, 700, .6, 2.5); };
+  const streaks = () => { streak(-60, 1000 + SH, 1140, 300 + SH, 1, 4.5); streak(-60, 980 + SH, 1140, 560 + SH, .75, 3); streak(-60, 760 + SH, 1140, 120 + SH, .5, 2); streak(240, 1000 + SH, 1140, 700 + SH, .6, 2.5); };
   streaks(); streaks();
 
   // piso: mármol negro pulido con vetas doradas, brillo de luz y viñeta
@@ -6706,7 +6706,7 @@ async function shareCanvas(o){
 
   // la carta: grande, inclinada, con brillo, apoyada en el piso, con reflejo
   const img = trimDark(await loadImg(o.img));
-  const boxW = o.wide ? 940 : 600, boxH = o.wide ? 720 : 770;
+  const boxW = o.wide ? 940 : 560, boxH = o.wide ? 640 : 700;
   const sc = Math.min(boxW / img.naturalWidth, boxH / img.naturalHeight), iw = img.naturalWidth * sc, ih = img.naturalHeight * sc;
   const ang = o.wide ? 0 : -0.06, cy = FLOOR - 30 - ih / 2;
   // reflejo
@@ -6748,28 +6748,28 @@ async function shareCanvas(o){
   // nombre: primera línea blanca, segunda gigante en dorado
   g.textAlign = "center"; g.textBaseline = "alphabetic";
   const l1 = (o.name1 || "").toUpperCase(), l2 = (o.name2 || o.title).toUpperCase();
-  let y = 1150;
+  let y = FLOOR + 150;
   if (l1){
     fitFont(l1, W - 160, 112, px => `600 ${px}px ${SERIF}`, 50, 6);
     g.fillStyle = "#F7F4EC"; g.shadowColor = "rgba(0,0,0,.6)"; g.shadowBlur = 20; spaced(l1, W/2, y, 6); g.shadowBlur = 0;
-    y += 190;
+    y += 184;
   } else y += 90;
   const p2 = fitFont(l2, W - 120, 230, px => `800 ${px}px ${SERIF}`, 70);
   const gg = g.createLinearGradient(0, y - p2 * .8, 0, y + 10);
   gg.addColorStop(0, "#FFF1C2"); gg.addColorStop(.35, "#F0CF7A"); gg.addColorStop(.6, "#C9962E"); gg.addColorStop(.8, "#E8C46A"); gg.addColorStop(1, "#9C7120");
   g.save(); g.shadowColor = "rgba(0,0,0,.7)"; g.shadowBlur = 24; g.shadowOffsetY = 8; g.fillStyle = gg; g.fillText(l2, W/2, y); g.restore();
-  y += 92;
+  y += 88;
   // destacado (Autógrafo + Jersey, Rookie, Hall of Fame…)
   if (o.hl){
     fitFont(o.hl, W - 140, 50, px => `600 ${px}px ${SANS}`, 26, 12);
-    g.fillStyle = "#F4F1E8"; spaced(o.hl.toUpperCase(), W/2, y, 12); y += 70;
+    g.fillStyle = "#F4F1E8"; spaced(o.hl.toUpperCase(), W/2, y, 12); y += 64;
   }
   // set entre líneas doradas
   g.font = `600 36px ${SANS}`; g.fillStyle = GOLD;
   const sub = o.sub.toUpperCase(); fitFont(sub, W - 380, 36, px => `600 ${px}px ${SANS}`, 22, 4);
   const sw2 = spaced(sub, W/2, y, 4);
   g.fillStyle = "rgba(226,197,114,.75)"; g.fillRect(70, y - 12, Math.max(30, (W - sw2) / 2 - 100), 2); g.fillRect(W - 70 - Math.max(30, (W - sw2) / 2 - 100), y - 12, Math.max(30, (W - sw2) / 2 - 100), 2);
-  y += 60;
+  y += 56;
   // línea gris (numeración o descripción corta)
   if (o.note){
     g.font = `400 34px ${SANS}`; g.fillStyle = "#B9B4AA";
@@ -6777,7 +6777,7 @@ async function shareCanvas(o){
     g.fillText(t, W/2, y);
   }
   // cierre: flecha, llamado y lugar para el sticker del link
-  const cy2 = Math.max(y + 150, 1690);
+  const cy2 = y + 112;   // el cierre sube con el resto: abajo queda libre para pegar el link (Instagram manda al tacho lo que queda en el borde de abajo)
   g.strokeStyle = GOLD; g.lineWidth = 5; g.lineCap = "round"; g.lineJoin = "round";
   g.beginPath(); g.moveTo(W/2 - 22, cy2 - 82); g.lineTo(W/2, cy2 - 60); g.lineTo(W/2 + 22, cy2 - 82); g.stroke();
   g.font = `700 44px ${SANS}`; g.fillStyle = "#F4F1E8"; spaced(o.cta || "TOCÁ EL LINK PARA VERLA", W/2, cy2, 7);
