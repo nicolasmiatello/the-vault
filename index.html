@@ -2766,7 +2766,7 @@ html, body{overflow-x:clip}
 .soon[hidden]{display:none}
 .soon::before{content:""; position:absolute; inset:0; background:url("img/soon-vault.webp?v=382") 50% 50% / cover no-repeat; opacity:.5; transform-origin:50% 50%; transition:transform 3.2s cubic-bezier(.6,0,.2,1), opacity 3.2s ease, filter 3.2s ease}
 .soon::after{content:""; position:absolute; inset:0; background:radial-gradient(60% 50% at 50% 42%, rgba(201,162,39,.16), transparent 70%), linear-gradient(0deg, #030304 6%, rgba(3,3,4,.6) 50%, #030304 98%); transition:opacity 1.6s ease}
-/* video de entrada antes de la cuenta regresiva (una vez por visita) */
+/* video de entrada antes de la cuenta regresiva (cada vez que se entra) */
 .soon-vid{position:fixed; inset:0; z-index:410; background:#000; display:grid; place-items:center; overflow:hidden; transition:opacity .9s ease}
 .soon-vid::before{content:""; position:absolute; inset:-40px; background:url("img/soon-video-poster.jpg?v=384") center/cover no-repeat; filter:blur(30px) brightness(.45)}
 .soon-vid video{position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:transparent}
@@ -11150,8 +11150,7 @@ function showSoon(){
   tick(); el._cd = setInterval(tick, 1000);
 }
 function playSoonVideo(){
-  let seen = false; try { seen = sessionStorage.getItem("vault:soonvid") === "1"; sessionStorage.setItem("vault:soonvid", "1"); } catch(e){}
-  if (seen) return;
+  // se ve cada vez que alguien entra (pedido de Nico); se puede saltear
   const w = document.createElement("div"); w.className = "soon-vid";
   w.innerHTML = `<video src="img/soon-video.mp4?v=384" poster="img/soon-video-poster.jpg?v=384" muted playsinline webkit-playsinline autoplay preload="auto"></video>
     <button class="soon-vid-play" type="button">▶ Ver video</button>
