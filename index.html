@@ -421,6 +421,11 @@ section{position:relative}
 }
 .flag-vault{border-color:var(--gold); color:var(--gold-soft)}
 .flag-new{border-color:rgba(34,114,214,.6); color:#8CBAF2}
+.flag-cyber{background:linear-gradient(120deg,#19d3ff,#7b5cff); border-color:transparent; color:#fff; font-weight:700; letter-spacing:.08em; box-shadow:0 2px 10px rgba(25,211,255,.35)}
+.cy-was{display:block; font-size:.72em; color:var(--silver); opacity:.85; text-decoration:line-through; text-decoration-color:#ff5a6a; text-decoration-thickness:1.5px; line-height:1.1; margin-bottom:2px}
+.cy-pdp{display:inline-flex; align-items:center; gap:10px; flex-wrap:wrap}
+.cy-pdp .cy-was{display:inline; font-family:var(--mono); font-size:clamp(15px,1.6vw,19px); margin:0}
+.cy-tag{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#fff; background:linear-gradient(120deg,#19d3ff,#7b5cff); padding:6px 10px; border-radius:3px; white-space:nowrap}
 .flag-sold{background:rgba(224,90,78,.92); border-color:transparent; color:#fff}
 .pcard-save{
   position:absolute; top:8px; right:8px; z-index:3; width:30px; height:30px; display:grid; place-items:center;
@@ -3252,6 +3257,7 @@ const SETTINGS = {
   soon: true,               // pantalla "Muy pronto" en final-cards.com (se entra igual con ?ver=1). Poner false el día del lanzamiento
   openAt: "2026-11-02T00:00:00-03:00",   // apertura: hasta acá corre la cuenta regresiva; a esa hora la bóveda se abre sola para todos
   soonPreview: false,       // muestra la pantalla también en el artifact, con botón para cerrarla (solo para verla)
+  cyber: { from: "2026-11-02T00:00:00-03:00", to: "2026-11-05T00:00:00-03:00", label: "CyberMonday", preview: false },   // promo: arranca el lunes 2/11 00:00 y termina el miércoles 4/11 a las 23:59 (se apaga sola). Los % por carta/set están en CYBER_DEALS. preview:true = se ve siempre (solo para mirarla). En el sitio real se puede ver antes con ?cyber=1 (y ?cyber=0 lo saca)
   vaultOver: 60,            // una carta es "Premium" cuando su precio supera este valor (USD)
   auctions: false,          // subastas apagadas por ahora: poner true para volver a mostrarlas
   heroStats: null,          // se calculan solas con el stock (ver heroStatsLive)
@@ -6201,6 +6207,108 @@ COMBOS.push({
 });
 COMBOS.forEach(toUsdNorm);
 
+/* CyberMonday: % de descuento por carta (id) o set/lote (slug). Solo cartas de Nico.
+   Mientras dura la promo el precio nuevo reemplaza al normal en todo el sitio (orden, filtros, WhatsApp)
+   y el viejo se muestra tachado. Al terminar vuelve solo al precio normal. */
+const CYBER_DEALS = {
+  // 15%
+  "lote-2025-26-topps-chrome-25-cartas": 15,
+  "set-lamelo-ball-x6": 15,
+  "set-maxey-embiid-george-x6": 15,
+  "set-jayson-tatum-x6": 15,
+  "set-giannis-antetokounmpo-x6": 15,
+  "set-trae-young-x6": 15,
+  "set-revolution-legends-x8-wade-wilkins-erving": 15,
+  "set-revolution-legends-x8-vol-2-mcgrady-olajuwon-stockton": 15,
+  "set-lakers-x6-lebron-luka-magic": 15,
+  "set-estrellas-del-oeste-x6": 15,
+  "set-estrellas-del-este-x6": 15,
+  "set-charles-barkley-x8": 15,
+  "set-leyendas-de-los-90-x8": 15,
+  "set-leyendas-bases-de-los-90-x8-vol-2": 15,
+  "set-reggie-miller-x8": 15,
+  "set-gigantes-de-la-pintura-x8": 15,
+  "set-patrick-ewing-x8": 15,
+  "set-estrellas-x8-garnett-nowitzki-carter": 15,
+  "set-hall-of-fame-x8-russell-kareem-magic-erving": 15,
+  "set-estrellas-x8-vol-2-pippen-carter-pierce": 15,
+  "set-armadores-x8-stockton-nash-parker-iverson": 15,
+  "set-gigantes-de-la-pintura-x8-vol-2": 15,
+  "set-estrellas-x8-vol-3-nowitzki-garnett-hill": 15,
+  "set-armadores-x8-vol-2-stockton-nash-parker-payton": 15,
+  "set-leyendas-x8-olajuwon-rodman-isiah-stockton": 15,
+  "set-gigantes-de-la-pintura-x8-vol-3": 15,
+  "set-leyendas-x8-vol-2-pippen-stockton-olajuwon-payton": 15,
+  "set-armadores-x8-vol-3-stockton-payton-kidd-williams": 15,
+  "set-estrellas-x8-vol-4-iverson-mcgrady-pippen-hill": 15,
+  "set-estrellas-del-oeste-x8-olajuwon-stockton-kidd-rodman": 15,
+  "set-gigantes-de-la-pintura-x8-vol-4-olajuwon-robinson-malone-mourning": 15,
+  "set-estrellas-x8-vol-4-pippen-robinson-wilkins-rodman": 15,
+  "set-leyendas-x8-vol-3-magic-bird-pippen-wilkins": 15,
+  // 10%
+  "set-completo-topps-2000-01-series-1": 10,
+  "set-completo-topps-1998-99-series-1": 10,
+  "set-completo-topps-1999-00-series-1": 10,
+  "set-nikola-jokic-x4": 10,
+  "set-spurs-duncan-robinson-x4": 10,
+  "set-jason-kidd-x4": 10,
+  "set-carmelo-anthony-x4": 10,
+  "set-karl-anthony-towns-x4": 10,
+  // 7%
+  "c1": 7,
+  "c2": 7,
+  "c3": 7,
+  "c4": 7,
+  "c5": 7,
+  "c6": 7,
+  "c7": 7,
+  "c9": 7,
+  "c10": 7,
+  "c14": 7,
+  "c16": 7,
+  "c17": 7,
+  "c21": 7,
+  // 5%
+  "c12": 5,
+  "c13": 5,
+  "c37": 5,
+  "c38": 5,
+  "c39": 5,
+  "c43": 5,
+  "c44": 5,
+  "c45": 5,
+  "c46": 5,
+  "c47": 5,
+  "c48": 5,
+  "c49": 5,
+  "c50": 5,
+  "c52": 5,
+  "c53": 5,
+  "c56": 5
+};
+const cyberOn = (() => {
+  const cy = SETTINGS.cyber; if (!cy) return false;
+  try {
+    const q = new URLSearchParams(location.search).get("cyber");
+    if (q === "1") localStorage.setItem("vault:cyber", "1");
+    if (q === "0") localStorage.removeItem("vault:cyber");
+  } catch(e){}
+  const now = Date.now(), end = Date.parse(cy.to);
+  if (now >= end) return false;
+  if (cy.preview) return true;
+  try { if (localStorage.getItem("vault:cyber") === "1") return true; } catch(e){}
+  return now >= Date.parse(cy.from);
+})();
+const applyCyber = (it, key) => {
+  const pct = CYBER_DEALS[key]; if (!cyberOn || !pct || it.status === "sold") return;
+  const k = 1 - pct / 100;
+  it.cyberPct = pct; it.wasPrice = it.price;
+  if (it.cur === "ARS"){ it.wasArs = it.priceArs; it.priceArs = Math.round(it.priceArs * k / 100) * 100; it.price = Math.round(it.priceArs / SETTINGS.arsPerUsd); }
+  else it.price = Math.round(it.price * k);
+};
+CARDS.forEach(c => applyCyber(c, c.id));
+COMBOS.forEach(co => applyCyber(co, co.slug));
+
 /* Subastas en vivo — lotes demo armados con cartas que ya están en la bóveda */
 const AUCTIONS = [
   { cardId:"c1", startBid:120, currentBid:152, bids:9, endsInHours:26 },
@@ -6473,7 +6581,7 @@ const store = {
 };
 
 const S = {
-  inventory: CARDS.concat(ARCHIVE).map(c => ({...c, vault: Number(c.price) > SETTINGS.vaultOver})),
+  inventory: CARDS.concat(ARCHIVE).map(c => ({...c, vault: Number(c.wasPrice || c.price) > SETTINGS.vaultOver})),
   watchlist: store.get("watchlist", []),
   cart: store.get("cart", []),
   compare: store.get("compare", []),
@@ -6511,6 +6619,12 @@ const vaultLbl = () => "Más de $ " + (SETTINGS.vaultOver * SETTINGS.arsPerUsd).
 const curLbl = it => isArs(it) ? "$" : "USD";
 const priceNum = it => Number(isArs(it) ? it.priceArs : it.price).toLocaleString("es-AR");
 const money = (n, it) => isArs(it) ? "$ " + Number(it.priceArs).toLocaleString("es-AR") : "USD " + Number(n).toLocaleString("es-AR");
+const wasMoney = it => isArs(it) ? "$ " + Number(it.wasArs).toLocaleString("es-AR") : "USD " + Number(it.wasPrice).toLocaleString("es-AR");
+const cyLbl = it => (SETTINGS.cyber.label || "CyberMonday") + " −" + it.cyberPct + "%";
+const cyFlag = it => it.cyberPct ? '<span class="flag flag-cyber">' + cyLbl(it) + '</span>' : "";
+const cyWas = it => it.cyberPct ? '<s class="cy-was">' + wasMoney(it) + '</s>' : "";
+const cyPdp = it => it.cyberPct ? '<span class="cy-pdp"><s class="cy-was">' + wasMoney(it) + '</s><span class="cy-tag">' + cyLbl(it) + '</span></span>' : "";
+const cyTxt = it => it.cyberPct ? " (precio " + (SETTINGS.cyber.label || "CyberMonday") + ", antes " + wasMoney(it) + ")" : "";
 const live = () => S.inventory.filter(c => c.status !== "sold");
 const soldCards = () => S.inventory.filter(c => c.status === "sold");
 const byId = id => S.inventory.find(c => c.id === id);
@@ -6542,7 +6656,7 @@ const SITE = /final-cards\.com$/i.test(location.hostname) ? location.origin : "h
 const cardUrl  = c  => SITE + "/#/cards/" + c.slug;
 const comboUrl = co => SITE + "/#/combos/" + co.slug;
 function waMsg(cards){
-  const line = c => `• ${c.player} — ${c.season} ${c.set.startsWith(c.product) ? c.set : c.product + " " + c.set}${serialOf(c) ? " · " + serialOf(c) : ""} · ${money(c.price, c)}`;
+  const line = c => `• ${c.player} — ${c.season} ${c.set.startsWith(c.product) ? c.set : c.product + " " + c.set}${serialOf(c) ? " · " + serialOf(c) : ""} · ${money(c.price, c)}${cyTxt(c)}`;
   return cards.length === 1
     ? `Hola! Vi esta carta en Final Cards y me interesa:\n${line(cards[0])}\n${cardUrl(cards[0])}\n¿Sigue disponible?`
     : `Hola! Vi estas cartas en Final Cards y me interesan:\n${cards.map(line).join("\n")}\n¿Siguen disponibles?`;
@@ -6575,7 +6689,7 @@ function waLink(text, label, cls){ return `<a class="btn btn-wa ${cls || ""}" hr
 /* ---------- combos ---------- */
 function comboWaMsg(combo){
   const items = (combo.includes || []).map(t => `• ${t}`).join("\n");
-  return `Hola! Vi el ${comboKindL(combo)} "${combo.title}" en Final Cards y me interesa:\n${items}\nPrecio del ${comboKindL(combo)}: ${money(combo.price, combo)}\n${comboUrl(combo)}\n¿Sigue disponible?`;
+  return `Hola! Vi el ${comboKindL(combo)} "${combo.title}" en Final Cards y me interesa:\n${items}\nPrecio del ${comboKindL(combo)}: ${money(combo.price, combo)}${cyTxt(combo)}\n${comboUrl(combo)}\n¿Sigue disponible?`;
 }
 function comboWaBtn(combo, cls){
   if (combo.status === "sold") return "";
@@ -6973,7 +7087,7 @@ function shareModal(id){
   openShare({ head:"Compartir carta", headSub: c.player + " · " + (serialOf(c) || "sin numerar"),
     img: c.imgs[0], title: c.player, sub: c.season + " " + set,
     line: [serialOf(c), money(c.price, c)].filter(Boolean).join("   ·   "), wa: ownerOf(c).wa,
-    desc: (c.why || [])[0] || "", price: money(c.price, c), tag: isNew(c) ? "NUEVA" : (c.vault ? "PREMIUM" : "DISPONIBLE"),
+    desc: (c.why || [])[0] || "", price: money(c.price, c), tag: c.cyberPct ? cyLbl(c).toUpperCase() : isNew(c) ? "NUEVA" : (c.vault ? "PREMIUM" : "DISPONIBLE"),
     name1: c.player.split(" ").slice(0, -1).join(" "), name2: c.player.split(" ").slice(-1)[0],
     hl: [c.rookie ? "Rookie" : "", c.auto ? "Autógrafo" : "", c.memorabilia ? (c.memType || "Jersey") : ""].filter(Boolean).join(" + ") || (c.hof ? "Hall of Fame" : (c.subset && c.subset !== c.set ? c.subset : "")),
     sub: c.season + " " + brandProd(c),
@@ -6991,7 +7105,7 @@ function shareComboModal(slug){
     desc: co.desc || "",
     color: teamTint(comboTeamSlug(co)), big: "×" + comboN(co),
     name1: "", name2: t.replace(/^(Set|Lote)\s+/i, ""), hl: comboKind(co) + " de " + plural(comboN(co), "carta", "cartas"), note: co.desc || "",
-    cta: "TOCÁ EL LINK PARA VERLO", price: money(co.price, co), priceLbl: "PRECIO DEL " + comboKind(co).toUpperCase(), tag: comboKind(co).toUpperCase() + " · " + plural(comboN(co), "CARTA", "CARTAS"),
+    cta: "TOCÁ EL LINK PARA VERLO", price: money(co.price, co), priceLbl: "PRECIO DEL " + comboKind(co).toUpperCase(), tag: co.cyberPct ? cyLbl(co).toUpperCase() : comboKind(co).toUpperCase() + " · " + plural(comboN(co), "CARTA", "CARTAS"),
     text: co.title + " · " + money(co.price, co) + "\nMiralo en Final Cards: " + comboUrl(co), url: comboUrl(co), fname: "final-cards-" + co.slug + ".png" });
 }
 
@@ -7059,6 +7173,7 @@ function cardTile(c){
   const flags = [];
   if (sold) flags.push('<span class="flag flag-sold">Vendida</span>');
   else {
+    if (c.cyberPct) flags.push(cyFlag(c));
     if (c.vault) flags.push('<span class="flag flag-vault">Premium</span>');
     if (isNew(c)) flags.push('<span class="flag flag-new">Nueva</span>');
     if (auctionFor(c.id)) flags.push('<span class="flag">Subasta</span>');
@@ -7081,7 +7196,7 @@ function cardTile(c){
         (ser ? '<span class="pcard-serial serial">'+ser+'</span>' : '<span class="pcard-serial muted" style="font-size:10px">SIN NUMERAR</span>')+
         '<span class="pcard-price">'+(sold
           ? '<small>VENDIDA</small>'
-          : '<small>'+curLbl(c)+'</small>'+priceNum(c))+'</span>'+
+          : cyWas(c)+'<small>'+curLbl(c)+'</small>'+priceNum(c))+'</span>'+
       '</div>'+
     '</div>'+
   '</article>';
@@ -7178,11 +7293,11 @@ function comboTile(combo){
   return `<a class="combo-card${sold ? " is-sold" : ""}" href="#/combos/${combo.slug}" data-combo-name="${esc(comboBlob(combo))}" data-combo-price="${combo.price}">
     <span class="cc-img">${combo.imgs && combo.imgs[0] ? `<img src="${combo.cover || combo.imgs[0]}" alt="" loading="lazy">` : ""}
       <span class="cc-n">${n ? plural(n, "carta", "cartas") : "Lote"}</span>
-      ${sold ? `<span class="flag flag-sold">Vendido</span>` : ""}</span>
+      ${sold ? `<span class="flag flag-sold">Vendido</span>` : cyFlag(combo)}</span>
     <span class="cc-body">
       <b>${esc(combo.title)}</b>
       ${combo.desc ? `<span class="cc-desc">${esc(combo.desc)}</span>` : ""}
-      <span class="cc-foot"><span class="cc-price">${sold ? "Vendido" : `<small>${curLbl(combo)}</small>${priceNum(combo)}`}</span><span class="cc-go">Ver ${comboKindL(combo)} →</span></span>
+      <span class="cc-foot"><span class="cc-price">${sold ? "Vendido" : `${cyWas(combo)}<small>${curLbl(combo)}</small>${priceNum(combo)}`}</span><span class="cc-go">Ver ${comboKindL(combo)} →</span></span>
     </span>
   </a>`;
 }
@@ -7949,7 +8064,7 @@ function pageProduct(slug){
         </div>
 
         <div style="margin-top:26px; display:flex; align-items:baseline; gap:18px; flex-wrap:wrap">
-          <span class="pdp-price">${sold ? 'VENDIDA' : '<small>' + curLbl(c) + '</small>' + priceNum(c)}</span>
+          <span class="pdp-price">${sold ? 'VENDIDA' : '<small>' + curLbl(c) + '</small>' + priceNum(c)}</span>${sold ? "" : cyPdp(c)}
           <span class="stock"><span class="dot ${sold?"sold":(auc?"auction":"")}"></span>${sold ? "Vendida" : (auc ? "Subasta en curso" : "Disponible · 1 unidad")}</span>
         </div>
 
@@ -8066,7 +8181,7 @@ function pageVault(){
           <p style="margin-top:24px; display:flex; gap:10px; align-items:center; flex-wrap:wrap">
             <a class="btn btn-solid" href="#/cards/${c.slug}">Ver carta</a>
             <button class="btn btn-sm" data-vitrina="${c.id}">◈ Vitrina</button>
-            <span class="pdp-price" style="font-size:22px"><small>${curLbl(c)}</small>${priceNum(c)}</span>
+            <span class="pdp-price" style="font-size:22px"><small>${curLbl(c)}</small>${priceNum(c)}</span>${cyPdp(c)}
           </p>
         </div>
       </div>`).join("")}
@@ -8397,7 +8512,7 @@ function pageCombo(slug){
         ${combo.desc ? `<p class="pdp-set">${esc(combo.desc)}</p>` : ""}
 
         <div style="margin-top:26px; display:flex; align-items:baseline; gap:18px; flex-wrap:wrap">
-          <span class="pdp-price">${sold ? '<small>VENDIDO</small>' : '<small>' + curLbl(combo) + '</small>'}${sold ? "" : priceNum(combo)}</span>
+          <span class="pdp-price">${sold ? '<small>VENDIDO</small>' : '<small>' + curLbl(combo) + '</small>'}${sold ? "" : priceNum(combo)}</span>${sold ? "" : cyPdp(combo)}
           <span class="stock"><span class="dot ${sold?"sold":""}"></span>${sold ? "Vendido" : "Disponible · se vende entero"}</span>
         </div>
 
@@ -8589,7 +8704,7 @@ function quickView(id){
         <p class="pdp-serial serial" style="font-size:30px; margin:0">${serialOf(c) || "Sin numerar"}</p>
         <div class="badges" style="margin-top:14px">${(c.badges||[]).map(b=>`<span class="badge ${badgeClass(b)}">${esc(b)}</span>`).join("")}</div>
         <p style="margin-top:18px; color:var(--bone-dim); font-size:14px">${esc((c.story||"").split(". ").slice(0,2).join(". ")+".")}</p>
-        <p class="pdp-price" style="margin-top:18px; font-size:26px"><small>${curLbl(c)}</small>${priceNum(c)}</p>
+        <p class="pdp-price" style="margin-top:18px; font-size:26px"><small>${curLbl(c)}</small>${priceNum(c)}</p>${cyPdp(c)}
         <div style="display:grid; gap:8px; margin-top:16px">
           ${c.status==="sold" ? `<span class="btn" style="border-style:dashed; cursor:default">Vendida</span>` :
             waBtn(c)}
