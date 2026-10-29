@@ -5343,6 +5343,32 @@ const COMBOS = [
     price: 19000, cur: "ARS", status: "available", owner: "nico"
   },
   {
+    slug: "set-dirk-nowitzki-x4",
+    title: "Set Dirk Nowitzki ×4 — Mavericks",
+    desc: "Cuatro cartas de Dirk Nowitzki, Hall of Fame, con los Mavericks: Topps, Upper Deck, Upper Deck First Edition y Ultimate Victory.",
+    imgs: ["img/n-dirk4-1.webp?v=388"],
+    includes: [
+      "Dirk Nowitzki — Mavericks, Topps",
+      "Dirk Nowitzki — Mavericks, Upper Deck",
+      "Dirk Nowitzki — Mavericks, Upper Deck First Edition",
+      "Dirk Nowitzki — Mavericks, Upper Deck Ultimate Victory"
+    ],
+    price: 22000, cur: "ARS", status: "available", owner: "nico", team: "dallas-mavericks"
+  },
+  {
+    slug: "set-russell-westbrook-x4",
+    title: "Set Russell Westbrook ×4 — Thunder",
+    desc: "Cuatro cartas de Russell Westbrook con el Thunder: Donruss Elite 2009-10, Panini Threads 2010-11, Prestige 2010-11 y Prestige 2012-13.",
+    imgs: ["img/n-russ4-1.webp?v=391"],
+    includes: [
+      "Russell Westbrook — Thunder, Donruss Elite 2009-10",
+      "Russell Westbrook — Thunder, Panini Threads 2010-11",
+      "Russell Westbrook — Thunder, Prestige 2010-11",
+      "Russell Westbrook — Thunder, Prestige 2012-13"
+    ],
+    price: 22000, cur: "ARS", status: "available", owner: "nico", team: "oklahoma-city-thunder"
+  },
+  {
     slug: "set-estrellas-del-oeste-x6",
     title: "Set Estrellas del Oeste ×6",
     desc: "Seis cartas de figuras de la Conferencia Oeste: Klay Thompson, Chris Paul, Kawhi Leonard, Shai Gilgeous-Alexander, Anthony Davis y una de los Suns.",
@@ -6207,10 +6233,43 @@ COMBOS.push({
 });
 COMBOS.forEach(toUsdNorm);
 
-/* CyberMonday: % de descuento por carta (id) o set/lote (slug). Solo cartas de Nico.
+/* CyberMonday: % de descuento por carta (id) o set/lote (slug). Cartas de Nico + lotes de Guido.
    Mientras dura la promo el precio nuevo reemplaza al normal en todo el sitio (orden, filtros, WhatsApp)
    y el viejo se muestra tachado. Al terminar vuelve solo al precio normal. */
 const CYBER_DEALS = {
+  // 20% (lotes de Guido)
+  "lote-bulls-x35": 20,
+  "lote-knicks-x27": 20,
+  "lote-lakers-x20": 20,
+  "lote-spurs-x25": 20,
+  "lote-suns-x27": 20,
+  "lote-sonics-x27": 20,
+  "lote-rockets-x18": 20,
+  "lote-heat-x27": 20,
+  "lote-magic-x24": 20,
+  "lote-pacers-x25": 20,
+  "lote-pistons-x27": 20,
+  "lote-jazz-x20": 20,
+  "lote-hornets-x32": 20,
+  "lote-warriors-x31": 20,
+  "lote-washington-x28": 20,
+  "lote-sixers-x22": 20,
+  "lote-nuggets-x25": 20,
+  "lote-blazers-x21": 20,
+  "lote-celtics-x18": 20,
+  "lote-hawks-x27": 20,
+  "lote-mavs-x27": 20,
+  "lote-wolves-x26": 20,
+  "lote-bucks-x18": 20,
+  "lote-kings-x18": 20,
+  "lote-grizzlies-x12": 20,
+  "lote-clippers-x26": 20,
+  "lote-cavs-x24": 20,
+  "lote-nets-x21": 20,
+  "lote-topps2526-x32": 20,
+  "lote-bowman2526-x16": 20,
+  "lote-ncaa-actuales-x11": 20,
+  "lote-ncaa-90s-x12": 20,
   // 15%
   "lote-2025-26-topps-chrome-25-cartas": 15,
   "set-lamelo-ball-x6": 10,
@@ -6254,6 +6313,8 @@ const CYBER_DEALS = {
   "set-jason-kidd-x4": 10,
   "set-carmelo-anthony-x4": 10,
   "set-karl-anthony-towns-x4": 10,
+  "set-dirk-nowitzki-x4": 10,
+  "set-russell-westbrook-x4": 10,
   // 7%
   "c1": 7,
   "c2": 7,
