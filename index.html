@@ -3252,6 +3252,7 @@ const DEFAULT_OWNER = "nico";
 
 const SETTINGS = {
   demo: true,
+  gaId: "G-BSSR9DC5FQ",                 // Google Analytics 4: pegar acá el ID de medición (G-XXXXXXXXXX). Solo mide en final-cards.com
   groupUrl: "https://chat.whatsapp.com/COB0Sr7wz6p4uPTrcqn8li",             // link de invitación al grupo o canal de WhatsApp (https://chat.whatsapp.com/...). Vacío: el botón abre un chat pidiendo que lo sumen
   roomFilm: false,          // video largo al entrar a la Sala NBA: apagado. Poner true para volver a mostrarlo
   soon: true,               // pantalla "Muy pronto" en final-cards.com (se entra igual con ?ver=1). Poner false el día del lanzamiento
@@ -3280,6 +3281,31 @@ const SETTINGS = {
    dorso, se agrega como segundo elemento — el sitio la usa sola, sin tocar
    nada más: en la vitrina el giro muestra esa foto en vez de la pizarra, y
    la pizarra pasa a vivir en el botón aparte "Ver la jugada". */
+/* Google Analytics 4: páginas vistas (cada pantalla del router cuenta como página) y eventos:
+   consulta_whatsapp (clic en consultar a un dueño), unirse_grupo, compartir, compartir_whatsapp, video_saltear.
+   No mide en el artifact ni en pruebas locales, ni a los socios que entran con ?ver=1. */
+const GA = (() => {
+  const id = SETTINGS.gaId, live = /final-cards\.com$/i.test(location.hostname);
+  let socio = false; try { socio = /[?&]ver=1/.test(location.search) || localStorage.getItem("vault:ver") === "1"; } catch(e){}
+  if (!id || !live || socio) return () => {};
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ dataLayer.push(arguments); };
+  gtag("js", new Date()); gtag("config", id, { send_page_view: false });
+  const s = document.createElement("script"); s.async = true; s.src = "https://www.googletagmanager.com/gtag/js?id=" + id; document.head.appendChild(s);
+  const where = () => location.hash.replace(/^#\/?/, "").split("?")[0] || "inicio";
+  document.addEventListener("click", e => {
+    const a = e.target.closest && e.target.closest("a,button"); if (!a) return;
+    const href = a.getAttribute("href") || "";
+    if (/chat\.whatsapp\.com/.test(href)) gtag("event", "unirse_grupo", { desde: where() });
+    else if (/wa\.me\/\d/.test(href)){ const n = (href.match(/wa\.me\/(\d+)/) || [])[1]; const o = Object.values(OWNERS).find(x => x.wa === n); gtag("event", "consulta_whatsapp", { item: where(), dueno: o ? o.name : n }); }
+    else if (/wa\.me\/\?/.test(href)) gtag("event", "compartir_whatsapp", { item: where() });
+    else if (a.matches("[data-share],[data-share-combo]")) gtag("event", "compartir", { item: a.dataset.share || a.dataset.shareCombo });
+    else if (a.matches("[data-skip]")) gtag("event", "video_saltear");
+  }, true);
+  return (name, params) => gtag("event", name, params);
+})();
+const gaPage = (path, title) => GA("page_view", { page_location: location.origin + "/" + path, page_path: "/" + path, page_title: title || document.title });
+
 const CARDS = [
   {
     id: "c1", slug: "bernard-king-national-treasures-game-changers-auto",
@@ -4491,7 +4517,7 @@ const CARDS = [
     cardNo: "116", serialNum: null, printRun: null,
     rookie: true, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 70000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    price: 50000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
     imgs: [IMG.morantf, IMG.morantb],
     badges: ["RC"],
     why: ["Rookie card de Ja Morant, con el escudo RC", "Con la camiseta retro Vancouver Grizzlies y la 12", "Chronicles 2019-20, su año de debut en la NBA"],
@@ -10665,7 +10691,7 @@ function render(){
   const { parts, params, path } = parseHash();
   const pathChanged = path !== lastPath;
   const section = parts[0] || "";
-  if (pathChanged){ S.tab = null; lastPath = path; S.shopLimit = SHOP_PAGE; }
+  if (pathChanged){ S.tab = null; lastPath = path; S.shopLimit = SHOP_PAGE; setTimeout(() => { if (!soonActive()) gaPage(String(path || "").replace(/^\/+/, "")); }, 0); }
   if (section !== lastSection){ S.filters = {}; S.filtersOpen = false; lastSection = section; }
   if (params.sort) S.sort = params.sort;
   S.q = params.q || "";
@@ -11290,6 +11316,7 @@ function soonActive(){
   return live || SETTINGS.soonPreview;
 }
 function showSoon(){
+  gaPage("muy-pronto", "Muy pronto · Final Cards");
   const el = $("#soon"), live = /final-cards\.com$/i.test(location.hostname);
   el.innerHTML = `${live ? "" : `<button class="soon-x" id="soonX">Vista previa · cerrar</button>`}
     <div class="soon-in">
@@ -11344,6 +11371,7 @@ function playSoonVideo(){
 function openVault(){
   const el = $("#soon"); if (!el || el.hidden || el.classList.contains("opening")) return;
   el.classList.add("opening");
+  gaPage(String(parseHash().path || "").replace(/^\/+/, ""));
   setTimeout(() => el.classList.add("opened"), 3500);
   setTimeout(() => { el.hidden = true; el.innerHTML = ""; el.className = "soon"; document.body.classList.remove("soon-on"); playIntro(); }, 4700);
 }
