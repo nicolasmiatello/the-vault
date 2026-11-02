@@ -8389,16 +8389,25 @@ function pageTeam(slug){
     </div>
   </section>
   <div class="wrap section-tight">
+    ${combosTop(tcs, kindsLbl(tcs).replace(/^./, x => x.toUpperCase()) + " de " + esc(name), name.split(" ").slice(-1)[0])}
     <div class="tabs">
       ${[["Todas","all"],["Leyendas","legends"],["Plantel actual","current"],["Rookies","rookies"],["Autógrafos","autos"],["Patches","patches"],["Numeradas bajo","low"],["Vendidas","sold"]]
         .filter(([l,v]) => v === "all" || sets[v].length)
         .map(([l,v]) => `<button data-tab="${v}" class="${tab===v?"on":""}">${l} <span style="color:var(--silver-dim)">${sets[v].length}</span></button>`).join("")}
     </div>
     ${sets.all.length || !tcs.length ? cardGrid(sets[tab] || [], S.view) : ""}
-    ${tcs.length ? `<section style="margin:${sets.all.length ? "50px" : "10px"} 0 40px">
-      <p class="eyebrow gold" style="margin-bottom:14px">${kindsLbl(tcs).replace(/^./, x => x.toUpperCase())} de ${esc(name)} · ${tcs.length}</p>
-      <div class="combo-grid">${tcs.map(comboTile).join("")}</div></section>` : ""}
   </div>`;
+}
+
+/* sets y lotes arriba de las cartas en jugador y equipo: hasta 4, el resto en la página Lotes ya filtrada */
+function combosTop(list, label, q){
+  if (!list.length) return "";
+  const more = list.length > 4;
+  return `<section class="combos-top" style="margin:6px 0 34px">
+      <p class="eyebrow gold" style="margin-bottom:14px">${label} · ${list.length}</p>
+      <div class="combo-grid">${list.slice(0, 4).map(comboTile).join("")}</div>
+      ${more ? `<p style="margin-top:16px"><a class="btn btn-sm" href="#/combos?q=${encodeURIComponent(q)}">Ver los ${list.length} ${kindsLbl(list)} →</a></p>` : ""}
+    </section>`;
 }
 
 /* ---------- jugadores ---------- */
@@ -8465,9 +8474,7 @@ function pagePlayer(slug){
   const pc = combosOfPlayer(slug);
   if (!m && !all.length && !pc.length) return `<div class="wrap section">${emptyState("Todavía no hay cartas de ese jugador.")}</div>`;
   const pName = m ? m.name : (all[0] ? all[0].player : (pc.length ? (comboPlayerNames(pc[0]).find(n => pslug(n) === slug) || slug) : slug));
-  const combosBlock = pc.length ? `<section style="margin:${all.length ? "50px" : "10px"} 0 40px">
-      <p class="eyebrow gold" style="margin-bottom:14px">${kindsLbl(pc).replace(/^./, x => x.toUpperCase())} con ${esc(pName)} · ${pc.length}</p>
-      <div class="combo-grid">${pc.map(comboTile).join("")}</div></section>` : "";
+  const combosBlock = combosTop(pc, kindsLbl(pc).replace(/^./, x => x.toUpperCase()) + " con " + esc(pName), pName.split(" ").slice(-1)[0]);
   const tab = S.tab || "cards";
   const nAv = all.filter(c => c.status !== "sold").length;
   const sets = {
@@ -8506,13 +8513,13 @@ function pagePlayer(slug){
         </div>` : ""}
       </div>
     </div>
+    ${combosBlock}
     ${all.length ? `<div class="tabs">
       ${[["Cartas","cards"],["Autógrafos","autographs"],["Rookies","rookies"],["Patches","patches"],["Numeradas","numbered"],["Vendidas","sold"]]
         .filter(([l,v]) => v === "cards" || sets[v].length)
         .map(([l,v]) => `<button data-tab="${v}" class="${tab===v?"on":""}">${l} <span style="color:var(--silver-dim)">${sets[v].length}</span></button>`).join("")}
     </div>` : ""}
     ${all.length || !pc.length ? cardGrid(sets[tab] || [], S.view) : ""}
-    ${combosBlock}
   </div>`;
 }
 
@@ -8597,7 +8604,7 @@ function pageCombos(){
     ${COMBOS.length ? `
     <div class="search-field" style="border-color:var(--hair); margin-bottom:20px">
       <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--silver);fill:none;stroke-width:1.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      <input id="comboSearch" type="search" placeholder="Buscá por jugador, equipo o nombre del lote..." aria-label="Buscar lotes" style="font-size:clamp(15px,2vw,18px)">
+      <input id="comboSearch" type="search" value="${esc(S.q || "")}" placeholder="Buscá por jugador, equipo o nombre del lote..." aria-label="Buscar lotes" style="font-size:clamp(15px,2vw,18px)">
     </div>
     ${cats.length ? `<div class="tabs combo-tabs" role="tablist" aria-label="Tipos de lote">
       <button data-tab="all" class="${cat==="all"?"on":""}" role="tab" aria-selected="${cat==="all"}">Todos <span style="color:var(--silver-dim)">${COMBOS.length}</span></button>
@@ -10699,7 +10706,8 @@ function wireLongLists(){
       const t = norm(e.target.value).trim();
       const grid = $("#comboGrid"); if (!grid) return;
       const tiles = $$(".combo-card", grid);
-      tiles.forEach(a => a.classList.toggle("nomatch", !!t && !(a.dataset.comboName || "").includes(t)));
+      const terms = t.split(/\s+/).filter(Boolean);
+      tiles.forEach(a => a.classList.toggle("nomatch", !!t && !terms.every(w => (a.dataset.comboName || "").includes(w))));
       const none = !tiles.some(a => !a.classList.contains("nomatch"));
       const em = $("#comboEmpty"); if (em) em.hidden = !none;
     }
@@ -10762,6 +10770,7 @@ function render(){
 
   app.innerHTML = html;
   afterRender(parts, pathChanged);
+  { const cs = $("#comboSearch"); if (cs && cs.value) cs.dispatchEvent(new Event("input", { bubbles: true })); }
 }
 
 /* menú Tienda y menú del celular: se arman con el stock, así nunca muestran un formato vacío */
@@ -11015,7 +11024,8 @@ function wire(){
     const q = si.value.trim();
     const all = q ? searchCards(q).sort((a,b) => (a.status === "sold") - (b.status === "sold")) : [];
     const cardRes = q ? all.slice(0, 6) : live().slice().sort(SORTS.new).slice(0, 5);
-    const comboRes = q ? searchCombos(q).slice(0, 6) : [];
+    const comboAll = q ? searchCombos(q).sort((a,b) => (a.status === "sold") - (b.status === "sold")) : [];
+    const comboRes = comboAll.slice(0, 4);
     const head = t => `<p class="sr-h">${t}</p>`;
     let html = "";
     if (q){
@@ -11033,15 +11043,25 @@ function wire(){
         <a class="sresult sr-group" href="#/players/${slug}" data-close-search>
           <img src="${p.img}" alt="">
           <span class="r-main"><span class="r-name">${esc(p.name)}</span><span class="r-meta">${esc(Array.from(p.teams).join(" · "))}</span></span>
-          <span class="r-price sr-n">${plural(p.n, "carta", "cartas")} →</span>
+          <span class="r-price sr-n">${[plural(p.n, "carta", "cartas"), combosOfPlayer(slug).length ? combosCountLbl(combosOfPlayer(slug)) : ""].filter(Boolean).join(" · ")} →</span>
         </a>`).join("");
       if (teams.length) html += head("Equipos") + teams.map(([slug, t]) => `
         <a class="sresult sr-group" href="#/teams/${slug}" data-close-search>
           <span class="sr-dot" style="background:${(TEAMS.find(x => x[2] === slug) || [])[3] || "#888"}"></span>
           <span class="r-main"><span class="r-name">${esc(t.name)}</span></span>
-          <span class="r-price sr-n">${plural(t.n, "carta", "cartas")} →</span>
+          <span class="r-price sr-n">${[plural(t.n, "carta", "cartas"), combosOfTeam(slug).length ? combosCountLbl(combosOfTeam(slug)) : ""].filter(Boolean).join(" · ")} →</span>
         </a>`).join("");
     }
+    if (comboRes.length) html += head("Sets y lotes") + comboRes.map(combo => `
+      <a class="sresult" href="#/combos/${combo.slug}" data-close-search>
+        <img src="${(combo.imgs && combo.imgs[0]) || ""}" alt="">
+        <span class="r-main">
+          <span class="r-name">${esc(combo.title)}</span>
+          <span class="r-meta">${comboKind(combo)} · ${plural(comboN(combo), "carta", "cartas")}</span>
+        </span>
+        <span class="r-price">${combo.status==="sold" ? "VENDIDO" : money(combo.price, combo)}</span>
+      </a>`).join("");
+    if (comboAll.length > comboRes.length) html += `<a class="sr-all" href="#/combos?q=${encodeURIComponent(q)}" data-close-search>Ver los ${comboAll.length} sets y lotes que coinciden →</a>`;
     if (cardRes.length) html += head(q ? "Cartas" : "Recién llegadas") + cardRes.map(c => `
       <a class="sresult" href="#/cards/${c.slug}" data-close-search>
         <img src="${c.imgs[0]}" alt="">
@@ -11050,15 +11070,6 @@ function wire(){
           <span class="r-meta">${esc(c.season+" "+c.product+" · "+c.set)} · ${serialOf(c)||"sin numerar"}</span>
         </span>
         <span class="r-price">${c.status === "sold" ? "VENDIDA" : money(c.price, c)}</span>
-      </a>`).join("");
-    if (comboRes.length) html += head("Lotes") + comboRes.map(combo => `
-      <a class="sresult" href="#/combos/${combo.slug}" data-close-search>
-        <img src="${(combo.imgs && combo.imgs[0]) || ""}" alt="">
-        <span class="r-main">
-          <span class="r-name">${esc(combo.title)}</span>
-          <span class="r-meta">${comboKind(combo)} · ${plural(comboN(combo), "carta", "cartas")}</span>
-        </span>
-        <span class="r-price">${combo.status==="sold" ? "VENDIDO" : money(combo.price, combo)}</span>
       </a>`).join("");
     if (q && all.length > cardRes.length) html += `<a class="sr-all" href="#/cards?q=${encodeURIComponent(q)}" data-close-search>Ver las ${all.length} cartas que coinciden →</a>`;
     $("#searchResults").innerHTML = html || `<p class="muted" style="padding:20px 12px">Nada coincide con “${esc(q)}”. Probá un jugador, un equipo, un set o una tirada como /25.</p><div style="padding:0 12px 18px">${groupNote("¿Todavía no la tenemos?")}</div>`;
