@@ -6283,12 +6283,28 @@ COMBOS.push({
   ],
   price: 22000, cur: "ARS", status: "available", owner: "nico"
 });
+COMBOS.push({
+  slug: "lote-2025-26-topps-chrome-24-cartas",
+  title: "Lote 2025-26 Topps Chrome — 24 cartas",
+  desc: "24 cartas de la 2025-26 Topps Chrome, de equipos mezclados: Giannis, Kyrie, DeRozan, Draymond Green, Brandon Miller y el rookie Danny Wolf, entre otros.",
+  imgs: ["img/n-chrome24-1.webp?v=398", "img/n-chrome24-2.webp?v=398"],
+  includes: [
+    "Draymond Green — Warriors", "DeMar DeRozan — Kings", "Dario Šarić — Nuggets", "Jonas Valančiūnas — Kings",
+    "Shaedon Sharpe — Trail Blazers", "Giannis Antetokounmpo — Bucks", "Kyrie Irving — Mavericks", "Danny Wolf — RC, Nets",
+    "Christian Braun — Nuggets", "Evan Mobley — Cavaliers", "Adem Bona — Clippers", "Talen Horton-Tucker — Bulls",
+    "T.J. McConnell — Pacers", "Dillon Brooks — Rockets", "Cam Johnson — Nets", "Antonio Reeves — Pelicans",
+    "Luke Kennard — Grizzlies", "Andrew Nembhard — Pacers", "Mason Plumlee — Suns", "Bogdan Bogdanović — Clippers",
+    "Kyle Filipowski — Jazz", "Brandon Miller — Hornets", "Jonathan Isaac — Magic", "Zeke Nnaji — Nuggets"
+  ],
+  price: 26000, cur: "ARS", status: "available", owner: "nico"
+});
 COMBOS.forEach(toUsdNorm);
 
 /* CyberMonday: % de descuento por carta (id) o set/lote (slug). Cartas de Nico + lotes de Guido.
    Mientras dura la promo el precio nuevo reemplaza al normal en todo el sitio (orden, filtros, WhatsApp)
    y el viejo se muestra tachado. Al terminar vuelve solo al precio normal. */
 const CYBER_DEALS = {
+  "lote-2025-26-topps-chrome-24-cartas": 15,
   // 20% (lotes de Guido)
   "lote-bulls-x35": 20,
   "lote-knicks-x27": 20,
