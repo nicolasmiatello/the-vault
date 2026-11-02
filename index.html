@@ -4412,7 +4412,7 @@ const CARDS = [
     cardNo: "61", serialNum: null, printRun: null,
     rookie: true, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 60000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    price: 0, cur: "ARS", status: "sold", soldOn: "2026-11-02", addedOn: "2026-10-14", vault: false, owner: "guido",
     imgs: [IMG.flaggf, IMG.flaggb],
     badges: ["RC", "CACTUS JACK"],
     why: ["Rookie card del N°1 del draft 2025, con el escudo RC", "Diseño Cactus Jack de Travis Scott: cadenas, ladrillos y el logo dibujado a mano", "Con la 32 de los Dallas Mavericks"],
@@ -6297,6 +6297,19 @@ COMBOS.push({
     "Kyle Filipowski — Jazz", "Brandon Miller — Hornets", "Jonathan Isaac — Magic", "Zeke Nnaji — Nuggets"
   ],
   price: 26000, cur: "ARS", status: "available", owner: "nico"
+});
+COMBOS.push({
+  slug: "set-manu-ginobili-x4-hoops-picture-perfect-prestige-bowman-topps",
+  title: "Set Manu Ginóbili ×4 — Hoops Picture Perfect, Prestige, Bowman y Topps",
+  desc: "Cuatro cartas de Manu con los Spurs: NBA Hoops 2014-15 Picture Perfect, Prestige 2012-13, Bowman 2007-08 y Topps 2007-08 de los 50 años de Topps.",
+  imgs: ["img/n-manu4f-1.webp?v=402", "img/n-manu4f-2.webp?v=402"],
+  includes: [
+    "Manu Ginóbili — Spurs, NBA Hoops 2014-15 Picture Perfect N° 9",
+    "Manu Ginóbili — Spurs, Prestige 2012-13 N° 55",
+    "Manu Ginóbili — Spurs, Bowman 2007-08 N° 51",
+    "Manu Ginóbili — Spurs, Topps 2007-08 N° 57 (50th Anniversary)"
+  ],
+  price: 22000, cur: "ARS", status: "available", owner: "nico"
 });
 COMBOS.forEach(toUsdNorm);
 
