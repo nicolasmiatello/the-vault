@@ -421,6 +421,15 @@ section{position:relative}
 }
 .flag-vault{border-color:var(--gold); color:var(--gold-soft)}
 .flag-new{border-color:rgba(34,114,214,.6); color:#8CBAF2}
+/* salas: vista previa y sala vacía */
+.lb-door .lb-pv{color:#9fe3b8}
+.room-empty{min-height:62vh; display:flex; align-items:center; text-align:center; padding-block:clamp(60px,10vw,120px); background:radial-gradient(60% 50% at 50% 40%, rgba(95,211,138,.08), transparent 70%)}
+.room-empty .wrap{display:flex; flex-direction:column; align-items:center; gap:14px}
+.room-empty .hero-word{font-size:clamp(38px,8vw,92px)}
+.room-empty .re-sub{color:var(--bone-dim); max-width:46ch; font-size:16px; line-height:1.6}
+.room-empty .re-pv{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#9fe3b8; border:1px solid rgba(95,211,138,.35); padding:7px 12px; border-radius:3px}
+.room-empty .re-cta{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:10px}
+.pz-pitch path, .pz-pitch circle{stroke-dasharray:none}
 .flag-cyber{background:linear-gradient(120deg,#19d3ff,#7b5cff); border-color:transparent; color:#fff; font-weight:700; letter-spacing:.08em; box-shadow:0 2px 10px rgba(25,211,255,.35)}
 .cy-was{display:block; font-size:.72em; color:var(--silver); opacity:.85; text-decoration:line-through; text-decoration-color:#ff5a6a; text-decoration-thickness:1.5px; line-height:1.1; margin-bottom:2px}
 .cy-pdp{display:inline-flex; align-items:center; gap:10px; flex-wrap:wrap}
@@ -3273,7 +3282,8 @@ const DEFAULT_OWNER = "nico";
 
 const SETTINGS = {
   demo: true,
-  gaId: "G-BSSR9DC5FQ",                 // Google Analytics 4: pegar acá el ID de medición (G-XXXXXXXXXX). Solo mide en final-cards.com
+  gaId: "G-BSSR9DC5FQ",
+  rooms: { futbol: false },  // salas abiertas al público además de NBA. Fútbol cerrada: solo socios con ?futbol=1. Poner true el día que abra                 // Google Analytics 4: pegar acá el ID de medición (G-XXXXXXXXXX). Solo mide en final-cards.com
   groupUrl: "https://chat.whatsapp.com/COB0Sr7wz6p4uPTrcqn8li",             // link de invitación al grupo o canal de WhatsApp (https://chat.whatsapp.com/...). Vacío: el botón abre un chat pidiendo que lo sumen
   roomFilm: false,          // video largo al entrar a la Sala NBA: apagado. Poner true para volver a mostrarlo
   soon: true,               // pantalla "Muy pronto" en final-cards.com (se entra igual con ?ver=1). Poner false el día del lanzamiento
@@ -6338,6 +6348,7 @@ COMBOS.forEach(toUsdNorm);
    Mientras dura la promo el precio nuevo reemplaza al normal en todo el sitio (orden, filtros, WhatsApp)
    y el viejo se muestra tachado. Al terminar vuelve solo al precio normal. */
 const CYBER_DEALS = {
+  "set-leyendas-x9-bird-robinson-grant-hill": 20,
   "lote-2025-26-topps-chrome-24-cartas": 15,
   // 20% (lotes de Guido)
   "lote-bulls-x35": 20,
@@ -6384,28 +6395,28 @@ const CYBER_DEALS = {
   "set-lakers-x6-lebron-luka-magic": 15,
   "set-estrellas-del-oeste-x6": 15,
   "set-estrellas-del-este-x6": 15,
-  "set-charles-barkley-x8": 15,
-  "set-leyendas-de-los-90-x8": 15,
-  "set-leyendas-bases-de-los-90-x8-vol-2": 15,
-  "set-reggie-miller-x8": 15,
-  "set-gigantes-de-la-pintura-x8": 15,
-  "set-patrick-ewing-x8": 15,
-  "set-estrellas-x8-garnett-nowitzki-carter": 15,
-  "set-hall-of-fame-x8-russell-kareem-magic-erving": 15,
-  "set-estrellas-x8-vol-2-pippen-carter-pierce": 15,
-  "set-armadores-x8-stockton-nash-parker-iverson": 15,
-  "set-gigantes-de-la-pintura-x8-vol-2": 15,
-  "set-estrellas-x8-vol-3-nowitzki-garnett-hill": 15,
-  "set-armadores-x8-vol-2-stockton-nash-parker-payton": 15,
-  "set-leyendas-x8-olajuwon-rodman-isiah-stockton": 15,
-  "set-gigantes-de-la-pintura-x8-vol-3": 15,
-  "set-leyendas-x8-vol-2-pippen-stockton-olajuwon-payton": 15,
-  "set-armadores-x8-vol-3-stockton-payton-kidd-williams": 15,
-  "set-estrellas-x8-vol-4-iverson-mcgrady-pippen-hill": 15,
-  "set-estrellas-del-oeste-x8-olajuwon-stockton-kidd-rodman": 15,
-  "set-gigantes-de-la-pintura-x8-vol-4-olajuwon-robinson-malone-mourning": 15,
-  "set-estrellas-x8-vol-4-pippen-robinson-wilkins-rodman": 15,
-  "set-leyendas-x8-vol-3-magic-bird-pippen-wilkins": 15,
+  "set-charles-barkley-x8": 20,
+  "set-leyendas-de-los-90-x8": 20,
+  "set-leyendas-bases-de-los-90-x8-vol-2": 20,
+  "set-reggie-miller-x8": 20,
+  "set-gigantes-de-la-pintura-x8": 20,
+  "set-patrick-ewing-x8": 20,
+  "set-estrellas-x8-garnett-nowitzki-carter": 20,
+  "set-hall-of-fame-x8-russell-kareem-magic-erving": 20,
+  "set-estrellas-x8-vol-2-pippen-carter-pierce": 20,
+  "set-armadores-x8-stockton-nash-parker-iverson": 20,
+  "set-gigantes-de-la-pintura-x8-vol-2": 20,
+  "set-estrellas-x8-vol-3-nowitzki-garnett-hill": 20,
+  "set-armadores-x8-vol-2-stockton-nash-parker-payton": 20,
+  "set-leyendas-x8-olajuwon-rodman-isiah-stockton": 20,
+  "set-gigantes-de-la-pintura-x8-vol-3": 20,
+  "set-leyendas-x8-vol-2-pippen-stockton-olajuwon-payton": 20,
+  "set-armadores-x8-vol-3-stockton-payton-kidd-williams": 20,
+  "set-estrellas-x8-vol-4-iverson-mcgrady-pippen-hill": 20,
+  "set-estrellas-del-oeste-x8-olajuwon-stockton-kidd-rodman": 20,
+  "set-gigantes-de-la-pintura-x8-vol-4-olajuwon-robinson-malone-mourning": 20,
+  "set-estrellas-x8-vol-4-pippen-robinson-wilkins-rodman": 20,
+  "set-leyendas-x8-vol-3-magic-bird-pippen-wilkins": 20,
   // 10%
   "set-completo-topps-2000-01-series-1": 10,
   "set-completo-topps-1998-99-series-1": 10,
@@ -6471,6 +6482,24 @@ const applyCyber = (it, key) => {
 };
 CARDS.forEach(c => applyCyber(c, c.id));
 COMBOS.forEach(co => applyCyber(co, co.slug));
+
+/* ============================================================
+   SALA FÚTBOL — cerrada al público (SETTINGS.rooms.futbol = false).
+   Los socios la ven entrando con ?futbol=1 (queda guardado en ese navegador; ?futbol=0 lo saca).
+   Cartas: mismos campos que CARDS, ids f1, f2… · team = club o selección y teamSlug de TEAMS_FUTBOL
+   (ej. team:"Argentina", teamSlug:"argentina"). jersey = número de camiseta. Campos opcionales de fútbol:
+   worldCup:true (carta de Mundial), legend:true (leyenda / ídolo retirado), league:"Primera División".
+   Sets y lotes: igual que COMBOS, en COMBOS_FUTBOL.
+   ============================================================ */
+const CARDS_FUTBOL = [
+];
+const COMBOS_FUTBOL = [
+];
+CARDS_FUTBOL.forEach(toUsdNorm);
+CARDS_FUTBOL.forEach(c => { const t = Date.parse((c.addedOn || "2026-01-01") + "T12:00:00"); c.addedDaysAgo = Math.max(0, Math.floor((Date.now() - t) / 864e5)); });
+COMBOS_FUTBOL.forEach(toUsdNorm);
+CARDS_FUTBOL.forEach(c => applyCyber(c, c.id));
+COMBOS_FUTBOL.forEach(co => applyCyber(co, co.slug));
 
 /* Subastas en vivo — lotes demo armados con cartas que ya están en la bóveda */
 const AUCTIONS = [
@@ -6758,6 +6787,104 @@ const S = {
 };
 
 try { localStorage.removeItem("vault:inventory"); } catch(e){}
+
+/* ============================================================
+   SALAS — cada sala tiene su stock, sus equipos y sus colecciones.
+   setRoom() cambia el contenido de S.inventory, COMBOS, TEAMS y COLLECTIONS,
+   así todas las páginas funcionan igual en cualquier sala.
+   ============================================================ */
+const TEAMS_FUTBOL = [
+  // selecciones
+  ["Argentina","ARG","argentina","#75AADB","#FFFFFF"],["Brasil","BRA","brasil","#FFDF00","#009C3B"],["Uruguay","URU","uruguay","#5CBFEB","#0B1F4B"],
+  ["Francia","FRA","francia","#1F3A93","#E1000F"],["Alemania","GER","alemania","#DD0000","#000000"],["España","ESP","espana","#C60B1E","#FFC400"],
+  ["Inglaterra","ENG","inglaterra","#CF081F","#FFFFFF"],["Italia","ITA","italia","#0066B2","#FFFFFF"],["Portugal","POR","portugal","#C8102E","#046A38"],
+  ["Países Bajos","NED","paises-bajos","#F36C21","#21468B"],["Bélgica","BEL","belgica","#E30613","#FDDA24"],["Croacia","CRO","croacia","#E4202C","#171796"],
+  ["Colombia","COL","colombia","#FCD116","#003893"],["Chile","CHI","chile","#D52B1E","#0039A6"],["México","MEX","mexico","#006847","#CE1126"],
+  ["Estados Unidos","USA","estados-unidos","#0A3161","#B31942"],
+  // Argentina
+  ["Boca Juniors","BOC","boca-juniors","#103F79","#F3B229"],["River Plate","RIV","river-plate","#E3001B","#FFFFFF"],["Racing Club","RAC","racing-club","#6CACE4","#FFFFFF"],
+  ["Independiente","IND","independiente","#E2001A","#FFFFFF"],["San Lorenzo","SLO","san-lorenzo","#002B5C","#C8102E"],["Estudiantes de La Plata","EDL","estudiantes","#E2001A","#FFFFFF"],
+  ["Newell's Old Boys","NOB","newells","#E2001A","#000000"],["Rosario Central","CEN","rosario-central","#003D7C","#FFD200"],["Vélez Sarsfield","VEL","velez","#0047AB","#FFFFFF"],
+  ["Huracán","HUR","huracan","#E2001A","#FFFFFF"],["Lanús","LAN","lanus","#7A1E2E","#FFFFFF"],["Talleres","TAL","talleres","#0B2A5B","#FFFFFF"],
+  ["Argentinos Juniors","ARJ","argentinos-juniors","#E2001A","#FFFFFF"],["Gimnasia y Esgrima La Plata","GLP","gimnasia","#0B1F4B","#FFFFFF"],
+  // Europa
+  ["Real Madrid","RMA","real-madrid","#FEBE10","#00529F"],["FC Barcelona","BAR","barcelona","#A50044","#004D98"],["Atlético de Madrid","ATM","atletico-madrid","#CB3524","#272E61"],
+  ["Sevilla","SEV","sevilla","#D71920","#FFFFFF"],["Manchester United","MUN","manchester-united","#DA291C","#FBE122"],["Manchester City","MCI","manchester-city","#6CABDD","#1C2C5B"],
+  ["Liverpool","LIV","liverpool","#C8102E","#00B2A9"],["Chelsea","CHE","chelsea","#034694","#DBA111"],["Arsenal","ARS","arsenal","#EF0107","#063672"],
+  ["Tottenham Hotspur","TOT","tottenham","#132257","#FFFFFF"],["Juventus","JUV","juventus","#FFFFFF","#000000"],["Inter","INT","inter","#0068A8","#000000"],
+  ["Milan","MIL","milan","#FB090B","#000000"],["Napoli","NAP","napoli","#12A0D7","#003C82"],["Roma","ROM","roma","#8E1F2F","#F0BC42"],
+  ["Bayern Múnich","BAY","bayern","#DC052D","#0066B2"],["Borussia Dortmund","BVB","dortmund","#FDE100","#000000"],["Paris Saint-Germain","PSG","psg","#004170","#DA291C"],
+  ["Benfica","BEN","benfica","#E83030","#FFFFFF"],["Porto","POR","porto","#00428C","#FFFFFF"],["Ajax","AJX","ajax","#D2122E","#FFFFFF"],
+  // resto del mundo
+  ["Inter Miami","MIA","inter-miami","#F7B5CD","#231F20"],["LA Galaxy","LAG","la-galaxy","#00245D","#FFD200"],["Al Nassr","NAS","al-nassr","#FCDD09","#0C2D84"],
+  ["Al Hilal","HIL","al-hilal","#005BAC","#FFFFFF"],["Flamengo","FLA","flamengo","#C52613","#000000"],["Santos","SAN","santos","#FFFFFF","#000000"]
+];
+const COLLECTIONS_FUTBOL = [
+  { slug:"seleccion-argentina", name:"Selección Argentina", sub:"Las cartas con la celeste y blanca", test:c=>c.teamSlug==="argentina" },
+  { slug:"mundiales", name:"Mundiales", sub:"Cartas de Copas del Mundo", test:c=>!!c.worldCup },
+  { slug:"futbol-argentino", name:"Fútbol argentino", sub:"Boca, River y los clubes de acá", test:c=>["boca-juniors","river-plate","racing-club","independiente","san-lorenzo","estudiantes","newells","rosario-central","velez","huracan","lanus","talleres","argentinos-juniors","gimnasia"].includes(c.teamSlug) },
+  { slug:"leyendas", name:"Leyendas", sub:"Los ídolos de siempre", test:c=>!!(c.legend || c.hof) },
+  { slug:"low-numbered", name:"Numeradas bajo", sub:"Tiradas de 49 copias o menos", test:c=>c.printRun && c.printRun<=49 },
+  { slug:"rookie-autographs", name:"Rookie autographs", sub:"Firmas del primer año de cartas de un jugador", test:c=>c.rookie&&c.auto },
+  { slug:"game-worn", name:"Game-worn y patches", sub:"Cartas con un pedazo de camiseta", test:c=>c.memorabilia }
+];
+const ROOM_META = {
+  nba:    { tag:"The NBA Vault",      word:"THE NBA <em>VAULT</em>",      chip:"Sala NBA" },
+  futbol: { tag:"The Football Vault", word:"THE FOOTBALL <em>VAULT</em>", chip:"Sala Fútbol" }
+};
+const ROOM_SRC = {
+  nba:    { cards: S.inventory, combos: COMBOS.slice(), teams: TEAMS.slice(), cols: COLLECTIONS.slice() },
+  futbol: { cards: CARDS_FUTBOL.concat(ARCHIVE.filter(c => c.sport === "futbol")).map(c => ({...c, vault: Number(c.wasPrice || c.price) > SETTINGS.vaultOver})),
+            combos: COMBOS_FUTBOL, teams: TEAMS_FUTBOL, cols: COLLECTIONS_FUTBOL }
+};
+const ROOM = { k: "nba" };
+const roomTag = () => ROOM_META[ROOM.k].tag;
+const roomWord = () => ROOM_META[ROOM.k].word;
+function roomPreview(k){
+  if (k !== "futbol") return false;
+  try {
+    const q = new URLSearchParams(location.search).get("futbol");
+    if (q === "1") localStorage.setItem("vault:futbol", "1");
+    if (q === "0") localStorage.removeItem("vault:futbol");
+    return localStorage.getItem("vault:futbol") === "1";
+  } catch(e){ return false; }
+}
+function roomIsOpen(k){ return k === "nba" || !!(SETTINGS.rooms && SETTINGS.rooms[k]) || roomPreview(k); }
+function roomCount(k){
+  const s = ROOM_SRC[k]; if (!s) return 0;
+  return s.cards.filter(c => c.status !== "sold").length + s.combos.filter(co => co.status !== "sold").reduce((t, co) => t + comboN(co), 0);
+}
+function setRoom(k, quiet){
+  if (!ROOM_SRC[k] || !roomIsOpen(k)) k = "nba";
+  const changed = ROOM.k !== k;
+  ROOM.k = k;
+  const s = ROOM_SRC[k];
+  S.inventory = s.cards;
+  COMBOS.length = 0; s.combos.forEach(x => COMBOS.push(x));
+  TEAMS.length = 0; s.teams.forEach(x => TEAMS.push(x));
+  COLLECTIONS.length = 0; s.cols.forEach(x => COLLECTIONS.push(x));
+  if (changed){ S.filters = {}; S.tab = null; }
+  try { localStorage.setItem("vault:room", k); } catch(e){}
+  document.documentElement.dataset.room = k;
+  $$(".brand .tag").forEach(t => { t.textContent = roomTag(); });
+  const chip = $(".sala-chip"); if (chip && chip.firstChild) chip.firstChild.textContent = ROOM_META[k].chip + " ";
+  if (!quiet){ paintMenus(); render(); }
+}
+/* sala sin cartas todavía */
+function pageRoomEmpty(){
+  return `<section class="room-empty">
+    <div class="wrap">
+      <p class="eyebrow gold">Final Cards · ${ROOM_META[ROOM.k].chip}</p>
+      <h1 class="hero-word display">${roomWord()}</h1>
+      <p class="re-sub">Estamos armando esta sala. Las primeras cartas entran muy pronto.</p>
+      ${roomPreview(ROOM.k) ? `<p class="re-pv">Vista previa · solo socios. El público ve esta sala cerrada.</p>` : ""}
+      <div class="re-cta">
+        <button class="btn btn-gold" data-lobby>Volver al hall</button>
+        <button class="btn" data-room-go="nba">Ir a la sala NBA</button>
+      </div>
+    </div>
+  </section>`;
+}
 
 const save = {
   inventory(){ store.set("inventory", S.inventory); },
@@ -7384,7 +7511,7 @@ function packMarkup(id){
       <div class="pk-label">
         <span class="pk-series">Serie 01 · Final Cards</span>
         <span class="pk-seal"><span class="pk-mono">V</span></span>
-        <span class="pk-brand">THE NBA <em>VAULT</em></span>
+        <span class="pk-brand">${roomWord()}</span>
         <span class="pk-count">5 cartas · 1 premium</span>
       </div>
     </div>
@@ -7807,7 +7934,7 @@ function pageHome(){
     <canvas id="heroCanvas" aria-hidden="true"></canvas>
     <div class="wrap hero-inner">
       <div class="hero-top">
-        <p class="hero-word display">THE NBA <em>VAULT</em></p>
+        <p class="hero-word display">${roomWord()}</p>
         <p class="hero-tagline">Quedate con una parte del juego</p>
       </div>
 
@@ -7903,7 +8030,7 @@ function pageHome(){
       const homeSets = {
         autos: {
           label: "Autógrafos", pick: "Firmadas por el jugador", list: autos, href: "#/autographs", cta: "Abrir la sala de autógrafos",
-          h2: "Cartas autografiadas", sub: "La firma del jugador sobre la carta. Es lo más buscado de la bóveda, de leyendas del Hall of Fame a rookies.",
+          h2: "Cartas autografiadas", sub: "La firma del jugador sobre la carta. Es lo más buscado de la bóveda, " + (ROOM.k === "nba" ? "de leyendas del Hall of Fame a rookies." : "de leyendas a las figuras de hoy."),
           eyebrow: "Sala de autógrafos",
           blurb: "Todas las cartas firmadas de la bóveda.",
           rows: [
@@ -8364,7 +8491,7 @@ function pageVault(){
   <section class="page-hero"><div class="wrap ph-inner" style="text-align:center">
     <p class="eyebrow gold">Selección · ${plural(pieces.length, "carta", "cartas")}</p>
     <h1 class="display" style="font-size:clamp(40px,8vw,96px); font-variation-settings:normal; text-transform:none">Premium</h1>
-    <p class="ph-sub" style="margin-inline:auto">Las cartas más importantes de The NBA Vault: las de ${vaultLbl().toLowerCase()}, ordenadas de mayor a menor.</p>
+    <p class="ph-sub" style="margin-inline:auto">Las cartas más importantes de ${roomTag()}: las de ${vaultLbl().toLowerCase()}, ordenadas de mayor a menor.</p>
     <p style="margin-top:24px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
       <button class="btn btn-gold" data-vitrina="vault">◈ Recorrer en modo vitrina</button>
       <button class="btn" data-sala>Entrar a la sala</button>
@@ -9345,7 +9472,7 @@ function openPack(){
   $("#pkDeck").innerHTML = PK.cards.map((c, i) => `
     <div class="pkc${i === 4 ? " is-hit" : ""}" data-pkc="${i}" style="--i:${i}; z-index:${20 - i}">
       <div class="pkc-in">
-        <div class="pkc-face pkc-back"><span class="bm">V</span><span class="bt">${i === 4 ? "Premium" : "The NBA Vault"}</span></div>
+        <div class="pkc-face pkc-back"><span class="bm">V</span><span class="bt">${i === 4 ? "Premium" : roomTag()}</span></div>
         <div class="pkc-face pkc-front"><img src="${c.imgs[0]}" alt="${esc(c.player)}" draggable="false"></div>
       </div>
     </div>`).join("");
@@ -9903,8 +10030,16 @@ const PZ_SPEED = 0.8;
 const PZ_KIND = { icono:"Jugada icónica", firma:"Su movimiento", mapa:"Mapa de tiro" };
 
 function pzSpec(c){
-  const p = PLAYBOOK[c.playerSlug];
+  const p = ROOM.k === "nba" ? PLAYBOOK[c.playerSlug] : null;
   if (p) return p;
+  if (ROOM.k === "futbol"){
+    let g = 0; for (const ch of c.playerSlug || c.player) g = (g * 31 + ch.charCodeAt(0)) >>> 0;
+    const rg = () => ((g = (g * 1664525 + 1013904223) >>> 0) / 4294967296);
+    const spots = [[250,40],[250,92],[176,74],[324,74],[250,176],[132,150],[368,150],[78,40]];
+    return { kind:"mapa", title:"Desde dónde hace los goles", sub:"Mapa de goles de su carrera",
+      season:"Temporada destacada · cifras de ejemplo", fav:"Su zona", foot:true,
+      zones: spots.map(([x,y], i) => [x, y, +((i < 2 ? .55 : .15) + rg() * (i < 2 ? .4 : .6)).toFixed(2)]) };
+  }
   // sin datos: un mapa de tiro armado a partir del nombre (siempre el mismo para el mismo jugador)
   let h = 0; for (const ch of c.playerSlug || c.player) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
   const rnd = () => ((h = (h * 1664525 + 1013904223) >>> 0) / 4294967296);
@@ -9914,6 +10049,15 @@ function pzSpec(c){
     zones: spots.map(([x,y]) => [x, y, +(0.2 + rnd() * 0.75).toFixed(2)]) };
 }
 function pzCourt(){
+  if (ROOM.k === "futbol") return `<g class="pz-court pz-pitch">
+    <path d="M0 0 H500 M0 0 V470 M500 0 V470 M0 470 H500"/>
+    <path d="M200 0 V-14 H300 V0"/>
+    <path class="paint" d="M110 0 V128 H390 V0"/>
+    <path d="M190 0 V44 H310 V0"/>
+    <circle class="rim" cx="250" cy="92" r="3"/>
+    <path d="M196 128 A64 64 0 0 0 304 128"/>
+    <path d="M180 470 A70 70 0 0 1 320 470"/>
+  </g>`;
   return `<g class="pz-court">
     <path class="paint" d="M170 0 V190 H330 V0"/>
     <path d="M0 0 H500 M0 0 V470 M500 0 V470 M0 470 H500"/>
@@ -9928,7 +10072,7 @@ function pzCourt(){
 function pzBack(c){
   const p = pzSpec(c);
   return `
-    <div class="pz-head"><span class="pz-mark">LA <em>PIZARRA</em></span><span class="pz-kind ${p.kind}">${PZ_KIND[p.kind]}</span></div>
+    <div class="pz-head"><span class="pz-mark">LA <em>PIZARRA</em></span><span class="pz-kind ${p.kind}">${p.foot ? "Mapa de goles" : PZ_KIND[p.kind]}</span></div>
     <div class="pz-title">${esc(p.title)}</div>
     <div class="pz-sub">${esc(c.player)} · ${esc(p.sub)}</div>
     <div class="pz-board"><svg viewBox="-12 -24 524 506" preserveAspectRatio="xMidYMid meet" aria-label="${esc(p.title)}">
@@ -9945,7 +10089,7 @@ function pzBack(c){
       <div class="pz-season"><small>Temporada destacada</small>${esc(p.season || "")}</div>
       <span class="serial pz-serial">${serialOf(c) || "SIN NUMERAR"}</span>
     </div>
-    <div class="pz-note">${PLAYBOOK[c.playerSlug] ? "Recreación ilustrativa de la jugada · estadísticas reales de esa temporada" : "Recreación ilustrativa · cifras de ejemplo"}</div>`;
+    <div class="pz-note">${ROOM.k === "nba" && PLAYBOOK[c.playerSlug] ? "Recreación ilustrativa de la jugada · estadísticas reales de esa temporada" : "Recreación ilustrativa · cifras de ejemplo"}</div>`;
 }
 
 const pzEase = p => p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
@@ -10012,8 +10156,8 @@ function pzStart(){
     lab.textContent = "★ " + (p.fav || "Zona favorita");
     const endT = t + 44 * 55 + 300;
     PZ.results.push({ t:endT, el:lab, kind:"fav" });
-    PZ.caps = [{ t:300, n:1, text:"Cada círculo es una zona: más grande y más claro, más tiros." },
-               { t:t, n:2, text:"Los puntos llenos son tiros convertidos; los huecos, errados." },
+    PZ.caps = [{ t:300, n:1, text:p.foot ? "Cada círculo es una zona: más grande y más claro, más goles." : "Cada círculo es una zona: más grande y más claro, más tiros." },
+               { t:t, n:2, text:p.foot ? "Los puntos llenos son goles; los huecos, remates que no entraron." : "Los puntos llenos son tiros convertidos; los huecos, errados." },
                { t:endT, n:3, text:"Su lugar preferido: " + (p.fav || "la zona más encendida") + "." }];
     PZ.T = endT + 3800;
   } else {
@@ -10683,6 +10827,7 @@ const LOBBY_ROOMS = [
   { k:"f1",     name:"Fórmula 1",  sub:"Pilotos, campeones y piezas numeradas de la parrilla", open:false },
   { k:"varios", name:"Varios",     sub:"Tenis, boxeo, música, cómics y rarezas que no entran en otra sala", open:false }
 ];
+(() => { let k = "nba"; try { k = localStorage.getItem("vault:room") || "nba"; } catch(e){} setRoom(k, true); })();
 const FILM_Q = () => (innerWidth <= 820 ? "720" : "1080");
 function lobbyArt(k){
   if (k === "nba") return `<video class="lb-vid" id="lbNba" autoplay muted loop playsinline preload="auto" poster="img/intro-poster.jpg?v=261" aria-hidden="true"><source src="img/intro-pp-${FILM_Q()}.mp4" type="video/mp4"><source src="img/intro-pp-${FILM_Q()}.webm" type="video/webm"></video>`;
@@ -10721,24 +10866,23 @@ function releaseLobbyMedia(){
   filmPrime();
 }
 function lobbyMarkupRaw(){
-  const n = live().length;
   const lock = `<svg viewBox="0 0 12 12"><rect x="2.5" y="5.5" width="7" height="5" rx="1"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5"/></svg>`;
   return `<div class="lb-head">
       <div class="lb-brand"><span class="lb-logo"><img class="logo-mark" src="img/logo-mark.webp?v=261" alt="" width="149" height="160"><img class="logo-word" src="img/logo-word.webp?v=261" alt="Final Cards" width="600" height="75"></span></div>
       <div class="lb-ask">Cuatro bóvedas, una por colección<b>¿A cuál entrás?</b></div>
     </div>
     <div class="lb-doors">
-      ${LOBBY_ROOMS.map((r, i) => `
-      <button class="lb-door ${r.k}${r.open ? "" : " locked"}" data-room="${r.k}" style="--k:${i}" aria-label="${r.name}${r.open ? "" : " · próximamente"}">
+      ${LOBBY_ROOMS.map((r0, i) => { const r = { ...r0, open: roomIsOpen(r0.k) }, pv = r.open && !r0.open; return `
+      <button class="lb-door ${r.k}${r.open ? "" : " locked"}${pv ? " preview" : ""}" data-room="${r.k}" style="--k:${i}" aria-label="${r.name}${r.open ? "" : " · próximamente"}">
         <span class="lb-bg"></span>${lobbyArt(r.k)}<span class="lb-shade"></span>
         <span class="lb-body">
           <span class="lb-num">Sala ${String(i + 1).padStart(2, "0")}</span>
           <span class="lb-name">${r.name}</span>
-          ${r.open ? `<span class="lb-live">Abierta · ${(n + COMBOS.filter(co => co.status !== "sold").reduce((t, co) => t + comboN(co), 0)).toLocaleString("es-AR")} cartas</span>` : ""}
+          ${pv ? `<span class="lb-live lb-pv">Vista previa · solo socios</span>` : r.open ? `<span class="lb-live">Abierta · ${roomCount(r.k).toLocaleString("es-AR")} cartas</span>` : ""}
           <span class="lb-sub">${r.sub}</span>
           ${r.open ? `<span class="lb-go">Entrar <i>→</i></span>` : `<span class="lb-soon">${lock} Próximamente</span>`}
         </span>
-      </button>`).join("")}
+      </button>`; }).join("")}
     </div>`;
 }
 function openLobby(){
@@ -10757,13 +10901,14 @@ function enterRoom(k){
   const el = $("#lobby"), door = el.querySelector(`[data-room="${k}"]`);
   const room = LOBBY_ROOMS.find(r => r.k === k);
   if (!room || !door) return;
-  if (!room.open){
+  if (!roomIsOpen(k)){
     door.classList.remove("nope"); void door.offsetWidth; door.classList.add("nope");
     const s = door.querySelector(".lb-soon"); if (s){ const t = s.innerHTML; s.innerHTML = "Se abre pronto"; setTimeout(() => { if (s.isConnected) s.innerHTML = t; }, 1500); }
     return;
   }
   door.classList.add("chosen"); el.classList.add("leaving");
-  if (location.hash && location.hash !== "#/") location.hash = "#/";
+  if (location.hash && location.hash !== "#/") history.replaceState(null, "", location.pathname + location.search + "#/");
+  setRoom(k);
   const closeHall = () => {
     el.hidden = true; el.innerHTML = ""; LOBBY.open = false;
     if (!SC.open && !PK.open && !SL.open) document.body.style.overflow = "";
@@ -10831,15 +10976,22 @@ function render(){
   const { parts, params, path } = parseHash();
   const pathChanged = path !== lastPath;
   const section = parts[0] || "";
-  if (pathChanged){ S.tab = null; lastPath = path; S.shopLimit = SHOP_PAGE; setTimeout(() => { if (!soonActive()) gaPage(String(path || "").replace(/^\/+/, "")); }, 0); }
+  if (pathChanged){ S.tab = null; lastPath = path; S.shopLimit = SHOP_PAGE; setTimeout(() => { if (!soonActive()) gaPage((ROOM.k !== "nba" ? ROOM.k + "/" : "") + String(path || "").replace(/^\/+/, "")); }, 0); }
   if (section !== lastSection){ S.filters = {}; S.filtersOpen = false; lastSection = section; }
   if (params.sort) S.sort = params.sort;
   S.q = params.q || "";
   const app = $("#app");
   const p0 = parts[0] || "";
   let html = "";
+  // link directo a una carta o set de otra sala: se cambia de sala sola
+  if ((p0 === "cards" || p0 === "combos") && parts[1]){
+    const inRoom = k => (p0 === "cards" ? ROOM_SRC[k].cards : ROOM_SRC[k].combos).some(x => x.slug === parts[1]);
+    if (!inRoom(ROOM.k)){ const other = Object.keys(ROOM_SRC).find(k => k !== ROOM.k && roomIsOpen(k) && inRoom(k)); if (other){ setRoom(other, true); paintMenus(); } }
+  }
+  const STATIC = ["about","shipping","payments","faq","contact","terms","privacy"];
 
-  if (!p0) html = pageHome();
+  if (!S.inventory.length && !COMBOS.length && !STATIC.includes(p0)) html = pageRoomEmpty();
+  else if (!p0) html = pageHome();
   else if (p0 === "cards") html = parts[1] ? pageProduct(parts[1]) : pageShop(params);
   else if (p0 === "rookies") html = pageShop({ ...params, preset:"rookies" });
   else if (p0 === "autographs") html = pageShop({ ...params, preset:"autographs" });
@@ -11249,6 +11401,7 @@ function wire(){
 
     const lob = hit("[data-lobby]");
     if (lob){ e.preventDefault(); openLobby(); return; }
+    const rgo = hit("[data-room-go]"); if (rgo){ e.preventDefault(); setRoom(rgo.dataset.roomGo); window.scrollTo(0, 0); return; }
 
     const pack = hit("[data-pack]");
     if (pack){ e.preventDefault(); $("#mobileNav").classList.remove("open"); openPack(); return; }
