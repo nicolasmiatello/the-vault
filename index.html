@@ -45,7 +45,7 @@
 html.ua-samsung .serial, html.ua-samsung .pk-mono, html.ua-samsung .pkc-back .bm{background:none!important; color:#E8C766!important; -webkit-text-fill-color:#E8C766!important}
 html.ua-samsung .btn-gold, html.ua-samsung .btn-wa, html.ua-samsung .lb-go, html.ua-samsung .mstrip a.on, html.ua-samsung .fd-chip.on, html.ua-samsung .sl-rooms button.on, html.ua-samsung .pz-kind.icono{background:#0c0b08!important; color:#E8C766!important; border:1.5px solid #C9A227!important; box-shadow:0 0 22px rgba(201,162,39,.22)}
 html.ua-samsung .btn-gold::after, html.ua-samsung .btn-wa::after{display:none}
-html.ua-samsung .btn-group{background:#07140c!important; color:#3ee07f!important; border:1.5px solid #25D366!important}
+html.ua-samsung .btn-group{background:transparent!important; color:#3ee07f!important; border:1px solid rgba(37,211,102,.55)!important}
 html.ua-samsung .btn-group .wa-ico{stroke:#3ee07f}
 html.ua-samsung .btn-solid{background:#0c0c0d!important; color:#F4F3EF!important; border:1.5px solid #F4F3EF!important}
 html.ua-samsung .stage-cap .sc-k{background:#0c0b08!important; color:#E8C766!important; border:1px solid #C9A227}
@@ -2715,37 +2715,38 @@ html, body{overflow-x:clip}
 .share-prev img{max-height:46vh; width:auto; border-radius:2px}
 .share-acts{display:grid; gap:8px}
 .share-acts .btn[hidden]{display:none}
-.btn-group{background:#25D366; color:#06210f; border-color:transparent; font-weight:600}
-.btn-group:hover{filter:brightness(1.07); color:#06210f}
-.btn-group .wa-ico{stroke:#06210f}
+.btn-group{background:transparent; color:#3ee07f; border-color:rgba(37,211,102,.45); font-weight:500}
+.btn-group:hover{background:rgba(37,211,102,.08); color:#3ee07f}
+.btn-group .wa-ico{stroke:#3ee07f}
 .group-band{border-block:1px solid var(--hair); background:radial-gradient(ellipse 70% 120% at 85% 50%,rgba(37,211,102,.10),transparent 70%), var(--ink)}
-.group-band-in{display:grid; gap:22px; align-items:center; grid-template-columns:1fr; padding-block:clamp(34px,5vw,60px)}
+.group-band-in{display:grid; gap:16px; align-items:center; grid-template-columns:1fr; padding-block:clamp(22px,3vw,34px)}
 @media(min-width:760px){.group-band-in{grid-template-columns:minmax(0,1fr) auto}}
-.group-band h2{font-family:var(--display); font-weight:500; font-size:clamp(28px,4.4vw,48px); line-height:1.05}
+.group-band h2{font-family:var(--display); font-weight:500; font-size:clamp(20px,2.6vw,28px); line-height:1.15; margin-top:6px}
 .group-band h2 em{font-style:italic; color:var(--gold-soft)}
-.group-band .gb-sub{margin-top:12px; color:var(--bone-dim); font-size:15px; max-width:52ch; line-height:1.65}
+.group-band .gb-sub{margin-top:8px; color:var(--bone-dim); font-size:13.5px; max-width:56ch; line-height:1.6}
 .group-note{font-size:13px; color:var(--bone-dim); margin-top:14px; line-height:1.6}
 .group-note a{color:var(--gold-soft); text-decoration:underline; text-underline-offset:3px}
-/* tarjeta "Sumate al grupo" (ficha de carta y de lote) */
-.group-card{display:flex; align-items:center; gap:14px; margin:16px 0 18px; padding:14px 16px; border:1px solid rgba(37,211,102,.38); border-radius:10px; background:linear-gradient(135deg,rgba(37,211,102,.12),rgba(37,211,102,.03))}
-.group-card .gc-ico{flex:none; width:42px; height:42px; border-radius:50%; background:#25D366; display:grid; place-items:center}
-.group-card .gc-ico .wa-ico{stroke:#06210f; width:21px; height:21px}
+/* línea "Sumate al grupo" (fichas): chica y delicada, toda la línea es el link */
+.group-card{display:flex; align-items:center; gap:10px; margin:14px 0 4px; padding:10px 12px; border:1px solid rgba(37,211,102,.2); border-radius:8px; background:rgba(37,211,102,.035); color:var(--bone-dim); font-size:12.5px; line-height:1.45; text-decoration:none; transition:border-color .2s, background .2s}
+.group-card:hover{border-color:rgba(37,211,102,.42); background:rgba(37,211,102,.06); color:var(--bone-dim)}
+.group-card .wa-ico{width:15px; height:15px; stroke:#3ee07f}
 .group-card .gc-txt{flex:1; min-width:0}
-.group-card .gc-txt b{display:block; font-size:14.5px; font-weight:600; color:var(--bone); line-height:1.3}
-.group-card .gc-txt span{display:block; margin-top:3px; font-size:12.5px; color:var(--bone-dim); line-height:1.5}
-.group-card .btn{flex:none; padding:11px 16px; font-size:10.5px}
-@media(max-width:480px){.group-card{flex-wrap:wrap}.group-card .gc-txt{flex:1 1 calc(100% - 56px)}.group-card .btn{width:100%; justify-content:center}}
-/* franja del grupo arriba en el inicio */
-.group-strip{border-bottom:1px solid var(--hair); background:linear-gradient(90deg,rgba(37,211,102,.13),rgba(37,211,102,.04) 60%,transparent)}
-.group-strip-in{display:flex; align-items:center; gap:14px; padding-block:14px}
-.group-strip .gc-ico{flex:none; width:36px; height:36px; border-radius:50%; background:#25D366; display:grid; place-items:center}
-.group-strip .gc-ico .wa-ico{stroke:#06210f; width:18px; height:18px}
-.group-strip p{flex:1; min-width:0; font-size:14px; color:var(--bone); line-height:1.45}
-.group-strip p span{color:var(--bone-dim)}
-.group-strip .btn{flex:none}
-@media(max-width:600px){.group-strip p span{display:none}.group-strip p{font-size:13px}}
-html.ua-samsung .group-card .gc-ico,html.ua-samsung .group-strip .gc-ico{background:#07140c!important; border:1.5px solid #25D366}
-html.ua-samsung .group-card .gc-ico .wa-ico,html.ua-samsung .group-strip .gc-ico .wa-ico{stroke:#3ee07f}
+.group-card .gc-txt b{color:var(--bone); font-weight:500}
+.group-card .gc-go{flex:none; color:#3ee07f; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; white-space:nowrap}
+/* franja del grupo arriba en el inicio: una línea fina */
+.group-strip{display:block; border-bottom:1px solid var(--hair); background:linear-gradient(90deg,rgba(37,211,102,.06),transparent 70%); color:var(--bone-dim); text-decoration:none}
+.group-strip:hover{color:var(--bone-dim); background:linear-gradient(90deg,rgba(37,211,102,.1),transparent 70%)}
+.group-strip-in{display:flex; align-items:center; gap:10px; padding-block:10px; font-size:12.5px; line-height:1.4}
+.group-strip .wa-ico{width:15px; height:15px; stroke:#3ee07f}
+.group-strip .gc-txt{flex:1; min-width:0}
+.group-strip .gc-txt b{color:var(--bone); font-weight:500}
+.group-strip .gc-go{flex:none; color:#3ee07f; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; white-space:nowrap}
+/* "Te puede interesar" adentro de la ficha (cartas y lotes vendidos) */
+.pdp-related{margin-top:22px; padding-top:18px; border-top:1px solid var(--hair)}
+.pdp-related h3{font-size:clamp(20px,2.2vw,26px); margin:6px 0 14px}
+.pdp-related .grid-cards,.pdp-related .combo-grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px}
+.pdp-related .combo-grid{margin-top:10px}
+.pdp-related .cc-desc{display:none}
 .pdp-trust{display:grid; gap:6px; margin-top:6px; padding-top:14px; border-top:1px solid var(--hair)}
 .pdp-trust li{display:flex; gap:9px; align-items:baseline; font-size:13px; color:var(--bone-dim)}
 .pdp-trust li::before{content:"✓"; color:var(--gold-soft); font-size:12px}
@@ -6844,7 +6845,7 @@ function waGroup(cards, cls){
 function waTo(text){ return "https://wa.me/" + OWNERS[DEFAULT_OWNER].wa + "?text=" + encodeURIComponent(text); }
 function groupHref(){ return SETTINGS.groupUrl || waTo("Hola, quiero sumarme al grupo de WhatsApp de Final Cards."); }
 function groupBtn(label, cls, pos){ return `<a class="btn btn-group ${cls || ""}" href="${groupHref()}" target="_blank" rel="noopener"${pos ? ` data-gpos="${pos}"` : ""}>${WA_ICON}${esc(label || "Sumate al grupo")}</a>`; }
-function groupCard(title, sub, pos){ return `<div class="group-card"><span class="gc-ico">${WA_ICON}</span><div class="gc-txt"><b>${esc(title)}</b><span>${esc(sub)}</span></div>${groupBtn("Sumate", "btn-sm", pos)}</div>`; }
+function groupCard(pos){ return `<a class="group-card" href="${groupHref()}" target="_blank" rel="noopener" data-gpos="${pos}">${WA_ICON}<span class="gc-txt"><b>Promos exclusivas</b> en el grupo de WhatsApp</span><span class="gc-go">Sumate →</span></a>`; }
 function groupNote(lead){ return `<p class="group-note">${esc(lead)} <a href="${groupHref()}" target="_blank" rel="noopener">Sumate al grupo de WhatsApp</a>: ahí avisamos las cartas nuevas y hay ventas exclusivas del grupo.</p>`; }
 document.querySelectorAll("[data-group]").forEach(a => { a.href = groupHref(); a.target = "_blank"; a.rel = "noopener"; });
 function waLink(text, label, cls){ return `<a class="btn btn-wa ${cls || ""}" href="${waTo(text)}" target="_blank" rel="noopener">${WA_ICON}${esc(label)}</a>`; }
@@ -7446,6 +7447,37 @@ function comboTeamSlug(co){
   return found.size === 1 ? [...found][0] : null;
 }
 const combosOfTeam = slug => COMBOS.filter(co => co.status !== "sold" && comboTeamSlug(co) === slug);
+/* "Te puede interesar": sets/lotes y cartas disponibles parecidos (mismo jugador, equipo, tipo y precio parecido).
+   Si hay pocos parecidos, se completa con los de precio más cercano. */
+function relatedCombos(names, team, opts){
+  opts = opts || {};
+  const ns = (names || []).map(n => norm(n.trim())).filter(n => n.length > 3);
+  const pool = COMBOS.filter(co => co.status !== "sold" && co.slug !== opts.skip);
+  const near = co => opts.price ? Math.abs(co.price - opts.price) / Math.max(opts.price, 1) : 0;
+  const scored = pool.map(co => { const blob = comboBlob(co), hits = ns.filter(n => blob.includes(n)).length;
+    return { co, s: Math.min(hits, 2) * 5 + (team && comboTeamSlug(co) === team ? 4 : 0) + (opts.kind && comboKind(co) === opts.kind ? 2 : 0) + (opts.price && near(co) <= .4 ? 2 : 0) }; });
+  const n = opts.n || 4;
+  let out = scored.filter(o => o.s >= 4).sort((a,b) => b.s - a.s || near(a.co) - near(b.co)).map(o => o.co);
+  if (out.length < n && opts.fill) out = out.concat(pool.filter(co => !out.includes(co) && (!opts.kind || comboKind(co) === opts.kind)).sort((a,b) => near(a) - near(b)));
+  return out.slice(0, n);
+}
+function relatedCardsFor(names, team, opts){
+  opts = opts || {};
+  const slugs = (names || []).map(n => pslug(n.trim()));
+  const pool = live().filter(x => x.id !== opts.skip);
+  const near = x => opts.price ? Math.abs(x.price - opts.price) / Math.max(opts.price, 1) : 0;
+  const n = opts.n || 4;
+  let out = pool.map(x => ({ x, s: (slugs.includes(x.playerSlug) ? 6 : 0) + (team && x.teamSlug === team ? 3 : 0) + (opts.auto != null && !!x.auto === !!opts.auto ? 1 : 0) }))
+    .filter(o => o.s >= 3).sort((a,b) => b.s - a.s || near(a.x) - near(b.x)).map(o => o.x);
+  if (out.length < n && opts.fill) out = out.concat(pool.filter(x => !out.includes(x)).sort((a,b) => near(a) - near(b)));
+  return out.slice(0, n);
+}
+function pdpRelated(cards, combos, title){
+  if (!cards.length && !combos.length) return "";
+  return `<div class="pdp-related"><p class="eyebrow gold">Te puede interesar</p><h3>${esc(title)}</h3>
+    ${cards.length ? `<div class="grid-cards">${cards.map(cardTile).join("")}</div>` : ""}
+    ${combos.length ? `<div class="combo-grid">${combos.map(comboTile).join("")}</div>` : ""}</div>`;
+}
 const kindsLbl = list => { const k = new Set(list.map(comboKindL)); return k.size > 1 ? "sets y lotes" : k.has("set") ? "sets" : "lotes"; };
 const combosCountLbl = list => list.length === 1 ? "1 " + comboKindL(list[0]) : list.length + " " + kindsLbl(list);
 // en la página se llaman "Lotes"; si son pocas cartas (menos de 10) cada uno se llama "Set"
@@ -7837,13 +7869,9 @@ function pageHome(){
     </div>
   </section>
 
-  <section class="group-strip" aria-label="Grupo de WhatsApp">
-    <div class="wrap group-strip-in">
-      <span class="gc-ico">${WA_ICON}</span>
-      <p><b>Promos y descuentos que salen solo en el grupo de WhatsApp.</b> <span>Ofertas en cartas, lotes y sets que no están en la página.</span></p>
-      ${groupBtn("Sumate", "btn-sm", "inicio-arriba")}
-    </div>
-  </section>
+  <a class="group-strip" href="${groupHref()}" target="_blank" rel="noopener" data-gpos="inicio-arriba">
+    <span class="wrap group-strip-in">${WA_ICON}<span class="gc-txt"><b>Promos exclusivas</b> en el grupo de WhatsApp</span><span class="gc-go">Sumate →</span></span>
+  </a>
 
   <section class="section-tight wrap rv fresh-band">
     ${sec("01 — Recién llegadas", plural(freshList.length, "carta", "cartas"))}
@@ -8007,10 +8035,10 @@ function pageHome(){
     <div class="wrap group-band-in">
       <div>
         <p class="eyebrow">Grupo de WhatsApp</p>
-        <h2>Cartas nuevas y <em>ventas exclusivas</em></h2>
-        <p class="gb-sub">Sumate al grupo de Final Cards. Ahí publicamos las cartas que entran, los lotes y las novedades, y hay ventas exclusivas que solo salen por el grupo.</p>
+        <h2>Promos <em>exclusivas</em> del grupo</h2>
+        <p class="gb-sub">Sumate al grupo de Final Cards: ahí salen descuentos y ofertas en cartas, lotes y sets que no están en la página.</p>
       </div>
-      <div>${groupBtn("Sumate al grupo", "", "inicio-banda")}</div>
+      <div>${groupBtn("Sumate al grupo", "btn-sm", "inicio-banda")}</div>
     </div>
   </section>
 
@@ -8187,6 +8215,11 @@ function pageProduct(slug){
     .sort((a,b) => b.s-a.s).slice(0,4).map(o => o.x);
   const recent = S.recent.filter(id => id !== c.id).map(byId).filter(Boolean).slice(0,4);
   const meta = PLAYERS_META[c.playerSlug];
+  // vendida: "Te puede interesar" va arriba, pegado al aviso de vendida
+  const soldRel = sold ? pdpRelated(
+    relatedCardsFor(c.player.split(" · "), c.teamSlug, { skip: c.id, price: c.price, auto: c.auto, n: 4, fill: true }),
+    relatedCombos(c.player.split(" · "), c.teamSlug, { price: c.price, n: 2 }),
+    "Cartas parecidas disponibles") : "";
 
   const rows = [
     ["Jugador", c.player], ["Equipo", c.team], ["Temporada", c.season], ["Fabricante", c.brand],
@@ -8253,7 +8286,8 @@ function pageProduct(slug){
           ${sold
             ? `<a class="btn btn-block" href="#/players/${c.playerSlug}">Ver otras cartas de ${esc(c.player.split(" ").slice(-1)[0])}</a>
                <button class="btn btn-block" data-wantlist="${c.id}">Avisame si aparece otra</button>
-               ${groupCard("Esta ya se vendió", "En el grupo de WhatsApp salen promos y descuentos que no están en la página.", "ficha-carta")}`
+               ${soldRel}
+               ${groupCard("ficha-carta")}`
             : `${waBtn(c, "Consultar por WhatsApp", "btn-block")}
                <button class="btn btn-block" data-share="${c.id}">↗ Compartir esta carta</button>
                <p class="wa-note">Te abre un chat con el mensaje listo: precio, envío y ofertas se hablan directo.</p>
@@ -8262,7 +8296,7 @@ function pageProduct(slug){
                  <li>Trato directo con quien tiene la carta.</li>
                  <li>Podés pedir más fotos antes de comprar.</li>
                </ul>
-               ${groupCard("Promos exclusivas del grupo", "Descuentos y ofertas que salen solo en el grupo de WhatsApp.", "ficha-carta")}`}
+               ${groupCard("ficha-carta")}`}
         </div>
 
         ${runMap(c)}
@@ -8294,12 +8328,12 @@ function pageProduct(slug){
       </div>
     </div>
 
-    <section class="section-tight">
+    ${sold ? "" : `<section class="section-tight">
       <div class="section-head"><div><p class="eyebrow gold">Seguí mirando</p><h2>Otras cartas que te pueden interesar</h2></div></div>
       ${cardGrid(related)}
-    </section>
+    </section>`}
 
-    ${(() => {
+    ${sold ? "" : (() => {
       // lotes y sets donde aparece este jugador; si no hay, los lotes de su equipo
       const names = c.player.split(" · ").map(n => norm(n.trim())).filter(n => n.length > 3);
       const withP = COMBOS.filter(co => co.status !== "sold" && names.some(n => comboBlob(co).includes(n)));
@@ -8670,6 +8704,9 @@ function pageCombo(slug){
   const sold = combo.status === "sold";
   const imgs = combo.imgs && combo.imgs.length ? combo.imgs : [];
   const n = comboN(combo);
+  const relNames = comboPlayerNames(combo), relTeam = comboTeamSlug(combo);
+  const relCombos = relatedCombos(relNames, relTeam, { skip: combo.slug, kind: comboKind(combo), price: combo.price, n: 4, fill: true });
+  const relCards = comboN(combo) < 10 || relNames.length <= 3 ? relatedCardsFor(relNames, relTeam, { price: combo.price / Math.max(comboN(combo), 1), n: 4 }) : [];
   return `
   <div class="wrap">
     <p class="crumbs"><a href="#/">Inicio</a> / <a href="#/combos">Lotes</a> / ${esc(combo.title)}</p>
@@ -8699,7 +8736,8 @@ function pageCombo(slug){
             ? `<a class="btn btn-block" href="#/combos">Ver otros lotes</a>`
             : comboWaBtn(combo, "btn-block")}
           ${sold ? "" : `<button class="btn btn-block" data-share-combo="${combo.slug}">↗ Compartir este ${comboKindL(combo)}</button>`}
-          ${groupCard(sold ? "Este ya se vendió" : "Promos exclusivas del grupo", "Descuentos en lotes y sets que salen solo en el grupo de WhatsApp.", "ficha-lote")}
+          ${sold ? pdpRelated(relCards.slice(0, 2), relCombos, "Sets y lotes parecidos disponibles") : ""}
+          ${groupCard("ficha-lote")}
         </div>
 
         <div class="panel">
@@ -8713,6 +8751,15 @@ function pageCombo(slug){
         </div>
       </div>
     </div>
+    ${!sold && relCombos.length ? `<section class="section-tight">
+      <div class="section-head"><div><p class="eyebrow gold">Seguí mirando</p><h2>Otros sets y lotes que te pueden interesar</h2></div>
+        <a class="btn btn-sm" href="#/combos">Ver todos</a></div>
+      <div class="home-combos">${relCombos.map(comboTile).join("")}</div>
+    </section>` : ""}
+    ${!sold && relCards.length ? `<section class="section-tight">
+      <div class="section-head"><div><p class="eyebrow gold">Sueltas</p><h2>Cartas de los mismos jugadores</h2></div></div>
+      ${cardGrid(relCards)}
+    </section>` : ""}
   </div>`;
 }
 /* razones genéricas pero calculadas a partir de los datos reales del combo */
