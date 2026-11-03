@@ -2726,6 +2726,26 @@ html, body{overflow-x:clip}
 .group-band .gb-sub{margin-top:12px; color:var(--bone-dim); font-size:15px; max-width:52ch; line-height:1.65}
 .group-note{font-size:13px; color:var(--bone-dim); margin-top:14px; line-height:1.6}
 .group-note a{color:var(--gold-soft); text-decoration:underline; text-underline-offset:3px}
+/* tarjeta "Sumate al grupo" (ficha de carta y de lote) */
+.group-card{display:flex; align-items:center; gap:14px; margin:16px 0 18px; padding:14px 16px; border:1px solid rgba(37,211,102,.38); border-radius:10px; background:linear-gradient(135deg,rgba(37,211,102,.12),rgba(37,211,102,.03))}
+.group-card .gc-ico{flex:none; width:42px; height:42px; border-radius:50%; background:#25D366; display:grid; place-items:center}
+.group-card .gc-ico .wa-ico{stroke:#06210f; width:21px; height:21px}
+.group-card .gc-txt{flex:1; min-width:0}
+.group-card .gc-txt b{display:block; font-size:14.5px; font-weight:600; color:var(--bone); line-height:1.3}
+.group-card .gc-txt span{display:block; margin-top:3px; font-size:12.5px; color:var(--bone-dim); line-height:1.5}
+.group-card .btn{flex:none; padding:11px 16px; font-size:10.5px}
+@media(max-width:480px){.group-card{flex-wrap:wrap}.group-card .gc-txt{flex:1 1 calc(100% - 56px)}.group-card .btn{width:100%; justify-content:center}}
+/* franja del grupo arriba en el inicio */
+.group-strip{border-bottom:1px solid var(--hair); background:linear-gradient(90deg,rgba(37,211,102,.13),rgba(37,211,102,.04) 60%,transparent)}
+.group-strip-in{display:flex; align-items:center; gap:14px; padding-block:14px}
+.group-strip .gc-ico{flex:none; width:36px; height:36px; border-radius:50%; background:#25D366; display:grid; place-items:center}
+.group-strip .gc-ico .wa-ico{stroke:#06210f; width:18px; height:18px}
+.group-strip p{flex:1; min-width:0; font-size:14px; color:var(--bone); line-height:1.45}
+.group-strip p span{color:var(--bone-dim)}
+.group-strip .btn{flex:none}
+@media(max-width:600px){.group-strip p span{display:none}.group-strip p{font-size:13px}}
+html.ua-samsung .group-card .gc-ico,html.ua-samsung .group-strip .gc-ico{background:#07140c!important; border:1.5px solid #25D366}
+html.ua-samsung .group-card .gc-ico .wa-ico,html.ua-samsung .group-strip .gc-ico .wa-ico{stroke:#3ee07f}
 .pdp-trust{display:grid; gap:6px; margin-top:6px; padding-top:14px; border-top:1px solid var(--hair)}
 .pdp-trust li{display:flex; gap:9px; align-items:baseline; font-size:13px; color:var(--bone-dim)}
 .pdp-trust li::before{content:"✓"; color:var(--gold-soft); font-size:12px}
@@ -3296,7 +3316,7 @@ const GA = (() => {
   document.addEventListener("click", e => {
     const a = e.target.closest && e.target.closest("a,button"); if (!a) return;
     const href = a.getAttribute("href") || "";
-    if (/chat\.whatsapp\.com/.test(href)) gtag("event", "unirse_grupo", { desde: where() });
+    if (/chat\.whatsapp\.com/.test(href)) gtag("event", "unirse_grupo", { desde: where(), lugar: a.dataset.gpos || "otro" });
     else if (/wa\.me\/\d/.test(href)){ const n = (href.match(/wa\.me\/(\d+)/) || [])[1]; const o = Object.values(OWNERS).find(x => x.wa === n); gtag("event", "consulta_whatsapp", { item: where(), dueno: o ? o.name : n }); }
     else if (/wa\.me\/\?/.test(href)) gtag("event", "compartir_whatsapp", { item: where() });
     else if (a.matches("[data-share],[data-share-combo]")) gtag("event", "compartir", { item: a.dataset.share || a.dataset.shareCombo });
@@ -6823,7 +6843,8 @@ function waGroup(cards, cls){
 /* WhatsApp general (contacto y "vendé tu carta"): va al dueño principal */
 function waTo(text){ return "https://wa.me/" + OWNERS[DEFAULT_OWNER].wa + "?text=" + encodeURIComponent(text); }
 function groupHref(){ return SETTINGS.groupUrl || waTo("Hola, quiero sumarme al grupo de WhatsApp de Final Cards."); }
-function groupBtn(label, cls){ return `<a class="btn btn-group ${cls || ""}" href="${groupHref()}" target="_blank" rel="noopener">${WA_ICON}${esc(label || "Sumate al grupo")}</a>`; }
+function groupBtn(label, cls, pos){ return `<a class="btn btn-group ${cls || ""}" href="${groupHref()}" target="_blank" rel="noopener"${pos ? ` data-gpos="${pos}"` : ""}>${WA_ICON}${esc(label || "Sumate al grupo")}</a>`; }
+function groupCard(title, sub, pos){ return `<div class="group-card"><span class="gc-ico">${WA_ICON}</span><div class="gc-txt"><b>${esc(title)}</b><span>${esc(sub)}</span></div>${groupBtn("Sumate", "btn-sm", pos)}</div>`; }
 function groupNote(lead){ return `<p class="group-note">${esc(lead)} <a href="${groupHref()}" target="_blank" rel="noopener">Sumate al grupo de WhatsApp</a>: ahí avisamos las cartas nuevas y hay ventas exclusivas del grupo.</p>`; }
 document.querySelectorAll("[data-group]").forEach(a => { a.href = groupHref(); a.target = "_blank"; a.rel = "noopener"; });
 function waLink(text, label, cls){ return `<a class="btn btn-wa ${cls || ""}" href="${waTo(text)}" target="_blank" rel="noopener">${WA_ICON}${esc(label)}</a>`; }
@@ -7816,6 +7837,14 @@ function pageHome(){
     </div>
   </section>
 
+  <section class="group-strip" aria-label="Grupo de WhatsApp">
+    <div class="wrap group-strip-in">
+      <span class="gc-ico">${WA_ICON}</span>
+      <p><b>Promos y descuentos que salen solo en el grupo de WhatsApp.</b> <span>Ofertas en cartas, lotes y sets que no están en la página.</span></p>
+      ${groupBtn("Sumate", "btn-sm", "inicio-arriba")}
+    </div>
+  </section>
+
   <section class="section-tight wrap rv fresh-band">
     ${sec("01 — Recién llegadas", plural(freshList.length, "carta", "cartas"))}
     <div class="section-head">
@@ -7981,7 +8010,7 @@ function pageHome(){
         <h2>Cartas nuevas y <em>ventas exclusivas</em></h2>
         <p class="gb-sub">Sumate al grupo de Final Cards. Ahí publicamos las cartas que entran, los lotes y las novedades, y hay ventas exclusivas que solo salen por el grupo.</p>
       </div>
-      <div>${groupBtn("Sumate al grupo")}</div>
+      <div>${groupBtn("Sumate al grupo", "", "inicio-banda")}</div>
     </div>
   </section>
 
@@ -8224,7 +8253,7 @@ function pageProduct(slug){
           ${sold
             ? `<a class="btn btn-block" href="#/players/${c.playerSlug}">Ver otras cartas de ${esc(c.player.split(" ").slice(-1)[0])}</a>
                <button class="btn btn-block" data-wantlist="${c.id}">Avisame si aparece otra</button>
-               ${groupNote("Esta ya se vendió.")}`
+               ${groupCard("Esta ya se vendió", "En el grupo de WhatsApp salen promos y descuentos que no están en la página.", "ficha-carta")}`
             : `${waBtn(c, "Consultar por WhatsApp", "btn-block")}
                <button class="btn btn-block" data-share="${c.id}">↗ Compartir esta carta</button>
                <p class="wa-note">Te abre un chat con el mensaje listo: precio, envío y ofertas se hablan directo.</p>
@@ -8233,7 +8262,7 @@ function pageProduct(slug){
                  <li>Trato directo con quien tiene la carta.</li>
                  <li>Podés pedir más fotos antes de comprar.</li>
                </ul>
-               ${groupNote("¿No es la que buscás?")}`}
+               ${groupCard("Promos exclusivas del grupo", "Descuentos y ofertas que salen solo en el grupo de WhatsApp.", "ficha-carta")}`}
         </div>
 
         ${runMap(c)}
@@ -8670,6 +8699,7 @@ function pageCombo(slug){
             ? `<a class="btn btn-block" href="#/combos">Ver otros lotes</a>`
             : comboWaBtn(combo, "btn-block")}
           ${sold ? "" : `<button class="btn btn-block" data-share-combo="${combo.slug}">↗ Compartir este ${comboKindL(combo)}</button>`}
+          ${groupCard(sold ? "Este ya se vendió" : "Promos exclusivas del grupo", "Descuentos en lotes y sets que salen solo en el grupo de WhatsApp.", "ficha-lote")}
         </div>
 
         <div class="panel">
