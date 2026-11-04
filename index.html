@@ -3289,7 +3289,7 @@ const SETTINGS = {
   soon: true,               // pantalla "Muy pronto" en final-cards.com (se entra igual con ?ver=1). Poner false el día del lanzamiento
   openAt: "2026-11-02T00:00:00-03:00",   // apertura: hasta acá corre la cuenta regresiva; a esa hora la bóveda se abre sola para todos
   soonPreview: false,       // muestra la pantalla también en el artifact, con botón para cerrarla (solo para verla)
-  cyber: { from: "2026-11-02T00:00:00-03:00", to: "2026-11-05T00:00:00-03:00", label: "CyberMonday", preview: false },   // promo: arranca el lunes 2/11 00:00 y termina el miércoles 4/11 a las 23:59 (se apaga sola). Los % por carta/set están en CYBER_DEALS. preview:true = se ve siempre (solo para mirarla). En el sitio real se puede ver antes con ?cyber=1 (y ?cyber=0 lo saca)
+  cyber: { from: "2026-11-02T00:00:00-03:00", to: "2026-11-09T00:00:00-03:00", label: "CyberMonday", keepAfter: true, preview: false },   // promo: arranca el lunes 2/11 00:00 y termina el domingo 8/11 a las 23:59 (se apaga sola; extendida). Los % por carta/set están en CYBER_DEALS. preview:true = se ve siempre (solo para mirarla). En el sitio real se puede ver antes con ?cyber=1 (y ?cyber=0 lo saca)
   vaultOver: 60,            // una carta es "Premium" cuando su precio supera este valor (USD)
   auctions: false,          // subastas apagadas por ahora: poner true para volver a mostrarlas
   heroStats: null,          // se calculan solas con el stock (ver heroStatsLive)
@@ -6348,13 +6348,13 @@ COMBOS.forEach(toUsdNorm);
    Mientras dura la promo el precio nuevo reemplaza al normal en todo el sitio (orden, filtros, WhatsApp)
    y el viejo se muestra tachado. Al terminar vuelve solo al precio normal. */
 const CYBER_DEALS = {
-  "set-shaq-duncan-magic-x3": 10,
-  "set-dream-team-usa-1992-1996": 10,
-  "set-yao-ming-x3": 10,
-  "set-anthony-edwards-x3": 10,
-  "set-stephen-curry-x2": 10,
-  "set-leyendas-x9-bird-robinson-grant-hill": 30,
-  "lote-2025-26-topps-chrome-24-cartas": 25,
+  "set-shaq-duncan-magic-x3": 20,
+  "set-dream-team-usa-1992-1996": 20,
+  "set-yao-ming-x3": 20,
+  "set-anthony-edwards-x3": 20,
+  "set-stephen-curry-x2": 20,
+  "set-leyendas-x9-bird-robinson-grant-hill": 40,
+  "lote-2025-26-topps-chrome-24-cartas": 35,
   // 20% (lotes de Guido)
   "lote-bulls-x35": 20,
   "lote-knicks-x27": 20,
@@ -6390,49 +6390,49 @@ const CYBER_DEALS = {
   "lote-ncaa-90s-x12": 20,
   // 15%
   "lote-2025-26-topps-chrome-25-cartas": 15,
-  "set-lamelo-ball-x6": 20,
-  "set-maxey-embiid-george-x6": 25,
-  "set-jayson-tatum-x6": 25,
-  "set-giannis-antetokounmpo-x6": 25,
-  "set-trae-young-x6": 25,
-  "set-revolution-legends-x8-wade-wilkins-erving": 20,
-  "set-revolution-legends-x8-vol-2-mcgrady-olajuwon-stockton": 20,
+  "set-lamelo-ball-x6": 30,
+  "set-maxey-embiid-george-x6": 35,
+  "set-jayson-tatum-x6": 35,
+  "set-giannis-antetokounmpo-x6": 35,
+  "set-trae-young-x6": 35,
+  "set-revolution-legends-x8-wade-wilkins-erving": 30,
+  "set-revolution-legends-x8-vol-2-mcgrady-olajuwon-stockton": 30,
   "set-lakers-x6-lebron-luka-magic": 15,
-  "set-estrellas-del-oeste-x6": 25,
-  "set-estrellas-del-este-x6": 25,
-  "set-charles-barkley-x8": 30,
-  "set-leyendas-de-los-90-x8": 30,
-  "set-leyendas-bases-de-los-90-x8-vol-2": 30,
-  "set-reggie-miller-x8": 30,
-  "set-gigantes-de-la-pintura-x8": 30,
-  "set-patrick-ewing-x8": 30,
-  "set-estrellas-x8-garnett-nowitzki-carter": 30,
-  "set-hall-of-fame-x8-russell-kareem-magic-erving": 30,
-  "set-estrellas-x8-vol-2-pippen-carter-pierce": 30,
-  "set-armadores-x8-stockton-nash-parker-iverson": 30,
-  "set-gigantes-de-la-pintura-x8-vol-2": 30,
-  "set-estrellas-x8-vol-3-nowitzki-garnett-hill": 30,
-  "set-armadores-x8-vol-2-stockton-nash-parker-payton": 30,
-  "set-leyendas-x8-olajuwon-rodman-isiah-stockton": 30,
-  "set-gigantes-de-la-pintura-x8-vol-3": 30,
-  "set-leyendas-x8-vol-2-pippen-stockton-olajuwon-payton": 30,
-  "set-armadores-x8-vol-3-stockton-payton-kidd-williams": 30,
-  "set-estrellas-x8-vol-4-iverson-mcgrady-pippen-hill": 30,
-  "set-estrellas-del-oeste-x8-olajuwon-stockton-kidd-rodman": 30,
-  "set-gigantes-de-la-pintura-x8-vol-4-olajuwon-robinson-malone-mourning": 30,
-  "set-estrellas-x8-vol-4-pippen-robinson-wilkins-rodman": 30,
-  "set-leyendas-x8-vol-3-magic-bird-pippen-wilkins": 30,
+  "set-estrellas-del-oeste-x6": 35,
+  "set-estrellas-del-este-x6": 35,
+  "set-charles-barkley-x8": 40,
+  "set-leyendas-de-los-90-x8": 40,
+  "set-leyendas-bases-de-los-90-x8-vol-2": 40,
+  "set-reggie-miller-x8": 40,
+  "set-gigantes-de-la-pintura-x8": 40,
+  "set-patrick-ewing-x8": 40,
+  "set-estrellas-x8-garnett-nowitzki-carter": 40,
+  "set-hall-of-fame-x8-russell-kareem-magic-erving": 40,
+  "set-estrellas-x8-vol-2-pippen-carter-pierce": 40,
+  "set-armadores-x8-stockton-nash-parker-iverson": 40,
+  "set-gigantes-de-la-pintura-x8-vol-2": 40,
+  "set-estrellas-x8-vol-3-nowitzki-garnett-hill": 40,
+  "set-armadores-x8-vol-2-stockton-nash-parker-payton": 40,
+  "set-leyendas-x8-olajuwon-rodman-isiah-stockton": 40,
+  "set-gigantes-de-la-pintura-x8-vol-3": 40,
+  "set-leyendas-x8-vol-2-pippen-stockton-olajuwon-payton": 40,
+  "set-armadores-x8-vol-3-stockton-payton-kidd-williams": 40,
+  "set-estrellas-x8-vol-4-iverson-mcgrady-pippen-hill": 40,
+  "set-estrellas-del-oeste-x8-olajuwon-stockton-kidd-rodman": 40,
+  "set-gigantes-de-la-pintura-x8-vol-4-olajuwon-robinson-malone-mourning": 40,
+  "set-estrellas-x8-vol-4-pippen-robinson-wilkins-rodman": 40,
+  "set-leyendas-x8-vol-3-magic-bird-pippen-wilkins": 40,
   // 10%
-  "set-completo-topps-2000-01-series-1": 20,
-  "set-completo-topps-1998-99-series-1": 20,
-  "set-completo-topps-1999-00-series-1": 20,
-  "set-nikola-jokic-x4": 20,
+  "set-completo-topps-2000-01-series-1": 30,
+  "set-completo-topps-1998-99-series-1": 30,
+  "set-completo-topps-1999-00-series-1": 30,
+  "set-nikola-jokic-x4": 30,
   "set-spurs-duncan-robinson-x4": 10,
-  "set-jason-kidd-x4": 20,
-  "set-carmelo-anthony-x4": 20,
-  "set-karl-anthony-towns-x4": 20,
-  "set-dirk-nowitzki-x4": 20,
-  "set-russell-westbrook-x4": 20,
+  "set-jason-kidd-x4": 30,
+  "set-carmelo-anthony-x4": 30,
+  "set-karl-anthony-towns-x4": 30,
+  "set-dirk-nowitzki-x4": 30,
+  "set-russell-westbrook-x4": 30,
   // 7%
   "c1": 7,
   "c2": 7,
@@ -6478,9 +6478,18 @@ const cyberOn = (() => {
   try { if (localStorage.getItem("vault:cyber") === "1") return true; } catch(e){}
   return now >= Date.parse(cy.from);
 })();
+/* al terminar la promo, los precios de Nico quedan rebajados como precio normal (sin tachado ni etiqueta): SETTINGS.cyber.keepAfter */
+const cyberKeep = (() => { const cy = SETTINGS.cyber; return !!(cy && cy.keepAfter && Date.now() >= Date.parse(cy.to)); })();
 const applyCyber = (it, key) => {
-  const pct = CYBER_DEALS[key]; if (!cyberOn || !pct || it.status === "sold") return;
+  const pct = CYBER_DEALS[key]; if (!pct || it.status === "sold") return;
+  const keep = !cyberOn && cyberKeep && it.owner === "nico";
+  if (!cyberOn && !keep) return;
   const k = 1 - pct / 100;
+  if (keep){
+    if (it.cur === "ARS"){ it.priceArs = Math.round(it.priceArs * k / 100) * 100; it.price = Math.round(it.priceArs / SETTINGS.arsPerUsd); }
+    else it.price = Math.round(it.price * k);
+    return;
+  }
   it.cyberPct = pct; it.wasPrice = it.price;
   if (it.cur === "ARS"){ it.wasArs = it.priceArs; it.priceArs = Math.round(it.priceArs * k / 100) * 100; it.price = Math.round(it.priceArs / SETTINGS.arsPerUsd); }
   else it.price = Math.round(it.price * k);
