@@ -2,14 +2,18 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Final Cards · Grupo de la comunidad</title>
+<title>Final Cards · Comunidad</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <style>
+  *{box-sizing:border-box}
   body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0b0b0d;color:#f2f2f2;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;text-align:center;padding:24px}
-  h1{font-size:20px;margin:0 0 8px}
-  p{margin:0 0 16px;color:#bbb}
-  a.btn{display:inline-block;background:#d4af37;color:#111;padding:12px 22px;border-radius:999px;font-weight:700;text-decoration:none}
+  .box{max-width:420px}
+  .tag{color:#d4af37;font-weight:700;letter-spacing:.12em;font-size:13px;margin-bottom:10px}
+  h1{font-size:26px;line-height:1.2;margin:0 0 12px}
+  p{margin:0 0 22px;color:#bbb;line-height:1.5}
+  button{background:#d4af37;color:#111;border:0;padding:15px 28px;border-radius:999px;font-weight:800;font-size:16px;cursor:pointer}
+  small{display:block;margin-top:18px;color:#777}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BSSR9DC5FQ"></script>
 <script>
@@ -17,22 +21,22 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-BSSR9DC5FQ');
-  var parts = ["https://chat.", "whatsapp.com/", "COB0Sr7wz6p4uPTrcqn8li"];
-  var dest = parts.join("");
-  var done = false;
-  function go(){ if(done) return; done = true; location.replace(dest); }
-  gtag('event', 'ir_al_grupo', {event_callback: go, event_timeout: 800});
-  setTimeout(go, 1200);
-  document.addEventListener('DOMContentLoaded', function(){
-    document.getElementById('btn').href = dest;
-  });
+  function entrar(){
+    var dest = ["https://chat.", "whatsapp.com/", "COB0Sr7wz6p4uPTrcqn8li"].join("");
+    var done = false;
+    function go(){ if(done) return; done = true; window.location.href = dest; }
+    gtag('event', 'ir_al_grupo', {event_callback: go, event_timeout: 700});
+    setTimeout(go, 800);
+  }
 </script>
 </head>
 <body>
-  <div>
-    <h1>Final Cards</h1>
-    <p>Te estamos llevando al grupo…</p>
-    <a id="btn" class="btn" href="#">Entrar al grupo</a>
+  <div class="box">
+    <div class="tag">FINAL CARDS</div>
+    <h1>Promos exclusivas para la comunidad</h1>
+    <p>Ofertas especiales, lanzamientos y novedades de cartas NBA, primero para quienes están en el grupo.</p>
+    <button type="button" onclick="entrar()">Unirme al grupo</button>
+    <small>Se abre WhatsApp</small>
   </div>
 </body>
 </html>
