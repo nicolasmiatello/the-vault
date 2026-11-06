@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Final Cards · Comunidad</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0b0b0d;color:#f2f2f2;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;text-align:center;padding:24px}
+  .box{max-width:420px}
+  .tag{color:#d4af37;font-weight:700;letter-spacing:.12em;font-size:13px;margin-bottom:10px}
+  h1{font-size:26px;line-height:1.2;margin:0 0 12px}
+  p{margin:0 0 22px;color:#bbb;line-height:1.5}
+  button{background:#d4af37;color:#111;border:0;padding:15px 28px;border-radius:999px;font-weight:800;font-size:16px;cursor:pointer}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BSSR9DC5FQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BSSR9DC5FQ');
+  var k = [104,116,116,112,115,58,47,47,99,104,97,116,46,119,104,97,116,115,97,112,112,46,99,111,109,47,67,79,66,48,83,114,55,119,122,54,112,52,117,80,84,114,99,113,110,56,108,105];
+  function entrar(){
+    var d = String.fromCharCode.apply(null, k);
+    var done = false;
+    function go(){ if(done) return; done = true; window.location.href = d; }
+    gtag('event', 'ir_al_grupo', {event_callback: go, event_timeout: 700});
+    setTimeout(go, 800);
+  }
+</script>
+</head>
+<body>
+  <div class="box">
+    <div class="tag">FINAL CARDS</div>
+    <h1>Promos exclusivas para la comunidad</h1>
+    <p>Ofertas especiales, lanzamientos y novedades de cartas NBA, primero para quienes están en el grupo.</p>
+    <button type="button" onclick="entrar()">Unirme al grupo</button>
+  </div>
+</body>
+</html>
