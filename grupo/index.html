@@ -2,28 +2,37 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Final Cards · Grupo de WhatsApp</title>
+<title>Final Cards · Grupo de la comunidad</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<meta http-equiv="refresh" content="1;url=https://chat.whatsapp.com/COB0Sr7wz6p4uPTrcqn8li">
 <style>
-  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0b0b0d;color:#f2f2f2;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;text-align:center}
-  a{color:#d4af37}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0b0b0d;color:#f2f2f2;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;text-align:center;padding:24px}
+  h1{font-size:20px;margin:0 0 8px}
+  p{margin:0 0 16px;color:#bbb}
+  a.btn{display:inline-block;background:#d4af37;color:#111;padding:12px 22px;border-radius:999px;font-weight:700;text-decoration:none}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BSSR9DC5FQ"></script>
 <script>
-  var GRUPO = "https://chat.whatsapp.com/COB0Sr7wz6p4uPTrcqn8li";
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-BSSR9DC5FQ');
-  gtag('event', 'ir_al_grupo', {event_callback: go, event_timeout: 800});
+  var parts = ["https://chat.", "whatsapp.com/", "COB0Sr7wz6p4uPTrcqn8li"];
+  var dest = parts.join("");
   var done = false;
-  function go(){ if(done) return; done = true; location.replace(GRUPO); }
-  setTimeout(go, 900);
+  function go(){ if(done) return; done = true; location.replace(dest); }
+  gtag('event', 'ir_al_grupo', {event_callback: go, event_timeout: 800});
+  setTimeout(go, 1200);
+  document.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('btn').href = dest;
+  });
 </script>
 </head>
 <body>
-  <p>Te estamos llevando al grupo de Final Cards…<br><a href="https://chat.whatsapp.com/COB0Sr7wz6p4uPTrcqn8li">Si no pasa nada, tocá acá</a></p>
+  <div>
+    <h1>Final Cards</h1>
+    <p>Te estamos llevando al grupo…</p>
+    <a id="btn" class="btn" href="#">Entrar al grupo</a>
+  </div>
 </body>
 </html>
