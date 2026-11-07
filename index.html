@@ -5347,7 +5347,7 @@ const COMBOS = [
       "Charles Barkley — Suns, Revolution, Legends",
       "Steve Nash — Suns, Revolution, Legends"
     ],
-    price: 34000, cur: "ARS", status: "available", owner: "nico"
+    price: 34000, cur: "ARS", status: "sold", soldOn: "2026-11-06", owner: "nico"
   },
   {
     slug: "set-spurs-duncan-robinson-x4",
@@ -5727,7 +5727,7 @@ const COMBOS = [
       "John Stockton — Jazz, Fleer 1991-92 N° 217, All-Star Team",
       "Stephon Marbury — Nets, Flair Showcase"
     ],
-    price: 26000, cur: "ARS", status: "available", owner: "nico"
+    price: 26000, cur: "ARS", status: "sold", soldOn: "2026-11-06", owner: "nico"
   },
   {
     slug: "set-leyendas-x8-olajuwon-rodman-isiah-stockton",
@@ -6372,6 +6372,73 @@ COMBOS.push({
   ],
   price: 20000, cur: "ARS", status: "available", owner: "nico"
 });
+COMBOS.push({
+  slug: "set-all-star-2025-este-x9",
+  title: "Set All-Star 2025 Este ×9 — Brown, Cade, Mitchell, Harden, SGA y más",
+  desc: "Nueve cartas de NBA Hoops del Juego de las Estrellas 2025 en San Francisco: Jaylen Brown (x2), Darius Garland, Pascal Siakam, Donovan Mitchell, Cade Cunningham, Tyler Herro, James Harden y Shai Gilgeous-Alexander.",
+  imgs: ["img/n-allstar9-1.webp?v=426"],
+  includes: [
+    "Jaylen Brown — Celtics, NBA Hoops All-Star 2025",
+    "Jaylen Brown — Celtics, NBA Hoops All-Star 2025",
+    "Darius Garland — Cavaliers, NBA Hoops All-Star 2025",
+    "Pascal Siakam — Pacers, NBA Hoops All-Star 2025",
+    "Donovan Mitchell — Cavaliers, NBA Hoops All-Star 2025",
+    "Cade Cunningham — Pistons, NBA Hoops All-Star 2025",
+    "Tyler Herro — Heat, NBA Hoops All-Star 2025",
+    "James Harden — Clippers, NBA Hoops All-Star 2025",
+    "Shai Gilgeous-Alexander — Thunder, NBA Hoops All-Star 2025"
+  ],
+  price: 18900, oferta: 26900, cur: "ARS", status: "available", owner: "nico"
+});
+COMBOS.push({
+  slug: "set-all-star-2025-oeste-x6",
+  title: "Set All-Star 2025 Oeste ×6 — Durant, Kyrie, Ja Morant y más",
+  desc: "Seis cartas de NBA Hoops del Juego de las Estrellas 2025, en versión plateada: Kevin Durant, Kyrie Irving, Ja Morant (Highlights), Jaren Jackson Jr., Amen Thompson y Dalton Knecht.",
+  imgs: ["img/n-allstar6-1.webp?v=426"],
+  includes: [
+    "Kevin Durant — Suns, NBA Hoops All-Star 2025",
+    "Kyrie Irving — Mavericks, NBA Hoops All-Star 2025",
+    "Ja Morant — Grizzlies, NBA Hoops Highlights",
+    "Jaren Jackson Jr. — Grizzlies, NBA Hoops All-Star 2025",
+    "Amen Thompson — Rockets, NBA Hoops All-Star 2025",
+    "Dalton Knecht — Lakers, NBA Hoops All-Star 2025"
+  ],
+  price: 15900, oferta: 22900, cur: "ARS", status: "available", owner: "nico"
+});
+COMBOS.push({
+  slug: "set-houston-rockets-x8-olajuwon-mcgrady-durant",
+  title: "Set Houston Rockets ×8 — Olajuwon, McGrady, Durant, Westbrook y más",
+  desc: "Ocho cartas de los Rockets, de leyendas al plantel de hoy: Hakeem Olajuwon (Revolution Hardwood Legacy), Tracy McGrady (Topps 8-Bit Ballers), Russell Westbrook (Chronicles), Kevin Durant, Alperen Sengün, Amen Thompson, Jabari Smith Jr. y Steven Adams.",
+  imgs: ["img/n-rockets8-1.webp?v=427"],
+  includes: [
+    "Hakeem Olajuwon — Rockets, Revolution Hardwood Legacy",
+    "Tracy McGrady — Rockets, Topps 8-Bit Ballers",
+    "Russell Westbrook — Rockets, Chronicles",
+    "Kevin Durant — Rockets, NBA Hoops",
+    "Alperen Sengün — Rockets, NBA Hoops, versión plateada",
+    "Amen Thompson — Rockets, NBA Hoops",
+    "Jabari Smith Jr. — Rockets, NBA Hoops",
+    "Steven Adams — Rockets, NBA Hoops"
+  ],
+  price: 17900, oferta: 25900, cur: "ARS", status: "available", owner: "nico", team: "houston-rockets"
+});
+COMBOS.push({
+  slug: "set-indiana-pacers-x8-reggie-miller-haliburton-siakam",
+  title: "Set Indiana Pacers ×8 — Reggie Miller, Haliburton, Siakam y más",
+  desc: "Ocho cartas de los Pacers: Reggie Miller (Fleer Ultra), Tyrese Haliburton (Contenders Season Ticket y NBA Hoops), Pascal Siakam (NBA Hoops y All-Star 2025), Myles Turner, T.J. McConnell y Bennedict Mathurin (Topps Chrome).",
+  imgs: ["img/n-pacers8-1.webp?v=427"],
+  includes: [
+    "Reggie Miller — Pacers, Fleer Ultra",
+    "Tyrese Haliburton — Pacers, Contenders 2022-23 Season Ticket",
+    "Tyrese Haliburton — Pacers, NBA Hoops",
+    "Pascal Siakam — Pacers, NBA Hoops",
+    "Pascal Siakam — Pacers, NBA Hoops All-Star 2025",
+    "Myles Turner — Pacers, NBA Hoops",
+    "T.J. McConnell — Pacers, Topps Chrome",
+    "Bennedict Mathurin — Pacers, Topps Chrome"
+  ],
+  price: 17900, oferta: 25900, cur: "ARS", status: "available", owner: "nico", team: "indiana-pacers"
+});
 COMBOS.forEach(toUsdNorm);
 
 /* CyberMonday: % de descuento por carta (id) o set/lote (slug). Cartas de Nico + lotes de Guido.
@@ -6544,6 +6611,13 @@ CARDS_FUTBOL.forEach(c => { const t = Date.parse((c.addedOn || "2026-01-01") + "
 COMBOS_FUTBOL.forEach(toUsdNorm);
 CARDS_FUTBOL.forEach(c => applyCyber(c, c.id));
 COMBOS_FUTBOL.forEach(co => applyCyber(co, co.slug));
+/* precio de lista tachado permanente ("Oferta"): campo oferta = precio anterior en pesos. No depende del Cyber. */
+const applyOferta = it => {
+  if (!it.oferta || it.status === "sold" || it.cyberPct || it.cur !== "ARS" || !(it.oferta > it.priceArs)) return;
+  it.wasArs = it.oferta; it.wasPrice = Math.round(it.oferta / SETTINGS.arsPerUsd);
+  it.cyberPct = Math.round((1 - it.priceArs / it.oferta) * 100); it.ofertaLbl = "Oferta";
+};
+CARDS.forEach(applyOferta); COMBOS.forEach(applyOferta); CARDS_FUTBOL.forEach(applyOferta); COMBOS_FUTBOL.forEach(applyOferta);
 
 /* Subastas en vivo — lotes demo armados con cartas que ya están en la bóveda */
 const AUCTIONS = [
@@ -6954,11 +7028,11 @@ const curLbl = it => isArs(it) ? "$" : "USD";
 const priceNum = it => Number(isArs(it) ? it.priceArs : it.price).toLocaleString("es-AR");
 const money = (n, it) => isArs(it) ? "$ " + Number(it.priceArs).toLocaleString("es-AR") : "USD " + Number(n).toLocaleString("es-AR");
 const wasMoney = it => isArs(it) ? "$ " + Number(it.wasArs).toLocaleString("es-AR") : "USD " + Number(it.wasPrice).toLocaleString("es-AR");
-const cyLbl = it => (SETTINGS.cyber.label || "CyberMonday") + " −" + it.cyberPct + "%";
+const cyLbl = it => (it.ofertaLbl || SETTINGS.cyber.label || "CyberMonday") + " −" + it.cyberPct + "%";
 const cyFlag = it => it.cyberPct ? '<span class="flag flag-cyber">' + cyLbl(it) + '</span>' : "";
 const cyWas = it => it.cyberPct ? '<s class="cy-was">' + wasMoney(it) + '</s>' : "";
 const cyPdp = it => it.cyberPct ? '<span class="cy-pdp"><s class="cy-was">' + wasMoney(it) + '</s><span class="cy-tag">' + cyLbl(it) + '</span></span>' : "";
-const cyTxt = it => it.cyberPct ? " (precio " + (SETTINGS.cyber.label || "CyberMonday") + ", antes " + wasMoney(it) + ")" : "";
+const cyTxt = it => it.cyberPct ? " (precio " + (it.ofertaLbl || SETTINGS.cyber.label || "CyberMonday") + ", antes " + wasMoney(it) + ")" : "";
 const live = () => S.inventory.filter(c => c.status !== "sold");
 const soldCards = () => S.inventory.filter(c => c.status === "sold");
 const byId = id => S.inventory.find(c => c.id === id);
