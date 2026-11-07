@@ -5440,7 +5440,7 @@ const COMBOS = [
       "Dirk Nowitzki — Mavericks, Upper Deck First Edition",
       "Dirk Nowitzki — Mavericks, Upper Deck Ultimate Victory"
     ],
-    price: 22000, cur: "ARS", status: "available", owner: "nico", team: "dallas-mavericks"
+    price: 22000, cur: "ARS", status: "sold", soldOn: "2026-11-07", owner: "nico", team: "dallas-mavericks"
   },
   {
     slug: "set-russell-westbrook-x4",
@@ -6439,6 +6439,70 @@ COMBOS.push({
   ],
   price: 17900, oferta: 25900, cur: "ARS", status: "available", owner: "nico", team: "indiana-pacers"
 });
+COMBOS.push({
+  slug: "set-san-antonio-spurs-x8-duncan-robinson-parker-fox",
+  title: "Set San Antonio Spurs ×8 — Duncan, Robinson, Parker, Chris Paul y más",
+  desc: "Ocho cartas de los Spurs: Tim Duncan y Tony Parker (Upper Deck), David Robinson (Revolution Legends), Chris Paul, De'Aaron Fox (verde), Harrison Barnes (naranja), Devin Vassell y Stephon Castle (NBA Hoops).",
+  imgs: ["img/n-spurs8-1.webp?v=428"],
+  includes: [
+    "Tim Duncan — Spurs, Upper Deck",
+    "David Robinson — Spurs, Revolution Legends",
+    "Tony Parker — Spurs, Upper Deck",
+    "Chris Paul — Spurs, NBA Hoops",
+    "De'Aaron Fox — Spurs, NBA Hoops, versión verde",
+    "Harrison Barnes — Spurs, NBA Hoops, versión naranja",
+    "Devin Vassell — Spurs, NBA Hoops",
+    "Stephon Castle — Spurs, NBA Hoops"
+  ],
+  price: 17900, oferta: 25900, cur: "ARS", status: "available", owner: "nico", team: "san-antonio-spurs"
+});
+COMBOS.push({
+  slug: "set-miami-heat-x8-wade-herro-adebayo",
+  title: "Set Miami Heat ×8 — Dwyane Wade ×3, Herro, Adebayo y más",
+  desc: "Ocho cartas del Heat: tres de Dwyane Wade (Classics 2009-10, Revolution Hardwood Legacy y Topps Chrome), Tyler Herro (Rookies & Stars RC), Bam Adebayo (Phoenix), Jaime Jaquez Jr. (Topps Chrome), Norman Powell y Nikola Jović (NBA Hoops).",
+  imgs: ["img/n-heat8-1.webp?v=428"],
+  includes: [
+    "Dwyane Wade — Heat, Panini Classics 2009-10",
+    "Dwyane Wade — Heat, Revolution Hardwood Legacy",
+    "Dwyane Wade — Heat, Topps Chrome",
+    "Tyler Herro — RC, Heat, Rookies & Stars",
+    "Bam Adebayo — Heat, Panini Phoenix",
+    "Jaime Jaquez Jr. — Heat, Topps Chrome",
+    "Norman Powell — Heat, NBA Hoops",
+    "Nikola Jović — Heat, NBA Hoops"
+  ],
+  price: 17900, oferta: 25900, cur: "ARS", status: "available", owner: "nico", team: "miami-heat"
+});
+COMBOS.push({
+  slug: "set-boston-celtics-x6-tatum-brown-porzingis",
+  title: "Set Boston Celtics ×6 — Tatum, Jaylen Brown, Porziņģis y más",
+  desc: "Seis cartas de los Celtics: Jayson Tatum (Prizm Dominance), Jaylen Brown (Select 2023-24), Kristaps Porziņģis (Prizm Global Reach) y Jrue Holiday, Payton Pritchard y Derrick White (NBA Hoops, versión plateada).",
+  imgs: ["img/n-celtics6-1.webp?v=429"],
+  includes: [
+    "Jayson Tatum — Celtics, Prizm Dominance",
+    "Jaylen Brown — Celtics, Select 2023-24",
+    "Kristaps Porziņģis — Celtics, Prizm Global Reach",
+    "Jrue Holiday — Celtics, NBA Hoops, versión plateada",
+    "Payton Pritchard — Celtics, NBA Hoops, versión plateada",
+    "Derrick White — Celtics, NBA Hoops, versión plateada"
+  ],
+  price: 15900, oferta: 22900, cur: "ARS", status: "available", owner: "nico", team: "boston-celtics"
+});
+COMBOS.push({
+  slug: "set-damian-lillard-x6-bucks",
+  title: "Set Damian Lillard ×6 — Bucks",
+  desc: "Seis cartas de Damian Lillard con los Bucks: Select, Revolution Star Gazing, Topps Chrome, Donruss Optic, Mosaic Elevate y NBA Hoops Hoopla.",
+  imgs: ["img/n-lillard6-1.webp?v=429"],
+  includes: [
+    "Damian Lillard — Bucks, Select",
+    "Damian Lillard — Bucks, Revolution Star Gazing",
+    "Damian Lillard — Bucks, Topps Chrome",
+    "Damian Lillard — Bucks, Donruss Optic",
+    "Damian Lillard — Bucks, Mosaic Elevate",
+    "Damian Lillard — Bucks, NBA Hoops Hoopla"
+  ],
+  price: 15900, oferta: 22900, cur: "ARS", status: "available", owner: "nico", team: "milwaukee-bucks"
+});
 COMBOS.forEach(toUsdNorm);
 
 /* CyberMonday: % de descuento por carta (id) o set/lote (slug). Cartas de Nico + lotes de Guido.
@@ -6487,7 +6551,7 @@ const CYBER_DEALS = {
   "lote-ncaa-90s-x12": 20,
   // 15%
   "lote-2025-26-topps-chrome-25-cartas": 15,
-  "set-lamelo-ball-x6": 30,
+  "set-lamelo-ball-x6": 38,
   "set-maxey-embiid-george-x6": 35,
   "set-jayson-tatum-x6": 35,
   "set-giannis-antetokounmpo-x6": 35,
