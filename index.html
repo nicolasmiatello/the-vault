@@ -3335,7 +3335,7 @@ const GA = (() => {
   }, true);
   return (name, params) => gtag("event", name, params);
 })();
-const gaPage = (path, title) => GA("page_view", { page_location: location.origin + "/" + path, page_path: "/" + path, page_title: title || document.title });
+const gaPage = (path, title) => GA("page_view", { page_location: location.origin + "/" + path + location.search, page_path: "/" + path, page_title: title || document.title });
 
 const CARDS = [
   {
