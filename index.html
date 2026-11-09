@@ -2,7 +2,39 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}.papa-promo{padding:28px 0 6px}
+.pp-card{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:22px;align-items:center;padding:16px;border:1px solid var(--gold-hair);border-radius:10px;background:linear-gradient(135deg,rgba(201,162,39,.10),rgba(255,255,255,.02));color:inherit;text-decoration:none}
+.pp-img img{width:100%;display:block;border-radius:6px}
+.pp-body{display:flex;flex-direction:column;gap:8px}
+.pp-h{font-size:clamp(24px,4vw,36px);line-height:1.05;letter-spacing:-.01em}
+.pp-p{opacity:.8;font-size:15px;line-height:1.45}
+.pp-foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:6px}
+.pp-price{font-size:22px;font-weight:700;color:var(--gold-soft)}
+@media (max-width:700px){.pp-card{grid-template-columns:1fr;gap:14px;padding:12px}}
+.btn-group.btn-group-solid{background:#25D366; color:#062b14; border-color:#25D366; font-weight:700; padding:15px 24px; font-size:13px}
+.btn-group.btn-group-solid .wa-ico{stroke:#062b14}
+.btn-group.btn-group-solid:hover{background:#3ee07f; color:#062b14}
+.gstrip{padding:14px 0 0}
+.gs-in{display:flex; align-items:center; gap:14px; padding:13px 16px; border-radius:10px; border:1px solid rgba(37,211,102,.45); background:linear-gradient(90deg,rgba(37,211,102,.16),rgba(37,211,102,.04)); color:inherit; text-decoration:none}
+.gs-ico{flex:0 0 auto; width:40px; height:40px; border-radius:50%; background:#25D366; display:grid; place-items:center}
+.gs-ico .wa-ico{width:22px; height:22px; stroke:#062b14}
+.gs-txt{flex:1; display:flex; flex-direction:column; gap:2px; min-width:0}
+.gs-txt b{font-size:16px}
+.gs-txt span{font-size:13px; opacity:.75; line-height:1.35}
+.gs-go{flex:0 0 auto; background:#25D366; color:#062b14; font-weight:700; font-size:13px; padding:10px 16px; border-radius:999px; white-space:nowrap}
+@media(max-width:560px){.gs-in{gap:11px; padding:12px} .gs-ico{width:34px; height:34px} .gs-go{padding:9px 12px; font-size:12px} .gs-txt span{display:none}}
+.gfab{position:fixed; right:16px; bottom:22px; z-index:60; display:flex; align-items:center; gap:9px; padding:11px 16px 11px 12px; border-radius:999px; background:#25D366; color:#062b14; text-decoration:none; box-shadow:0 12px 30px -10px rgba(0,0,0,.75); transition:opacity .25s ease, transform .25s ease}
+.gfab .wa-ico{width:24px; height:24px; stroke:#062b14; flex:0 0 auto}
+.gfab .gf-t{display:flex; flex-direction:column; line-height:1.15}
+.gfab .gf-t b{font-size:13px}
+.gfab .gf-t small{font-size:11px; opacity:.8}
+.gfab.off{opacity:0; transform:translateY(14px); pointer-events:none}
+body.soon-on .gfab{display:none}
+@media(max-width:1023px){.gfab{bottom:calc(70px + env(safe-area-inset-bottom)); right:12px; width:54px; height:54px; padding:0; justify-content:center} .gfab .gf-t{display:none} .gfab .wa-ico{width:27px; height:27px}}
+html.ua-samsung .gfab, html.ua-samsung .gs-go, html.ua-samsung .gs-ico{background:#07140c!important; color:#3ee07f!important; border:1.5px solid #25D366!important}
+html.ua-samsung .gfab .wa-ico, html.ua-samsung .gs-ico .wa-ico{stroke:#3ee07f!important}
+html.ua-samsung .btn-group.btn-group-solid{border-width:1.5px!important; font-weight:700}
+</style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <!-- el sitio ya es oscuro: así los navegadores en "modo oscuro" no le aplican su oscurecido automático -->
 <meta name="color-scheme" content="dark">
@@ -2982,6 +3014,7 @@ body.soon-on{overflow:hidden}
   </div>
 </footer>
 
+<a class="gfab" id="gfab" href="#" target="_blank" rel="noopener" data-gpos="flotante" aria-label="Sumate al grupo de WhatsApp de Final Cards"></a>
 <nav class="bottom-nav" id="bottomNav">
   <a href="#/" data-bn="/"><svg viewBox="0 0 24 24"><path d="M4 11l8-6 8 6v8H4z"/></svg><span>Inicio</span></a>
   <a href="#/cards" data-bn="/cards"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg><span>Tienda</span></a>
@@ -6571,6 +6604,50 @@ COMBOS.push({
   ],
   price: 15900, oferta: 22900, cur: "ARS", status: "available", owner: "nico", team: "minnesota-timberwolves"
 });
+COMBOS.push({
+  slug: "set-papas-francisco-y-leon-xiv-x2",
+  title: "Set Papas ×2 — Francisco (Allen & Ginter 2013) y León XIV (Topps Now 2025)",
+  desc: "Edición especial por la visita del Papa a la Argentina. Las dos cartas juntas: el Papa Francisco en Topps Allen & Ginter 2013 (#217, The World's Champions) y el Papa León XIV en Topps Now 2025 (POPE-1, \"Habemus Papam!\", el primer Papa estadounidense).",
+  imgs: ["img/g-papas-1.webp?v=436", "img/g-papas-2.webp?v=436"],
+  includes: [
+    "Papa Francisco — Topps Allen & Ginter 2013, #217 The World's Champions",
+    "Papa León XIV — Topps Now 2025, POPE-1, 'Habemus Papam!' (8/5/2025)"
+  ],
+  price: 39000, cur: "ARS", status: "available", owner: "guido", noPromo: true
+});
+COMBOS.push({
+  slug: "set-los-angeles-lakers-x8-shaq-magic-luka",
+  title: "Set Los Angeles Lakers ×8 — Shaq, Magic, Luka, Anthony Davis y más",
+  desc: "Ocho cartas de los Lakers: Shaquille O'Neal (Topps Chrome), Magic Johnson (Magic's Moment), Luka Dončić (NBA Hoops), Anthony Davis (Contenders Season Ticket), Vlade Divac (NBA Hoops 1990 Rookie), Austin Reaves, Dorian Finney-Smith (NBA Hoops) y Adou Thiero (Topps Chrome RC).",
+  imgs: ["img/n-lakers8-1.webp?v=437"],
+  includes: [
+    "Shaquille O'Neal — Lakers, Topps Chrome",
+    "Magic Johnson — Lakers, Magic's Moment",
+    "Luka Dončić — Lakers, NBA Hoops",
+    "Anthony Davis — Lakers, Panini Contenders Season Ticket",
+    "Vlade Divac — Rookie, Lakers, NBA Hoops 1990",
+    "Austin Reaves — Lakers, NBA Hoops",
+    "Dorian Finney-Smith — Lakers, NBA Hoops",
+    "Adou Thiero — RC, Lakers, Topps Chrome"
+  ],
+  price: 24900, oferta: 30000, cur: "ARS", status: "available", owner: "nico", team: "los-angeles-lakers"
+});
+COMBOS.push({
+  slug: "set-new-york-knicks-x7-brunson-towns-bridges",
+  title: "Set New York Knicks ×7 — Brunson All-Star, Towns, Bridges, Hart y más",
+  desc: "Siete cartas NBA Hoops de los Knicks actuales: Jalen Brunson (All-Star 2025), Karl-Anthony Towns, Mikal Bridges, Josh Hart, OG Anunoby, Mitchell Robinson y Miles McBride.",
+  imgs: ["img/n-knicks8-1.webp?v=439"],
+  includes: [
+    "Jalen Brunson — Knicks, NBA Hoops All-Star 2025",
+    "Karl-Anthony Towns — Knicks, NBA Hoops",
+    "Mikal Bridges — Knicks, NBA Hoops",
+    "Josh Hart — Knicks, NBA Hoops",
+    "OG Anunoby — Knicks, NBA Hoops",
+    "Mitchell Robinson — Knicks, NBA Hoops",
+    "Miles McBride — Knicks, NBA Hoops"
+  ],
+  price: 19900, oferta: 25000, cur: "ARS", status: "available", owner: "nico", team: "new-york-knicks"
+});
 COMBOS.forEach(toUsdNorm);
 
 /* CyberMonday: % de descuento por carta (id) o set/lote (slug). Cartas de Nico + lotes de Guido.
@@ -8180,6 +8257,7 @@ function pageHome(){
       </aside>
     </div>`;
   const soldOf = f => soldCards().filter(f).length;
+  const papaCo = SETTINGS.papaPromo !== false && COMBOS.find(co => co.slug === "set-papas-francisco-y-leon-xiv-x2" && co.status !== "sold");   // banner especial del Papa (SETTINGS.papaPromo:false lo saca)
 
   const tickerItems = pool.slice().sort(SORTS.new).slice(0,6).map(c =>
       `<span class="tk"><span class="tdot"></span>Nueva en la bóveda <b>${esc(c.player)}</b> ${esc(c.set)} <span class="tprice">${money(c.price, c)}</span></span>`)
@@ -8228,6 +8306,24 @@ function pageHome(){
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track">${tickerItems.join("")}${tickerItems.join("")}</div>
   </div>
+
+  <section class="gstrip"><div class="wrap">
+    <a class="gs-in" href="${groupHref()}" target="_blank" rel="noopener" data-gpos="inicio-arriba">
+      <span class="gs-ico">${WA_ICON}</span>
+      <span class="gs-txt"><b>Sumate al grupo de WhatsApp</b><span>Descuentos y cartas que salen primero en el grupo, antes que en la página.</span></span>
+      <span class="gs-go">Unirme →</span>
+    </a></div></section>
+
+  ${papaCo ? `<section class="papa-promo"><div class="wrap">
+    <a class="pp-card" href="#/combos/${papaCo.slug}">
+      <span class="pp-img"><img src="${papaCo.imgs[0]}" alt="Cartas del Papa Francisco y del Papa León XIV"></span>
+      <span class="pp-body">
+        <span class="eyebrow gold">Edición especial</span>
+        <b class="pp-h">El Papa en Argentina</b>
+        <span class="pp-p">Francisco en Allen &amp; Ginter 2013 y León XIV en Topps Now 2025. Las dos cartas juntas.</span>
+        <span class="pp-foot"><span class="pp-price">${money(papaCo.price, papaCo)}</span><span class="btn btn-gold btn-sm">Ver las cartas →</span></span>
+      </span>
+    </a></div></section>` : ""}
 
   <section class="finder" aria-label="Buscá en la tienda">
     <div class="wrap">
@@ -8425,7 +8521,7 @@ function pageHome(){
         <h2>Promos <em>exclusivas</em> del grupo</h2>
         <p class="gb-sub">Sumate al grupo de Final Cards: ahí salen descuentos y ofertas en cartas, lotes y sets que no están en la página.</p>
       </div>
-      <div>${groupBtn("Sumate al grupo", "btn-sm", "inicio-banda")}</div>
+      <div>${groupBtn("Sumate al grupo", "btn-group-solid", "inicio-banda")}</div>
     </div>
   </section>
 
@@ -11248,6 +11344,8 @@ function render(){
     const inRoom = k => (p0 === "cards" ? ROOM_SRC[k].cards : ROOM_SRC[k].combos).some(x => x.slug === parts[1]);
     if (!inRoom(ROOM.k)){ const other = Object.keys(ROOM_SRC).find(k => k !== ROOM.k && roomIsOpen(k) && inRoom(k)); if (other){ setRoom(other, true); paintMenus(); } }
   }
+  { const gf = $("#gfab"); if (gf){ if (!gf.dataset.ok){ gf.href = groupHref(); gf.innerHTML = WA_ICON + '<span class="gf-t"><b>Grupo de WhatsApp</b><small>Promos exclusivas</small></span>'; gf.dataset.ok = "1"; }
+    gf.classList.toggle("off", (p0 === "cards" || p0 === "combos") && !!parts[1]); } }   // flotante: se oculta en el detalle de carta/set (ahí está el botón de consultar)
   const STATIC = ["about","shipping","payments","faq","contact","terms","privacy"];
 
   if (!S.inventory.length && !COMBOS.length && !STATIC.includes(p0)) html = pageRoomEmpty();
