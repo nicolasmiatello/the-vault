@@ -3335,7 +3335,7 @@ const GA = (() => {
   }, true);
   return (name, params) => gtag("event", name, params);
 })();
-const gaPage = (path, title) => GA("page_view", { page_location: location.origin + "/" + path + location.search, page_path: "/" + path, page_title: title || document.title });
+const gaPage = (path, title) => GA("page_view", { page_location: location.origin + "/" + path, page_path: "/" + path, page_title: title || document.title });
 
 const CARDS = [
   {
@@ -5144,7 +5144,7 @@ const COMBOS = [
       "Mohamed Diawara — RC", "Ariel Hukporti", "Jose Alvarado", "Miles McBride",
       "Pacôme Dadiet", "Tyler Kolek"
     ],
-    price: 90000, cur: "ARS", status: "available", owner: "nico", cats: ["equipo"], team: "new-york-knicks"
+    price: 81000, oferta: 90000, cur: "ARS", status: "available", owner: "nico", cats: ["equipo"], team: "new-york-knicks"
   },
   {
     slug: "set-completo-topps-2000-01-series-1",
@@ -6711,7 +6711,7 @@ const cyberOn = (() => {
 const cyberKeep = (() => { const cy = SETTINGS.cyber; return !!(cy && cy.keepAfter && Date.now() >= Date.parse(cy.to)); })();
 const applyCyber = (it, key) => {
   const pct = CYBER_DEALS[key]; if (!pct || it.status === "sold") return;
-  const keep = !cyberOn && cyberKeep && it.owner === "nico";
+  const keep = !cyberOn && cyberKeep;   // desde el 9/11 quedan rebajados los de Nico y los de Guido
   if (!cyberOn && !keep) return;
   const k = 1 - pct / 100;
   if (keep){
@@ -6750,6 +6750,16 @@ const applyOferta = it => {
   it.cyberPct = Math.round((1 - it.priceArs / it.oferta) * 100); it.ofertaLbl = "Oferta";
 };
 CARDS.forEach(applyOferta); COMBOS.forEach(applyOferta); CARDS_FUTBOL.forEach(applyOferta); COMBOS_FUTBOL.forEach(applyOferta);
+/* 9/11: −10% "Oferta" (tachado) a las cartas sueltas de Nico y Guido que no tuvieron Cyber ni oferta */
+const PROMO_CARTAS = { from: "2026-11-09T00:00:00-03:00", pct: 10 };
+if (Date.now() >= Date.parse(PROMO_CARTAS.from)) CARDS.forEach(c => {
+  if (c.status === "sold" || c.cyberPct || CYBER_DEALS[c.id] || c.oferta || !(c.price > 0)) return;
+  const k = 1 - PROMO_CARTAS.pct / 100;
+  c.wasPrice = c.price;
+  if (c.cur === "ARS"){ c.wasArs = c.priceArs; c.priceArs = Math.round(c.priceArs * k / 100) * 100; c.price = Math.round(c.priceArs / SETTINGS.arsPerUsd); }
+  else c.price = Math.round(c.price * k);
+  c.cyberPct = PROMO_CARTAS.pct; c.ofertaLbl = "Oferta";
+});
 
 /* Subastas en vivo — lotes demo armados con cartas que ya están en la bóveda */
 const AUCTIONS = [
