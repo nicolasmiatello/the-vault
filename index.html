@@ -6838,6 +6838,14 @@ if (Date.now() >= Date.parse(PROMO_CARTAS.from)) CARDS.forEach(c => {
   else c.price = Math.round(c.price * k);
   c.cyberPct = PROMO_CARTAS.pct; c.ofertaLbl = "Oferta";
 });
+/* 10/11: −10% "Oferta" a los autógrafos de Nico que todavía no mostraban descuento (los que quedaron con el Cyber 5–7% sin cartel); se tacha el precio que tenían */
+if (Date.now() >= Date.parse("2026-11-10T00:00:00-03:00")) CARDS.forEach(c => {
+  if (c.owner !== "nico" || !c.auto || c.status === "sold" || c.cyberPct || !(c.price > 0)) return;
+  c.wasPrice = c.price;
+  if (c.cur === "ARS"){ c.wasArs = c.priceArs; c.priceArs = Math.round(c.priceArs * 0.9 / 100) * 100; c.price = Math.round(c.priceArs / SETTINGS.arsPerUsd); }
+  else c.price = Math.round(c.price * 0.9);
+  c.cyberPct = 10; c.ofertaLbl = "Oferta";
+});
 
 /* Subastas en vivo — lotes demo armados con cartas que ya están en la bóveda */
 const AUCTIONS = [
