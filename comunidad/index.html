@@ -10,17 +10,22 @@
 <style>
   :root{color-scheme:dark}
   *{box-sizing:border-box;margin:0}
-  html,body{background:#0b0805}
+  html,body{background:#0b0805;overflow-x:hidden}
   body{min-height:100vh;display:flex;justify-content:center;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
   .wrap{width:100%;max-width:520px}
   img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
   .top{-webkit-mask-image:linear-gradient(#000 94%,transparent);mask-image:linear-gradient(#000 94%,transparent)}
   .bot{-webkit-mask-image:linear-gradient(transparent,#000 22%);mask-image:linear-gradient(transparent,#000 22%)}
-  .cta{display:flex;justify-content:center;padding:4px 18px 10px;margin-top:-6px}
+  .cta{display:flex;justify-content:center;padding:4px 18px 10px;margin-top:5%}
   button{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;max-width:430px;min-height:62px;border:0;border-radius:999px;cursor:pointer;
     background:linear-gradient(180deg,#2fe27a,#1fbf5d);color:#04150a;font-weight:900;font-size:clamp(15px,4.4vw,20px);letter-spacing:.02em;text-transform:uppercase;
     box-shadow:0 0 28px rgba(37,211,102,.35),0 6px 18px rgba(0,0,0,.5);-webkit-tap-highlight-color:transparent;font-family:inherit}
-  button:active{transform:scale(.98)}
+  button{position:relative;animation:latido 1.7s ease-in-out infinite;will-change:transform;
+    box-shadow:0 0 38px rgba(37,211,102,.6),0 0 0 1px rgba(255,255,255,.18) inset,0 6px 18px rgba(0,0,0,.5)}
+  button::after{content:"";position:absolute;inset:-3px;border-radius:999px;border:2px solid rgba(70,235,135,.9);pointer-events:none;animation:aro 1.7s ease-out infinite;will-change:transform,opacity}
+  @keyframes latido{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+  @keyframes aro{0%{opacity:.95;transform:scale(1)}100%{opacity:0;transform:scale(1.1,1.45)}}
+  @media (prefers-reduced-motion:reduce){button,button::after{animation:none}}
   button svg{width:30px;height:30px;flex:none}
   .bot{margin-top:-4px}
   .alt{text-align:center;color:#ebebeb;font-weight:600;font-size:clamp(12px,3.5vw,16px);padding:6px 16px 2px}
