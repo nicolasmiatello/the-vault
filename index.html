@@ -6850,10 +6850,10 @@ if (Date.now() >= Date.parse("2026-11-10T00:00:00-03:00")) CARDS.forEach(c => {
 ["c43","c44","c49"].forEach(id => { const c = CARDS.find(x => x.id === id); if (!c || c.status === "sold" || c.cur !== "ARS" || !c.wasArs) return;
   c.priceArs = Math.round(c.priceArs * 0.85 / 100) * 100; c.price = Math.round(c.priceArs / SETTINGS.arsPerUsd);
   c.cyberPct = Math.round((1 - c.priceArs / c.wasArs) * 100); });
-/* Scola autógrafos: −15% en vez de −10% sobre el precio tachado */
+/* Scola autógrafos: precio = (−15% sobre el tachado) +5%, y el tachado se ajusta para que muestre "Oferta −10%" */
 ["c46","c48","c53"].forEach(id => { const c = CARDS.find(x => x.id === id); if (!c || c.status === "sold" || c.cur !== "ARS" || !c.wasArs) return;
-  c.priceArs = Math.round(c.wasArs * 0.85 / 100) * 100; c.price = Math.round(c.priceArs / SETTINGS.arsPerUsd);
-  c.cyberPct = Math.round((1 - c.priceArs / c.wasArs) * 100); });
+  c.priceArs = Math.round(c.wasArs * 0.85 * 1.05 / 100) * 100; c.price = Math.round(c.priceArs / SETTINGS.arsPerUsd);
+  c.wasArs = Math.round(c.priceArs / 0.9 / 100) * 100; c.wasPrice = Math.round(c.wasArs / SETTINGS.arsPerUsd); c.cyberPct = 10; });
 
 /* Subastas en vivo — lotes demo armados con cartas que ya están en la bóveda */
 const AUCTIONS = [
