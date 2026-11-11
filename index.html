@@ -6854,6 +6854,12 @@ if (Date.now() >= Date.parse("2026-11-10T00:00:00-03:00")) CARDS.forEach(c => {
 ["c46","c48","c53"].forEach(id => { const c = CARDS.find(x => x.id === id); if (!c || c.status === "sold" || c.cur !== "ARS" || !c.wasArs) return;
   c.priceArs = Math.round(c.wasArs * 0.85 * 1.05 / 100) * 100; c.price = Math.round(c.priceArs / SETTINGS.arsPerUsd);
   c.wasArs = Math.round(c.priceArs / 0.9 / 100) * 100; c.wasPrice = Math.round(c.wasArs / SETTINGS.arsPerUsd); c.cyberPct = 10; });
+/* 11/11: los 3 lotes grandes Topps de Nico (110–132 cartas) muestran el cartel de Oferta (tachado = precio antes del Cyber) y bajan 5% más */
+["set-completo-topps-2000-01-series-1","set-completo-topps-1998-99-series-1","set-completo-topps-1999-00-series-1"].forEach(s => {
+  const c = COMBOS.find(x => x.slug === s); if (!c || c.status === "sold" || c.cur !== "ARS" || c.cyberPct) return;
+  const pct = CYBER_DEALS[s] || 0; c.wasArs = Math.round(c.priceArs / (1 - pct / 100) / 100) * 100; c.wasPrice = Math.round(c.wasArs / SETTINGS.arsPerUsd);
+  c.priceArs = Math.round(c.priceArs * 0.95 / 100) * 100; c.price = Math.round(c.priceArs / SETTINGS.arsPerUsd);
+  c.cyberPct = Math.round((1 - c.priceArs / c.wasArs) * 100); c.ofertaLbl = "Oferta"; });
 
 /* Subastas en vivo — lotes demo armados con cartas que ya están en la bóveda */
 const AUCTIONS = [
