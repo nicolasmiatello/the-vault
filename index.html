@@ -6846,6 +6846,14 @@ if (Date.now() >= Date.parse("2026-11-10T00:00:00-03:00")) CARDS.forEach(c => {
   else c.price = Math.round(c.price * 0.9);
   c.cyberPct = 10; c.ofertaLbl = "Oferta";
 });
+/* 10/11 noche: Campazzo autógrafos (menos los 2 más caros: National Treasures e Immaculate) bajan 15% más; se sigue tachando el precio de antes de las ofertas */
+["c43","c44","c49"].forEach(id => { const c = CARDS.find(x => x.id === id); if (!c || c.status === "sold" || c.cur !== "ARS" || !c.wasArs) return;
+  c.priceArs = Math.round(c.priceArs * 0.85 / 100) * 100; c.price = Math.round(c.priceArs / SETTINGS.arsPerUsd);
+  c.cyberPct = Math.round((1 - c.priceArs / c.wasArs) * 100); });
+/* Scola autógrafos: −15% en vez de −10% sobre el precio tachado */
+["c46","c48","c53"].forEach(id => { const c = CARDS.find(x => x.id === id); if (!c || c.status === "sold" || c.cur !== "ARS" || !c.wasArs) return;
+  c.priceArs = Math.round(c.wasArs * 0.85 / 100) * 100; c.price = Math.round(c.priceArs / SETTINGS.arsPerUsd);
+  c.cyberPct = Math.round((1 - c.priceArs / c.wasArs) * 100); });
 
 /* Subastas en vivo — lotes demo armados con cartas que ya están en la bóveda */
 const AUCTIONS = [
