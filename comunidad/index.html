@@ -41,8 +41,8 @@
     var dest = ["https://chat.", "whatsapp.com/", "COB0Sr7wz6p4uPTrcqn8li"].join("");
     var done = false;
     function go(){ if(done) return; done = true; window.location.href = dest; }
-    gtag('event', 'ir_al_grupo', {origen: 'comunidad', event_callback: go, event_timeout: 700});
-    setTimeout(go, 800);
+    gtag('event', 'ir_al_grupo', {origen: 'comunidad', lugar: 'comunidad', transport_type: 'beacon', event_callback: go, event_timeout: 1200});
+    setTimeout(go, 1300);
   }
 </script>
 </head>
