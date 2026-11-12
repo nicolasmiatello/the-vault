@@ -3355,7 +3355,7 @@ const GA = (() => {
   if (!id || !live || socio) return () => {};
   window.dataLayer = window.dataLayer || [];
   window.gtag = function(){ dataLayer.push(arguments); };
-  gtag("js", new Date()); gtag("config", id, { send_page_view: false });
+  gtag("js", new Date()); gtag("config", id, { send_page_view: false, transport_type: "beacon" });
   const s = document.createElement("script"); s.async = true; s.src = "https://www.googletagmanager.com/gtag/js?id=" + id; document.head.appendChild(s);
   const where = () => location.hash.replace(/^#\/?/, "").split("?")[0] || "inicio";
   document.addEventListener("click", e => {
@@ -3369,7 +3369,7 @@ const GA = (() => {
   }, true);
   return (name, params) => gtag("event", name, params);
 })();
-const gaPage = (path, title) => GA("page_view", { page_location: location.origin + "/" + path, page_path: "/" + path, page_title: title || document.title });
+const gaPage = (path, title) => GA("page_view", { page_location: location.origin + "/" + path + location.search, page_path: "/" + path, page_title: title || document.title });
 
 const CARDS = [
   {
