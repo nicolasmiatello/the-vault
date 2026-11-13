@@ -3355,7 +3355,7 @@ const GA = (() => {
   if (!id || !live || socio) return () => {};
   window.dataLayer = window.dataLayer || [];
   window.gtag = function(){ dataLayer.push(arguments); };
-  gtag("js", new Date()); gtag("config", id, { send_page_view: false, transport_type: "beacon" });
+  gtag("js", new Date()); gtag("config", id, { send_page_view: false });
   const s = document.createElement("script"); s.async = true; s.src = "https://www.googletagmanager.com/gtag/js?id=" + id; document.head.appendChild(s);
   const where = () => location.hash.replace(/^#\/?/, "").split("?")[0] || "inicio";
   document.addEventListener("click", e => {
@@ -3369,7 +3369,7 @@ const GA = (() => {
   }, true);
   return (name, params) => gtag("event", name, params);
 })();
-const gaPage = (path, title) => GA("page_view", { page_location: location.origin + "/" + path + location.search, page_path: "/" + path, page_title: title || document.title });
+const gaPage = (path, title) => GA("page_view", { page_location: location.origin + "/" + path, page_path: "/" + path, page_title: title || document.title });
 
 const CARDS = [
   {
@@ -3816,7 +3816,7 @@ const CARDS = [
     cardNo: "SS-MG", serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: true, memType: "Shooting shirt All-Star",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 43000, cur: "ARS", status: "available", addedOn: "2026-10-25", vault: false, demo: true, owner: "nico",
+    price: 0, cur: "ARS", status: "sold", soldOn: "2026-11-13", addedOn: "2026-10-25", vault: false, demo: true, owner: "nico",
     imgs: [IMG.manuSszF, IMG.manuSszB],
     badges: ["ALL-STAR", "SWATCH", "ARGENTINA", "HALL OF FAME"],
     why: ["Pedazo de la remera de calentamiento que Manu usó en un All-Star Game, certificado por Upper Deck", "Manu fue All-Star en 2005, la temporada de su segundo anillo", "Manu con la 20 de los Spurs, Hall of Fame"],
@@ -3846,7 +3846,7 @@ const CARDS = [
     cardNo: "96", serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: true, memType: "Jersey",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 29000, cur: "ARS", status: "available", addedOn: "2026-10-25", vault: false, demo: true, owner: "nico",
+    price: 0, cur: "ARS", status: "sold", soldOn: "2026-11-13", addedOn: "2026-10-25", vault: false, demo: true, owner: "nico",
     imgs: [IMG.prigQF, IMG.prigQB],
     badges: ["JERSEY", "ARGENTINA"],
     why: ["Pedazo grande de camiseta usada en partido, garantizado por Panini", "Prigioni con los Knicks en su temporada rookie, a los 35 años", "Doble atractivo: argentino y Knick"],
@@ -4176,7 +4176,7 @@ const CARDS = [
     cardNo: "35", serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: true, memType: "Jersey",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 21000, cur: "ARS", status: "available", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
+    price: 0, cur: "ARS", status: "sold", soldOn: "2026-11-13", addedOn: "2026-10-26", vault: false, demo: true, owner: "nico",
     imgs: [IMG.dengItnF, IMG.dengItnB],
     badges: ["JERSEY"],
     why: ["Pedazo de camiseta blanca usada en partido, garantizado por Panini", "Luol Deng con la 9 de los Chicago Bulls", "Serie Inside the Numbers de Prestige 2012-13: 39,4 minutos por partido, el máximo de la NBA"],
@@ -4311,7 +4311,7 @@ const CARDS = [
     cardNo: "508", serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 12000, cur: "ARS", status: "available", addedOn: "2026-10-21", vault: false, demo: true, owner: "nico",
+    price: 0, cur: "ARS", status: "sold", soldOn: "2026-11-13", addedOn: "2026-10-21", vault: false, demo: true, owner: "nico",
     imgs: [IMG.maloneF, IMG.maloneB],
     badges: ["HALL OF FAME", "VINTAGE"],
     why: ["Karl Malone como \"The Mailman\", superhéroe de historieta con la 32 de Utah", "Subset FaniMation de Upper Deck 1993-94, con arte de Marc Silvestri", "Pieza de los 90 de un Hall of Famer, segundo máximo anotador de la historia al retirarse"],
@@ -4417,7 +4417,7 @@ const CARDS = [
     cardNo: "CRA-BS", serialNum: null, printRun: null,
     rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 20000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    price: 0, cur: "ARS", status: "sold", soldOn: "2026-11-13", addedOn: "2026-10-14", vault: false, owner: "guido",
     imgs: [IMG.sensf, IMG.sensb],
     badges: ["RC", "AUTO"],
     why: ["Autógrafo rookie certificado por Topps", "Rookie card, con el escudo RC", "Topps Chrome 2023-24, su año de debut en la NBA"],
@@ -4462,7 +4462,7 @@ const CARDS = [
     cardNo: "SS-IC", serialNum: null, printRun: null,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 15000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    price: 0, cur: "ARS", status: "sold", soldOn: "2026-11-13", addedOn: "2026-10-14", vault: false, owner: "guido",
     imgs: [IMG.collierf, IMG.collierb],
     badges: ["AUTO"],
     why: ["Autógrafo certificado por Topps", "Inserto Shadow Scripts de Topps Signature Class", "Con la 13 de los Utah Jazz"],
@@ -4837,7 +4837,7 @@ const CARDS = [
     cardNo: "255", serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 3000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    price: 0, cur: "ARS", status: "sold", soldOn: "2026-11-13", addedOn: "2026-10-14", vault: false, owner: "guido",
     imgs: [IMG.pepef, IMG.pepeb],
     badges: ["ARGENTINA"],
     why: ["Pepe Sánchez con la 6 de los Detroit Pistons", "Upper Deck 2002-03", "Para la colección de argentinos en la NBA"],
@@ -5047,7 +5047,7 @@ const CARDS = [
     cardNo: "369", serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 3000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    price: 0, cur: "ARS", status: "sold", soldOn: "2026-11-13", addedOn: "2026-10-14", vault: false, owner: "guido",
     imgs: [IMG.wolkof, IMG.wolkob],
     badges: ["ARGENTINA"],
     why: ["Wolkowyski con la 45 de los Seattle SuperSonics", "Upper Deck Game Edition 2000-01", "Uno de los dos primeros argentinos en jugar en la NBA"],
@@ -5247,7 +5247,7 @@ const COMBOS = [
       "LaMelo Ball — Hornets, NBA Hoops, Pure Players",
       "LaMelo Ball — Hornets, Topps Chrome, borde rosa"
     ],
-    price: 37000, cur: "ARS", status: "available", owner: "nico", cats: ["equipo"], team: "charlotte-hornets"
+    price: 37000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico", cats: ["equipo"], team: "charlotte-hornets"
   },
   {
     slug: "set-maxey-embiid-george-x6",
@@ -5534,7 +5534,7 @@ const COMBOS = [
       "Charles Barkley — All-Star West, Upper Deck N° 435, All-Star Game 1993",
       "Charles Barkley — Suns, Topps Stadium Club N° 320"
     ],
-    price: 15900, oferta: 22900, cur: "ARS", status: "available", owner: "nico"
+    price: 15900, oferta: 22900, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-kobe-bryant-x2",
@@ -5557,7 +5557,7 @@ const COMBOS = [
       "Dream Team 1992 — SkyBox USA Basketball, carta de equipo: Jordan, Magic Johnson, Larry Bird, Barkley, Pippen, Ewing, Stockton, Malone, Robinson, Mullin y el coach Chuck Daly",
       "Dream Team 1996 — SkyBox USA Basketball, carta \"The Team\" con el plantel de Atlanta 1996"
     ],
-    price: 17000, cur: "ARS", status: "available", owner: "nico"
+    price: 17000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-leyendas-de-los-90-x8",
@@ -5574,7 +5574,7 @@ const COMBOS = [
       "Johnny Dawkins — 76ers, Fleer 1990-91 N° 141",
       "Jason Kidd — Mavericks, Collector's Choice 1996-97 N° 171, NBA Fundamentals"
     ],
-    price: 30000, cur: "ARS", status: "available", owner: "nico"
+    price: 30000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-leyendas-bases-de-los-90-x8-vol-2",
@@ -5591,7 +5591,7 @@ const COMBOS = [
       "Ray Allen — SuperSonics, Bazooka 2004-05 N° 61",
       "Jerry Stackhouse — 76ers, Topps 1997-98 N° 204"
     ],
-    price: 28000, cur: "ARS", status: "available", owner: "nico"
+    price: 28000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-reggie-miller-x8",
@@ -5625,7 +5625,7 @@ const COMBOS = [
       "Ben Wallace — Wizards, Topps 1999-00 N° 54",
       "Marcus Camby — RC, Raptors, Upper Deck Collector's Choice 1996-97 N° 339, temporada rookie"
     ],
-    price: 33000, cur: "ARS", status: "available", owner: "nico"
+    price: 33000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-patrick-ewing-x8",
@@ -5642,7 +5642,7 @@ const COMBOS = [
       "Patrick Ewing — Knicks, Fleer 1992-93, Slam Dunk",
       "Patrick Ewing — Knicks, NBA Hoops 1996-97 N° 104"
     ],
-    price: 28000, cur: "ARS", status: "available", owner: "nico"
+    price: 28000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-estrellas-x8-garnett-nowitzki-carter",
@@ -5659,7 +5659,7 @@ const COMBOS = [
       "Rasheed Wallace — Trail Blazers, Upper Deck HoloGrFX 1999-00 N° 46",
       "Antawn Jamison — Warriors, Upper Deck Victory 1999-00 N° 310, Dynamite Dunks"
     ],
-    price: 28000, cur: "ARS", status: "available", owner: "nico"
+    price: 28000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-hall-of-fame-x8-russell-kareem-magic-erving",
@@ -5676,7 +5676,7 @@ const COMBOS = [
       "Elvin Hayes — Bullets, Action Packed Hall of Fame 1993 N° 9",
       "Dominique Wilkins — Hawks, Fleer 1991-92 N° 212, All-Star Team"
     ],
-    price: 38000, cur: "ARS", status: "available", owner: "nico"
+    price: 38000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-estrellas-x8-vol-2-pippen-carter-pierce",
@@ -5693,7 +5693,7 @@ const COMBOS = [
       "Dominique Wilkins — Hawks, Topps Stadium Club 1992-93 N° 208, Members Choice",
       "Jerry Stackhouse — 76ers, Bowman's Best 1997-98 N° TB12, Retro"
     ],
-    price: 28000, cur: "ARS", status: "available", owner: "nico"
+    price: 28000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-armadores-x8-stockton-nash-parker-iverson",
@@ -5710,7 +5710,7 @@ const COMBOS = [
       "Allen Iverson — 76ers, Score Board All Sport 1996 N° 179, año de su debut",
       "Bobby Hurley — RC, Kings, Fleer Ultra 1993-94 N° 161, temporada rookie"
     ],
-    price: 28000, cur: "ARS", status: "available", owner: "nico"
+    price: 28000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-gigantes-de-la-pintura-x8-vol-2",
@@ -5727,7 +5727,7 @@ const COMBOS = [
       "Shaquille O'Neal — Magic, Topps 1996-97 N° 279",
       "Ben Wallace — Pistons, Upper Deck MVP 2003-04 N° 42"
     ],
-    price: 30000, cur: "ARS", status: "available", owner: "nico"
+    price: 30000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-estrellas-x8-vol-3-nowitzki-garnett-hill",
@@ -5744,7 +5744,7 @@ const COMBOS = [
       "Chris Mullin — Topps N° 132",
       "Jerry Stackhouse — Pistons, SkyBox Metal 1997-98 N° 122"
     ],
-    price: 28000, cur: "ARS", status: "available", owner: "nico"
+    price: 28000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-armadores-x8-vol-2-stockton-nash-parker-payton",
@@ -5780,7 +5780,7 @@ const COMBOS = [
       "Jerry Stackhouse — 76ers, Topps Stadium Club 1997-98 N° 128"
     ],
     count: 8,
-    price: 30000, cur: "ARS", status: "available", owner: "nico"
+    price: 30000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-gigantes-de-la-pintura-x8-vol-3",
@@ -5797,7 +5797,7 @@ const COMBOS = [
       "Marcus Camby — Knicks, Fleer Mystique 2000-01 N° 76",
       "Dwight Howard — Magic, Bowman 2007-08 N° 2"
     ],
-    price: 30000, cur: "ARS", status: "available", owner: "nico"
+    price: 30000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-leyendas-x8-vol-2-pippen-stockton-olajuwon-payton",
@@ -5814,7 +5814,7 @@ const COMBOS = [
       "Rasheed Wallace — Trail Blazers, Bowman's Best",
       "Johnny Dawkins — 76ers, Topps Stadium Club N° 52"
     ],
-    price: 30000, cur: "ARS", status: "available", owner: "nico"
+    price: 30000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-armadores-x8-vol-3-stockton-payton-kidd-williams",
@@ -5831,7 +5831,7 @@ const COMBOS = [
       "John Starks — Warriors, Topps Gold Label N° 69",
       "Johnny Dawkins — 76ers, Upper Deck"
     ],
-    price: 24000, cur: "ARS", status: "available", owner: "nico"
+    price: 24000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-estrellas-x8-vol-4-iverson-mcgrady-pippen-hill",
@@ -5848,7 +5848,7 @@ const COMBOS = [
       "Christian Laettner — Hawks, Fleer Ultra 1998-99 N° 56",
       "Marcus Camby — Knicks, Upper Deck MVP 1999-00 N° 109"
     ],
-    price: 30000, cur: "ARS", status: "available", owner: "nico"
+    price: 30000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
     },
   {
     slug: "set-estrellas-del-oeste-x8-olajuwon-stockton-kidd-rodman",
@@ -5865,7 +5865,7 @@ const COMBOS = [
       "Spud Webb — Kings, Topps 1992-93 N° 63",
       "Larry Bird — Celtics, Fleer 1990-91 N° 8"
     ],
-    price: 30000, cur: "ARS", status: "available", owner: "nico"
+    price: 30000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
     },
   {
     slug: "set-gigantes-de-la-pintura-x8-vol-4-olajuwon-robinson-malone-mourning",
@@ -5884,7 +5884,7 @@ const COMBOS = [
     ],
     count: 8,
     players: ["Karl Malone", "John Stockton"],
-    price: 30000, cur: "ARS", status: "available", owner: "nico"
+    price: 30000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
     },
   {
     slug: "set-estrellas-x8-vol-4-pippen-robinson-wilkins-rodman",
@@ -5901,7 +5901,7 @@ const COMBOS = [
       "Grant Hill — Pistons, Collector's Choice 1996-97 N° 240",
       "Jerry Stackhouse — 76ers, Fleer 1997-98 N° 105"
     ],
-    price: 30000, cur: "ARS", status: "available", owner: "nico"
+    price: 30000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
     },
   {
     slug: "set-leyendas-x8-vol-3-magic-bird-pippen-wilkins",
@@ -5918,7 +5918,7 @@ const COMBOS = [
       "Christian Laettner — RC, Timberwolves, Topps 1992-93 N° 334, Draft Pick",
       "Jerry Stackhouse — Pistons, Bowman's Best 1998-99 N° 78"
     ],
-    price: 33000, cur: "ARS", status: "available", owner: "nico"
+    price: 33000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
     },
   {
     slug: "set-leyendas-x9-bird-robinson-grant-hill",
@@ -5938,7 +5938,7 @@ const COMBOS = [
     ],
     count: 9,
     players: ["Michael Jordan", "Mookie Blaylock", "John Stockton"],
-    price: 28000, cur: "ARS", status: "available", owner: "nico"
+    price: 28000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   },
   {
     slug: "set-michael-jordan-x5",
@@ -5966,7 +5966,7 @@ const COMBOS = [
       "Tim Duncan — Spurs, Topps 2006-07 N° 2",
       "Magic Johnson — Lakers, Upper Deck 1991-92 N° 29, Magic's Moment, récord de asistencias"
     ],
-    price: 17000, cur: "ARS", status: "available", owner: "nico"
+    price: 17000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "nico"
   }
 ];
 COMBOS.unshift(
@@ -6277,7 +6277,7 @@ COMBOS.push({
     "Leandro Bolmaro — RC, Timberwolves, base N° 247 de NBA Hoops 2020-21",
     "Leandro Bolmaro — RC, Timberwolves, Rookie Ink autografiada (N° RI-LBA), autógrafo garantizado por Panini"
   ],
-  price: 15000, cur: "ARS", status: "available", owner: "guido"
+  price: 15000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "guido"
 });
 COMBOS.push({
   slug: "combo-manu-ginobili-x4-numeradas-y-swatch",
@@ -6324,7 +6324,7 @@ COMBOS.push({
     "Luis Scola — Raptors, Panini Excalibur 2015-16 N° 3",
     "Luis Scola — Armani Milán, Prizm EuroLeague 2023-24 N° 62, temporada 2019-20"
   ],
-  price: 5000, cur: "ARS", status: "available", owner: "guido"
+  price: 5000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "guido"
 });
 COMBOS.push({
   slug: "set-manu-ginobili-x4-donruss-hot-prospects-artifacts-topps",
