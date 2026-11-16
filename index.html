@@ -8035,7 +8035,7 @@ const comboSoloPlayer = co => { const n = comboPlayerNames(co); return n.length 
 // un set/lote aparece en la página de un jugador si es exclusivo de él, o si es un set chico (menos de 10 cartas) que lo incluye;
 // los lotes grandes de muchos jugadores no se cuelgan de cada uno
 const comboLinksPlayers = co => comboSoloPlayer(co) || comboN(co) < 10;
-const combosOfPlayer = slug => COMBOS.filter(co => co.status !== "sold" && comboLinksPlayers(co) && comboPlayerNames(co).some(n => pslug(n) === slug));
+const combosOfPlayer = (slug, withSold) => COMBOS.filter(co => (withSold || co.status !== "sold") && comboLinksPlayers(co) && comboPlayerNames(co).some(n => pslug(n) === slug));
 // equipo de un set/lote: el campo team (slug) o, si todas sus cartas son de un mismo equipo NBA, ese equipo
 function comboTeamSlug(co){
   if (co.team) return co.team;
@@ -9091,12 +9091,13 @@ function pageTeam(slug){
 }
 
 /* sets y lotes arriba de las cartas en jugador y equipo: hasta 4, el resto en la página Lotes ya filtrada */
-function combosTop(list, label, q){
+function combosTop(list, label, q, max, note){
   if (!list.length) return "";
-  const more = list.length > 4;
+  max = max || 4;
+  const more = list.length > max;
   return `<section class="combos-top" style="margin:40px 0 34px">
-      <p class="eyebrow gold" style="margin-bottom:14px">${label} · ${list.length}</p>
-      <div class="combo-grid">${list.slice(0, 4).map(comboTile).join("")}</div>
+      <p class="eyebrow gold" style="margin-bottom:14px">${label} · ${list.length}${note || ""}</p>
+      <div class="combo-grid">${list.slice(0, max).map(comboTile).join("")}</div>
       ${more ? `<p style="margin-top:16px"><a class="btn btn-sm" href="#/combos?q=${encodeURIComponent(q)}">Ver los ${list.length} ${kindsLbl(list)} →</a></p>` : ""}
     </section>`;
 }
@@ -9162,10 +9163,11 @@ function pagePlayers(){
 function pagePlayer(slug){
   const m = PLAYERS_META[slug];
   const all = S.inventory.filter(c => c.playerSlug === slug);
-  const pc = combosOfPlayer(slug);
+  const pcAv = combosOfPlayer(slug);   // en la ficha del jugador: primero los disponibles y después los vendidos
+  const pc = pcAv.concat(combosOfPlayer(slug, true).filter(co => co.status === "sold"));
   if (!m && !all.length && !pc.length) return `<div class="wrap section">${emptyState("Todavía no hay cartas de ese jugador.")}</div>`;
   const pName = m ? m.name : (all[0] ? all[0].player : (pc.length ? (comboPlayerNames(pc[0]).find(n => pslug(n) === slug) || slug) : slug));
-  const combosBlock = combosTop(pc, kindsLbl(pc).replace(/^./, x => x.toUpperCase()) + " con " + esc(pName), pName.split(" ").slice(-1)[0]);
+  const combosBlock = combosTop(pc, kindsLbl(pc).replace(/^./, x => x.toUpperCase()) + " con " + esc(pName), pName.split(" ").slice(-1)[0], 12, pc.length > pcAv.length ? ` · ${pcAv.length} disponibles` : "");
   const tab = S.tab || "cards";
   const nAv = all.filter(c => c.status !== "sold").length;
   const sets = {
