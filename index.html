@@ -4146,7 +4146,7 @@ const CARDS = [
     cardNo: "ASW-MG", serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: true, memType: "Shooting shirt",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 49000, oferta: 54400, cur: "ARS", status: "available", addedOn: "2026-11-16", vault: false, demo: true, owner: "nico",
+    price: 0, oferta: 54400, cur: "ARS", status: "sold", soldOn: "2026-11-16", addedOn: "2026-11-16", vault: false, demo: true, owner: "nico",
     imgs: ["img/n-manu-aswf.webp?v=461", "img/n-manu-aswb.webp?v=461"],
     badges: ["GAME USED", "ALL-STAR", "ARGENTINA", "HALL OF FAME"],
     why: ["Pedazo del shooting shirt que usó Manu en el All-Star Game 2005, certificado por Upper Deck", "Su primer All-Star, en Denver 2005", "Upper Deck 2005-06 · All-Star Weekend Authentics"],
@@ -4567,7 +4567,7 @@ const CARDS = [
     cardNo: "FSA-TD", serialNum: null, printRun: null,
     rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 20000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    price: 0, cur: "ARS", status: "sold", soldOn: "2026-11-16", addedOn: "2026-10-14", vault: false, owner: "guido",
     imgs: [IMG.dasilvaf, IMG.dasilvab],
     badges: ["RC", "AUTO"],
     why: ["Autógrafo certificado por Topps", "Rookie card, con el escudo RC", "Inserto Future Stars de Topps Chrome 2024-25"],
@@ -4747,7 +4747,7 @@ const CARDS = [
     cardNo: "HM-KG", serialNum: 79, printRun: 150,
     rookie: false, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 25000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    price: 0, cur: "ARS", status: "sold", soldOn: "2026-11-16", addedOn: "2026-10-14", vault: false, owner: "guido",
     imgs: [IMG.georgef, IMG.georgeb],
     badges: ["AUTO", "/150"],
     why: ["Numerada 079 de 150", "Autógrafo certificado por Topps", "Inserto Havoc Marks de Topps Chrome Updates"],
@@ -4867,7 +4867,7 @@ const CARDS = [
     cardNo: "RCC-NT", serialNum: null, printRun: null,
     rookie: true, auto: true, autoType: "Autógrafo", memorabilia: false, memType: "Sin memorabilia",
     condition: "Mint", gradeCompany: "RAW", grade: null, cert: null,
-    price: 20000, cur: "ARS", status: "available", addedOn: "2026-10-14", vault: false, owner: "guido",
+    price: 0, cur: "ARS", status: "sold", soldOn: "2026-11-16", addedOn: "2026-10-14", vault: false, owner: "guido",
     imgs: [IMG.traoref, IMG.traoreb],
     badges: ["RC", "AUTO"],
     why: ["Autógrafo certificado por Topps", "Rookie card, con el escudo RC", "Elegido en la primera ronda, pick 19, del draft 2025 por Brooklyn"],
@@ -6602,7 +6602,7 @@ COMBOS.push({
     "Devin Vassell — Spurs, NBA Hoops",
     "Stephon Castle — Spurs, NBA Hoops"
   ],
-  price: 17900, oferta: 25900, cur: "ARS", status: "available", owner: "nico", team: "san-antonio-spurs"
+  price: 17900, oferta: 25900, cur: "ARS", status: "sold", soldOn: "2026-11-16", owner: "nico", team: "san-antonio-spurs"
 });
 COMBOS.push({
   slug: "set-miami-heat-x8-wade-herro-adebayo",
@@ -8015,7 +8015,10 @@ function catTile(o){
 function comboBlob(combo){
   const tm = combo.team ? (TEAMS.find(t => t[2] === combo.team) || [])[0] : "";
   const alias = combo.team === "philadelphia-76ers" ? "sixers 76s" : "";
-  return norm([combo.title, combo.desc, ...(combo.includes||[]), tm, alias].filter(Boolean).join(" "));
+  const b0 = norm([combo.title, combo.desc, ...(combo.includes||[]), tm, alias].filter(Boolean).join(" "));
+  // si el set nombra al equipo por el apodo ("Spurs"), que también aparezca buscando el nombre completo ("San Antonio")
+  const full = TEAMS.filter(t => { const nick = norm(t[0].split(" ").slice(-1)[0]); return nick.length > 3 && nick !== "magic" && new RegExp("\\b" + nick + "\\b").test(b0); }).map(t => norm(t[0]));
+  return full.length ? b0 + " " + full.join(" ") : b0;
 }
 const comboN = co => co.count || (co.includes || []).length;
 /* jugadores que trae cada set/lote: el nombre antes de "—" en cada línea de includes, más el campo opcional players:[...]
@@ -11758,7 +11761,14 @@ function wire(){
     const q = si.value.trim();
     const all = q ? searchCards(q).sort((a,b) => (a.status === "sold") - (b.status === "sold")) : [];
     const cardRes = q ? all.slice(0, 6) : live().slice().sort(SORTS.new).slice(0, 5);
-    const comboAll = q ? searchCombos(q).sort((a,b) => (a.status === "sold") - (b.status === "sold")) : [];
+    // orden: disponibles primero; dentro, los que tienen la búsqueda en el título (ej. "Set San Antonio Spurs ×8", "Set Manu Ginóbili") antes que los que solo la mencionan en la descripción
+    const qTerms = norm(q).trim().split(/\s+/).filter(Boolean);
+    const qTeam = qTerms.length ? TEAMS.find(t => qTerms.every(x => norm(t[0]).includes(x))) : null;
+    const qTeamNick = qTeam ? norm(qTeam[0].split(" ").slice(-1)[0]) : "";
+    const inTitle = co => { const tm = co.team ? (TEAMS.find(t => t[2] === co.team) || [])[0] : ""; const t = norm(co.title + " " + (tm || "")); if (qTerms.every(x => t.includes(x))) return 0;
+      const inc = co.includes || []; const hit = inc.filter(i => qTeamNick ? norm(i).includes(qTeamNick) : qTerms.every(x => norm(i).includes(x))).length;
+      return inc.length && hit / inc.length >= .5 ? 1 : 2; };   // 1 = la mayoría de sus cartas son de ese equipo/jugador (ej. sets de Manu con los Spurs)
+    const comboAll = q ? searchCombos(q).sort((a,b) => ((a.status === "sold") - (b.status === "sold")) || (inTitle(a) - inTitle(b))) : [];
     const comboRes = comboAll.slice(0, 4);
     const head = t => `<p class="sr-h">${t}</p>`;
     let html = "";
