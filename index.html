@@ -35,7 +35,7 @@ html.ua-samsung .gfab, html.ua-samsung .gs-go, html.ua-samsung .gs-ico{backgroun
 html.ua-samsung .gfab .wa-ico, html.ua-samsung .gs-ico .wa-ico{stroke:#3ee07f!important}
 html.ua-samsung .btn-group.btn-group-solid{border-width:1.5px!important; font-weight:700}
 html[data-room="futbol"] a[href="#/premium"]{display:none!important}
-html[data-room="futbol"] .hero-court{background-image:url("img/hero-pitch.jpg?v=488"); background-position:50% 30%}
+html[data-room="futbol"] .hero-court{background-image:url("img/hero-pitch.jpg?v=489"); background-position:50% 30%}
 </style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <!-- el sitio ya es oscuro: así los navegadores en "modo oscuro" no le aplican su oscurecido automático -->
@@ -11514,12 +11514,17 @@ function heroAtmosphere(){
   cancelAnimationFrame(window._heroRAF);
   const x = cv.getContext("2d");
   let w, h, dpr, dust = [];
+  // liviano para celulares: el haz de luz se dibuja en una capa chica (1/6) sin filtro blur y se agranda (queda suave solo);
+  // dpr 1 en pantallas táctiles, ~30 cuadros por segundo y pausa cuando el hero no se ve o la pestaña está oculta
+  const LOW = matchMedia("(hover:none)").matches || (navigator.hardwareConcurrency || 8) <= 4;
+  const beam = document.createElement("canvas"), bx = beam.getContext("2d");
   const size = () => {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    dpr = LOW ? 1 : Math.min(window.devicePixelRatio || 1, 2);
     w = cv.clientWidth; h = cv.clientHeight;
     cv.width = w * dpr; cv.height = h * dpr;
     x.setTransform(dpr, 0, 0, dpr, 0, 0);
-    dust = Array.from({ length: Math.min(70, Math.round(w / 18)) }, () => ({
+    beam.width = Math.max(1, Math.round(w / 6)); beam.height = Math.max(1, Math.round(h / 6));
+    dust = Array.from({ length: Math.min(LOW ? 30 : 70, Math.round(w / 18)) }, () => ({
       x: Math.random() * w, y: Math.random() * h,
       r: Math.random() * 1.6 + .3, s: Math.random() * .22 + .05,
       a: Math.random() * .5 + .12, d: Math.random() * Math.PI * 2
@@ -11527,33 +11532,40 @@ function heroAtmosphere(){
   };
   size();
   cv._resize = size;
-  let t = 0;
-  const frame = () => {
-    t += REDUCED ? 0 : .0035;
-    x.clearRect(0, 0, w, h);
-    x.save();
-    if (x.filter !== undefined) x.filter = "blur(26px)";
+  let t = 0, last = 0, onScreen = true, n = 0;
+  try { new IntersectionObserver(es => { onScreen = es[0].isIntersecting; }).observe(cv); } catch(e){}
+  const drawBeams = () => {
+    bx.setTransform(1, 0, 0, 1, 0, 0); bx.clearRect(0, 0, beam.width, beam.height); bx.setTransform(1/6, 0, 0, 1/6, 0, 0);
     for (let i = 0; i < 3; i++){
       const cx = w * (0.26 + i * 0.24) + Math.sin(t + i * 1.7) * w * 0.05;
-      const g = x.createLinearGradient(cx, -40, cx + Math.sin(t + i) * 120, h);
+      const g = bx.createLinearGradient(cx, -40, cx + Math.sin(t + i) * 120, h);
       const tone = i === 1 ? "201,162,39" : i === 0 ? "34,114,214" : "242,113,28";
       g.addColorStop(0, `rgba(${tone},${0.10 + Math.sin(t * 1.4 + i) * 0.03})`);
       g.addColorStop(1, "rgba(0,0,0,0)");
-      x.fillStyle = g;
-      x.beginPath();
-      x.moveTo(cx - 40, -20); x.lineTo(cx + 40, -20);
-      x.lineTo(cx + 220 + Math.sin(t + i) * 60, h); x.lineTo(cx - 220 + Math.sin(t + i) * 60, h);
-      x.closePath(); x.fill();
+      bx.fillStyle = g;
+      bx.beginPath();
+      bx.moveTo(cx - 40, -20); bx.lineTo(cx + 40, -20);
+      bx.lineTo(cx + 220 + Math.sin(t + i) * 60, h); bx.lineTo(cx - 220 + Math.sin(t + i) * 60, h);
+      bx.closePath(); bx.fill();
     }
-    x.restore();
-    dust.forEach(p => {
-      if (!REDUCED){ p.y -= p.s; p.x += Math.sin(t * 2 + p.d) * .16; if (p.y < -6){ p.y = h + 6; p.x = Math.random() * w; } }
-      x.beginPath(); x.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      x.fillStyle = `rgba(244,243,239,${p.a * .5})`; x.fill();
-    });
-    window._heroRAF = requestAnimationFrame(frame);
   };
-  frame();
+  const frame = now => {
+    window._heroRAF = requestAnimationFrame(frame);
+    if (!document.body.contains(cv)) { cancelAnimationFrame(window._heroRAF); return; }
+    if (!onScreen || document.hidden || (now - last) < (LOW ? 33 : 16)) return;
+    last = now || 0;
+    t += REDUCED ? 0 : (LOW ? .007 : .0035);
+    if (n++ % (LOW ? 3 : 2) === 0) drawBeams();
+    x.clearRect(0, 0, w, h);
+    x.imageSmoothingEnabled = true; x.drawImage(beam, 0, 0, w, h);
+    x.fillStyle = "rgb(244,243,239)";
+    dust.forEach(p => {
+      if (!REDUCED){ p.y -= p.s * (LOW ? 2 : 1); p.x += Math.sin(t * 2 + p.d) * .16; if (p.y < -6){ p.y = h + 6; p.x = Math.random() * w; } }
+      x.globalAlpha = p.a * .5; x.beginPath(); x.arc(p.x, p.y, p.r, 0, Math.PI * 2); x.fill();
+    });
+    x.globalAlpha = 1;
+  };
+  drawBeams(); frame(0);
 
   const hero = cv.closest(".hero");
   hero.addEventListener("pointermove", e => {
