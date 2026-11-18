@@ -12012,8 +12012,12 @@ function lobbyArt(k){
     </svg>`;
   return "";
 }
+/* celulares: en el hall solo se reproduce el video de la sala NBA; las otras puertas muestran su imagen fija.
+   Varios videos a la vez traban celulares de gama media (decodificadores de video limitados). */
+const LOWDEV = matchMedia("(hover:none)").matches || (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
+const lobbyLite = html => LOWDEV ? html.replace(/<video class="lb-vid" (?!id="lbNba")autoplay /g, '<video class="lb-vid" data-lite ').replace(/(<video class="lb-vid" data-lite [^>]*?)preload="(auto|metadata)"/g, '$1preload="none"') : html;
 function lobbyMarkup(){
-  const html = lobbyMarkupRaw();
+  const html = lobbyLite(lobbyMarkupRaw());
   // mientras la intro carga el video de la bóveda, las puertas muestran su imagen fija y no bajan video
   return LOBBY.hold ? html.replace(/ autoplay /g, " data-hold ").replace(/preload="(auto|metadata)"/g, 'preload="none"') : html;
 }
@@ -12022,6 +12026,7 @@ function releaseLobbyMedia(){
   LOBBY.hold = false;
   $$("#lobby video[data-hold]").forEach(v => {
     v.removeAttribute("data-hold");
+    if (LOWDEV && v.id !== "lbNba") return;
     v.preload = v.id === "lbNba" ? "auto" : "metadata";
     v.autoplay = true;
     const q = v.play(); if (q && q.catch) q.catch(() => {});
@@ -12057,7 +12062,7 @@ function openLobby(){
   el.hidden = false; LOBBY.open = true;
   document.body.style.overflow = "hidden";
   if (LOBBY.hold) return;
-  $$("#lobby .lb-vid").forEach(v => { const q = v.play(); if (q && q.catch) q.catch(() => {}); });
+  $$("#lobby .lb-vid").forEach(v => { if (v.hasAttribute("data-lite")) return; const q = v.play(); if (q && q.catch) q.catch(() => {}); });
   filmPrime();
 }
 function enterRoom(k){
