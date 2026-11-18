@@ -34,6 +34,8 @@ body.soon-on .gfab{display:none}
 html.ua-samsung .gfab, html.ua-samsung .gs-go, html.ua-samsung .gs-ico{background:#07140c!important; color:#3ee07f!important; border:1.5px solid #25D366!important}
 html.ua-samsung .gfab .wa-ico, html.ua-samsung .gs-ico .wa-ico{stroke:#3ee07f!important}
 html.ua-samsung .btn-group.btn-group-solid{border-width:1.5px!important; font-weight:700}
+html[data-room="futbol"] a[href="#/premium"]{display:none!important}
+html[data-room="futbol"] .hero-court{background-image:url("img/hero-pitch.jpg?v=488"); background-position:50% 30%}
 </style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <!-- el sitio ya es oscuro: así los navegadores en "modo oscuro" no le aplican su oscurecido automático -->
@@ -2967,7 +2969,7 @@ body.soon-on{overflow:hidden}
     <div class="foot-grid">
       <div class="foot-col">
         <img class="foot-logo" src="img/logo-full.webp?v=261" alt="Final Cards" width="520" height="386">
-        <p style="color:var(--silver); font-size:13.5px; margin-top:14px; max-width:38ch">Quedate con una parte del juego. Autógrafos, rookies, patches, game-worn y cartas especiales de la NBA, elegidas una por una.</p>
+        <p style="color:var(--silver); font-size:13.5px; margin-top:14px; max-width:38ch" id="footTag">Quedate con una parte del juego. Autógrafos, rookies, patches, game-worn y cartas especiales de la NBA, elegidas una por una.</p>
       </div>
       <div class="foot-col">
         <h5>Tienda</h5>
@@ -2999,7 +3001,7 @@ body.soon-on{overflow:hidden}
       </div>
     </div>
     <div class="foot-bottom">
-      <p class="disclaimer">Final Cards es un marketplace independiente de cartas coleccionables y no está afiliado ni respaldado por la NBA, los equipos de la NBA ni los fabricantes de cartas.</p>
+      <p class="disclaimer">Final Cards es un marketplace independiente de cartas coleccionables y no está afiliado ni respaldado por la NBA, la FIFA, la AFA, sus equipos ni los fabricantes de cartas.</p>
       <div style="display:flex; gap:18px" class="eyebrow">
         <a href="#/terms">Términos</a><a href="#/privacy">Privacidad</a>
       </div>
@@ -6928,33 +6930,33 @@ COMBOS.forEach(co => applyCyber(co, co.slug));
 const CARDS_FUTBOL = [
   {
     id: "f1", slug: "diego-maradona-donruss-road-to-world-cup-26-pitch-kings",
-    player: "Diego Maradona", playerSlug: "diego-maradona", jersey: 10, hof: true, legend: true,
+    player: "Diego Maradona", playerSlug: "diego-maradona", jersey: 10, hof: false, legend: true,
     team: "Argentina", teamSlug: "argentina",
     season: "2025-26", year: 2025, era: "2020s", playerEra: "1980s",
-    brand: "Panini", product: "Donruss Road to FIFA World Cup 26", set: "Pitch Kings", subset: "Pitch Kings",
+    brand: "Panini", product: "Donruss Road to FIFA World Cup 2026", set: "Pitch Kings", subset: "Pitch Kings",
     cardNo: null, serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 17900, cur: "ARS", status: "available", addedOn: "2026-11-18", vault: false, owner: "nico",
     imgs: ["img/f-maradona-pk.webp?v=472"],
     badges: ["LEYENDA", "SELECCIÓN ARGENTINA"],
-    why: ["Inserto Pitch Kings: Diego con la celeste y blanca y la corona de Pitch Kings", "Donruss Road to FIFA World Cup 26", "Borde rojo"],
-    story: "Panini homenajea a Diego en Donruss Road to FIFA World Cup 26 con el inserto Pitch Kings: primer plano de Maradona con la camiseta de la Selección y el escudo de AFA, fondo de pintura en colores y la corona dorada de Pitch Kings abajo a la derecha."
+    why: ["Inserto Pitch Kings: Diego con la celeste y blanca y la corona de Pitch Kings", "Donruss Road to FIFA World Cup 2026", "Borde rojo"],
+    story: "Panini homenajea a Diego en Donruss Road to FIFA World Cup 2026 con el inserto Pitch Kings: primer plano de Maradona con la camiseta de la Selección y el escudo de AFA, fondo de pintura en colores y la corona dorada de Pitch Kings abajo a la derecha."
   },
   {
     id: "f2", slug: "diego-maradona-donruss-road-to-world-cup-26-dominators",
-    player: "Diego Maradona", playerSlug: "diego-maradona", jersey: 10, hof: true, legend: true,
+    player: "Diego Maradona", playerSlug: "diego-maradona", jersey: 10, hof: false, legend: true,
     team: "Argentina", teamSlug: "argentina",
     season: "2025-26", year: 2025, era: "2020s", playerEra: "1980s",
-    brand: "Panini", product: "Donruss Road to FIFA World Cup 26", set: "Dominators", subset: "Dominators",
+    brand: "Panini", product: "Donruss Road to FIFA World Cup 2026", set: "Dominators", subset: "Dominators",
     cardNo: null, serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 16900, cur: "ARS", status: "available", addedOn: "2026-11-18", vault: false, owner: "nico",
     imgs: ["img/f-maradona-dom.webp?v=472"],
     badges: ["LEYENDA", "SELECCIÓN ARGENTINA"],
-    why: ["Inserto Dominators: Diego joven con la camiseta Le Coq Sportif de la Selección", "Donruss Road to FIFA World Cup 26", "Letras y detalles en foil cobre"],
-    story: "En el inserto Dominators de Donruss Road to FIFA World Cup 26 aparece el Diego de principios de los 80, con rulos y la camiseta Le Coq Sportif de la Selección. Marco blanco y celeste con letras en foil cobre."
+    why: ["Inserto Dominators: Diego joven con la camiseta Le Coq Sportif de la Selección", "Donruss Road to FIFA World Cup 2026", "Letras y detalles en foil cobre"],
+    story: "En el inserto Dominators de Donruss Road to FIFA World Cup 2026 aparece el Diego de principios de los 80, con rulos y la camiseta Le Coq Sportif de la Selección. Marco blanco y celeste con letras en foil cobre."
   },
   {
     id: "f3", slug: "leandro-paredes-prizm-world-cup-2026-disco",
@@ -6976,30 +6978,30 @@ const CARDS_FUTBOL = [
     player: "Nicolás Otamendi", playerSlug: "nicolas-otamendi", jersey: 19, hof: false, legend: false,
     team: "Argentina", teamSlug: "argentina",
     season: "2025-26", year: 2025, era: "2020s", playerEra: "2010s",
-    brand: "Panini", product: "Donruss Road to FIFA World Cup 26", set: "Elite Series", subset: "Elite Series",
+    brand: "Panini", product: "Donruss Road to FIFA World Cup 2026", set: "Elite Series", subset: "Elite Series",
     cardNo: null, serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 11000, oferta: 14800, cur: "ARS", status: "available", addedOn: "2026-11-18", vault: false, owner: "nico",
     imgs: ["img/f-otamendi-elite.webp?v=474"],
     badges: ["SELECCIÓN ARGENTINA"],
-    why: ["Inserto Elite Series de Donruss", "Road to FIFA World Cup 26", "Otamendi con la 19 de la Selección"],
-    story: "El General Otamendi, campeón del mundo y de dos Copas América, con la 19 de la Selección. Inserto Elite Series de Donruss Road to FIFA World Cup 26, con marco rojo y celeste de líneas geométricas."
+    why: ["Inserto Elite Series de Donruss", "Road to FIFA World Cup 2026", "Otamendi con la 19 de la Selección"],
+    story: "El General Otamendi, campeón del mundo y de dos Copas América, con la 19 de la Selección. Inserto Elite Series de Donruss Road to FIFA World Cup 2026, con marco rojo y celeste de líneas geométricas."
   },
   {
     id: "f5", slug: "lionel-messi-donruss-road-to-world-cup-26-base",
     player: "Lionel Messi", playerSlug: "lionel-messi", jersey: 10, hof: false, legend: true,
     team: "Argentina", teamSlug: "argentina",
     season: "2025-26", year: 2025, era: "2020s", playerEra: "2000s",
-    brand: "Panini", product: "Donruss Road to FIFA World Cup 26", set: "Base", subset: "Base",
+    brand: "Panini", product: "Donruss Road to FIFA World Cup 2026", set: "Base", subset: "Base",
     cardNo: null, serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 15900, cur: "ARS", status: "available", addedOn: "2026-11-18", vault: false, owner: "nico",
     imgs: ["img/f-messi-donruss.webp?v=475"],
     badges: ["LEYENDA", "SELECCIÓN ARGENTINA"],
-    why: ["Messi con la 10 y la cinta de capitán de la Selección", "Donruss Road to FIFA World Cup 26", "Camiseta campeona con el parche dorado de la Copa del Mundo"],
-    story: "Lionel Messi, capitán y campeón del mundo en Qatar 2022, con la camiseta titular y la cinta de capitán. Carta base de Donruss Road to FIFA World Cup 26, con el marco celeste y blanco."
+    why: ["Messi con la 10 y la cinta de capitán de la Selección", "Donruss Road to FIFA World Cup 2026", "Camiseta campeona con el parche dorado de la Copa del Mundo"],
+    story: "Lionel Messi, capitán y campeón del mundo en Qatar 2022, con la camiseta titular y la cinta de capitán. Carta base de Donruss Road to FIFA World Cup 2026, con el marco celeste y blanco."
   },
   {
     id: "f6", slug: "lautaro-martinez-select-road-to-world-cup-2026-purple-mosaic",
@@ -7051,7 +7053,7 @@ const CARDS_FUTBOL = [
     player: "Lautaro Martínez", playerSlug: "lautaro-martinez", jersey: 22, hof: false, legend: false,
     team: "Argentina", teamSlug: "argentina",
     season: "2025-26", year: 2025, era: "2020s", playerEra: "2010s",
-    brand: "Panini", product: "Donruss Road to FIFA World Cup 26", set: "Zero Gravity", subset: "Zero Gravity",
+    brand: "Panini", product: "Donruss Road to FIFA World Cup 2026", set: "Zero Gravity", subset: "Zero Gravity",
     cardNo: null, serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
@@ -7066,7 +7068,7 @@ const CARDS_FUTBOL = [
     player: "Lautaro Martínez", playerSlug: "lautaro-martinez", jersey: 22, hof: false, legend: false,
     team: "Argentina", teamSlug: "argentina",
     season: "2025-26", year: 2025, era: "2020s", playerEra: "2010s",
-    brand: "Panini", product: "Donruss Road to FIFA World Cup 26", set: "Pitch Kings", subset: "Pitch Kings",
+    brand: "Panini", product: "Donruss Road to FIFA World Cup 2026", set: "Pitch Kings", subset: "Pitch Kings",
     cardNo: null, serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
@@ -7291,30 +7293,30 @@ const CARDS_FUTBOL = [
     player: "Emiliano Martínez", playerSlug: "emiliano-martinez", jersey: 23, hof: false, legend: false,
     team: "Argentina", teamSlug: "argentina",
     season: "2025-26", year: 2025, era: "2020s", playerEra: "2010s",
-    brand: "Panini", product: "Donruss Road to FIFA World Cup 26", set: "Base", subset: "Base",
+    brand: "Panini", product: "Donruss Road to FIFA World Cup 2026", set: "Base", subset: "Base",
     cardNo: null, serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 11900, oferta: 16000, cur: "ARS", status: "available", addedOn: "2026-11-18", vault: false, owner: "nico",
     imgs: ["img/f-dibu-donruss.webp?v=480"],
     badges: ["SELECCIÓN ARGENTINA"],
-    why: ["Donruss Road to FIFA World Cup 26 con marco tornasolado", "El Dibu con la 23 de la Selección", "Arquero campeón del mundo y de dos Copas América"],
-    story: "El Dibu Martínez dominando la pelota con el buzo verde y la 23 de la Selección, en Donruss Road to FIFA World Cup 26 con el marco tornasolado."
+    why: ["Donruss Road to FIFA World Cup 2026 con marco tornasolado", "El Dibu con la 23 de la Selección", "Arquero campeón del mundo y de dos Copas América"],
+    story: "El Dibu Martínez dominando la pelota con el buzo verde y la 23 de la Selección, en Donruss Road to FIFA World Cup 2026 con el marco tornasolado."
   },
   {
     id: "f26", slug: "emiliano-martinez-donruss-road-to-world-cup-26-dominators",
     player: "Emiliano Martínez", playerSlug: "emiliano-martinez", jersey: 23, hof: false, legend: false,
     team: "Argentina", teamSlug: "argentina",
     season: "2025-26", year: 2025, era: "2020s", playerEra: "2010s",
-    brand: "Panini", product: "Donruss Road to FIFA World Cup 26", set: "Dominators", subset: "Dominators",
+    brand: "Panini", product: "Donruss Road to FIFA World Cup 2026", set: "Dominators", subset: "Dominators",
     cardNo: null, serialNum: null, printRun: null,
     rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
     condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
     price: 11900, oferta: 16000, cur: "ARS", status: "available", addedOn: "2026-11-18", vault: false, owner: "nico",
     imgs: ["img/f-dibu-dom.webp?v=480"],
     badges: ["SELECCIÓN ARGENTINA"],
-    why: ["Inserto Dominators", "Donruss Road to FIFA World Cup 26", "El Dibu con el puño en alto"],
-    story: "El Dibu Martínez festejando con el puño en alto, buzo verde y la 23 de la Selección. Inserto Dominators de Donruss Road to FIFA World Cup 26 con letras en foil cobre."
+    why: ["Inserto Dominators", "Donruss Road to FIFA World Cup 2026", "El Dibu con el puño en alto"],
+    story: "El Dibu Martínez festejando con el puño en alto, buzo verde y la 23 de la Selección. Inserto Dominators de Donruss Road to FIFA World Cup 2026 con letras en foil cobre."
   },
   {
     id: "f27", slug: "valentin-barco-donruss-fifa-rated-rookie",
@@ -7978,6 +7980,7 @@ function setRoom(k, quiet){
   try { localStorage.setItem("vault:room", k); } catch(e){}
   document.documentElement.dataset.room = k;
   $$(".brand .tag").forEach(t => { t.textContent = roomTag(); });
+  { const ft = $("#footTag"); if (ft) ft.textContent = k === "futbol" ? "Quedate con una parte del juego. Cartas de la Selección Argentina y de los argentinos en el mundo, elegidas una por una." : "Quedate con una parte del juego. Autógrafos, rookies, patches, game-worn y cartas especiales de la NBA, elegidas una por una."; }
   const chip = $(".sala-chip"); if (chip && chip.firstChild) chip.firstChild.textContent = ROOM_META[k].chip + " ";
   if (!quiet){ paintMenus(); render(); }
 }
@@ -9069,10 +9072,10 @@ function pageHome(){
       <div class="hero-copy">
         <span class="kicker"><i></i>${totalCards.toLocaleString("es-AR")} cartas en la bóveda</span>
         <h1 class="hero-h1 impact">Cada carta<span class="line2">tiene su historia.</span></h1>
-        <p class="hero-sub">Autógrafos · Rookies · Game-Worn · Numeradas</p>
+        <p class="hero-sub">${ROOM.k === "futbol" ? "Selección Argentina · Mundial 2026 · Leyendas" : "Autógrafos · Rookies · Game-Worn · Numeradas"}</p>
         <div class="hero-cta">
           <a class="btn btn-gold" href="#/cards">Explorar cartas</a>
-          <a class="btn btn-solid" href="#/premium">Cartas Premium</a>
+          ${premiumAll.length ? `<a class="btn btn-solid" href="#/premium">Cartas Premium</a>` : ""}
           <button class="btn" data-pack>Abrí un sobre</button>
         </div>
       </div>
@@ -9106,7 +9109,7 @@ function pageHome(){
     <div class="wrap">
       <button class="fd-search" data-open-search aria-label="Abrir el buscador">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <span class="fd-s-txt"><b>¿Qué carta estás buscando?</b><span>Jugador, equipo, set o tirada. Por ejemplo: Frazier, Knicks, National Treasures, /25</span></span>
+        <span class="fd-s-txt"><b>¿Qué carta estás buscando?</b><span>${ROOM.k === "futbol" ? "Jugador, producto o serie. Por ejemplo: Messi, Lautaro, Prizm, Pitch Kings" : "Jugador, equipo, set o tirada. Por ejemplo: Frazier, Knicks, National Treasures, /25"}</span></span>
         <span class="fd-s-go">Buscar</span>
       </button>
       <div class="fd-simple">
@@ -9156,7 +9159,24 @@ function pageHome(){
   <section class="section-tight wrap rv">
     ${(() => {
       const autos = pool.filter(c => c.auto).sort((a,b) => b.price - a.price);
-      const homeSets = {
+      const futPool = pool;
+      const futSets = {
+        leyendas: { label: "Leyendas", pick: "Maradona, Messi y Di María", list: futPool.filter(c => c.legend || c.hof).sort((a,b) => b.price - a.price), href: "#/collections/leyendas", cta: "Ver las leyendas",
+          h2: "Leyendas de la Selección", sub: "Los que ya son historia de la celeste y blanca.", eyebrow: "Leyendas", blurb: "Las cartas de los ídolos de siempre.",
+          rows: [["Maradona", futPool.filter(c => c.playerSlug === "diego-maradona").length], ["Messi", futPool.filter(c => c.playerSlug === "lionel-messi").length], ["Di María", futPool.filter(c => c.playerSlug === "angel-di-maria").length]] },
+        prizm: { label: "Prizm Mundial 2026", pick: "La colección oficial del Mundial", list: futPool.filter(c => /prizm/i.test(c.product)).sort((a,b) => b.price - a.price), href: "#/cards?q=prizm", cta: "Ver todas las Prizm",
+          h2: "Prizm FIFA World Cup 2026", sub: "La colección oficial de Panini para el Mundial, con sus paralelos e insertos.", eyebrow: "Prizm", blurb: "Base, paralelos de color e insertos de Prizm.",
+          rows: [["Base Prizm", futPool.filter(c => /prizm/i.test(c.product) && c.set === "Prizm").length], ["Paralelos", futPool.filter(c => /prizm/i.test(c.product) && /Prizm .+/.test(c.set)).length], ["Insertos", futPool.filter(c => /prizm/i.test(c.product) && !/^Prizm/.test(c.set)).length]] },
+        insertos: { label: "Insertos", pick: "Pitch Kings, Future, Dominators y más", list: futPool.filter(c => c.set && !/^(Base|Prizm|Select|Optic)/.test(c.set) && !c.rookie).sort((a,b) => b.price - a.price), href: "#/cards", cta: "Ver todas las cartas",
+          h2: "Insertos", sub: "Las series especiales de cada producto, con diseños propios.", eyebrow: "Insertos", blurb: "Las cartas que no son la base del producto.",
+          rows: [["Donruss", futPool.filter(c => /donruss/i.test(c.product) && !/^(Base|Optic)/.test(c.set)).length], ["Select", futPool.filter(c => /select/i.test(c.product) && c.set !== "Select").length], ["Prizm", futPool.filter(c => /prizm/i.test(c.product) && !/^Prizm/.test(c.set)).length]] },
+        rookies: { label: "Rookies", pick: "Los que recién arrancan en la Selección", list: futPool.filter(c => c.rookie), href: "#/rookies", cta: "Ver todos los rookies",
+          h2: "Cartas rookie", sub: "Las primeras cartas de los que recién llegan a la Selección: Rated Rookies y cartas con escudo RC.", eyebrow: "Rookies", blurb: "Las primeras cartas de cada jugador.",
+          rows: [["Rated Rookie", futPool.filter(c => c.rookie && c.set === "Rated Rookie").length], ["Con escudo RC", futPool.filter(c => c.rookie && c.set !== "Rated Rookie").length]] },
+        combos: { label: "Lotes", pick: "Se venden enteros, a mejor precio", list: COMBOS.filter(co => co.status !== "sold"), unit: ["lote", "lotes"], isCombo: true,
+          href: "#/combos", h2: "Lotes armados", sub: "Varias cartas juntas por menos de lo que saldrían por separado. Cada lote se vende entero, tal como está armado." }
+      };
+      const homeSets = ROOM.k === "futbol" ? futSets : {
         autos: {
           label: "Autógrafos", pick: "Firmadas por el jugador", list: autos, href: "#/autographs", cta: "Abrir la sala de autógrafos",
           h2: "Cartas autografiadas", sub: "La firma del jugador sobre la carta. Es lo más buscado de la bóveda, " + (ROOM.k === "nba" ? "de leyendas del Hall of Fame a rookies." : "de leyendas a las figuras de hoy."),
@@ -9225,7 +9245,7 @@ function pageHome(){
           href: "#/combos", h2: "Lotes armados", sub: "Varias cartas juntas por menos de lo que saldrían por separado. Cada lote se vende entero, tal como está armado."
         }
       };
-      const homeTab = homeSets[S.tab] ? S.tab : "autos";
+      const homeTab = homeSets[S.tab] ? S.tab : Object.keys(homeSets)[0];
       const hs = homeSets[homeTab];
       return `
       ${sec("03 — Por formato", "Elegí un formato")}
@@ -12176,7 +12196,7 @@ function paintMenus(){
     <div class="mega-col mega-feature"><h4 class="eyebrow gold">Atajos</h4>
       <a href="#/cards">Todas las cartas<span class="mega-n">${pool.length}</span></a>
       <a href="#/cards?sort=new">Recién llegadas</a>
-      <a href="#/premium" class="mega-vault">Premium<span class="mega-n">${pool.filter(c => c.vault).length}</span></a>
+      ${pool.filter(c => c.vault).length ? `<a href="#/premium" class="mega-vault">Premium<span class="mega-n">${pool.filter(c => c.vault).length}</span></a>` : ""}
       ${argN ? `<a href="#/collections/argentina">Argentinos<span class="mega-n">${argN}</span></a>` : ""}
       <a class="btn btn-sm" href="#" data-sala style="margin-top:14px">Recorrer la sala 3D</a></div>`;
   const ms = $("#mstrip");
@@ -12382,7 +12402,7 @@ function wire(){
   const paintHints = () => {
     const pool = live(), cnt = (k) => { const m = {}; pool.forEach(c => { m[c[k]] = (m[c[k]] || 0) + 1; }); return Object.entries(m).sort((a,b) => b[1] - a[1]).map(x => x[0]); };
     const players = cnt("player").slice(0, 3).map(n => n.split(" ").slice(-1)[0]);
-    const HINTS = players.concat(cnt("team").slice(0, 1), cnt("product").slice(0, 2), ["autógrafos", "rookie", "/25", "menos de 50"]);
+    const HINTS = players.concat(cnt("team").slice(0, 1), cnt("product").slice(0, 2), ROOM.k === "futbol" ? ["leyendas", "rookie", "Pitch Kings"] : ["autógrafos", "rookie", "/25", "menos de 50"]);
     $("#searchHints").innerHTML = Array.from(new Set(HINTS)).map(h => `<button class="chip" data-hint="${esc(h)}">${esc(h)}</button>`).join("");
   };
   paintHints();
