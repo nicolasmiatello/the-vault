@@ -3321,6 +3321,8 @@ const SETTINGS = {
   rooms: { futbol: false },  // salas abiertas al público además de NBA. Fútbol cerrada: solo socios con ?futbol=1. Poner true el día que abra                 // Google Analytics 4: pegar acá el ID de medición (G-XXXXXXXXXX). Solo mide en final-cards.com
   papaPromo: false,   // banner del Papa en el inicio (true lo muestra). El set sigue en Lotes y en final-cards.com/papa.html
   groupUrl: "https://chat.whatsapp.com/COB0Sr7wz6p4uPTrcqn8li",             // link de invitación al grupo o canal de WhatsApp (https://chat.whatsapp.com/...). Vacío: el botón abre un chat pidiendo que lo sumen
+  intro: true,              // al entrar: true = animación de la bóveda (acelerada) + hall · "hall" = directo al hall · false = directo a la tienda
+  introSpeed: 1.6,          // velocidad de la animación de la bóveda (1 = original, 1.6 ≈ 40% más corta)
   roomFilm: false,          // video largo al entrar a la Sala NBA: apagado. Poner true para volver a mostrarlo
   soon: true,               // pantalla "Muy pronto" en final-cards.com (se entra igual con ?ver=1). Poner false el día del lanzamiento
   openAt: "2026-11-02T00:00:00-03:00",   // apertura: hasta acá corre la cuenta regresiva; a esa hora la bóveda se abre sola para todos
@@ -11821,6 +11823,13 @@ function introMarkup(){
     <button class="in-skip" id="inSkip">Saltar intro</button>`;
 }
 function playIntro(force){
+  if (!SETTINGS.intro && !force) return;
+  if (SETTINGS.intro === "hall" && !force){
+    let seen = false; try { seen = sessionStorage.getItem("vault:intro") === "1"; } catch(e){}
+    if (seen) return;
+    try { sessionStorage.setItem("vault:intro", "1"); } catch(e){}
+    LOBBY.hold = false; openLobby(); return;
+  }
   if (REDUCED && !force) return;
   let seen = false;
   try { seen = sessionStorage.getItem("vault:intro") === "1"; } catch(e){}
@@ -11841,7 +11850,10 @@ function playIntro(force){
   };
   LOBBY.hold = true;                   // el video de la bóveda baja primero; el hall carga lo suyo después
   openLobby();                         // el hall espera debajo de la puerta: al abrirse, se elige la sala
-  const done = () => { el.hidden = true; el.innerHTML = ""; el.onclick = null; el.className = "intro"; document.body.classList.remove("intro-cover"); };
+  // acelera también las transiciones y animaciones CSS de la intro (puerta, dial, zoom, fundido) a la misma velocidad
+  const SPD = SETTINGS.introSpeed || 1;
+  const spdT = SPD !== 1 && el.getAnimations ? setInterval(() => { try { el.getAnimations({ subtree:true }).forEach(a => { if (a.playbackRate !== SPD) a.playbackRate = SPD; }); } catch(e){} }, 60) : 0;
+  const done = () => { clearInterval(spdT); el.hidden = true; el.innerHTML = ""; el.onclick = null; el.className = "intro"; document.body.classList.remove("intro-cover"); };
 
   // cada paso con su tiempo y su texto, para que se entienda qué está pasando
   const say = (txt, step) => {
@@ -11853,14 +11865,16 @@ function playIntro(force){
   const runDoor = () => {
     releaseLobbyMedia();
     el.classList.remove("vmode");
-    at(700,  () => { el.classList.add("s1"); say("Marcando la combinación", "Paso 1 de 3"); });
+    const sp = SETTINGS.introSpeed || 1, q = ms => Math.round(ms / sp);
+    el.style.setProperty("--in-speed", sp);
+    at(q(700),  () => { el.classList.add("s1"); say("Marcando la combinación", "Paso 1 de 3"); });
     // el dial para tres veces: son seriales de la bóveda, 02 · 25 · 49
-    at(1310, () => say("Combinación · 02"));
-    at(1790, () => say("Combinación · 02 · 25"));
-    at(2300, () => say("Combinación · 02 · 25 · 49"));
-    at(2750, () => { el.classList.add("s2"); say("Girando la rueda · se liberan los pernos", "Paso 2 de 3"); });
-    at(3900, () => { el.classList.add("s3"); say("Abriendo la bóveda", "Paso 3 de 3"); });
-    at(5300, () => { el.classList.add("s4"); reveal(); T.push(setTimeout(done, 1400)); });
+    at(q(1310), () => say("Combinación · 02"));
+    at(q(1790), () => say("Combinación · 02 · 25"));
+    at(q(2300), () => say("Combinación · 02 · 25 · 49"));
+    at(q(2750), () => { el.classList.add("s2"); say("Girando la rueda · se liberan los pernos", "Paso 2 de 3"); });
+    at(q(3900), () => { el.classList.add("s3"); say("Abriendo la bóveda", "Paso 3 de 3"); });
+    at(q(5300), () => { el.classList.add("s4"); reveal(); T.push(setTimeout(done, q(1400))); });
   };
   let mode = "wait";
   const vid = document.createElement("video");
@@ -11883,7 +11897,7 @@ function playIntro(force){
       vid.after(cv); vid.style.visibility = "hidden";
     } catch(e){}
     requestAnimationFrame(() => { el.classList.add("iv-out"); reveal(); });
-    T.push(setTimeout(done, 1500));
+    T.push(setTimeout(done, Math.round(1500 / (SETTINGS.introSpeed || 1))));
   };
   const startVideo = () => {
     if (mode !== "wait") return;
@@ -11891,7 +11905,8 @@ function playIntro(force){
     const go = () => {
       if (mode !== "wait") return;
       mode = "video"; el.classList.add("iv-on");
-      T.push(setTimeout(endVideo, Math.max(3000, ((vid.duration || 5.9) - .15) * 1000)));
+      const sp = SETTINGS.introSpeed || 1; try { vid.playbackRate = sp; } catch(e){}
+      T.push(setTimeout(endVideo, Math.max(2000, ((vid.duration || 5.9) - .15) * 1000 / sp)));
     };
     if (p && p.then) p.then(go).catch(() => { if (mode === "wait"){ mode = "door"; runDoor(); } }); else go();
   };
@@ -11900,7 +11915,7 @@ function playIntro(force){
   T.push(setTimeout(releaseLobbyMedia, 6500));
   vid.addEventListener("ended", endVideo);
   // mientras carga se ve el primer cuadro del video; si en 5 s no arrancó (conexión muy lenta), sigue con la puerta animada
-  T.push(setTimeout(() => { if (mode === "wait"){ mode = "door"; vid.remove(); runDoor(); } }, 5000));
+  T.push(setTimeout(() => { if (mode === "wait"){ mode = "door"; vid.remove(); runDoor(); } }, 3000));
 
   const skip = () => {
     document.removeEventListener("keydown", skip);
