@@ -65,7 +65,7 @@ html[data-room="futbol"] .hero-court{background-image:url("img/hero-pitch.jpg?v=
 <meta name="twitter:image" content="https://final-cards.com/img/og-final-cards.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap"></noscript>
 <style>
 /* ============================================================
    THE NBA CARD VAULT — single-file application
@@ -3324,7 +3324,7 @@ const SETTINGS = {
   intro: true,              // al entrar: true = animación de la bóveda (acelerada) + hall · "hall" = directo al hall · false = directo a la tienda
   introSpeed: 1.6,          // velocidad de la animación de la bóveda (1 = original, 1.6 ≈ 40% más corta)
   roomFilm: false,          // video largo al entrar a la Sala NBA: apagado. Poner true para volver a mostrarlo
-  soon: true,               // pantalla "Muy pronto" en final-cards.com (se entra igual con ?ver=1). Poner false el día del lanzamiento
+  soon: false,              // pantalla "Muy pronto" en final-cards.com (se entra igual con ?ver=1). Poner false el día del lanzamiento
   openAt: "2026-11-02T00:00:00-03:00",   // apertura: hasta acá corre la cuenta regresiva; a esa hora la bóveda se abre sola para todos
   soonPreview: false,       // muestra la pantalla también en el artifact, con botón para cerrarla (solo para verla)
   cyber: { from: "2026-11-02T00:00:00-03:00", to: "2026-11-09T00:00:00-03:00", label: "CyberMonday", keepAfter: true, preview: false },   // promo: arranca el lunes 2/11 00:00 y termina el domingo 8/11 a las 23:59 (se apaga sola; extendida). Los % por carta/set están en CYBER_DEALS. preview:true = se ve siempre (solo para mirarla). En el sitio real se puede ver antes con ?cyber=1 (y ?cyber=0 lo saca)
