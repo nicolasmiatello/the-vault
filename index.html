@@ -34,7 +34,9 @@ body.soon-on .gfab{display:none}
 html.ua-samsung .gfab, html.ua-samsung .gs-go, html.ua-samsung .gs-ico{background:#07140c!important; color:#3ee07f!important; border:1.5px solid #25D366!important}
 html.ua-samsung .gfab .wa-ico, html.ua-samsung .gs-ico .wa-ico{stroke:#3ee07f!important}
 html.ua-samsung .btn-group.btn-group-solid{border-width:1.5px!important; font-weight:700}
-html[data-room="futbol"] a[href="#/premium"]{display:none!important}
+html[data-room="futbol"] a[href="#/premium"], html[data-room="f1"] a[href="#/premium"]{display:none!important}
+html[data-room="f1"] [data-playbook], html[data-room="f1"] [data-sc-tool="playbook"]{display:none!important}
+html[data-room="f1"] .hero-court{background-image:url("img/hero-f1.jpg"); background-position:50% 45%}
 html[data-room="futbol"] .hero-court{background-image:url("img/hero-pitch.jpg?v=489"); background-position:50% 30%}
 </style>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -3001,7 +3003,7 @@ body.soon-on{overflow:hidden}
       </div>
     </div>
     <div class="foot-bottom">
-      <p class="disclaimer">Final Cards es un marketplace independiente de cartas coleccionables y no está afiliado ni respaldado por la NBA, la FIFA, la AFA, sus equipos ni los fabricantes de cartas.</p>
+      <p class="disclaimer">Final Cards es un marketplace independiente de cartas coleccionables y no está afiliado ni respaldado por la NBA, la FIFA, la AFA, la Fórmula 1, sus equipos ni los fabricantes de cartas.</p>
       <div style="display:flex; gap:18px" class="eyebrow">
         <a href="#/terms">Términos</a><a href="#/privacy">Privacidad</a>
       </div>
@@ -3318,7 +3320,7 @@ const DEFAULT_OWNER = "nico";
 const SETTINGS = {
   demo: true,
   gaId: "G-BSSR9DC5FQ",
-  rooms: { futbol: false },  // salas abiertas al público además de NBA. Fútbol cerrada: solo socios con ?futbol=1. Poner true el día que abra                 // Google Analytics 4: pegar acá el ID de medición (G-XXXXXXXXXX). Solo mide en final-cards.com
+  rooms: { futbol: false, f1: false },  // F1 cerrada igual que fútbol: socios con ?f1=1  // salas abiertas al público además de NBA. Fútbol cerrada: solo socios con ?futbol=1. Poner true el día que abra                 // Google Analytics 4: pegar acá el ID de medición (G-XXXXXXXXXX). Solo mide en final-cards.com
   papaPromo: false,   // banner del Papa en el inicio (true lo muestra). El set sigue en Lotes y en final-cards.com/papa.html
   groupUrl: "https://chat.whatsapp.com/COB0Sr7wz6p4uPTrcqn8li",             // link de invitación al grupo o canal de WhatsApp (https://chat.whatsapp.com/...). Vacío: el botón abre un chat pidiendo que lo sumen
   intro: true,              // al entrar: true = animación de la bóveda (acelerada) + hall · "hall" = directo al hall · false = directo a la tienda
@@ -5206,6 +5208,171 @@ const CARDS = [
     badges: ["RC", "JERSEY"],
     why: ["Rookie card de Wembanyama, N°1 del draft 2023, con el escudo RC", "Ventana grande de camiseta blanca", "Panini Select 2023-24 en versión Prizm"],
     story: "Victor Wembanyama en su temporada rookie con los Spurs, la 1 y la camiseta blanca, en Panini Select 2023-24 Rookie Jersey Swatches. Es la versión Prizm, con el borde tornasolado, y trae una ventana grande con un pedazo de camiseta. El dorso aclara que la tela es material oficial, no usada en un partido puntual."
+  },
+  {
+    id: "c67", slug: "lebron-james-topps-chrome-2024-25-serenity",
+    player: "LeBron James", playerSlug: "lebron-james", jersey: 23, hof: false,
+    team: "Los Angeles Lakers", teamSlug: "los-angeles-lakers",
+    season: "2024-25", year: 2025, era: "2020s", playerEra: "2000s",
+    brand: "Topps", product: "Topps Chrome", set: "Serenity", subset: "Serenity",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 11900, oferta: 13200, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-lebron-serenityf.webp?v=510"],
+    badges: ["LAKERS", "TOPPS CHROME"],
+    why: ["Inserto Serenity de Topps Chrome", "LeBron con la amarilla de los Lakers", "Fondo chrome con rayos dorados y arabescos"],
+    story: "Inserto Serenity de Topps Chrome: LeBron James con la camiseta amarilla de los Lakers, bajando la pelota sobre un fondo chrome con rayos dorados y arabescos, y el título en letras doradas arriba."
+  },
+  {
+    id: "c68", slug: "lebron-james-prizm-2020-21-dominance",
+    player: "LeBron James", playerSlug: "lebron-james", jersey: 23, hof: false,
+    team: "Los Angeles Lakers", teamSlug: "los-angeles-lakers",
+    season: "2020-21", year: 2021, era: "2020s", playerEra: "2000s",
+    brand: "Panini", product: "Prizm", set: "Dominance", subset: "Dominance",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 11900, oferta: 13200, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-lebron-dominancef.webp?v=510"],
+    badges: ["LAKERS", "PRIZM"],
+    why: ["Inserto Dominance de Panini Prizm", "LeBron con la amarilla de los Lakers, temporada 2020-21", "Carta horizontal en chrome"],
+    story: "Inserto Dominance de Panini Prizm: LeBron James con la camiseta amarilla de los Lakers, protegiendo la pelota en la temporada 2020-21. Carta horizontal en chrome con detalles violetas y el logo de los Lakers."
+  },
+  {
+    id: "c69", slug: "lebron-james-mosaic-2021-22-national-pride",
+    player: "LeBron James", playerSlug: "lebron-james", jersey: 23, hof: false,
+    team: "Los Angeles Lakers", teamSlug: "los-angeles-lakers",
+    season: "2021-22", year: 2022, era: "2020s", playerEra: "2000s",
+    brand: "Panini", product: "Mosaic", set: "National Pride", subset: "National Pride",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 9900, oferta: 11000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-lebron-natpridef.webp?v=510"],
+    badges: ["LAKERS", "MOSAIC"],
+    why: ["Inserto National Pride de Mosaic", "LeBron con la camiseta City Edition #6", "Fondo con la bandera de Estados Unidos"],
+    story: "Inserto National Pride de Panini Mosaic: LeBron James con la camiseta City Edition #6 de los Lakers, yendo al aro sobre la bandera de Estados Unidos."
+  },
+  {
+    id: "c70", slug: "lebron-james-mosaic-give-and-go",
+    player: "LeBron James", playerSlug: "lebron-james", jersey: 23, hof: false,
+    team: "Los Angeles Lakers", teamSlug: "los-angeles-lakers",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "2000s",
+    brand: "Panini", product: "Mosaic", set: "Give and Go", subset: "Give and Go",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 9900, oferta: 11000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-lebron-giveandgof.webp?v=510"],
+    badges: ["LAKERS", "MOSAIC"],
+    why: ["Inserto Give and Go de Mosaic", "LeBron con la violeta #23", "Chrome con fondo violeta"],
+    story: "Inserto Give and Go de Panini Mosaic: LeBron James con la camiseta violeta #23 de los Lakers, pasando la pelota, sobre un fondo chrome violeta."
+  },
+  {
+    id: "c71", slug: "lebron-james-panini-xr-2022-23",
+    player: "LeBron James", playerSlug: "lebron-james", jersey: 23, hof: false,
+    team: "Los Angeles Lakers", teamSlug: "los-angeles-lakers",
+    season: "2022-23", year: 2023, era: "2020s", playerEra: "2000s",
+    brand: "Panini", product: "Panini XR", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 9900, oferta: 11000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-lebron-xrf.webp?v=510"],
+    badges: ["LAKERS", "XR"],
+    why: ["Panini XR, base", "LeBron con la violeta #6", "Fondo plateado con rayos"],
+    story: "Panini XR: LeBron James con la camiseta violeta #6 de los Lakers, picando la pelota sobre un fondo plateado con rayos en X."
+  },
+  {
+    id: "c72", slug: "lebron-james-mosaic-city-edition",
+    player: "LeBron James", playerSlug: "lebron-james", jersey: 23, hof: false,
+    team: "Los Angeles Lakers", teamSlug: "los-angeles-lakers",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "2000s",
+    brand: "Panini", product: "Mosaic", set: "City Edition", subset: "City Edition",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 9900, oferta: 11000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-lebron-cityedf.webp?v=510"],
+    badges: ["LAKERS", "MOSAIC"],
+    why: ["Inserto City Edition de Mosaic", "LeBron con la negra City Edition #23", "Diseño de hexágonos en chrome"],
+    story: "Inserto City Edition de Panini Mosaic: LeBron James con la camiseta negra City Edition #23 de los Lakers, sobre un diseño de hexágonos chrome con la tribuna en violeta de fondo."
+  },
+  {
+    id: "c73", slug: "lebron-james-nba-hoops-2024-25",
+    player: "LeBron James", playerSlug: "lebron-james", jersey: 23, hof: false,
+    team: "Los Angeles Lakers", teamSlug: "los-angeles-lakers",
+    season: "2024-25", year: 2025, era: "2020s", playerEra: "2000s",
+    brand: "Panini", product: "NBA Hoops", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 9900, oferta: 11000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-lebron-hoopsf.webp?v=510"],
+    badges: ["LAKERS", "HOOPS"],
+    why: ["NBA Hoops 2024-25, base", "LeBron volcándola, vista desde arriba del aro", "Marco violeta y dorado de los Lakers"],
+    story: "NBA Hoops 2024-25: LeBron James con la amarilla #23, fotografiado desde arriba del aro en plena volcada. Marco violeta y dorado de los Lakers."
+  },
+  {
+    id: "c74", slug: "lebron-james-topps-round-1-pick-1",
+    player: "LeBron James", playerSlug: "lebron-james", jersey: 23, hof: false,
+    team: "Los Angeles Lakers", teamSlug: "los-angeles-lakers",
+    season: "2024-25", year: 2025, era: "2020s", playerEra: "2000s",
+    brand: "Topps", product: "Topps", set: "Round 1 Pick 1", subset: "Round 1 Pick 1",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 9900, oferta: 11000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-lebron-r1p1f.webp?v=510"],
+    badges: ["LAKERS", "PICK 1"],
+    why: ["Inserto Round 1 Pick 1 de Topps", "Recuerda que fue la primera elección del Draft 2003", "LeBron con la camiseta Lake Show #23"],
+    story: "Inserto Round 1 Pick 1 de Topps: recuerda que LeBron fue la primera elección del Draft 2003. Lo muestra con la camiseta violeta Lake Show #23 y, al costado, un primer plano de su cara en dorado."
+  },
+  {
+    id: "c75", slug: "lebron-james-topps-base-lakers",
+    player: "LeBron James", playerSlug: "lebron-james", jersey: 23, hof: false,
+    team: "Los Angeles Lakers", teamSlug: "los-angeles-lakers",
+    season: "2025-26", year: 2026, era: "2020s", playerEra: "2000s",
+    brand: "Topps", product: "Topps", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 9900, oferta: 11000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-lebron-toppsf.webp?v=510"],
+    badges: ["LAKERS", "TOPPS"],
+    why: ["Topps, base", "LeBron con la blanca #23 de los Lakers", "Marco crema con LAKERS en dorado"],
+    story: "Topps: LeBron James con la camiseta blanca #23 de los Lakers, bajando la pelota. Marco crema con la palabra LAKERS en dorado al costado."
+  },
+  {
+    id: "c76", slug: "lebron-james-mosaic-elevate",
+    player: "LeBron James", playerSlug: "lebron-james", jersey: 23, hof: false,
+    team: "Los Angeles Lakers", teamSlug: "los-angeles-lakers",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "2000s",
+    brand: "Panini", product: "Mosaic", set: "Elevate", subset: "Elevate",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 9900, oferta: 11000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-lebron-elevatef.webp?v=510"],
+    badges: ["LAKERS", "MOSAIC"],
+    why: ["Inserto de Mosaic", "LeBron volando al aro con la amarilla #23", "Chrome con fondo violeta"],
+    story: "Inserto de Panini Mosaic: LeBron James con la camiseta amarilla #23 de los Lakers, volando hacia el aro, con letras chrome en relieve y fondo violeta."
+  },
+  {
+    id: "c77", slug: "lebron-james-mosaic-2020-21-jam-masters",
+    player: "LeBron James", playerSlug: "lebron-james", jersey: 23, hof: false,
+    team: "Los Angeles Lakers", teamSlug: "los-angeles-lakers",
+    season: "2020-21", year: 2021, era: "2020s", playerEra: "2000s",
+    brand: "Panini", product: "Mosaic", set: "Jam Masters", subset: "Jam Masters",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 9900, oferta: 11000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-lebron-jamf.webp?v=510"],
+    badges: ["LAKERS", "MOSAIC"],
+    why: ["Inserto Jam Masters de Mosaic", "LeBron volcándola con la camiseta Los Angeles azul", "Fondo naranja con textura de pelota"],
+    story: "Inserto Jam Masters de Panini Mosaic: LeBron James volcándola con la camiseta azul Los Angeles de los Lakers, sobre un fondo naranja con la textura de una pelota de básquet."
   }
 ];
 
@@ -7588,6 +7755,308 @@ const COMBOS_FUTBOL = [
     price: 5000, oferta: 6800, cur: "ARS", status: "available", owner: "nico", team: "argentina"
   }
 ];
+/* ============================================================
+   SALA FÓRMULA 1 — cerrada al público (SETTINGS.rooms.f1 = false).
+   Los socios la ven entrando con ?f1=1 (queda guardado en ese navegador; ?f1=0 lo saca).
+   Cartas: mismos campos que CARDS, ids r1, r2… · player = piloto · team = escudería y teamSlug de TEAMS_F1
+   (ej. team:"Ferrari", teamSlug:"ferrari"). jersey = número del auto. Campos opcionales de F1:
+   champion:true (campeón del mundo), legend:true (leyenda retirada), country:"ARG" (nacionalidad del piloto).
+   Sets y lotes: igual que COMBOS, en COMBOS_F1.
+   ============================================================ */
+const CARDS_F1 = [
+  {
+    id: "r1", slug: "franco-colapinto-topps-chrome-f1-sapphire-2024-f2-autografo",
+    player: "Franco Colapinto", playerSlug: "franco-colapinto", jersey: 43, hof: false, legend: false, champion: false, country: "ARG",
+    team: "MP Motorsport", teamSlug: "mp-motorsport",
+    season: "2024", year: 2024, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Chrome Formula 1 Sapphire Edition", set: "Formula 2 Autograph", subset: "Formula 2 Autograph",
+    cardNo: "CAC-COL", serialNum: null, printRun: null,
+    rookie: false, auto: true, autoType: "Aut\u00f3grafo", memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 179000, oferta: 210000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-colapinto-f2af.webp?v=502", "img/r-colapinto-f2ab.webp?v=502"],
+    badges: ["AUTÓGRAFO", "PRE-F1"],
+    why: ["Autógrafo certificado por Topps, firmado directo sobre la carta", "Franco en la F2 con MP Motorsport, antes de llegar a la Fórmula 1", "Topps Chrome Formula 1 Sapphire Edition 2024 · CAC-COL"],
+    story: "Carta firmada de Franco Colapinto de Topps Chrome Formula 1 Sapphire Edition 2024, del inserto Formula 2 Autograph. Lo muestra con el buzo de MP Motorsport en la F2, la temporada previa a su debut en la Fórmula 1, con la firma en azul sobre el frente. Topps garantiza la autenticidad: cada firma se hace frente a un representante de la marca."
+  },
+  {
+    id: "r2", slug: "franco-colapinto-topps-chrome-f1-2026-azul-70-150",
+    player: "Franco Colapinto", playerSlug: "franco-colapinto", jersey: 43, hof: false, legend: false, champion: false, country: "ARG",
+    team: "Alpine", teamSlug: "alpine",
+    season: "2026", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Chrome Formula 1", set: "Base · Paralelo azul", subset: "Base · Paralelo azul",
+    cardNo: "20", serialNum: 70, printRun: 150,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 44000, oferta: 52000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-colapinto-150f.webp?v=502", "img/r-colapinto-150b.webp?v=502"],
+    badges: ["NUMERADA /150", "ALPINE"],
+    why: ["Numerada 070/150", "Paralelo azul de la carta #20 de Topps Chrome Formula 1 2026", "Franco con el buzo de BWT Alpine"],
+    story: "Paralelo azul numerado 070/150 de la carta #20 de Franco Colapinto en Topps Chrome Formula 1 2026. Franco aparece con el buzo de BWT Alpine sobre un fondo de chrome con brillos, y la numeración en dorado abajo a la izquierda."
+  },
+  {
+    id: "r3", slug: "franco-colapinto-topps-chrome-f1-2026-helmet-collection",
+    player: "Franco Colapinto", playerSlug: "franco-colapinto", jersey: 43, hof: false, legend: false, champion: false, country: "ARG",
+    team: "Alpine", teamSlug: "alpine",
+    season: "2026", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Chrome Formula 1", set: "Helmet Collection", subset: "Helmet Collection",
+    cardNo: "HC-20", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 29000, oferta: 34500, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-colapinto-hcf.webp?v=502", "img/r-colapinto-hcb.webp?v=502"],
+    badges: ["INSERTO", "ALPINE"],
+    why: ["Inserto Helmet Collection HC-20", "El casco del 43 de Franco en primer plano", "Topps Chrome Formula 1 2026, acabado refractor"],
+    story: "Inserto Helmet Collection de Topps Chrome Formula 1 2026 (HC-20): el casco de Franco Colapinto con el 43 y los colores de BWT Alpine en primer plano, sobre la recta del circuito, con acabado refractor que cambia de color con la luz."
+  },
+  {
+    id: "r4", slug: "franco-colapinto-topps-lights-out-2026-halo-49-50",
+    player: "Franco Colapinto", playerSlug: "franco-colapinto", jersey: 43, hof: false, legend: false, champion: false, country: "ARG",
+    team: "Alpine", teamSlug: "alpine",
+    season: "2026", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Lights Out Formula 1", set: "Halo", subset: "Halo",
+    cardNo: null, serialNum: 49, printRun: 50,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 70000, oferta: 83000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-colapinto-lof.webp?v=503", "img/r-colapinto-lob.webp?v=503"],
+    badges: ["NUMERADA /50", "ALPINE"],
+    why: ["Numerada 49/50: solo existen 50", "Topps Lights Out 2026 · Halo", "El casco del 43 con los colores de BWT Alpine"],
+    story: "Carta Halo de Topps Lights Out 2026, numerada 49/50. Franco aparece con el casco puesto y el buzo de BWT Alpine, en una foto oscura con luces naranjas de fondo. Dorso negro con el logo de BWT Alpine y detalles en dorado."
+  },
+  {
+    id: "r5", slug: "franco-colapinto-topps-now-2024-051-debut-f1-monza",
+    player: "Franco Colapinto", playerSlug: "franco-colapinto", jersey: 43, hof: false, legend: false, champion: false, country: "ARG",
+    team: "Williams", teamSlug: "williams",
+    season: "2024", year: 2024, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Now Formula 1", set: "Debut en F1 · Monza 2024", subset: "Debut en F1 · Monza 2024",
+    cardNo: "051", serialNum: null, printRun: null,
+    rookie: true, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 62000, oferta: 73000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-colapinto-now51f.webp?v=503", "img/r-colapinto-now51b.webp?v=503"],
+    badges: ["RC", "DEBUT EN F1"],
+    why: ["El debut de Franco en la Fórmula 1: GP de Italia, Monza, 01.09.24", "Topps Now #051 con logo RC", "Williams Racing"],
+    story: "Topps Now #051: la carta que Topps sacó el día del debut de Franco Colapinto en la Fórmula 1, en el Gran Premio de Italia 2024 en Monza (01.09.24), con Williams Racing. Largó P18 y terminó P12. Lleva el logo RC de rookie."
+  },
+  {
+    id: "r6", slug: "franco-colapinto-topps-now-2024-055-primeros-puntos-azerbaiyan",
+    player: "Franco Colapinto", playerSlug: "franco-colapinto", jersey: 43, hof: false, legend: false, champion: false, country: "ARG",
+    team: "Williams", teamSlug: "williams",
+    season: "2024", year: 2024, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Now Formula 1", set: "Primeros puntos · Azerbaiyán 2024", subset: "Primeros puntos · Azerbaiyán 2024",
+    cardNo: "055", serialNum: null, printRun: null,
+    rookie: true, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 35000, oferta: 41500, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-colapinto-now55f.webp?v=503", "img/r-colapinto-now55b.webp?v=503"],
+    badges: ["RC", "PRIMEROS PUNTOS"],
+    why: ["Sus primeros puntos en la F1: P8 en Bakú, 15.09.24", "Primer argentino en sumar puntos desde Reutemann en 1982", "Topps Now #055 con logo RC · Williams Racing"],
+    story: "Topps Now #055: Franco festejando con todo el equipo Williams sus primeros puntos en la Fórmula 1, el P8 en el Gran Premio de Azerbaiyán 2024 (15.09.24), en su segunda carrera. Fue el primer argentino en sumar puntos desde Carlos Reutemann en 1982. Logo RC de rookie."
+  },
+  {
+    id: "r7", slug: "franco-colapinto-topps-now-2024-062-gp-estados-unidos",
+    player: "Franco Colapinto", playerSlug: "franco-colapinto", jersey: 43, hof: false, legend: false, champion: false, country: "ARG",
+    team: "Williams", teamSlug: "williams",
+    season: "2024", year: 2024, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Now Formula 1", set: "Punto en Austin · EE.UU. 2024", subset: "Punto en Austin · EE.UU. 2024",
+    cardNo: "062", serialNum: null, printRun: null,
+    rookie: true, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 36000, oferta: 42500, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-colapinto-now90f.webp?v=503", "img/r-colapinto-now90b.webp?v=503"],
+    badges: ["RC", "WILLIAMS"],
+    why: ["Remontó de P15 a P10 en el GP de Estados Unidos, 20.10.24", "El Williams #43 en el Circuito de las Américas", "Topps Now #062 con logo RC"],
+    story: "Topps Now #062: el Williams #43 de Franco en Austin, en el Gran Premio de Estados Unidos 2024 (20.10.24). Largó P15 y terminó P10 para sumar puntos en dos de sus cuatro primeras carreras, con la vuelta rápida durante buena parte de la carrera. Logo RC de rookie."
+  },
+  {
+    id: "r8", slug: "franco-colapinto-topps-now-2026-019-primer-punto-alpine-china",
+    player: "Franco Colapinto", playerSlug: "franco-colapinto", jersey: 43, hof: false, legend: false, champion: false, country: "ARG",
+    team: "Alpine", teamSlug: "alpine",
+    season: "2026", year: 2026, era: "2020s", playerEra: "2020s",
+    brand: "Topps", product: "Topps Now Formula 1", set: "Primer punto con Alpine · China 2026", subset: "Primer punto con Alpine · China 2026",
+    cardNo: "019", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 28000, oferta: 33000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-colapinto-now19f.webp?v=503", "img/r-colapinto-now19b.webp?v=503"],
+    badges: ["ALPINE", "PRIMER PUNTO"],
+    why: ["Su primer punto con BWT Alpine: P10 en China, 15.03.26", "El Alpine rosa y azul en pista", "Topps Now #019"],
+    story: "Topps Now #019: el Alpine de Franco en el Gran Premio de China 2026 (15.03.26), donde largó P12 y terminó P10 para sumar su primer punto con BWT Alpine."
+  },
+  {
+    id: "r9", slug: "lewis-hamilton-topps-chrome-f1-2025-grand-prix-driver-of-the-day-161-199",
+    player: "Lewis Hamilton", playerSlug: "lewis-hamilton", jersey: 44, hof: false, legend: false, champion: true, country: "GBR",
+    team: "Mercedes", teamSlug: "mercedes",
+    season: "2025", year: 2025, era: "2020s", playerEra: "2010s",
+    brand: "Topps", product: "Topps Chrome Formula 1", set: "Grand Prix · Driver of the Day", subset: "Grand Prix · Driver of the Day",
+    cardNo: "135", serialNum: 161, printRun: 199,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 45000, oferta: 53000, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-hamilton-gpf.webp?v=504", "img/r-hamilton-gpb.webp?v=505"],
+    badges: ["NUMERADA /199", "7 VECES CAMPEÓN"],
+    why: ["Numerada 161/199", "Inserto Grand Prix · Driver of the Day: GP de Bélgica 2024", "Refractor verde agua de Topps Chrome Formula 1 2025, N° 135 (logo F1 75)"],
+    story: "Lewis Hamilton, siete veces campeón del mundo, en el inserto Grand Prix · Driver of the Day de Topps Chrome Formula 1 con el logo de los 75 años de la F1. Recuerda el Gran Premio de Bélgica 2024 con Mercedes, su quinta victoria en Spa-Francorchamps: Hamilton con el casco puesto y el buzo de Petronas, sobre un fondo de bandera a cuadros. Refractor verde agua numerado 161/199."
+  },
+  {
+    id: "r10", slug: "charles-leclerc-topps-finest-f1-2024",
+    player: "Charles Leclerc", playerSlug: "charles-leclerc", jersey: 16, hof: false, legend: false, champion: false, country: "MON",
+    team: "Ferrari", teamSlug: "ferrari",
+    season: "2024", year: 2024, era: "2020s", playerEra: "2010s",
+    brand: "Topps", product: "Topps Finest Formula 1", set: "Base", subset: "Base",
+    cardNo: "3", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 9000, oferta: 10600, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-leclerc-finf.webp?v=506"],
+    badges: ["FERRARI", "FINEST"],
+    why: ["Topps Finest Formula 1 2024 · N° 3", "Charles con el buzo de Scuderia Ferrari HP", "Fondo refractor con trama a cuadros y pintura de colores"],
+    story: "Charles Leclerc en Topps Finest Formula 1, de cuerpo entero con el buzo rojo de Scuderia Ferrari HP, sobre un fondo refractor con trama a cuadros y manchas de pintura de colores."
+  },
+  {
+    id: "r11", slug: "charles-leclerc-topps-chrome-f1-2022-refractor",
+    player: "Charles Leclerc", playerSlug: "charles-leclerc", jersey: 16, hof: false, legend: false, champion: false, country: "MON",
+    team: "Ferrari", teamSlug: "ferrari",
+    season: "2022", year: 2022, era: "2020s", playerEra: "2010s",
+    brand: "Topps", product: "Topps Chrome Formula 1", set: "Base · Refractor", subset: "Base · Refractor",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 6000, oferta: 7100, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-leclerc-ch22f.webp?v=506"],
+    badges: ["FERRARI", "REFRACTOR"],
+    why: ["Topps Chrome Formula 1 2022, borde refractor", "Charles saludando con el casco puesto", "Carta horizontal · Scuderia Ferrari"],
+    story: "Topps Chrome Formula 1 2022: Charles Leclerc con el casco puesto y la mano en alto, saludando con el buzo de Ferrari de esa temporada. Carta horizontal con borde refractor."
+  },
+  {
+    id: "r12", slug: "charles-leclerc-topps-chrome-f1-pole-position-usgp-2023",
+    player: "Charles Leclerc", playerSlug: "charles-leclerc", jersey: 16, hof: false, legend: false, champion: false, country: "MON",
+    team: "Ferrari", teamSlug: "ferrari",
+    season: "2024", year: 2024, era: "2020s", playerEra: "2010s",
+    brand: "Topps", product: "Topps Chrome Formula 1", set: "Pole Position · GP de EE.UU. 2023", subset: "Pole Position · GP de EE.UU. 2023",
+    cardNo: "155", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 5000, oferta: 5900, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-leclerc-polef.webp?v=506"],
+    badges: ["FERRARI", "POLE POSITION"],
+    why: ["Inserto Pole Position: GP de Estados Unidos 2023", "Charles con el trofeo de Pirelli a la pole", "Topps Chrome Formula 1"],
+    story: "Inserto Pole Position de Topps Chrome Formula 1: Charles Leclerc sonriendo con el trofeo de Pirelli por la pole del Gran Premio de Estados Unidos 2023 en Austin."
+  },
+  {
+    id: "r13", slug: "charles-leclerc-topps-chrome-f1-driver-of-the-day-las-vegas-2023",
+    player: "Charles Leclerc", playerSlug: "charles-leclerc", jersey: 16, hof: false, legend: false, champion: false, country: "MON",
+    team: "Ferrari", teamSlug: "ferrari",
+    season: "2024", year: 2024, era: "2020s", playerEra: "2010s",
+    brand: "Topps", product: "Topps Chrome Formula 1", set: "Grand Prix Driver of the Day · Las Vegas 2023", subset: "Grand Prix Driver of the Day · Las Vegas 2023",
+    cardNo: "179", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 6000, oferta: 7100, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-leclerc-dotdlvf.webp?v=506"],
+    badges: ["FERRARI", "DRIVER OF THE DAY"],
+    why: ["Elegido Driver of the Day en el GP de Las Vegas 2023", "Charles con el casco especial de Las Vegas", "Topps Chrome Formula 1"],
+    story: "Inserto Grand Prix Driver of the Day de Topps Chrome Formula 1: el Gran Premio de Las Vegas 2023, donde Charles fue elegido piloto del día. Aparece con el puño en alto y el casco especial que usó esa noche."
+  },
+  {
+    id: "r14", slug: "charles-leclerc-topps-chrome-f1-2023-refractor",
+    player: "Charles Leclerc", playerSlug: "charles-leclerc", jersey: 16, hof: false, legend: false, champion: false, country: "MON",
+    team: "Ferrari", teamSlug: "ferrari",
+    season: "2023", year: 2023, era: "2020s", playerEra: "2010s",
+    brand: "Topps", product: "Topps Chrome Formula 1", set: "Base · Refractor", subset: "Base · Refractor",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 6000, oferta: 7100, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-leclerc-ch23f.webp?v=506"],
+    badges: ["FERRARI", "REFRACTOR"],
+    why: ["El Ferrari #16 en pista", "Topps Chrome Formula 1 2023, borde refractor", "Carta horizontal · Scuderia Ferrari"],
+    story: "Topps Chrome Formula 1 2023: el Ferrari SF-23 #16 de Charles Leclerc en pista. Carta horizontal con borde refractor."
+  },
+  {
+    id: "r15", slug: "charles-leclerc-topps-chrome-f1-driver-of-the-day-styria-2021-refractor",
+    player: "Charles Leclerc", playerSlug: "charles-leclerc", jersey: 16, hof: false, legend: false, champion: false, country: "MON",
+    team: "Ferrari", teamSlug: "ferrari",
+    season: "2022", year: 2022, era: "2020s", playerEra: "2010s",
+    brand: "Topps", product: "Topps Chrome Formula 1", set: "Grand Prix Driver of the Day · Estiria 2021 · Refractor", subset: "Grand Prix Driver of the Day · Estiria 2021 · Refractor",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 8000, oferta: 9400, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-leclerc-dotdstf.webp?v=506"],
+    badges: ["FERRARI", "DRIVER OF THE DAY"],
+    why: ["Driver of the Day en el GP de Estiria 2021", "El Ferrari #16 en pista", "Topps Chrome Formula 1, borde refractor"],
+    story: "Topps Chrome Formula 1, Grand Prix Driver of the Day: el Gran Premio de Estiria 2021, donde Charles fue elegido piloto del día. El Ferrari #16 en pista, carta horizontal con borde refractor."
+  },
+  {
+    id: "r16", slug: "charles-leclerc-topps-finest-f1-chaos",
+    player: "Charles Leclerc", playerSlug: "charles-leclerc", jersey: 16, hof: false, legend: false, champion: false, country: "MON",
+    team: "Ferrari", teamSlug: "ferrari",
+    season: "2024", year: 2024, era: "2020s", playerEra: "2010s",
+    brand: "Topps", product: "Topps Finest Formula 1", set: "Chaos", subset: "Chaos",
+    cardNo: "CH-3", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 16000, oferta: 18900, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-leclerc-chaosf.webp?v=507"],
+    badges: ["FERRARI", "INSERTO CHAOS"],
+    why: ["Inserto Chaos CH-3 de Topps Finest Formula 1 2024", "Charles señalando, con el buzo de Scuderia Ferrari HP", "Fondo refractor con grafiti violeta y verde flúor"],
+    story: "Inserto Chaos de Topps Finest Formula 1: Charles Leclerc señalando a cámara con el buzo de Scuderia Ferrari HP, sobre un fondo refractor estilo grafiti en violeta, rosa y verde flúor, con la palabra CHAOS gigante abajo. El dorso recuerda su segundo puesto en el Gran Premio de Las Vegas 2023."
+  },
+  {
+    id: "r17", slug: "charles-leclerc-topps-chrome-f1-2023-grand-prix-winner-austria-2022-refractor",
+    player: "Charles Leclerc", playerSlug: "charles-leclerc", jersey: 16, hof: false, legend: false, champion: false, country: "MON",
+    team: "Ferrari", teamSlug: "ferrari",
+    season: "2023", year: 2023, era: "2020s", playerEra: "2010s",
+    brand: "Topps", product: "Topps Chrome Formula 1", set: "Grand Prix Winner · Austria 2022 · Refractor", subset: "Grand Prix Winner · Austria 2022 · Refractor",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 9000, oferta: 10600, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-leclerc-gpwatf.webp?v=507"],
+    badges: ["FERRARI", "GANADOR DE GP"],
+    why: ["Grand Prix Winner: su victoria en Austria 2022", "Charles levantando el trofeo en el podio", "Topps Chrome Formula 1 2023, refractor"],
+    story: "Topps Chrome Formula 1 2023, Grand Prix Winner: Charles Leclerc levantando el trofeo de ganador del Gran Premio de Austria 2022 en el Red Bull Ring. Refractor con borde rojo."
+  },
+  {
+    id: "r18", slug: "charles-leclerc-topps-chrome-f1-2024-refractor",
+    player: "Charles Leclerc", playerSlug: "charles-leclerc", jersey: 16, hof: false, legend: false, champion: false, country: "MON",
+    team: "Ferrari", teamSlug: "ferrari",
+    season: "2024", year: 2024, era: "2020s", playerEra: "2010s",
+    brand: "Topps", product: "Topps Chrome Formula 1", set: "Base · Refractor", subset: "Base · Refractor",
+    cardNo: "75", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 6000, oferta: 7100, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-leclerc-ch25f.webp?v=508"],
+    badges: ["FERRARI", "REFRACTOR"],
+    why: ["Topps Chrome Formula 1 2024 · N° 75, borde refractor", "El Ferrari SF-24 de Charles frente a la tribuna, en tonos cobre", "Carta horizontal · Scuderia Ferrari HP"],
+    story: "Topps Chrome Formula 1 2024: el Ferrari SF-24 de Charles Leclerc pasando frente a la tribuna, con la foto en tonos cobre y borde refractor. Carta horizontal, Scuderia Ferrari HP."
+  },
+  {
+    id: "r19", slug: "charles-leclerc-topps-paddock-pass-angle-of-attack",
+    player: "Charles Leclerc", playerSlug: "charles-leclerc", jersey: 16, hof: false, legend: false, champion: false, country: "MON",
+    team: "Ferrari", teamSlug: "ferrari",
+    season: "2024", year: 2024, era: "2020s", playerEra: "2010s",
+    brand: "Topps", product: "Topps Paddock Pass Formula 1", set: "Angle of Attack", subset: "Angle of Attack",
+    cardNo: "AA-3", serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 7000, oferta: 8300, cur: "ARS", status: "available", addedOn: "2026-11-20", vault: false, owner: "nico",
+    imgs: ["img/r-leclerc-ppaoaf.webp?v=508"],
+    badges: ["FERRARI", "INSERTO"],
+    why: ["Inserto Angle of Attack AA-3 de Topps Paddock Pass 2024", "El Ferrari #16 atacando el piano", "Fondo foil multicolor · carta horizontal"],
+    story: "Inserto Angle of Attack de Topps Paddock Pass Formula 1: el Ferrari #16 de Charles Leclerc pisando el piano, sobre un fondo foil multicolor. Carta horizontal, Scuderia Ferrari HP. El dorso cuenta \"la maniobra del año\": el sobrepaso a Sergio Pérez en la última curva de Las Vegas 2023 para quedarse con el segundo puesto."
+  }
+];
+const COMBOS_F1 = [
+];
+CARDS_F1.forEach(toUsdNorm);
+CARDS_F1.forEach(c => { const t = Date.parse((c.addedOn || "2026-01-01") + "T12:00:00"); c.addedDaysAgo = Math.max(0, Math.floor((Date.now() - t) / 864e5)); });
+COMBOS_F1.forEach(toUsdNorm);
+CARDS_F1.forEach(c => applyCyber(c, c.id));
+COMBOS_F1.forEach(co => applyCyber(co, co.slug));
 CARDS_FUTBOL.forEach(toUsdNorm);
 CARDS_FUTBOL.forEach(c => { const t = Date.parse((c.addedOn || "2026-01-01") + "T12:00:00"); c.addedDaysAgo = Math.max(0, Math.floor((Date.now() - t) / 864e5)); });
 COMBOS_FUTBOL.forEach(toUsdNorm);
@@ -7600,8 +8069,8 @@ const applyOferta = it => {
   it.cyberPct = Math.round((1 - it.priceArs / it.oferta) * 100); it.ofertaLbl = "Oferta";
 };
 /* fútbol: todas las cartas y sets llevan precio tachado = precio +15% (salvo que tengan su propio oferta) */
-CARDS_FUTBOL.concat(COMBOS_FUTBOL).forEach(it => { if (!it.oferta && it.cur === "ARS" && it.priceArs > 0) it.oferta = Math.round(it.priceArs * 1.15 / 100) * 100; });
-CARDS.forEach(applyOferta); COMBOS.forEach(applyOferta); CARDS_FUTBOL.forEach(applyOferta); COMBOS_FUTBOL.forEach(applyOferta);
+CARDS_FUTBOL.concat(COMBOS_FUTBOL, CARDS_F1, COMBOS_F1).forEach(it => { if (!it.oferta && it.cur === "ARS" && it.priceArs > 0) it.oferta = Math.round(it.priceArs * 1.15 / 100) * 100; });
+CARDS.forEach(applyOferta); COMBOS.forEach(applyOferta); CARDS_FUTBOL.forEach(applyOferta); COMBOS_FUTBOL.forEach(applyOferta); CARDS_F1.forEach(applyOferta); COMBOS_F1.forEach(applyOferta);
 /* 9/11: −10% "Oferta" (tachado) a las cartas sueltas de Nico y Guido que no tuvieron Cyber ni oferta */
 const PROMO_CARTAS = { from: "2026-11-09T00:00:00-03:00", pct: 10 };
 if (Date.now() >= Date.parse(PROMO_CARTAS.from)) CARDS.forEach(c => {
@@ -7643,6 +8112,7 @@ const AUCTIONS = [
 ];
 
 const PLAYERS_META = {
+  "lebron-james":      { name:"LeBron James",       years:"2003–", teams:"Cavaliers · Heat · Lakers", pos:"Alero", hof:false, era:"2000s", note:"Cuatro veces campeón y máximo anotador de la historia de la NBA" },
   "walt-frazier":      { name:"Walt Frazier",       years:"1967–1980", teams:"Knicks · Cavaliers",  pos:"Base",    hof:true,  era:"1970s", note:"Bicampeón de la NBA, 1970 y 1973" },
   "bernard-king":      { name:"Bernard King",       years:"1977–1993", teams:"Knicks · Nets · Bullets · Warriors", pos:"Alero", hof:true, era:"1980s", note:"Goleador de la liga en 1985, 60 puntos en Navidad" },
   "larry-johnson":     { name:"Larry Johnson",      years:"1991–2001", teams:"Hornets · Knicks",    pos:"Ala-pivot", hof:false, era:"1990s", note:"Rookie del Año 1992, la jugada de cuatro puntos de 1999" },
@@ -7962,25 +8432,59 @@ const COLLECTIONS_FUTBOL = [
   { slug:"rookie-autographs", name:"Rookie autographs", sub:"Firmas del primer año de cartas de un jugador", test:c=>c.rookie&&c.auto },
   { slug:"game-worn", name:"Game-worn y patches", sub:"Cartas con un pedazo de camiseta", test:c=>c.memorabilia }
 ];
+const TEAMS_F1 = [
+  // parrilla actual
+  ["Red Bull Racing","RBR","red-bull","#1E41FF","#FFD700"],["Ferrari","FER","ferrari","#DC0000","#FFF200"],["Mercedes","MER","mercedes","#00D2BE","#000000"],
+  ["McLaren","MCL","mclaren","#FF8000","#47C7FC"],["Aston Martin","AMR","aston-martin","#006F62","#CEDC00"],["Alpine","ALP","alpine","#0090FF","#FF87BC"],
+  ["Williams","WIL","williams","#005AFF","#00A0DE"],["Haas","HAS","haas","#B6BABD","#E6002B"],["Racing Bulls","RB","racing-bulls","#6692FF","#FFFFFF"],
+  ["Sauber · Audi","SAU","sauber","#52E252","#000000"],["Cadillac","CAD","cadillac","#C9A227","#000000"],
+  // históricas
+  ["Lotus","LOT","lotus","#004225","#FFD700"],["Brabham","BRA","brabham","#0B2A5B","#FFFFFF"],["Benetton","BEN","benetton","#00A651","#FFD100"],
+  ["Renault","REN","renault","#FFF500","#000000"],["Jordan","JOR","jordan","#FFD700","#000000"],["Tyrrell","TYR","tyrrell","#0B2A5B","#FFFFFF"],
+  ["Toro Rosso","STR","toro-rosso","#1E41FF","#C8102E"],["AlphaTauri","AT","alphatauri","#2B4562","#FFFFFF"],["Force India","FI","force-india","#F596C8","#FF8000"],
+  ["Racing Point","RP","racing-point","#F596C8","#0B2A5B"],["Alfa Romeo","ALF","alfa-romeo","#900000","#FFFFFF"],["Toyota","TOY","toyota","#E2001A","#FFFFFF"],
+  ["BMW Sauber","BMW","bmw-sauber","#0066B1","#FFFFFF"],["Honda","HON","honda","#FFFFFF","#E2001A"],["Minardi","MIN","minardi","#000000","#FFD700"],
+  ["Maserati","MAS","maserati","#0B2A5B","#C8102E"],
+  // otras categorías
+  ["MP Motorsport","MP","mp-motorsport","#FF6B00","#0B1F3A"]
+];
+const COLLECTIONS_F1 = [
+  { slug:"colapinto", name:"Franco Colapinto", sub:"El argentino de la Fórmula 1", test:c=>c.playerSlug==="franco-colapinto" },
+  { slug:"campeones", name:"Campeones del mundo", sub:"Pilotos que ganaron el título", test:c=>!!c.champion },
+  { slug:"rookies", name:"Rookies", sub:"Primeras cartas de cada piloto", test:c=>!!c.rookie },
+  { slug:"numeradas", name:"Numeradas", sub:"Cartas con tirada limitada", test:c=>!!c.printRun },
+  { slug:"topps-now", name:"Topps Now", sub:"Las carreras que marcaron su historia", test:c=>/Topps Now/.test(c.product||"") }
+];
 const ROOM_META = {
   nba:    { tag:"The NBA Vault",      word:"THE NBA <em>VAULT</em>",      chip:"Sala NBA" },
-  futbol: { tag:"The Football Vault", word:"THE FOOTBALL <em>VAULT</em>", chip:"Sala Fútbol" }
+  futbol: { tag:"The Football Vault", word:"THE FOOTBALL <em>VAULT</em>", chip:"Sala Fútbol" },
+  f1:     { tag:"The Formula 1 Vault", word:"THE FORMULA 1 <em>VAULT</em>", chip:"Sala F1" }
 };
 const ROOM_SRC = {
   nba:    { cards: S.inventory, combos: COMBOS.slice(), teams: TEAMS.slice(), cols: COLLECTIONS.slice() },
   futbol: { cards: CARDS_FUTBOL.concat(ARCHIVE.filter(c => c.sport === "futbol")).map(c => ({...c, vault: Number(c.wasPrice || c.price) > SETTINGS.vaultOver})),
-            combos: COMBOS_FUTBOL, teams: TEAMS_FUTBOL, cols: COLLECTIONS_FUTBOL }
+            combos: COMBOS_FUTBOL, teams: TEAMS_FUTBOL, cols: COLLECTIONS_FUTBOL },
+  f1:     { cards: CARDS_F1.concat(ARCHIVE.filter(c => c.sport === "f1")).map(c => ({...c, vault: Number(c.wasPrice || c.price) > SETTINGS.vaultOver})),
+            combos: COMBOS_F1, teams: TEAMS_F1, cols: COLLECTIONS_F1 }
+};
+/* textos que cambian según la sala */
+const RL = {
+  player: () => ROOM.k === "f1" ? "Piloto" : "Jugador",
+  players: () => ROOM.k === "f1" ? "Pilotos" : "Jugadores",
+  team: () => ROOM.k === "f1" ? "Escudería" : "Equipo",
+  teams: () => ROOM.k === "f1" ? "Escuderías" : "Equipos"
 };
 const ROOM = { k: "nba" };
 const roomTag = () => ROOM_META[ROOM.k].tag;
 const roomWord = () => ROOM_META[ROOM.k].word;
 function roomPreview(k){
-  if (k !== "futbol") return false;
+  if (k !== "futbol" && k !== "f1") return false;
+  if (!/final-cards\.com$/i.test(location.hostname) && !/vercel\.app$/i.test(location.hostname)) return true;   // vista previa de Claude: se ve todo
   try {
-    const q = new URLSearchParams(location.search).get("futbol");
-    if (q === "1") localStorage.setItem("vault:futbol", "1");
-    if (q === "0") localStorage.removeItem("vault:futbol");
-    return localStorage.getItem("vault:futbol") === "1";
+    const q = new URLSearchParams(location.search).get(k);
+    if (q === "1") localStorage.setItem("vault:" + k, "1");
+    if (q === "0") localStorage.removeItem("vault:" + k);
+    return localStorage.getItem("vault:" + k) === "1";
   } catch(e){ return false; }
 }
 function roomIsOpen(k){ return k === "nba" || !!(SETTINGS.rooms && SETTINGS.rooms[k]) || roomPreview(k); }
@@ -8001,7 +8505,9 @@ function setRoom(k, quiet){
   try { localStorage.setItem("vault:room", k); } catch(e){}
   document.documentElement.dataset.room = k;
   $$(".brand .tag").forEach(t => { t.textContent = roomTag(); });
-  { const ft = $("#footTag"); if (ft) ft.textContent = k === "futbol" ? "Quedate con una parte del juego. Cartas de la Selección Argentina y de los argentinos en el mundo, elegidas una por una." : "Quedate con una parte del juego. Autógrafos, rookies, patches, game-worn y cartas especiales de la NBA, elegidas una por una."; }
+  $$('a[href="#/players"] > span, a[href="#/players"]:not(:has(*))').forEach(a => { a.textContent = RL.players(); });
+  $$('a[href="#/teams"] > span, a[href="#/teams"]:not(:has(*))').forEach(a => { a.textContent = RL.teams(); });
+  { const ft = $("#footTag"); if (ft) ft.textContent = k === "f1" ? "Quedate con una parte de la carrera. Cartas de Franco Colapinto y de la Fórmula 1, elegidas una por una." : k === "futbol" ? "Quedate con una parte del juego. Cartas de la Selección Argentina y de los argentinos en el mundo, elegidas una por una." : "Quedate con una parte del juego. Autógrafos, rookies, patches, game-worn y cartas especiales de la NBA, elegidas una por una."; }
   const chip = $(".sala-chip"); if (chip && chip.firstChild) chip.firstChild.textContent = ROOM_META[k].chip + " ";
   if (!quiet){ paintMenus(); render(); }
 }
@@ -8995,7 +9501,7 @@ function pageHome(){
   const totalCards = pool.length + COMBOS.filter(co => co.status !== "sold").reduce((t, co) => t + comboN(co), 0);
   const stats = [
     { n: totalCards.toLocaleString("es-AR"), l: "Cartas en la bóveda" },
-    { n: String(new Set(pool.map(c => c.playerSlug)).size), l: "Jugadores" },
+    { n: String(new Set(pool.map(c => c.playerSlug)).size), l: RL.players() },
     { n: runs.length ? "/" + Math.min(...runs) : "—", l: "Tirada más baja" },
     { n: String(pool.filter(c => c.auto).length), l: "Autografiadas" }
   ];
@@ -9093,7 +9599,7 @@ function pageHome(){
       <div class="hero-copy">
         <span class="kicker"><i></i>${totalCards.toLocaleString("es-AR")} cartas en la bóveda</span>
         <h1 class="hero-h1 impact">Cada carta<span class="line2">tiene su historia.</span></h1>
-        <p class="hero-sub">${ROOM.k === "futbol" ? "Selección Argentina · Mundial 2026 · Leyendas" : "Autógrafos · Rookies · Game-Worn · Numeradas"}</p>
+        <p class="hero-sub">${ROOM.k === "f1" ? "Franco Colapinto · Pilotos · Campeones" : ROOM.k === "futbol" ? "Selección Argentina · Mundial 2026 · Leyendas" : "Autógrafos · Rookies · Game-Worn · Numeradas"}</p>
         <div class="hero-cta">
           <a class="btn btn-gold" href="#/cards">Explorar cartas</a>
           ${premiumAll.length ? `<a class="btn btn-solid" href="#/premium">Cartas Premium</a>` : ""}
@@ -9130,18 +9636,18 @@ function pageHome(){
     <div class="wrap">
       <button class="fd-search" data-open-search aria-label="Abrir el buscador">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <span class="fd-s-txt"><b>¿Qué carta estás buscando?</b><span>${ROOM.k === "futbol" ? "Jugador, producto o serie. Por ejemplo: Messi, Lautaro, Prizm, Pitch Kings" : "Jugador, equipo, set o tirada. Por ejemplo: Frazier, Knicks, National Treasures, /25"}</span></span>
+        <span class="fd-s-txt"><b>¿Qué carta estás buscando?</b><span>${ROOM.k === "f1" ? "Piloto, escudería o producto. Por ejemplo: Colapinto, Alpine, Verstappen" : ROOM.k === "futbol" ? "Jugador, producto o serie. Por ejemplo: Messi, Lautaro, Prizm, Pitch Kings" : "Jugador, equipo, set o tirada. Por ejemplo: Frazier, Knicks, National Treasures, /25"}</span></span>
         <span class="fd-s-go">Buscar</span>
       </button>
       <div class="fd-simple">
         <a class="fd-tile" href="#/teams">
           <span class="fd-tile-icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3z"/></svg></span>
-          <span class="fd-tile-body"><b>Equipos</b><span>${Object.keys(teamCounts).length} con cartas en la bóveda</span><i class="fd-short">${plural(Object.keys(teamCounts).length, "equipo", "equipos")}</i></span>
+          <span class="fd-tile-body"><b>${RL.teams()}</b><span>${Object.keys(teamCounts).length} con cartas en la bóveda</span><i class="fd-short">${plural(Object.keys(teamCounts).length, RL.team().toLowerCase(), RL.teams().toLowerCase())}</i></span>
           <span class="fd-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
         <a class="fd-tile" href="#/players">
           <span class="fd-tile-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c1.2-4 4-6 7-6s5.8 2 7 6"/></svg></span>
-          <span class="fd-tile-body"><b>Jugadores</b><span>${Object.keys(playerCounts).length} con cartas en la bóveda</span><i class="fd-short">${plural(Object.keys(playerCounts).length, "jugador", "jugadores")}</i></span>
+          <span class="fd-tile-body"><b>${RL.players()}</b><span>${Object.keys(playerCounts).length} con cartas en la bóveda</span><i class="fd-short">${plural(Object.keys(playerCounts).length, RL.player().toLowerCase(), RL.players().toLowerCase())}</i></span>
           <span class="fd-tile-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
         <a class="fd-tile" href="#/combos">
@@ -9197,7 +9703,27 @@ function pageHome(){
         combos: { label: "Lotes", pick: "Se venden enteros, a mejor precio", list: COMBOS.filter(co => co.status !== "sold"), unit: ["lote", "lotes"], isCombo: true,
           href: "#/combos", h2: "Lotes armados", sub: "Varias cartas juntas por menos de lo que saldrían por separado. Cada lote se vende entero, tal como está armado." }
       };
-      const homeSets = ROOM.k === "futbol" ? futSets : {
+      const f1Sets = {
+        colapinto: { label: "Colapinto", pick: "El argentino de la Fórmula 1", list: pool.filter(c => c.playerSlug === "franco-colapinto").sort((a,b) => b.price - a.price), href: "#/players/franco-colapinto", cta: "Ver todo de Colapinto",
+          h2: "Franco Colapinto", sub: "Las cartas del piloto argentino de la Fórmula 1.", eyebrow: "Colapinto", blurb: "Cartas de Franco Colapinto.",
+          rows: [["Cartas de Colapinto", pool.filter(c => c.playerSlug === "franco-colapinto").length]] },
+        numeradas: { label: "Numeradas", pick: "Tiradas limitadas", list: pool.filter(c => c.printRun).sort((a,b) => a.printRun - b.printRun), href: "#/collections/numeradas", cta: "Ver las numeradas",
+          h2: "Numeradas", sub: "Cartas con tirada limitada: el número de serie viene impreso en la carta.", eyebrow: "Numeradas", blurb: "Tiradas limitadas.",
+          rows: [["Numeradas", pool.filter(c => c.printRun).length]] },
+        now: { label: "Topps Now", pick: "Sus momentos en la F1", list: pool.filter(c => /Topps Now/.test(c.product||"")).sort((a,b) => a.year - b.year || String(a.cardNo).localeCompare(String(b.cardNo))), href: "#/collections/topps-now", cta: "Ver los Topps Now",
+          h2: "Topps Now", sub: "Cartas que Topps imprime después de cada carrera: el debut, los primeros puntos y más.", eyebrow: "Topps Now", blurb: "Las carreras que marcaron su historia.",
+          rows: [["Topps Now", pool.filter(c => /Topps Now/.test(c.product||"")).length]] },
+        rookies: { label: "Rookies", pick: "Su temporada debut", list: pool.filter(c => c.rookie).sort((a,b) => b.price - a.price), href: "#/collections/rookies", cta: "Ver los rookies",
+          h2: "Rookies", sub: "Cartas de la primera temporada de Franco en la Fórmula 1, con el logo RC.", eyebrow: "Rookies", blurb: "Cartas de rookie.",
+          rows: [["Rookies", pool.filter(c => c.rookie).length]] },
+        campeones: { label: "Campeones", pick: "Pilotos que ganaron el título", list: pool.filter(c => c.champion).sort((a,b) => b.price - a.price), href: "#/collections/campeones", cta: "Ver los campeones",
+          h2: "Campeones del mundo", sub: "Los pilotos que levantaron el título de Fórmula 1.", eyebrow: "Campeones", blurb: "Cartas de campeones del mundo.",
+          rows: [["Campeones", pool.filter(c => c.champion).length]] },
+        combos: { label: "Lotes", pick: "Se venden enteros, a mejor precio", list: COMBOS.filter(co => co.status !== "sold"), unit: ["lote", "lotes"], isCombo: true,
+          href: "#/combos", h2: "Lotes armados", sub: "Varias cartas juntas por menos de lo que saldrían por separado. Cada lote se vende entero, tal como está armado." }
+      };
+      Object.keys(f1Sets).forEach(k => { if (k !== "colapinto" && !f1Sets[k].list.length) delete f1Sets[k]; });   // F1: solo se muestran los formatos que tienen cartas
+      const homeSets = ROOM.k === "f1" ? f1Sets : ROOM.k === "futbol" ? futSets : {
         autos: {
           label: "Autógrafos", pick: "Firmadas por el jugador", list: autos, href: "#/autographs", cta: "Abrir la sala de autógrafos",
           h2: "Cartas autografiadas", sub: "La firma del jugador sobre la carta. Es lo más buscado de la bóveda, " + (ROOM.k === "nba" ? "de leyendas del Hall of Fame a rookies." : "de leyendas a las figuras de hoy."),
@@ -9711,7 +10237,7 @@ function pageTeams(){
   return `
   <div class="wrap" id="teamsPage">
     <p class="crumbs"><a href="#/">Inicio</a> / Equipos</p>
-    <div class="section-head"><div><p class="eyebrow gold">Por equipo</p><h2>Equipos</h2>
+    <div class="section-head"><div><p class="eyebrow gold">Por ${RL.team().toLowerCase()}</p><h2>${RL.teams()}</h2>
       <p class="sub">${plural(withCards.length, "equipo", "equipos")} con cartas en stock, ordenados por cantidad.</p></div></div>
     <div class="search-field" style="border-color:var(--hair); margin-bottom:28px">
       <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--silver);fill:none;stroke-width:1.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
@@ -9813,7 +10339,7 @@ function pagePlayers(){
   return `
   <div class="wrap">
     <p class="crumbs"><a href="#/">Inicio</a> / Jugadores</p>
-    <div class="section-head"><div><p class="eyebrow gold">Por jugador</p><h2>Jugadores</h2>
+    <div class="section-head"><div><p class="eyebrow gold">Por ${RL.player().toLowerCase()}</p><h2>${RL.players()}</h2>
       <p class="sub">${plural(have.length, "jugador", "jugadores")} con cartas, sets o lotes en stock. Escribí un nombre o un equipo para filtrar.</p></div></div>
     <div class="search-field" style="border-color:var(--hair); margin-bottom:34px">
       <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--silver);fill:none;stroke-width:1.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
@@ -9863,7 +10389,7 @@ function pagePlayer(slug){
   const hero = (sets.cards[0] || all[0]);
   return `
   <div class="wrap">
-    <p class="crumbs"><a href="#/">Inicio</a> / <a href="#/players">Jugadores</a> / ${esc(pName)}</p>
+    <p class="crumbs"><a href="#/">Inicio</a> / <a href="#/players">${RL.players()}</a> / ${esc(pName)}</p>
     <div class="player-head section-tight">
       <div>
         <p class="eyebrow" style="color:var(--knicks-orange)">${esc(all[0] ? all[0].team : "")}</p>
@@ -12453,7 +12979,7 @@ function wire(){
   const paintHints = () => {
     const pool = live(), cnt = (k) => { const m = {}; pool.forEach(c => { m[c[k]] = (m[c[k]] || 0) + 1; }); return Object.entries(m).sort((a,b) => b[1] - a[1]).map(x => x[0]); };
     const players = cnt("player").slice(0, 3).map(n => n.split(" ").slice(-1)[0]);
-    const HINTS = players.concat(cnt("team").slice(0, 1), cnt("product").slice(0, 2), ROOM.k === "futbol" ? ["leyendas", "rookie", "Pitch Kings"] : ["autógrafos", "rookie", "/25", "menos de 50"]);
+    const HINTS = players.concat(cnt("team").slice(0, 1), cnt("product").slice(0, 2), ROOM.k === "f1" ? ["Colapinto", "campeones"] : ROOM.k === "futbol" ? ["leyendas", "rookie", "Pitch Kings"] : ["autógrafos", "rookie", "/25", "menos de 50"]);
     $("#searchHints").innerHTML = Array.from(new Set(HINTS)).map(h => `<button class="chip" data-hint="${esc(h)}">${esc(h)}</button>`).join("");
   };
   paintHints();
@@ -12492,13 +13018,13 @@ function wire(){
       });
       const players = Object.entries(pl).sort((a,b) => b[1].n - a[1].n).slice(0, 3);
       const teams = Object.entries(tm).sort((a,b) => b[1].n - a[1].n).slice(0, 2);
-      if (players.length) html += head("Jugadores") + players.map(([slug, p]) => `
+      if (players.length) html += head(RL.players()) + players.map(([slug, p]) => `
         <a class="sresult sr-group" href="#/players/${slug}" data-close-search>
           <img src="${p.img}" alt="">
           <span class="r-main"><span class="r-name">${esc(p.name)}</span><span class="r-meta">${esc(Array.from(p.teams).join(" · "))}</span></span>
           <span class="r-price sr-n">${[plural(p.n, "carta", "cartas"), combosOfPlayer(slug).length ? combosCountLbl(combosOfPlayer(slug)) : ""].filter(Boolean).join(" · ")} →</span>
         </a>`).join("");
-      if (teams.length) html += head("Equipos") + teams.map(([slug, t]) => `
+      if (teams.length) html += head(RL.teams()) + teams.map(([slug, t]) => `
         <a class="sresult sr-group" href="#/teams/${slug}" data-close-search>
           <span class="sr-dot" style="background:${(TEAMS.find(x => x[2] === slug) || [])[3] || "#888"}"></span>
           <span class="r-main"><span class="r-name">${esc(t.name)}</span></span>
