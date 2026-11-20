@@ -9830,7 +9830,7 @@ function pageHome(){
   const freshNew = pool.filter(isNew).sort((a,b) => b.price - a.price);
   // se intercalan los dueños (una de cada socio por turno) para que nadie quede todo arriba o todo abajo
   // FRESH_PIN: cartas fijadas a mano en recién llegadas (van en el 2º y 4º lugar)
-  const FRESH_PIN = ["c67", "c68"];
+  const FRESH_PIN = ["c67", "c72"];
   const freshPin = FRESH_PIN.map(id => pool.find(c => c.id === id && c.status === "available")).filter(Boolean);
   const freshList = fairMix(freshNew.concat(pool.filter(c => !isNew(c)).sort(SORTS.new)).filter(c => !freshPin.includes(c))).slice(0, 8 - freshPin.length);
   freshPin.forEach((c, i) => freshList.splice(Math.min(1 + i * 2, freshList.length), 0, c));
