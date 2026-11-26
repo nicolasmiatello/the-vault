@@ -2897,6 +2897,37 @@ body.soon-on{overflow:hidden}
 .room-bar button.rb-hall{border-style:dashed}
 html.ua-samsung .room-bar button.on{background:#0c0b08!important; color:#E8C766!important; border:1.5px solid #C9A227!important}
 @media(max-width:760px){ .room-bar{justify-content:flex-start; padding:6px 12px} .room-bar button{padding:6px 11px; font-size:10px} .room-bar .rb-lbl{display:none} }
+/* banner Black Friday (inicio NBA) */
+.bf{padding:18px 0 4px; position:relative; z-index:3}
+.bf-card{position:relative; display:grid; grid-template-columns:auto 1fr; align-items:center; gap:14px 26px; padding:18px 24px; border-radius:16px;
+  background:radial-gradient(120% 140% at 0% 0%, rgba(201,162,39,.22), transparent 55%), linear-gradient(135deg,#0b0a08,#14110a 60%,#0b0a08);
+  border:1px solid rgba(217,190,124,.55); box-shadow:0 0 0 1px rgba(0,0,0,.6) inset, 0 10px 40px rgba(201,162,39,.18); overflow:hidden}
+.bf-card::after{content:""; position:absolute; inset:-40% -10%; background:linear-gradient(115deg, transparent 40%, rgba(255,230,160,.10) 50%, transparent 60%); animation:bfShine 6s ease-in-out infinite; pointer-events:none}
+@keyframes bfShine{0%,60%{transform:translateX(-60%)} 100%{transform:translateX(60%)}}
+.bf-head{display:flex; flex-direction:column; line-height:1}
+.bf-k{font-family:var(--mono); font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--gold-soft); margin-bottom:6px}
+.bf-t{font-family:var(--display, inherit); font-weight:900; font-size:clamp(28px,4vw,44px); letter-spacing:-.01em; text-transform:uppercase; color:#e9c45a; font-style:italic}
+.bf-t span{color:#f3f3f3; display:block}
+.bf-offers{display:grid; grid-template-columns:1.35fr 1fr 1fr; gap:10px}
+.bf-o{display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:12px 10px; border-radius:12px; background:linear-gradient(160deg,#e8c766,#b88a1e); color:#120d02; text-decoration:none; transition:transform .2s}
+.bf-o:hover{transform:translateY(-2px)}
+.bf-o b{font-weight:900; font-size:clamp(26px,3.4vw,40px); line-height:1; letter-spacing:-.02em}
+.bf-o span{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; font-weight:700; margin-top:4px}
+.bf-o:not(.bf-big){background:#0d0c09; color:#f0e2b6; border:1px solid rgba(217,190,124,.5)}
+.bf-o:not(.bf-big) b{color:#e9c45a}
+.bf-note{grid-column:1 / -1; margin:0; font-size:11.5px; color:var(--silver); font-family:var(--mono); letter-spacing:.02em}
+@media(max-width:760px){
+  .bf{padding:12px 0 2px}
+  .bf-card{grid-template-columns:1fr; padding:14px 14px 12px; gap:10px}
+  .bf-head{flex-direction:row; align-items:baseline; gap:10px}
+  .bf-k{margin:0}
+  .bf-t span{display:inline; margin-right:.25em}
+  .bf-offers{grid-template-columns:1fr 1fr; gap:8px}
+  .bf-big{grid-column:1 / -1; flex-direction:row; gap:10px}
+  .bf-big span{margin-top:0}
+  .bf-note{font-size:10.5px}
+}
+@media (prefers-reduced-motion:reduce){ .bf-card::after{animation:none} }
 </style>
 
 </head>
@@ -3334,6 +3365,7 @@ const SETTINGS = {
   demo: true,
   gaId: "G-BSSR9DC5FQ",
   rooms: { futbol: false, f1: false },  // F1 cerrada igual que fútbol: socios con ?f1=1  // salas abiertas al público además de NBA. Fútbol cerrada: solo socios con ?futbol=1. Poner true el día que abra                 // Google Analytics 4: pegar acá el ID de medición (G-XXXXXXXXXX). Solo mide en final-cards.com
+  blackFriday: true,   // banner Black Friday arriba del inicio de NBA (false lo saca)
   papaPromo: false,   // banner del Papa en el inicio (true lo muestra). El set sigue en Lotes y en final-cards.com/papa.html
   groupUrl: "https://chat.whatsapp.com/COB0Sr7wz6p4uPTrcqn8li",             // link de invitación al grupo o canal de WhatsApp (https://chat.whatsapp.com/...). Vacío: el botón abre un chat pidiendo que lo sumen
   intro: true,              // al entrar: true = animación de la bóveda (acelerada) + hall · "hall" = directo al hall · false = directo a la tienda
@@ -11377,10 +11409,18 @@ function pageHome(){
   const freshNew = pool.filter(c => isNew(c) && !FRESH_SKIP.includes(c.id)).sort((a,b) => b.price - a.price);
   // se intercalan los dueños (una de cada socio por turno) para que nadie quede todo arriba o todo abajo
   // FRESH_PIN: cartas fijadas a mano en recién llegadas (van en el 2º y 4º lugar)
-  const FRESH_PIN = ["c67", "c72"];
+  // FRESH_PICK: si tiene cartas, recién llegadas muestra estas en este orden (las vendidas se saltean y se completa con el resto, 1 por jugador)
+  const FRESH_PICK = ["c67", "g23", "c123", "c108", "c72", "g14", "c86", "c98"];
+  const FRESH_PIN = [];
   const freshPin = FRESH_PIN.map(id => pool.find(c => c.id === id && c.status === "available")).filter(Boolean);
   const freshList = fairMix(freshNew.concat(pool.filter(c => !isNew(c) && !FRESH_SKIP.includes(c.id)).sort(SORTS.new)).filter(c => !freshPin.some(x => x.playerSlug === c.playerSlug))).slice(0, 8 - freshPin.length);   // del jugador fijado solo van las fijadas
   freshPin.forEach((c, i) => freshList.splice(Math.min(1 + i * 2, freshList.length), 0, c));
+  if (FRESH_PICK.length){
+    const pick = FRESH_PICK.map(id => pool.find(c => c.id === id && c.status === "available")).filter(Boolean);
+    const seen = new Set(pick.map(c => c.playerSlug));
+    const rest = freshList.filter(c => !seen.has(c.playerSlug) && (seen.add(c.playerSlug), true));
+    freshList.length = 0; freshList.push(...pick.concat(rest).slice(0, 8));
+  }
   // las secciones de abajo empiezan con cartas que no se vieron arriba (carrusel, premium, recién llegadas);
   // las repetidas siguen en la lista pero van al final
   const seenIds = new Set(Array.from(stageIds).concat(freshList.map(c => c.id)));
@@ -11425,7 +11465,18 @@ function pageHome(){
     .concat([`<span class="tk"><span class="tdot"></span>Consultas directas por <b>WhatsApp</b></span>`,
              `<span class="tk"><span class="tdot"></span>Envíos a todo el país desde <b>Buenos Aires</b></span>`]);
 
+  const bfOn = SETTINGS.blackFriday && ROOM.k === "nba";
   return `
+  ${bfOn ? `<section class="bf" aria-label="Black Friday"><div class="wrap">
+    <div class="bf-card">
+      <div class="bf-head"><span class="bf-k">Final Cards</span><b class="bf-t"><span>Black</span> Friday</b></div>
+      <div class="bf-offers">
+        <a class="bf-o bf-big" href="#/cards"><b>4x3</b><span>en cartas individuales</span></a>
+        <a class="bf-o" href="#/combos"><b>10%</b><span>llevando 2 lotes</span></a>
+        <a class="bf-o" href="#/combos"><b>20%</b><span>llevando 3 lotes</span></a>
+      </div>
+      <p class="bf-note">*El 4x3 no aplica a cartas firmadas, Game Worn, LeBron James ni numeradas. Consultá por WhatsApp.</p>
+    </div></div></section>` : ""}
   <section class="hero">
     <div class="hero-court" aria-hidden="true"></div>
     <canvas id="heroCanvas" aria-hidden="true"></canvas>
