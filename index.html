@@ -335,6 +335,7 @@ section{position:relative}
 .sresult .r-main{flex:1; min-width:0}
 .sresult .r-name{font-variation-settings:"wdth" 88,"wght" 700; text-transform:uppercase; font-size:13.5px; letter-spacing:.03em}
 .sresult .r-meta{font-size:11.5px; color:var(--silver); font-family:var(--mono); letter-spacing:.04em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.sresult .r-name, .sresult .r-meta{display:block}
 .sresult .r-price{font-family:var(--mono); font-size:13px; font-variant-numeric:tabular-nums}
 .sr-h{font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold-soft); padding:16px 12px 6px}
 .sresult.sr-group{background:rgba(201,162,39,.05)}
@@ -5385,6 +5386,606 @@ const CARDS = [
     badges: ["LAKERS", "MOSAIC"],
     why: ["Inserto Jam Masters de Mosaic", "LeBron volcándola con la camiseta Los Angeles azul", "Fondo naranja con textura de pelota"],
     story: "Inserto Jam Masters de Panini Mosaic: LeBron James volcándola con la camiseta azul Los Angeles de los Lakers, sobre un fondo naranja con la textura de una pelota de básquet."
+  },
+  {
+    id: "c78", slug: "kevin-durant-prestige-2012-13",
+    player: "Kevin Durant", playerSlug: "kevin-durant", jersey: 35, hof: false,
+    team: "Oklahoma City Thunder", teamSlug: "oklahoma-city-thunder",
+    season: "2012-13", year: 2013, era: "2010s", playerEra: "2000s",
+    brand: "Panini", product: "Prestige", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-durant-prest12f.webp?v=533"],
+    badges: ["THUNDER", "PRESTIGE"],
+    why: ["Panini Prestige 2012-13", "Durant con la blanca #35 del Thunder", "Bandeja en plena temporada 2012-13"],
+    story: "Panini Prestige 2012-13: Kevin Durant con la camiseta blanca #35 de Oklahoma City Thunder, yendo a la bandeja."
+  },
+  {
+    id: "c79", slug: "kevin-durant-threads-2012-13",
+    player: "Kevin Durant", playerSlug: "kevin-durant", jersey: 35, hof: false,
+    team: "Oklahoma City Thunder", teamSlug: "oklahoma-city-thunder",
+    season: "2012-13", year: 2013, era: "2010s", playerEra: "2000s",
+    brand: "Panini", product: "Threads", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-durant-thr12f.webp?v=533"],
+    badges: ["THUNDER", "THREADS"],
+    why: ["Panini Threads 2012-13", "Durant con la azul #35 del Thunder", "Foto en las Finales 2012 contra el Heat"],
+    story: "Panini Threads 2012-13: Kevin Durant con la camiseta azul #35 de Oklahoma City, picando la pelota con la tribuna del Heat atrás."
+  },
+  {
+    id: "c80", slug: "kevin-durant-upper-deck-2009-10",
+    player: "Kevin Durant", playerSlug: "kevin-durant", jersey: 35, hof: false,
+    team: "Oklahoma City Thunder", teamSlug: "oklahoma-city-thunder",
+    season: "2009-10", year: 2010, era: "2000s", playerEra: "2000s",
+    brand: "Upper Deck", product: "Upper Deck", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-durant-ud09f.webp?v=533"],
+    badges: ["THUNDER", "UPPER DECK"],
+    why: ["Upper Deck 2009-10", "Durant joven, en su tercera temporada", "Foto desde arriba del aro"],
+    story: "Upper Deck 2009-10: Kevin Durant en su tercera temporada en la NBA, con la azul #35 de Oklahoma City, fotografiado desde arriba del aro."
+  },
+  {
+    id: "c81", slug: "dwyane-wade-upper-deck-2004-05",
+    player: "Dwyane Wade", playerSlug: "dwyane-wade", jersey: 3, hof: true,
+    team: "Miami Heat", teamSlug: "miami-heat",
+    season: "2004-05", year: 2005, era: "2000s", playerEra: "2000s",
+    brand: "Upper Deck", product: "Upper Deck", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-wade-ud04f.webp?v=533"],
+    badges: ["HEAT", "HALL OF FAME"],
+    why: ["Upper Deck 2004-05, su segunda temporada", "Wade con la negra #3 del Heat", "Hall of Fame 2023"],
+    story: "Upper Deck 2004-05: Dwyane Wade en su segunda temporada, con la camiseta negra #3 de Miami Heat. Tres veces campeón y miembro del Hall of Fame."
+  },
+  {
+    id: "c82", slug: "shaquille-oneal-classics-2009-10",
+    player: "Shaquille O'Neal", playerSlug: "shaquille-oneal", jersey: 33, hof: true,
+    team: "Cleveland Cavaliers", teamSlug: "cleveland-cavaliers",
+    season: "2009-10", year: 2010, era: "2000s", playerEra: "1990s",
+    brand: "Panini", product: "Classics", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-shaq-cl09f.webp?v=533"],
+    badges: ["CAVALIERS", "HALL OF FAME"],
+    why: ["Panini Classics 2009-10", "Shaq con la retro #33 de los Cavaliers", "Su única temporada en Cleveland"],
+    story: "Panini Classics 2009-10: Shaquille O'Neal con la camiseta retro #33 de los Cavaliers, de su única temporada en Cleveland junto a LeBron. Cuatro veces campeón y Hall of Fame."
+  },
+  {
+    id: "c83", slug: "chris-paul-upper-deck-2009-10",
+    player: "Chris Paul", playerSlug: "chris-paul", jersey: 3, hof: false,
+    team: "New Orleans Hornets", teamSlug: "new-orleans-pelicans",
+    season: "2009-10", year: 2010, era: "2000s", playerEra: "2000s",
+    brand: "Upper Deck", product: "Upper Deck", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 3900, oferta: 4500, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-cp3-ud09f.webp?v=533"],
+    badges: ["HORNETS", "UPPER DECK"],
+    why: ["Upper Deck 2009-10", "CP3 con la turquesa #3 de New Orleans", "Bandeja ante los Wizards"],
+    story: "Upper Deck 2009-10: Chris Paul con la camiseta turquesa #3 de los New Orleans Hornets, yendo a la bandeja."
+  },
+  {
+    id: "c84", slug: "tracy-mcgrady-upper-deck-2009-10",
+    player: "Tracy McGrady", playerSlug: "tracy-mcgrady", jersey: 1, hof: true,
+    team: "Houston Rockets", teamSlug: "houston-rockets",
+    season: "2009-10", year: 2010, era: "2000s", playerEra: "1990s",
+    brand: "Upper Deck", product: "Upper Deck", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-tmac-ud09f.webp?v=533"],
+    badges: ["ROCKETS", "HALL OF FAME"],
+    why: ["Upper Deck 2009-10", "T-Mac con la roja de los Rockets", "Hall of Fame 2017 · carta horizontal"],
+    story: "Upper Deck 2009-10: Tracy McGrady con la camiseta roja de los Houston Rockets, peleando la pelota en la pintura. Miembro del Hall of Fame. Carta horizontal."
+  },
+  {
+    id: "c85", slug: "derrick-rose-classics-2009-10",
+    player: "Derrick Rose", playerSlug: "derrick-rose", jersey: 1, hof: false,
+    team: "Chicago Bulls", teamSlug: "chicago-bulls",
+    season: "2009-10", year: 2010, era: "2000s", playerEra: "2000s",
+    brand: "Panini", product: "Classics", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-rose-cl09f.webp?v=533"],
+    badges: ["BULLS", "CLASSICS"],
+    why: ["Panini Classics 2009-10", "Rose con la blanca #1 de los Bulls", "Dos temporadas antes de ser el MVP más joven de la historia"],
+    story: "Panini Classics 2009-10: Derrick Rose con la blanca #1 de los Chicago Bulls, en su segunda temporada. En 2011 fue el MVP más joven de la historia."
+  },
+  {
+    id: "c86", slug: "tim-duncan-upper-deck-2009-10",
+    player: "Tim Duncan", playerSlug: "tim-duncan", jersey: 21, hof: true,
+    team: "San Antonio Spurs", teamSlug: "san-antonio-spurs",
+    season: "2009-10", year: 2010, era: "2000s", playerEra: "1990s",
+    brand: "Upper Deck", product: "Upper Deck", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-duncan-ud09f.webp?v=533"],
+    badges: ["SPURS", "HALL OF FAME"],
+    why: ["Upper Deck 2009-10", "Duncan con la negra #21 de los Spurs", "Cinco veces campeón y Hall of Fame"],
+    story: "Upper Deck 2009-10: Tim Duncan con la camiseta negra #21 de San Antonio, compañero de Manu en los cinco títulos de los Spurs."
+  },
+  {
+    id: "c87", slug: "karl-malone-fleer-authentix-2003-04",
+    player: "Karl Malone", playerSlug: "karl-malone", jersey: 11, hof: true,
+    team: "Los Angeles Lakers", teamSlug: "los-angeles-lakers",
+    season: "2003-04", year: 2004, era: "2000s", playerEra: "1980s",
+    brand: "Fleer", product: "Fleer Authentix", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 3900, oferta: 4500, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-malone-authf.webp?v=533"],
+    badges: ["LAKERS", "HALL OF FAME"],
+    why: ["Fleer Authentix 2003-04, diseño de entrada", "Malone en su única temporada con los Lakers", "Game 1: Lakers vs. Mavericks, 28/10/2003"],
+    story: "Fleer Authentix 2003-04: Karl Malone de brazos cruzados con la violeta de los Lakers, en su única temporada en Los Ángeles. La carta imita una entrada al partido inaugural Lakers vs. Mavericks del 28/10/2003."
+  },
+  {
+    id: "c88", slug: "shareef-abdur-rahim-upper-deck-triple-dimensions-2003-04",
+    player: "Shareef Abdur-Rahim", playerSlug: "shareef-abdur-rahim", jersey: 3, hof: false,
+    team: "Atlanta Hawks", teamSlug: "atlanta-hawks",
+    season: "2003-04", year: 2004, era: "2000s", playerEra: "1990s",
+    brand: "Upper Deck", product: "Upper Deck Triple Dimensions", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 2900, oferta: 3300, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-abdurrahim-tdf.webp?v=533"],
+    badges: ["HAWKS", "UPPER DECK"],
+    why: ["Upper Deck Triple Dimensions 2003-04", "Abdur-Rahim con la roja #3 de los Hawks", "Diseño con letras en relieve azul"],
+    story: "Upper Deck Triple Dimensions 2003-04: Shareef Abdur-Rahim con la camiseta roja #3 de Atlanta, con las letras del set en relieve azul."
+  },
+  {
+    id: "c89", slug: "rasheed-wallace-bowman-elevation-2006-07",
+    player: "Rasheed Wallace", playerSlug: "rasheed-wallace", jersey: 36, hof: false,
+    team: "Detroit Pistons", teamSlug: "detroit-pistons",
+    season: "2006-07", year: 2007, era: "2000s", playerEra: "1990s",
+    brand: "Topps", product: "Bowman Elevation", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 3900, oferta: 4500, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-rwallace-elevf.webp?v=533"],
+    badges: ["PISTONS", "HOLOGRÁFICA"],
+    why: ["Bowman Elevation 2006-07", "Sheed con la azul #36 de los Pistons", "Fondo holográfico"],
+    story: "Bowman Elevation 2006-07: Rasheed Wallace con la camiseta azul #36 de los Detroit Pistons, sobre fondo holográfico con su firma impresa abajo."
+  },
+  {
+    id: "c90", slug: "rashard-lewis-crown-royale-2012-13",
+    player: "Rashard Lewis", playerSlug: "rashard-lewis", jersey: 9, hof: false,
+    team: "Orlando Magic", teamSlug: "orlando-magic",
+    season: "2012-13", year: 2013, era: "2010s", playerEra: "1990s",
+    brand: "Panini", product: "Crown Royale", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 2900, oferta: 3300, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-rlewis-crownf.webp?v=533"],
+    badges: ["MAGIC", "TROQUELADA"],
+    why: ["Panini Crown Royale 2012-13", "Carta troquelada con forma de corona", "Lewis con la #9 del Orlando Magic"],
+    story: "Panini Crown Royale 2012-13: Rashard Lewis con la camiseta #9 del Orlando Magic, en la clásica carta troquelada con forma de corona."
+  },
+  {
+    id: "c91", slug: "paul-pierce-ud-victory-2003-04",
+    player: "Paul Pierce", playerSlug: "paul-pierce", jersey: 34, hof: true,
+    team: "Boston Celtics", teamSlug: "boston-celtics",
+    season: "2003-04", year: 2004, era: "2000s", playerEra: "2000s",
+    brand: "Upper Deck", product: "UD Victory", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 2900, oferta: 3300, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-pierce-vicf.webp?v=533"],
+    badges: ["CELTICS", "HALL OF FAME"],
+    why: ["Upper Deck Victory 2003-04", "Pierce con la blanca #34 de los Celtics", "Hall of Fame 2021"],
+    story: "Upper Deck Victory 2003-04: Paul Pierce con la camiseta blanca #34 de Boston Celtics, lanzando sobre la marca. Campeón 2008 y Hall of Fame."
+  },
+  {
+    id: "c92", slug: "paul-pierce-fleer-tradition-2003-04",
+    player: "Paul Pierce", playerSlug: "paul-pierce", jersey: 34, hof: true,
+    team: "Boston Celtics", teamSlug: "boston-celtics",
+    season: "2003-04", year: 2004, era: "2000s", playerEra: "2000s",
+    brand: "Fleer", product: "Fleer Tradition", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 2900, oferta: 3300, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-pierce-tradf.webp?v=533"],
+    badges: ["CELTICS", "HALL OF FAME"],
+    why: ["Fleer Tradition 2003-04", "Pierce con la verde #34 de los Celtics", "Diseño clásico de borde blanco"],
+    story: "Fleer Tradition 2003-04: Paul Pierce con la camiseta verde #34 de Boston, superando a la marca de Indiana. Diseño clásico de borde blanco."
+  },
+  {
+    id: "c93", slug: "marc-gasol-rookies-stars-2010-11",
+    player: "Marc Gasol", playerSlug: "marc-gasol", jersey: 33, hof: false,
+    team: "Memphis Grizzlies", teamSlug: "memphis-grizzlies",
+    season: "2010-11", year: 2011, era: "2010s", playerEra: "2000s",
+    brand: "Panini", product: "Rookies & Stars", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 3900, oferta: 4500, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-mgasol-rsf.webp?v=533"],
+    badges: ["GRIZZLIES", "ROOKIES & STARS"],
+    why: ["Panini Rookies & Stars 2010-11", "Marc Gasol con la #33 de Memphis", "Campeón del mundo 2019 con España y con Toronto"],
+    story: "Panini Rookies & Stars 2010-11: Marc Gasol con la camiseta #33 de los Memphis Grizzlies, sobre fondo de cemento con franjas azules."
+  },
+  {
+    id: "c94", slug: "kevin-love-rookies-stars-2010-11",
+    player: "Kevin Love", playerSlug: "kevin-love", jersey: 42, hof: false,
+    team: "Minnesota Timberwolves", teamSlug: "minnesota-timberwolves",
+    season: "2010-11", year: 2011, era: "2010s", playerEra: "2000s",
+    brand: "Panini", product: "Rookies & Stars", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 3900, oferta: 4500, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-love-rsf.webp?v=533"],
+    badges: ["TIMBERWOLVES", "ROOKIES & STARS"],
+    why: ["Panini Rookies & Stars 2010-11", "Love con la #42 de Minnesota", "Del año en que fue el jugador de mayor progreso"],
+    story: "Panini Rookies & Stars 2010-11: Kevin Love con la camiseta #42 de Minnesota, la temporada en que ganó el premio al jugador de mayor progreso."
+  },
+  {
+    id: "c95", slug: "pau-gasol-upper-deck-2009-10",
+    player: "Pau Gasol", playerSlug: "pau-gasol", jersey: 16, hof: true,
+    team: "Los Angeles Lakers", teamSlug: "los-angeles-lakers",
+    season: "2009-10", year: 2010, era: "2000s", playerEra: "2000s",
+    brand: "Upper Deck", product: "Upper Deck", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 3900, oferta: 4500, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-pgasol-ud09f.webp?v=533"],
+    badges: ["LAKERS", "HALL OF FAME"],
+    why: ["Upper Deck 2009-10", "Pau con la blanca #16 de los Lakers", "Bicampeón con los Lakers y Hall of Fame 2023"],
+    story: "Upper Deck 2009-10: Pau Gasol con la blanca #16 de los Lakers, en la temporada del bicampeonato junto a Kobe."
+  },
+  {
+    id: "c96", slug: "richard-hamilton-rookies-stars-2010-11",
+    player: "Richard Hamilton", playerSlug: "richard-hamilton", jersey: 32, hof: false,
+    team: "Detroit Pistons", teamSlug: "detroit-pistons",
+    season: "2010-11", year: 2011, era: "2010s", playerEra: "1990s",
+    brand: "Panini", product: "Rookies & Stars", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 3900, oferta: 4500, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-rip-rsf.webp?v=533"],
+    badges: ["PISTONS", "ROOKIES & STARS"],
+    why: ["Panini Rookies & Stars 2010-11", "Rip con su máscara y la azul #32 de Detroit", "Campeón 2004 con los Pistons"],
+    story: "Panini Rookies & Stars 2010-11: Richard Hamilton con su clásica máscara y la camiseta azul #32 de los Detroit Pistons, campeón 2004."
+  },
+  {
+    id: "c97", slug: "chauncey-billups-rookies-stars-2010-11",
+    player: "Chauncey Billups", playerSlug: "chauncey-billups", jersey: 1, hof: true,
+    team: "Denver Nuggets", teamSlug: "denver-nuggets",
+    season: "2010-11", year: 2011, era: "2010s", playerEra: "1990s",
+    brand: "Panini", product: "Rookies & Stars", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 2900, oferta: 3300, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-billups-rsf.webp?v=533"],
+    badges: ["NUGGETS", "HALL OF FAME"],
+    why: ["Panini Rookies & Stars 2010-11", "Billups con la #1 de Denver", "MVP de las Finales 2004 y Hall of Fame 2024"],
+    story: "Panini Rookies & Stars 2010-11: Chauncey Billups con la camiseta #1 de los Denver Nuggets. MVP de las Finales 2004 con Detroit y Hall of Fame."
+  },
+  {
+    id: "c98", slug: "zion-williamson-mosaic-2022-23-montage",
+    player: "Zion Williamson", playerSlug: "zion-williamson", jersey: 1, hof: false,
+    team: "New Orleans Pelicans", teamSlug: "new-orleans-pelicans",
+    season: "2022-23", year: 2023, era: "2020s", playerEra: "2010s",
+    brand: "Panini", product: "Mosaic", set: "Montage", subset: "Montage",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-zion-montagef.webp?v=535"],
+    badges: ["PELICANS", "INSERTO"],
+    why: ["Inserto Montage de Mosaic", "Tres fotos de Zion en una carta", "Chrome con hexágonos"],
+    story: "Inserto Montage de Panini Mosaic: Zion Williamson en tres fotos, volcándola con la blanca #1, con la azul de New Orleans y en un primer plano en blanco y negro."
+  },
+  {
+    id: "c99", slug: "ja-morant-prizm-draft-picks-deep-space",
+    player: "Ja Morant", playerSlug: "ja-morant", jersey: 12, hof: false,
+    team: "Murray State", teamSlug: "ncaa-murray-state",
+    season: "2024-25", year: 2025, era: "2020s", playerEra: "2010s",
+    brand: "Panini", product: "Prizm Draft Picks", set: "Deep Space", subset: "Deep Space",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-ja-deepspacef.webp?v=535"],
+    badges: ["MURRAY STATE", "INSERTO"],
+    why: ["Inserto Deep Space de Prizm Draft Picks", "Ja con la #12 de Murray State, su universidad", "Fondo de galaxia"],
+    story: "Inserto Deep Space de Panini Prizm Draft Picks: Ja Morant con la #12 de Murray State, la universidad de la que salió como pick 2 del Draft 2019, sobre un fondo de galaxia."
+  },
+  {
+    id: "c100", slug: "jayson-tatum-nba-hoops-2023-24-city-edition",
+    player: "Jayson Tatum", playerSlug: "jayson-tatum", jersey: 0, hof: false,
+    team: "Boston Celtics", teamSlug: "boston-celtics",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "2010s",
+    brand: "Panini", product: "NBA Hoops", set: "City Edition", subset: "City Edition",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-tatum-cityedf.webp?v=535"],
+    badges: ["CELTICS", "INSERTO"],
+    why: ["Inserto City Edition de NBA Hoops", "Tatum con la #0 City Edition de Boston", "Del año del campeonato 2024"],
+    story: "Inserto City Edition de Panini NBA Hoops 2023-24: Jayson Tatum con la #0 de los Celtics, sobre la silueta de Boston en verde, la temporada en que salió campeón."
+  },
+  {
+    id: "c101", slug: "zion-williamson-donruss-bomb-squad",
+    player: "Zion Williamson", playerSlug: "zion-williamson", jersey: 1, hof: false,
+    team: "New Orleans Pelicans", teamSlug: "new-orleans-pelicans",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "2010s",
+    brand: "Panini", product: "Donruss", set: "Bomb Squad", subset: "Bomb Squad",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-zion-bombsquadf.webp?v=535"],
+    badges: ["PELICANS", "INSERTO"],
+    why: ["Inserto Bomb Squad de Donruss", "Zion con la blanca #1 de New Orleans", "Diseño de historieta"],
+    story: "Inserto Bomb Squad de Panini Donruss: Zion Williamson tirando con la blanca #1 de los Pelicans, con diseño de historieta en amarillo y rojo."
+  },
+  {
+    id: "c102", slug: "kevin-durant-threads-2010-11",
+    player: "Kevin Durant", playerSlug: "kevin-durant", jersey: 35, hof: false,
+    team: "Oklahoma City Thunder", teamSlug: "oklahoma-city-thunder",
+    season: "2010-11", year: 2011, era: "2020s", playerEra: "2000s",
+    brand: "Panini", product: "Threads", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-durant-thr10f.webp?v=535"],
+    badges: ["THUNDER", "THREADS"],
+    why: ["Panini Threads 2010-11", "Durant con la blanca #35 del Thunder", "La temporada después de su primer título de goleo"],
+    story: "Panini Threads 2010-11: Kevin Durant con la blanca #35 de Oklahoma City, picando la pelota con el banco del Thunder atrás."
+  },
+  {
+    id: "c103", slug: "jayson-tatum-revolution-vortex",
+    player: "Jayson Tatum", playerSlug: "jayson-tatum", jersey: 0, hof: false,
+    team: "Boston Celtics", teamSlug: "boston-celtics",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "2010s",
+    brand: "Panini", product: "Revolution", set: "Vortex", subset: "Vortex",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-tatum-vortexf.webp?v=535"],
+    badges: ["CELTICS", "INSERTO"],
+    why: ["Inserto Vortex de Revolution", "Tatum con la blanca de los Celtics", "Verde y dorado"],
+    story: "Inserto Vortex de Panini Revolution: Jayson Tatum con la blanca de los Celtics, sobre un diseño verde y dorado."
+  },
+  {
+    id: "c104", slug: "jaylen-brown-revolution-2022-23",
+    player: "Jaylen Brown", playerSlug: "jaylen-brown", jersey: 7, hof: false,
+    team: "Boston Celtics", teamSlug: "boston-celtics",
+    season: "2022-23", year: 2023, era: "2020s", playerEra: "2010s",
+    brand: "Panini", product: "Revolution", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-jbrown-revf.webp?v=535"],
+    badges: ["CELTICS", "REVOLUTION"],
+    why: ["Panini Revolution 2022-23", "Jaylen Brown con la negra #7 de Boston", "Fondo cracked ice con trazos rojos"],
+    story: "Panini Revolution 2022-23: Jaylen Brown con la negra #7 de los Celtics, sobre fondo cracked ice con trazos rojos y verdes. MVP de las Finales 2024."
+  },
+  {
+    id: "c105", slug: "damian-lillard-select-2023-24-numbers",
+    player: "Damian Lillard", playerSlug: "damian-lillard", jersey: 0, hof: false,
+    team: "Portland Trail Blazers", teamSlug: "portland-trail-blazers",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "2010s",
+    brand: "Panini", product: "Select", set: "Numbers", subset: "Numbers",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-lillard-numbersf.webp?v=535"],
+    badges: ["BLAZERS", "INSERTO"],
+    why: ["Inserto Numbers de Select", "Dame con la roja #0 de Portland", "Holográfico con números en círculo"],
+    story: "Inserto Numbers de Panini Select: Damian Lillard con la roja #0 de Portland, sobre un fondo holográfico de círculos con números."
+  },
+  {
+    id: "c106", slug: "devin-booker-select-2023-24-azul",
+    player: "Devin Booker", playerSlug: "devin-booker", jersey: 1, hof: false,
+    team: "Phoenix Suns", teamSlug: "phoenix-suns",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "2010s",
+    brand: "Panini", product: "Select", set: "Prizm azul cracked ice", subset: "Prizm azul cracked ice",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-booker-selectf.webp?v=535"],
+    badges: ["SUNS", "SELECT"],
+    why: ["Panini Select 2023-24", "Paralelo azul cracked ice", "Booker con la violeta #1 de Phoenix"],
+    story: "Panini Select 2023-24: Devin Booker con la violeta #1 de los Suns, en paralelo azul cracked ice."
+  },
+  {
+    id: "c107", slug: "kawhi-leonard-optic-splash",
+    player: "Kawhi Leonard", playerSlug: "kawhi-leonard", jersey: 2, hof: false,
+    team: "LA Clippers", teamSlug: "la-clippers",
+    season: "2021-22", year: 2022, era: "2020s", playerEra: "2010s",
+    brand: "Panini", product: "Donruss Optic", set: "Splash!", subset: "Splash!",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-kawhi-splashf.webp?v=535"],
+    badges: ["CLIPPERS", "INSERTO"],
+    why: ["Inserto Splash! de Donruss Optic", "Kawhi tirando con la blanca #2 de los Clippers", "Fondo de agua"],
+    story: "Inserto Splash! de Panini Donruss Optic: Kawhi Leonard lanzando con la blanca #2 de los Clippers, sobre un fondo de agua. Dos veces campeón y MVP de las Finales."
+  },
+  {
+    id: "c108", slug: "giannis-antetokounmpo-optic-t-minus-321",
+    player: "Giannis Antetokounmpo", playerSlug: "giannis-antetokounmpo", jersey: 34, hof: false,
+    team: "Milwaukee Bucks", teamSlug: "milwaukee-bucks",
+    season: "2022-23", year: 2023, era: "2020s", playerEra: "2010s",
+    brand: "Panini", product: "Donruss Optic", set: "T-Minus 3.2.1.", subset: "T-Minus 3.2.1.",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-giannis-tminusf.webp?v=535"],
+    badges: ["BUCKS", "INSERTO"],
+    why: ["Inserto T-Minus 3.2.1. de Donruss Optic", "Giannis despegando a volcarla", "Dos veces MVP y campeón 2021"],
+    story: "Inserto T-Minus 3.2.1. de Panini Donruss Optic: Giannis Antetokounmpo despegando a volcarla con la negra de Milwaukee, sobre círculos plateados y nubes de despegue."
+  },
+  {
+    id: "c109", slug: "shai-gilgeous-alexander-select-2023-24",
+    player: "Shai Gilgeous-Alexander", playerSlug: "shai-gilgeous-alexander", jersey: 2, hof: false,
+    team: "Oklahoma City Thunder", teamSlug: "oklahoma-city-thunder",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "2010s",
+    brand: "Panini", product: "Select", set: "Prizm azul", subset: "Prizm azul",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-sga-selectf.webp?v=535"],
+    badges: ["THUNDER", "SELECT"],
+    why: ["Panini Select 2023-24", "SGA con la naranja #2 del Thunder", "MVP y campeón 2025"],
+    story: "Panini Select 2023-24: Shai Gilgeous-Alexander con la naranja #2 de Oklahoma City, en paralelo azul. MVP y campeón 2025."
+  },
+  {
+    id: "c110", slug: "james-harden-mosaic-2019-20-mvps",
+    player: "James Harden", playerSlug: "james-harden", jersey: 13, hof: false,
+    team: "Houston Rockets", teamSlug: "houston-rockets",
+    season: "2019-20", year: 2020, era: "2020s", playerEra: "2010s",
+    brand: "Panini", product: "Mosaic", set: "MVPs", subset: "MVPs",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-harden-mvpsf.webp?v=535"],
+    badges: ["ROCKETS", "INSERTO"],
+    why: ["Inserto MVPs de Mosaic", "Harden con el trofeo de MVP 2018", "Chrome rojo y plateado"],
+    story: "Inserto MVPs de Panini Mosaic: James Harden posando con el trofeo de MVP que ganó en 2018 con los Rockets."
+  },
+  {
+    id: "c111", slug: "tyrese-maxey-panini-phoenix",
+    player: "Tyrese Maxey", playerSlug: "tyrese-maxey", jersey: 0, hof: false,
+    team: "Philadelphia 76ers", teamSlug: "philadelphia-76ers",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "2020s",
+    brand: "Panini", product: "Panini Phoenix", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-maxey-phoenixf.webp?v=535"],
+    badges: ["76ERS", "PHOENIX"],
+    why: ["Panini Phoenix", "Maxey con la blanca de los 76ers", "Plateado con relieve"],
+    story: "Panini Phoenix: Tyrese Maxey con la blanca de Philadelphia, sobre un fondo plateado en relieve."
+  },
+  {
+    id: "c112", slug: "stephon-marbury-z-force-1997-98-zupermen",
+    player: "Stephon Marbury", playerSlug: "stephon-marbury", jersey: 3, hof: false,
+    team: "Minnesota Timberwolves", teamSlug: "minnesota-timberwolves",
+    season: "1997-98", year: 1998, era: "1990s", playerEra: "1990s",
+    brand: "SkyBox", product: "Z-Force", set: "Zupermen", subset: "Zupermen",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 3900, oferta: 4500, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-marbury-zforcef.webp?v=535"],
+    badges: ["TIMBERWOLVES", "90s"],
+    why: ["Inserto Zupermen de SkyBox Z-Force 1997-98", "Marbury con la turquesa #3 de Minnesota", "Dorado con letras en relieve"],
+    story: "SkyBox Z-Force 1997-98, inserto Zupermen: Stephon Marbury con la camiseta turquesa #3 de los Timberwolves, sobre fondo dorado con la palabra Zupermen en relieve."
+  },
+  {
+    id: "c113", slug: "rasheed-wallace-prizm-legends",
+    player: "Rasheed Wallace", playerSlug: "rasheed-wallace", jersey: 36, hof: false,
+    team: "Detroit Pistons", teamSlug: "detroit-pistons",
+    season: "2019-20", year: 2020, era: "2010s", playerEra: "1990s",
+    brand: "Panini", product: "Prizm", set: "Legends", subset: "Legends",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 3900, oferta: 4500, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-rwallace-prizmf.webp?v=535"],
+    badges: ["PISTONS", "PRIZM"],
+    why: ["Panini Prizm, Legends", "Sheed con la blanca de los Pistons", "Campeón 2004 con Detroit"],
+    story: "Panini Prizm, serie Legends: Rasheed Wallace con la blanca de los Detroit Pistons, con los que salió campeón en 2004."
+  },
+  {
+    id: "c114", slug: "shaquille-oneal-upper-deck-2009-10-suns",
+    player: "Shaquille O'Neal", playerSlug: "shaquille-oneal", jersey: 32, hof: true,
+    team: "Phoenix Suns", teamSlug: "phoenix-suns",
+    season: "2009-10", year: 2010, era: "2000s", playerEra: "1990s",
+    brand: "Upper Deck", product: "Upper Deck", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4600, oferta: 5300, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-shaq-ud09f.webp?v=535"],
+    badges: ["SUNS", "HALL OF FAME"],
+    why: ["Upper Deck 2009-10", "Shaq con la blanca #32 de los Suns, ante Pau Gasol", "Cuatro veces campeón y Hall of Fame"],
+    story: "Upper Deck 2009-10: Shaquille O'Neal con la #32 de los Phoenix Suns, atacando el aro ante Pau Gasol y los Lakers."
+  },
+  {
+    id: "c115", slug: "yao-ming-ud-victory-2003-04",
+    player: "Yao Ming", playerSlug: "yao-ming", jersey: 11, hof: true,
+    team: "Houston Rockets", teamSlug: "houston-rockets",
+    season: "2003-04", year: 2004, era: "2000s", playerEra: "2000s",
+    brand: "Upper Deck", product: "UD Victory", set: "Base", subset: "Base",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 3900, oferta: 4500, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-yao-victoryf.webp?v=535"],
+    badges: ["ROCKETS", "HALL OF FAME"],
+    why: ["Upper Deck Victory 2003-04, su segunda temporada", "Yao con la #11 a rayas de los Rockets", "Hall of Fame 2016"],
+    story: "Upper Deck Victory 2003-04: Yao Ming con la camiseta a rayas #11 de los Houston Rockets, en su segunda temporada en la NBA. Compañero de Luis Scola en Houston y Hall of Fame."
+  },
+  {
+    id: "c116", slug: "stephon-marbury-fleer-ultra-1996-97-encore-rookie",
+    player: "Stephon Marbury", playerSlug: "stephon-marbury", jersey: 3, hof: false,
+    team: "Minnesota Timberwolves", teamSlug: "minnesota-timberwolves",
+    season: "1996-97", year: 1997, era: "1990s", playerEra: "1990s",
+    brand: "Fleer", product: "Fleer Ultra", set: "Encore · Rookie", subset: "Encore · Rookie",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: true, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 3900, oferta: 4500, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-marbury-ultraf.webp?v=535"],
+    badges: ["RC", "90s"],
+    why: ["Carta de rookie: Fleer Ultra 1996-97 Encore", "Marbury en su primera temporada con Minnesota", "Del Draft 1996, el de Kobe e Iverson"],
+    story: "Fleer Ultra 1996-97, Encore: carta de rookie de Stephon Marbury con la violeta de los Timberwolves, de la camada del Draft 1996 junto a Kobe e Iverson."
+  },
+  {
+    id: "c117", slug: "kevin-garnett-revolution-hardwood-legacy",
+    player: "Kevin Garnett", playerSlug: "kevin-garnett", jersey: 5, hof: true,
+    team: "Boston Celtics", teamSlug: "boston-celtics",
+    season: "2023-24", year: 2024, era: "2020s", playerEra: "1990s",
+    brand: "Panini", product: "Revolution", set: "Hardwood Legacy", subset: "Hardwood Legacy",
+    cardNo: null, serialNum: null, printRun: null,
+    rookie: false, auto: false, autoType: null, memorabilia: false, memType: "Sin memorabilia",
+    condition: "Near Mint–Mint", gradeCompany: "RAW", grade: null, cert: null,
+    price: 4900, oferta: 5600, cur: "ARS", status: "available", addedOn: "2026-11-26", vault: false, demo: true, owner: "nico",
+    imgs: ["img/n-garnett-revf.webp?v=536"],
+    badges: ["CELTICS", "HALL OF FAME"],
+    why: ["Inserto Hardwood Legacy de Panini Revolution", "Garnett con la verde #5 de los Celtics", "Campeón 2008 y Hall of Fame"],
+    story: "Inserto Hardwood Legacy de Panini Revolution: Kevin Garnett con la verde #5 de Boston, sobre un parquet dorado. Campeón 2008 con los Celtics y Hall of Fame."
   }
 ];
 
@@ -6583,6 +7184,204 @@ COMBOS.push({
     "Luis Scola — Armani Milán, Prizm EuroLeague 2023-24 N° 62, temporada 2019-20"
   ],
   price: 5000, cur: "ARS", status: "sold", soldOn: "2026-11-13", owner: "guido"
+});
+COMBOS.push({
+  slug: "set-james-harden-x8-rockets-nets-76ers",
+  title: "Set James Harden ×8 — Rockets, Nets y 76ers",
+  desc: "Ocho cartas de James Harden en tres equipos: insertos de Donruss Optic (T-Minus 3.2.1., Splash! ×3, My House! y Express Lane), Prizm Draft Picks con Arizona State y Donruss con los Rockets.",
+  imgs: ["img/n-set-harden8-1.webp?v=539"],
+  count: 8,
+  includes: [
+    "James Harden — Donruss Optic T-Minus 3.2.1. (Rockets)",
+    "James Harden — Donruss Optic Splash! (Nets)",
+    "James Harden — Donruss Optic My House! (Nets)",
+    "James Harden — Prizm Draft Picks (Arizona State)",
+    "James Harden — Donruss Optic Splash (Rockets)",
+    "James Harden — Donruss Optic Splash (Nets)",
+    "James Harden — Donruss (Rockets)",
+    "James Harden — Donruss Optic Express Lane (76ers)"
+  ],
+  price: 17900, oferta: 20500, cur: "ARS", status: "available", addedOn: "2026-11-26", owner: "nico", cats: ["jugador"], team: "houston-rockets"
+});
+COMBOS.push({
+  slug: "set-giannis-antetokounmpo-x8-bucks",
+  title: "Set Giannis Antetokounmpo ×8 — Bucks",
+  desc: "Ocho cartas de Giannis con Milwaukee: Prizm Dominance, Phoenix Temple Men, Mosaic City Edition, Chronicles, Prizm, Mosaic, Optic y NBA Hoops.",
+  imgs: ["img/n-set-giannis8-1.webp?v=541"],
+  count: 8,
+  includes: [
+    "Giannis Antetokounmpo — NBA Hoops",
+    "Giannis Antetokounmpo — Chronicles",
+    "Giannis Antetokounmpo — Mosaic",
+    "Giannis Antetokounmpo — Prizm, inserto Dominance",
+    "Giannis Antetokounmpo — Donruss Optic",
+    "Giannis Antetokounmpo — Prizm",
+    "Giannis Antetokounmpo — Panini Phoenix, inserto Temple Men",
+    "Giannis Antetokounmpo — Mosaic City Edition"
+  ],
+  price: 18900, oferta: 21600, cur: "ARS", status: "available", addedOn: "2026-11-26", owner: "nico", cats: ["jugador"], team: "milwaukee-bucks"
+});
+COMBOS.push({
+  slug: "set-damian-lillard-x8-blazers",
+  title: "Set Damian Lillard ×8 — Portland Trail Blazers",
+  desc: "Ocho cartas de Dame con Portland: insertos de Donruss Optic (Express Lane, Splash, My House! ×2), Select, Prizm naranja, Donruss y Optic.",
+  imgs: ["img/n-set-lillard8-1.webp?v=541"],
+  count: 8,
+  includes: [
+    "Damian Lillard — Donruss Optic Express Lane",
+    "Damian Lillard — Donruss, paralelo verde",
+    "Damian Lillard — Select",
+    "Damian Lillard — Donruss Optic Splash",
+    "Damian Lillard — Donruss Optic My House!",
+    "Damian Lillard — Donruss Optic",
+    "Damian Lillard — Prizm, paralelo naranja",
+    "Damian Lillard — Donruss Optic My House"
+  ],
+  price: 17900, oferta: 20500, cur: "ARS", status: "available", addedOn: "2026-11-26", owner: "nico", cats: ["jugador"], team: "portland-trail-blazers"
+});
+COMBOS.push({
+  slug: "set-kawhi-leonard-x8-spurs-clippers",
+  title: "Set Kawhi Leonard ×8 — Spurs y Clippers",
+  desc: "Ocho cartas de Kawhi, la mayoría con los Spurs: Mosaic Finals MVP, Optic Winner Stays, NBA Hoops Lights Camera Action, NBA Hoops, Donruss ×2 y dos más.",
+  imgs: ["img/n-set-kawhi8-1.webp?v=538"],
+  count: 8,
+  includes: [
+    "Kawhi Leonard — NBA Hoops Lights Camera Action (Clippers)",
+    "Kawhi Leonard — Spurs, diseño rojo",
+    "Kawhi Leonard — Donruss (Spurs)",
+    "Kawhi Leonard — Spurs, diseño naranja",
+    "Kawhi Leonard — NBA Hoops (Spurs)",
+    "Kawhi Leonard — Donruss Optic Winner Stays (Spurs)",
+    "Kawhi Leonard — Donruss (Clippers)",
+    "Kawhi Leonard — Mosaic Finals MVP (Spurs)"
+  ],
+  price: 17900, oferta: 20500, cur: "ARS", status: "available", addedOn: "2026-11-26", owner: "nico", cats: ["jugador"], team: "san-antonio-spurs"
+});
+COMBOS.push({
+  slug: "set-larry-bird-x6-celtics",
+  title: "Set Larry Bird ×6 — Celtics y USA",
+  desc: "Seis cartas de Larry Bird: Donruss Optic Champions, Upper Deck, Mosaic Hall of Fame, Mosaic USA Basketball (Dream Team), NBA Hoops Tribute y Mosaic Old School.",
+  imgs: ["img/n-set-bird6-1.webp?v=542"],
+  count: 6,
+  includes: [
+    "Larry Bird — Donruss Optic Champions",
+    "Larry Bird — Mosaic Hall of Fame",
+    "Larry Bird — Mosaic USA Basketball",
+    "Larry Bird — NBA Hoops Tribute",
+    "Larry Bird — Mosaic Old School",
+    "Larry Bird — Upper Deck"
+  ],
+  price: 23900, oferta: 27300, cur: "ARS", status: "available", addedOn: "2026-11-26", owner: "nico", cats: ["jugador"], team: "boston-celtics"
+});
+COMBOS.push({
+  slug: "set-magic-johnson-x8-lakers",
+  title: "Set Magic Johnson ×8 — Lakers y Michigan State",
+  desc: "Ocho cartas de Magic: Mosaic Hall of Fame, Magic's Moment, Prizm Michigan State ×2, Fleer '90, Upper Deck, SkyBox y NBA Hoops USA Basketball.",
+  imgs: ["img/n-set-magic8-1.webp?v=538"],
+  count: 8,
+  includes: [
+    "Magic Johnson — NBA Hoops USA Basketball, NBA Playoffs",
+    "Magic Johnson — Fleer '90 (retro)",
+    "Magic Johnson — Prizm, Michigan State Spartans",
+    "Magic Johnson — Mosaic Hall of Fame",
+    "Magic Johnson — Prizm, Michigan State University",
+    "Magic Johnson — Upper Deck",
+    "Magic Johnson — SkyBox",
+    "Magic Johnson — Magic's Moment"
+  ],
+  price: 23900, oferta: 27300, cur: "ARS", status: "available", addedOn: "2026-11-26", owner: "nico", cats: ["jugador"], team: "los-angeles-lakers"
+});
+COMBOS.push({
+  slug: "set-shai-gilgeous-alexander-x8-thunder",
+  title: "Set Shai Gilgeous-Alexander ×8 — Thunder",
+  desc: "Ocho cartas del MVP y campeón 2025 con Oklahoma City: Prizm, Select ×2 (uno en paralelo azul), Donruss Optic, Mosaic y NBA Hoops ×3.",
+  imgs: ["img/n-set-sga8-1.webp?v=540"],
+  count: 8,
+  includes: [
+    "Shai Gilgeous-Alexander — NBA Hoops",
+    "Shai Gilgeous-Alexander — Prizm",
+    "Shai Gilgeous-Alexander — Select",
+    "Shai Gilgeous-Alexander — Mosaic",
+    "Shai Gilgeous-Alexander — Donruss Optic",
+    "Shai Gilgeous-Alexander — Select, paralelo azul",
+    "Shai Gilgeous-Alexander — NBA Hoops Premium Stock",
+    "Shai Gilgeous-Alexander — NBA Hoops"
+  ],
+  price: 19900, oferta: 22700, cur: "ARS", status: "available", addedOn: "2026-11-26", owner: "nico", cats: ["jugador"], team: "oklahoma-city-thunder"
+});
+COMBOS.push({
+  slug: "set-patrick-ewing-x6-knicks",
+  title: "Set Patrick Ewing ×6 — Knicks",
+  desc: "Seis cartas de Ewing con los Knicks: Donruss Hall Kings, Fleer Mystique ×2, Bowman's Best, Mosaic Old School y NBA Hoops USA Basketball.",
+  imgs: ["img/n-set-ewing6-1.webp?v=538"],
+  count: 6,
+  includes: [
+    "Patrick Ewing — Donruss Hall Kings",
+    "Patrick Ewing — NBA Hoops USA Basketball, NBA Rebounds",
+    "Patrick Ewing — Fleer Mystique",
+    "Patrick Ewing — Fleer Mystique (Traded To)",
+    "Patrick Ewing — Mosaic Old School",
+    "Patrick Ewing — Bowman's Best"
+  ],
+  price: 14900, oferta: 17000, cur: "ARS", status: "available", addedOn: "2026-11-26", owner: "nico", cats: ["jugador"], team: "new-york-knicks"
+});
+COMBOS.push({
+  slug: "set-devin-booker-x8-suns",
+  title: "Set Devin Booker ×8 — Phoenix Suns",
+  desc: "Ocho cartas de Booker con los Suns, casi todas insertos de Donruss Optic: Splash! ×2, Express Lane y T-Minus 3.2.1., más Donruss paralelo verde, Optic ×2 y NBA Hoops.",
+  imgs: ["img/n-set-booker8-1.webp?v=543"],
+  count: 8,
+  includes: ["Devin Booker — Donruss, paralelo verde", "Devin Booker — Donruss Optic Splash!", "Devin Booker — NBA Hoops", "Devin Booker — Donruss Optic", "Devin Booker — Donruss Optic Express Lane", "Devin Booker — Donruss Optic, paralelo violeta", "Devin Booker — Donruss Optic Splash", "Devin Booker — Donruss Optic T-Minus 3.2.1."],
+  price: 17900, oferta: 20500, cur: "ARS", status: "available", addedOn: "2026-11-26", owner: "nico", cats: ["jugador"], team: "phoenix-suns"
+});
+COMBOS.push({
+  slug: "set-joel-embiid-x8-76ers-kansas",
+  title: "Set Joel Embiid ×8 — 76ers y Kansas",
+  desc: "Ocho cartas del MVP 2023: Select azul, Panini Phoenix, Mosaic ×2 (dorados), Prizm con Kansas ×2, Donruss Optic y Chronicles.",
+  imgs: ["img/n-set-embiid8-1.webp?v=543"],
+  count: 8,
+  includes: ["Joel Embiid — Select, paralelo azul", "Joel Embiid — Panini Phoenix", "Joel Embiid — Mosaic, dorado", "Joel Embiid — Mosaic, dorado", "Joel Embiid — Prizm Draft Picks (Kansas)", "Joel Embiid — Donruss Optic", "Joel Embiid — Prizm (Kansas)", "Joel Embiid — Chronicles"],
+  price: 17900, oferta: 20500, cur: "ARS", status: "available", addedOn: "2026-11-26", owner: "nico", cats: ["jugador"], team: "philadelphia-76ers"
+});
+COMBOS.push({
+  slug: "set-tyrese-maxey-x8-76ers-rookies",
+  title: "Set Tyrese Maxey ×8 — 76ers, con 3 rookies",
+  desc: "Ocho cartas de Maxey, tres de ellas rookies: Panini RC, Prizm Draft Picks y Prizm Crusade con Kentucky. Además Prizm ×3, NBA Hoops Class of 2020 y Topps.",
+  imgs: ["img/n-set-maxey8-1.webp?v=543"],
+  count: 8,
+  includes: ["Tyrese Maxey — Prizm", "Tyrese Maxey — Prizm", "Tyrese Maxey — NBA Hoops Class of 2020", "Tyrese Maxey — Panini, rookie (RC)", "Tyrese Maxey — Prizm", "Tyrese Maxey — Prizm Draft Picks, rookie (Kentucky)", "Tyrese Maxey — Prizm Crusade, rookie (Kentucky)", "Tyrese Maxey — Topps"],
+  price: 17900, oferta: 20500, cur: "ARS", status: "available", addedOn: "2026-11-26", owner: "nico", cats: ["jugador"], team: "philadelphia-76ers"
+});
+COMBOS.push({
+  slug: "set-steve-nash-x8-suns-mavericks",
+  title: "Set Steve Nash ×8 — Suns y Mavericks",
+  desc: "Ocho cartas del dos veces MVP y Hall of Fame: Prizm Dominance dorado, Mosaic Old School, Donruss Retro Series, Optic Express Lane, Prizm, Panini Phoenix, una carta rookie y Upper Deck con los Mavericks.",
+  imgs: ["img/n-set-nash8-1.webp?v=543"],
+  count: 8,
+  includes: ["Steve Nash — Prizm Dominance, dorado", "Steve Nash — Upper Deck (Mavericks)", "Steve Nash — Donruss Retro Series", "Steve Nash — Donruss Optic Express Lane", "Steve Nash — Prizm", "Steve Nash — Panini Phoenix", "Steve Nash — Rookie Card (Suns)", "Steve Nash — Mosaic Old School"],
+  price: 16900, oferta: 19300, cur: "ARS", status: "available", addedOn: "2026-11-26", owner: "nico", cats: ["jugador"], team: "phoenix-suns"
+});
+COMBOS.push({
+  slug: "set-paolo-banchero-x8-magic-duke",
+  title: "Set Paolo Banchero ×8 — Orlando Magic y Duke",
+  desc: "Ocho cartas de Banchero: Select azul, Panini Phoenix, Prizm con Duke, Topps, Donruss, Mosaic y NBA Hoops ×2.",
+  imgs: ["img/n-set-banchero8-1.webp?v=543"],
+  count: 8,
+  includes: ["Paolo Banchero — Panini Phoenix", "Paolo Banchero — Select, paralelo azul", "Paolo Banchero — Topps", "Paolo Banchero — Prizm (Duke)", "Paolo Banchero — Donruss", "Paolo Banchero — NBA Hoops, holo", "Paolo Banchero — Mosaic", "Paolo Banchero — NBA Hoops"],
+  price: 16900, oferta: 19300, cur: "ARS", status: "available", addedOn: "2026-11-26", owner: "nico", cats: ["jugador"], team: "orlando-magic"
+});
+COMBOS.push({
+  slug: "set-vince-carter-x3-raptors",
+  title: "Set Vince Carter ×3 — Raptors: Optic Legends, Victory A.K.A. y Upper Deck",
+  desc: "Tres cartas de Vince Carter con los Toronto Raptors: Donruss Optic Legends (holo), el inserto A.K.A. de Upper Deck Victory y la Upper Deck volcando ante los Suns.",
+  imgs: ["img/n-carter3-1.webp?v=536"],
+  count: 3,
+  includes: [
+    "Vince Carter — Donruss Optic Legends, Raptors",
+    "Vince Carter — Upper Deck Victory, inserto A.K.A.",
+    "Vince Carter — Upper Deck, Raptors vs. Suns"
+  ],
+  price: 10900, oferta: 12500, cur: "ARS", status: "available", addedOn: "2026-11-26", owner: "nico", cats: ["jugador"], team: "toronto-raptors"
 });
 COMBOS.push({
   slug: "lote-manu-ginobili-x18",
@@ -9982,9 +10781,26 @@ function catTile(o){
   </a>`;
 }
 /* texto plano de un combo, para buscarlo y filtrarlo */
+/* apodos y siglas de equipos para el buscador: "okc", "sixers", "cavs", "nola"... */
+const TEAM_ALIAS = {
+  "atlanta-hawks":"atl hawks", "boston-celtics":"bos celtics boston", "brooklyn-nets":"bkn nets brooklyn", "charlotte-hornets":"cha hornets",
+  "chicago-bulls":"chi bulls chicago", "cleveland-cavaliers":"cle cavs cavaliers", "dallas-mavericks":"dal mavs mavericks", "denver-nuggets":"den nuggets",
+  "detroit-pistons":"det pistons", "golden-state-warriors":"gsw warriors golden state", "houston-rockets":"hou rockets", "indiana-pacers":"ind pacers",
+  "la-clippers":"lac clippers los angeles", "los-angeles-lakers":"lal lakers la", "memphis-grizzlies":"mem grizzlies grizz", "miami-heat":"mia heat",
+  "milwaukee-bucks":"mil bucks", "minnesota-timberwolves":"min wolves timberwolves twolves", "new-orleans-pelicans":"nop nola pelicans hornets new orleans",
+  "new-york-knicks":"nyk knicks ny", "oklahoma-city-thunder":"okc thunder", "orlando-magic":"orl magic", "philadelphia-76ers":"phi sixers 76s 76ers philly",
+  "phoenix-suns":"phx suns", "portland-trail-blazers":"por blazers trail blazers", "sacramento-kings":"sac kings", "san-antonio-spurs":"sas spurs san antonio",
+  "toronto-raptors":"tor raptors", "utah-jazz":"uta jazz", "washington-wizards":"was wizards bullets", "seattle-supersonics":"sea sonics supersonics",
+  "boca-juniors":"boca xeneize cabj", "argentina":"seleccion afa scaloneta", "red-bull":"red bull rbr", "ferrari":"scuderia", "mclaren":"mclaren papaya"
+};
+function teamWords(slug){
+  if (!slug) return "";
+  const t = TEAMS.find(x => x[2] === slug);
+  return [t ? t[0] : "", t ? t[1] : "", TEAM_ALIAS[slug] || ""].join(" ");
+}
 function comboBlob(combo){
-  const tm = combo.team ? (TEAMS.find(t => t[2] === combo.team) || [])[0] : "";
-  const alias = combo.team === "philadelphia-76ers" ? "sixers 76s" : "";
+  const tm = combo.team ? teamWords(combo.team) : "";
+  const alias = "";
   const b0 = norm([combo.title, combo.desc, ...(combo.includes||[]), tm, alias].filter(Boolean).join(" "));
   // si el set nombra al equipo por el apodo ("Spurs"), que también aparezca buscando el nombre completo ("San Antonio")
   const full = TEAMS.filter(t => { const nick = norm(t[0].split(" ").slice(-1)[0]); return nick.length > 3 && nick !== "magic" && new RegExp("\\b" + nick + "\\b").test(b0); }).map(t => norm(t[0]));
@@ -10101,7 +10917,7 @@ function parseQuery(q){
   return out;
 }
 function blob(c){
-  return [c.player, c.team, c.season, c.brand, c.product, c.set, c.subset, c.cardNo, c.condition,
+  return [c.player, c.team, teamWords(c.teamSlug), ...(c.alsoTeams || []).map(teamWords), c.season, c.brand, c.product, c.set, c.subset, c.cardNo, c.condition,
     c.gradeCompany, c.grade, c.playerEra, c.era, runLabel(c), c.auto ? "autografo autografiada firmada" : "", c.memType].filter(Boolean).map(norm).join(" ");
 }
 function searchCards(q, pool){
@@ -13832,11 +14648,13 @@ function wire(){
       const hitAll = txt => terms.length && terms.every(t => norm(txt).includes(t));
       // jugadores y equipos que coinciden con lo escrito: van primero, con cuántas cartas tienen
       const pl = {}, tm = {};
+      const teamHit = c => hitAll(c.team + " " + teamWords(c.teamSlug) + " " + (c.alsoTeams || []).map(teamWords).join(" "));
+      const byTeam = !live().some(c => hitAll(c.player));   // si no escribió un jugador, sino un equipo: mostrar los jugadores de ese equipo
       live().forEach(c => {
-        if (hitAll(c.player)) (pl[c.playerSlug] = pl[c.playerSlug] || { name:c.player, teams:new Set(), n:0, img:c.imgs[0] }, pl[c.playerSlug].teams.add(c.team), pl[c.playerSlug].n++);
-        if (hitAll(c.team)) (tm[c.teamSlug] = tm[c.teamSlug] || { name:c.team, n:0 }, tm[c.teamSlug].n++);
+        if (hitAll(c.player) || (byTeam && teamHit(c))) (pl[c.playerSlug] = pl[c.playerSlug] || { name:c.player, teams:new Set(), n:0, img:c.imgs[0] }, pl[c.playerSlug].teams.add(c.team), pl[c.playerSlug].n++);
+        if (teamHit(c)) (tm[c.teamSlug] = tm[c.teamSlug] || { name:c.team, n:0 }, tm[c.teamSlug].n++);
       });
-      const players = Object.entries(pl).sort((a,b) => b[1].n - a[1].n).slice(0, 3);
+      const players = Object.entries(pl).sort((a,b) => b[1].n - a[1].n).slice(0, byTeam ? 8 : 3);
       const teams = Object.entries(tm).sort((a,b) => b[1].n - a[1].n).slice(0, 2);
       if (players.length) html += head(RL.players()) + players.map(([slug, p]) => `
         <a class="sresult sr-group" href="#/players/${slug}" data-close-search>
