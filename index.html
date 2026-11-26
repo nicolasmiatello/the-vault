@@ -2885,12 +2885,24 @@ html, body{overflow-x:clip}
 .soon-site{font-family:var(--mono); font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--silver-dim); margin-top:8px}
 .soon-x{position:absolute; top:calc(14px + env(safe-area-inset-top,0px)); right:14px; z-index:2; font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--silver); padding:9px 12px; border:1px dashed var(--hair-strong); border-radius:2px; background:rgba(0,0,0,.5)}
 body.soon-on{overflow:hidden}
+/* barra de salas: cambiar de sala con un toque (solo si hay más de una sala abierta para este visitante) */
+.room-bar{display:flex; justify-content:center; align-items:center; gap:6px; padding:7px var(--gutter); border-bottom:1px solid var(--hair); background:rgba(0,0,0,.35); overflow-x:auto; scrollbar-width:none}
+.room-bar[hidden]{display:none}
+.room-bar::-webkit-scrollbar{display:none}
+.room-bar .rb-lbl{font-family:var(--mono); font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:var(--silver-dim); margin-right:4px; white-space:nowrap}
+.room-bar button{flex:0 0 auto; font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; padding:7px 14px; border:1px solid var(--hair-strong); border-radius:999px; color:var(--bone-dim); background:transparent; white-space:nowrap; transition:border-color .2s, color .2s}
+.room-bar button:hover{border-color:var(--gold-soft); color:var(--bone)}
+.room-bar button.on{background:linear-gradient(140deg,var(--gold-soft),var(--gold)); border-color:transparent; color:#1a1405; font-weight:600}
+.room-bar button.rb-hall{border-style:dashed}
+html.ua-samsung .room-bar button.on{background:#0c0b08!important; color:#E8C766!important; border:1.5px solid #C9A227!important}
+@media(max-width:760px){ .room-bar{justify-content:flex-start; padding:6px 12px} .room-bar button{padding:6px 11px; font-size:10px} .room-bar .rb-lbl{display:none} }
 </style>
 
 </head>
 <body>
 <div class="soon" id="soon" hidden role="dialog" aria-label="Final Cards · Muy pronto"></div>
 <header class="site-header" id="siteHeader">
+  <nav class="room-bar" id="roomBar" aria-label="Salas" hidden></nav>
   <div class="wrap-wide hdr">
     <a class="brand" href="#/" aria-label="Final Cards · inicio">
       <img class="logo-mark" src="img/logo-mark.webp?v=261" alt="" width="149" height="160">
@@ -6931,7 +6943,7 @@ COMBOS.push({
     "Dorian Finney-Smith — Lakers, NBA Hoops",
     "Adou Thiero — RC, Lakers, Topps Chrome"
   ],
-  price: 24900, oferta: 30000, cur: "ARS", status: "available", owner: "nico", team: "los-angeles-lakers"
+  price: 24900, oferta: 30000, cur: "ARS", status: "sold", soldOn: "2026-11-26", owner: "nico", team: "los-angeles-lakers"
 });
 COMBOS.push({
   slug: "set-new-york-knicks-x7-brunson-towns-bridges",
@@ -9288,7 +9300,18 @@ function setRoom(k, quiet){
   $$('a[href="#/teams"] > span, a[href="#/teams"]:not(:has(*))').forEach(a => { a.textContent = RL.teams(); });
   { const ft = $("#footTag"); if (ft) ft.textContent = k === "f1" ? "Quedate con una parte de la carrera. Cartas de Franco Colapinto y de la Fórmula 1, elegidas una por una." : k === "futbol" ? "Quedate con una parte del juego. Cartas de la Selección Argentina y de los argentinos en el mundo, elegidas una por una." : "Quedate con una parte del juego. Autógrafos, rookies, patches, game-worn y cartas especiales de la NBA, elegidas una por una."; }
   const chip = $(".sala-chip"); if (chip && chip.firstChild) chip.firstChild.textContent = ROOM_META[k].chip + " ";
+  paintRoomBar();
   if (!quiet){ paintMenus(); render(); }
+}
+/* barra de salas arriba de todo */
+const ROOM_LBL = { nba: "NBA", futbol: "Fútbol", f1: "Fórmula 1" };
+function paintRoomBar(){
+  const bar = $("#roomBar"); if (!bar) return;
+  const open = ["nba", "futbol", "f1"].filter(roomIsOpen);
+  if (open.length < 2){ bar.hidden = true; bar.innerHTML = ""; return; }
+  bar.hidden = false;
+  bar.innerHTML = `<span class="rb-lbl">Salas</span>` + open.map(k => `<button type="button" data-room-home="${k}" class="${ROOM.k === k ? "on" : ""}" aria-pressed="${ROOM.k === k}">${ROOM_LBL[k]}</button>`).join("")
+    + `<button type="button" class="rb-hall" data-lobby>Hall</button>`;
 }
 /* sala sin cartas todavía */
 function pageRoomEmpty(){
@@ -13589,6 +13612,7 @@ function paintMenus(){
 }
 function afterRender(parts, pathChanged){
   paintPips();
+  paintRoomBar();
   paintMenus();
   $$("#mainNav a").forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + parseHash().path));
   $$(".bottom-nav a[data-bn]").forEach(a => a.classList.toggle("on", a.dataset.bn === parseHash().path));
@@ -13934,6 +13958,8 @@ function wire(){
 
     const lob = hit("[data-lobby]");
     if (lob){ e.preventDefault(); openLobby(); return; }
+    const rh = hit("[data-room-home]");
+    if (rh){ e.preventDefault(); const k = rh.dataset.roomHome; if (k !== ROOM.k){ setRoom(k, true); } if ((location.hash || "#/") !== "#/") location.hash = "#/"; else { paintMenus(); render(); } window.scrollTo(0, 0); return; }
     const rgo = hit("[data-room-go]"); if (rgo){ e.preventDefault(); setRoom(rgo.dataset.roomGo); window.scrollTo(0, 0); return; }
 
     const pack = hit("[data-pack]");
