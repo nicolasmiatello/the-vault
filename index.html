@@ -3364,7 +3364,7 @@ const DEFAULT_OWNER = "nico";
 const SETTINGS = {
   demo: true,
   gaId: "G-BSSR9DC5FQ",
-  rooms: { futbol: false, f1: false },  // F1 cerrada igual que fútbol: socios con ?f1=1  // salas abiertas al público además de NBA. Fútbol cerrada: solo socios con ?futbol=1. Poner true el día que abra                 // Google Analytics 4: pegar acá el ID de medición (G-XXXXXXXXXX). Solo mide en final-cards.com
+  rooms: { futbol: true, f1: false },  // F1 cerrada igual que fútbol: socios con ?f1=1  // salas abiertas al público además de NBA. Fútbol cerrada: solo socios con ?futbol=1. Poner true el día que abra                 // Google Analytics 4: pegar acá el ID de medición (G-XXXXXXXXXX). Solo mide en final-cards.com
   blackFriday: true,   // banner Black Friday arriba del inicio de NBA (false lo saca)
   papaPromo: false,   // banner del Papa en el inicio (true lo muestra). El set sigue en Lotes y en final-cards.com/papa.html
   groupUrl: "https://chat.whatsapp.com/COB0Sr7wz6p4uPTrcqn8li",             // link de invitación al grupo o canal de WhatsApp (https://chat.whatsapp.com/...). Vacío: el botón abre un chat pidiendo que lo sumen
@@ -14910,7 +14910,7 @@ function playRoomFilm(after, startAt){
 const LOBBY = { open:false, pending:null };
 const LOBBY_ROOMS = [
   { k:"nba",    name:"NBA",        sub:"Lotes y sets armados, autógrafos, parches y numeradas de cualquier equipo", open:true },
-  { k:"futbol", name:"Fútbol",     sub:"Selecciones, clubes y los ídolos de siempre", open:false },
+  { k:"futbol", name:"Fútbol",     sub:"Selecciones, clubes y los ídolos de siempre", open:true },
   { k:"f1",     name:"Fórmula 1",  sub:"Pilotos, campeones y piezas numeradas de la parrilla", open:false },
   { k:"varios", name:"Varios",     sub:"Tenis, boxeo, música, cómics y rarezas que no entran en otra sala", open:false }
 ];
