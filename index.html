@@ -11623,6 +11623,8 @@ const WANTED = {
   argentina: ["Manu Ginóbili","Luis Scola","Pablo Prigioni","Fabricio Oberto","Pepe Sánchez","Facundo Campazzo","Leandro Bolmaro","Gabriel Deck"],
   legends: ["Michael Jordan","Kobe Bryant","LeBron James","Magic Johnson","Larry Bird","Shaquille O'Neal","Tim Duncan","Allen Iverson","Kevin Garnett","Dirk Nowitzki","Stephen Curry","Kevin Durant","Dwyane Wade","Patrick Ewing"]
 };
+/* la lista de búsqueda es de básquet: en Fútbol y F1 no se muestra */
+const wantedRoom = () => ROOM.k === "nba" ? WANTED : { argentina: [], legends: [] };
 /* jugadores argentinos: alcanza con que un jugador esté acá para que sus cartas
    aparezcan solas en la colección "Argentina", sin tocar nada más */
 const ARGENTINA_SLUGS = ["ruben-wolkowyski","manu-ginobili","luis-scola","pablo-prigioni","fabricio-oberto","carlos-delfino","pepe-sanchez","andres-nocioni","facundo-campazzo","leandro-bolmaro","gabriel-deck","nicolas-laprovittola"];
@@ -12948,7 +12950,7 @@ function runMap(c){
   else if (mine === run) notes.push(`<p class="rm-note"><b>La última</b><span>Es la copia ${run}/${run}: la última de la tirada.</span></p>`);
   else if (mine && mine < 10 && run >= 25) notes.push(`<p class="rm-note"><b>Un dígito</b><span>Los seriales de un solo dígito suelen buscarse aparte dentro de la misma tirada.</span></p>`);
   if (c.jersey && c.jersey <= run && mine !== c.jersey)
-    notes.push(`<p class="rm-note blue"><b>Camiseta #${c.jersey}</b><span>La copia ${pad(c.jersey)}/${run} es la que coincide con su número de camiseta.</span></p>`);
+    notes.push(`<p class="rm-note blue"><b>${ROOM.k === "f1" ? "Auto" : "Camiseta"} #${c.jersey}</b><span>La copia ${pad(c.jersey)}/${run} es la que coincide con su número de ${ROOM.k === "f1" ? "auto" : "camiseta"}.</span></p>`);
   sold.forEach(x => notes.push(`<p class="rm-note"><b>Pasó por acá</b><span>La ${pad(x.serialNum)}/${run} se vendió desde la bóveda. <a href="#/cards/${x.slug}" style="color:var(--gold-soft)">Ver en el archivo →</a></span></p>`));
   return `<div class="panel runmap">
     <h3>La tirada</h3>
@@ -12977,7 +12979,7 @@ function pageHome(){
   const fresh = pool.slice().sort(SORTS.new).slice(0, 8);
   const argCards = pool.filter(c => ARGENTINA_SLUGS.includes(c.playerSlug)).sort((a,b) => b.price - a.price);
   const argHave = new Set(argCards.map(c => c.player));
-  const argWanted = WANTED.argentina.filter(n => !argHave.has(n));
+  const argWanted = wantedRoom().argentina.filter(n => !argHave.has(n));
   const spot = pool.find(c => c.spotlight) || pool[0];
   // el equipo destacado sale del stock: el que más cartas tiene hoy
   const _tc = {}; live().forEach(c => { _tc[c.teamSlug] = (_tc[c.teamSlug] || 0) + 1; });
@@ -13053,7 +13055,7 @@ function pageHome(){
   const worn = pool.filter(c => c.memorabilia);
   const lowNo = pool.filter(c => c.printRun && c.printRun <= 49).sort((a,b) => a.printRun - b.printRun);
   const ownedNames = new Set(Object.keys(PLAYERS_META).filter(k => pool.some(c => c.playerSlug === k)).map(k => PLAYERS_META[k].name));
-  const legendNames = Array.from(new Set(Object.values(PLAYERS_META).map(m => m.name).concat(WANTED.legends)));
+  const legendNames = Array.from(new Set(Object.values(PLAYERS_META).map(m => m.name).concat(wantedRoom().legends)));
   const teamCounts = {}; pool.forEach(c => teamCounts[c.teamSlug] = (teamCounts[c.teamSlug]||0)+1);
   const playerCounts = {}; pool.forEach(c => playerCounts[c.playerSlug] = (playerCounts[c.playerSlug]||0)+1);
   const topPlayers = Object.keys(playerCounts).map(slug => { const c = pool.find(x => x.playerSlug === slug); return [slug, c.player, playerCounts[slug], Math.max(...pool.filter(x => x.playerSlug === slug).map(x => x.price))]; })
@@ -13454,8 +13456,8 @@ function pageShop(params){
   let pool = live(), spool = soldCards();
   let title = "Todas las cartas", eyebrow = "Tienda", sub = "";
 
-  if (params.preset === "rookies"){ { const F = c => c.rookie; pool = pool.filter(F); spool = spool.filter(F); } title = "Rookie Center"; eyebrow = "Rookies"; sub = ROOM.k === "f1" ? "Cartas de la temporada debut de cada piloto en la Fórmula 1." : "Rookie cards, rookie autographs y RPA. Solo cartas de primer año."; }
-  if (params.preset === "autographs"){ { const F = c => c.auto; pool = pool.filter(F); spool = spool.filter(F); } title = "La sala de autógrafos"; eyebrow = "Autógrafos"; sub = ROOM.k === "f1" ? "Firmas de pilotos, certificadas por el fabricante." : "Firmas de leyendas, rookies y Hall of Fame."; }
+  if (params.preset === "rookies"){ { const F = c => c.rookie; pool = pool.filter(F); spool = spool.filter(F); } title = "Rookie Center"; eyebrow = "Rookies"; sub = ROOM.k === "f1" ? "Cartas de la temporada debut de cada piloto en la Fórmula 1." : ROOM.k === "futbol" ? "Cartas rookie: las del primer año de cada jugador." : "Rookie cards, rookie autographs y RPA. Solo cartas de primer año."; }
+  if (params.preset === "autographs"){ { const F = c => c.auto; pool = pool.filter(F); spool = spool.filter(F); } title = "La sala de autógrafos"; eyebrow = "Autógrafos"; sub = ROOM.k === "f1" ? "Firmas de pilotos, certificadas por el fabricante." : ROOM.k === "futbol" ? "Firmas de jugadores y leyendas, certificadas por el fabricante." : "Firmas de leyendas, rookies y Hall of Fame."; }
   if (params.preset === "game-worn"){ { const F = c => c.memorabilia; pool = pool.filter(F); spool = spool.filter(F); } title = "Game-Worn"; eyebrow = "Memorabilia"; sub = "Cartas con jersey, patch o prime swatch."; }
   if (params.f === "patch") { const F = c => c.memorabilia; pool = pool.filter(F); spool = spool.filter(F); }
   if (params.f === "numbered") { const F = c => c.printRun; pool = pool.filter(F); spool = spool.filter(F); }
@@ -13472,9 +13474,9 @@ function pageShop(params){
   list = list.concat(S.q ? searchCards(S.q, applyFilters(spool)) : applyFilters(spool));
 
   const subTabs = params.preset === "autographs"
-    ? (ROOM.k === "f1" ? [["Todas","all"],["Numeradas bajo","low"]] : [["Todas","all"],["Rookie autos","rookie"],["Hall of Fame","hof"],["Numeradas bajo","low"]])
+    ? (ROOM.k !== "nba" ? [["Todas","all"],["Numeradas bajo","low"]] : [["Todas","all"],["Rookie autos","rookie"],["Hall of Fame","hof"],["Numeradas bajo","low"]])
     : params.preset === "rookies"
-    ? [["Todas","all"],["Rookie autos","auto"],["Numeradas bajo","low"],["Graded","graded"]]
+    ? (ROOM.k !== "nba" ? [["Todas","all"],["Numeradas bajo","low"]] : [["Todas","all"],["Rookie autos","auto"],["Numeradas bajo","low"],["Graded","graded"]])
     : null;
 
   return `
@@ -13701,7 +13703,7 @@ function pageProduct(slug){
       return `<section class="section-tight pdp-combos">
         <div class="section-head"><div><p class="eyebrow gold">En lotes</p>
           <h2>${withP.length ? esc(last) + " también está en estos " + kindsLbl(list) : kindsLbl(list).replace(/^./, x => x.toUpperCase()) + " de " + esc(c.team)}</h2>
-          <p class="sub">${withP.length ? "Si te interesa el jugador, también lo podés conseguir dentro de un lote armado, junto con otras cartas." : "Cartas del mismo equipo, armadas en lote y a mejor precio."}</p></div>
+          <p class="sub">${withP.length ? "Si te interesa el " + RL.pl() + ", también lo podés conseguir dentro de un lote armado, junto con otras cartas." : "Cartas " + RL.delTm() + ", armadas en lote y a mejor precio."}</p></div>
           <a class="btn btn-sm" href="#/combos">Ver todos los lotes</a></div>
         <div class="combo-grid">${list.map(comboTile).join("")}</div>
       </section>`;
@@ -13813,7 +13815,7 @@ function pageTeam(slug){
     <div class="wrap ph-inner">
       <p class="eyebrow gold">Colección de ${RL.tm()}</p>
       <h1>${esc(name)}</h1>
-      <p class="ph-sub">${nAv ? "Todas las cartas de esta " + (ROOM.k === "f1" ? "escudería" : "franquicia") + " en stock." : tcs.length ? "Por ahora no hay cartas sueltas de esta " + (ROOM.k === "f1" ? "escudería" : "franquicia") + ", pero hay " + (tcs.length === 1 ? "un " + comboKindL(tcs[0]) : tcs.length + " " + kindsLbl(tcs)) + " del equipo." : "Todavía no hay cartas de esta franquicia. Si buscás una, escribinos y la salimos a buscar."}</p>
+      <p class="ph-sub">${nAv ? "Todas las cartas de " + (ROOM.k === "f1" ? "esta escudería" : ROOM.k === "futbol" ? "este equipo" : "esta franquicia") + " en stock." : tcs.length ? "Por ahora no hay cartas sueltas de " + (ROOM.k === "f1" ? "esta escudería" : ROOM.k === "futbol" ? "este equipo" : "esta franquicia") + ", pero hay " + (tcs.length === 1 ? "un " + comboKindL(tcs[0]) : tcs.length + " " + kindsLbl(tcs)) + " del equipo." : "Todavía no hay cartas de esta franquicia. Si buscás una, escribinos y la salimos a buscar."}</p>
       <p style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap; align-items:center">
         <span class="badge badge-num">${plural(nAv, "disponible", "disponibles")}</span>
         ${sets.autos.length ? `<span class="badge">${plural(sets.autos.length, "autógrafo", "autógrafos")}</span>` : ""}
@@ -13871,7 +13873,7 @@ function pagePlayers(){
       <span class="pt-n">${[p.n ? plural(p.n, "carta", "cartas") : "", p.c ? combosCountLbl(combosOfPlayer(p.slug)) : ""].filter(Boolean).join(" · ")}${p.hof ? " · HOF" : ""}</span></a>`;
   };
   const haveNames = new Set(have.map(p => p.name));
-  const wanted = Array.from(new Set(WANTED.argentina.concat(WANTED.legends))).filter(n => !haveNames.has(n));
+  const wanted = Array.from(new Set(wantedRoom().argentina.concat(wantedRoom().legends))).filter(n => !haveNames.has(n));
   const wantTile = n => `<div class="player-tile" data-name="${esc(norm(n))}" style="opacity:.7"><b>${esc(n)}</b><span>Se busca</span><span class="pt-n zero">En la lista</span></div>`;
   const arg = byCount.filter(p => ARGENTINA_SLUGS.includes(p.slug));
   return `
