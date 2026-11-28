@@ -35,6 +35,7 @@ html.ua-samsung .gfab, html.ua-samsung .gs-go, html.ua-samsung .gs-ico{backgroun
 html.ua-samsung .gfab .wa-ico, html.ua-samsung .gs-ico .wa-ico{stroke:#3ee07f!important}
 html.ua-samsung .btn-group.btn-group-solid{border-width:1.5px!important; font-weight:700}
 html[data-room="futbol"] a[href="#/premium"], html[data-room="f1"] a[href="#/premium"]{display:none!important}
+html[data-room="f1"] a[href="#/game-worn"]{display:none!important}
 html[data-room="f1"] [data-playbook], html[data-room="f1"] [data-sc-tool="playbook"]{display:none!important}
 html[data-room="f1"] .hero-court{background-image:url("img/hero-f1.jpg"); background-position:50% 45%}
 html[data-room="futbol"] .hero-court{background-image:url("img/hero-pitch.jpg?v=489"); background-position:50% 30%}
@@ -11912,7 +11913,12 @@ const RL = {
   player: () => ROOM.k === "f1" ? "Piloto" : "Jugador",
   players: () => ROOM.k === "f1" ? "Pilotos" : "Jugadores",
   team: () => ROOM.k === "f1" ? "Escudería" : "Equipo",
-  teams: () => ROOM.k === "f1" ? "Escuderías" : "Equipos"
+  teams: () => ROOM.k === "f1" ? "Escuderías" : "Equipos",
+  pl: () => ROOM.k === "f1" ? "piloto" : "jugador",
+  pls: () => ROOM.k === "f1" ? "pilotos" : "jugadores",
+  tm: () => ROOM.k === "f1" ? "escudería" : "equipo",
+  tms: () => ROOM.k === "f1" ? "escuderías" : "equipos",
+  delTm: () => ROOM.k === "f1" ? "de la misma escudería" : "del mismo equipo"
 };
 const ROOM = { k: "nba" };
 const roomTag = () => ROOM_META[ROOM.k].tag;
@@ -11947,6 +11953,7 @@ function setRoom(k, quiet){
   $$(".brand .tag").forEach(t => { t.textContent = roomTag(); });
   $$('a[href="#/players"] > span, a[href="#/players"]:not(:has(*))').forEach(a => { a.textContent = RL.players(); });
   $$('a[href="#/teams"] > span, a[href="#/teams"]:not(:has(*))').forEach(a => { a.textContent = RL.teams(); });
+  { const sp = $(".sp-txt"); if (sp) sp.textContent = k === "f1" ? "Buscá piloto, escudería o set" : "Buscá jugador, equipo o set"; }
   { const ft = $("#footTag"); if (ft) ft.textContent = k === "f1" ? "Quedate con una parte de la carrera. Cartas de Franco Colapinto y de la Fórmula 1, elegidas una por una." : k === "futbol" ? "Quedate con una parte del juego. Cartas de la Selección Argentina y de los argentinos en el mundo, elegidas una por una." : "Quedate con una parte del juego. Autógrafos, rookies, patches, game-worn y cartas especiales de la NBA, elegidas una por una."; }
   const chip = $(".sala-chip"); if (chip && chip.firstChild) chip.firstChild.textContent = ROOM_META[k].chip + " ";
   paintRoomBar();
@@ -12664,7 +12671,7 @@ function comboPlayerNames(co){
   const names = new Set(co.players || []);
   (co.includes || []).forEach(i => {
     const n = i.split("—")[0].trim();
-    if (n && !/[0-9:#(]/.test(n) && n.split(/\s+/).length <= 4) names.add(n);
+    if (n && !/[0-9:#(]/.test(n) && n.split(/\s+/).length <= 4 && !TEAMS.some(t => norm(n).includes(norm(t[0])))) names.add(n);   // "Oracle Red Bull Racing — ..." es la escudería, no un piloto
   });
   return Array.from(names);
 }
@@ -12814,8 +12821,8 @@ const FILTER_DEFS = [
       if (!t.length) t.push("Base");
       return t;
     }},
-  { key:"player",   label:"Jugador",            get:c => c.player },
-  { key:"team",     label:"Equipo",             get:c => c.team },
+  { key:"player",   get label(){ return RL.player(); }, get:c => c.player },
+  { key:"team",     get label(){ return RL.team(); },   get:c => c.team },
   { key:"season",   label:"Temporada",          get:c => c.season },
   { key:"playerEra",label:"Época",              get:c => c.playerEra },
   { key:"brand",    label:"Marca",              get:c => c.brand },
@@ -13073,7 +13080,7 @@ function pageHome(){
     <div class="wrap hero-inner">
       <div class="hero-top">
         <p class="hero-word display">${roomWord()}</p>
-        <p class="hero-tagline">Quedate con una parte del juego</p>
+        <p class="hero-tagline">Quedate con una parte ${ROOM.k === "f1" ? "de la carrera" : "del juego"}</p>
       </div>
 
       <div class="stage" id="stage">
@@ -13421,8 +13428,8 @@ function pageShop(params){
   let pool = live(), spool = soldCards();
   let title = "Todas las cartas", eyebrow = "Tienda", sub = "";
 
-  if (params.preset === "rookies"){ { const F = c => c.rookie; pool = pool.filter(F); spool = spool.filter(F); } title = "Rookie Center"; eyebrow = "Rookies"; sub = "Rookie cards, rookie autographs y RPA. Solo cartas de primer año."; }
-  if (params.preset === "autographs"){ { const F = c => c.auto; pool = pool.filter(F); spool = spool.filter(F); } title = "La sala de autógrafos"; eyebrow = "Autógrafos"; sub = "Firmas de leyendas, rookies y Hall of Fame."; }
+  if (params.preset === "rookies"){ { const F = c => c.rookie; pool = pool.filter(F); spool = spool.filter(F); } title = "Rookie Center"; eyebrow = "Rookies"; sub = ROOM.k === "f1" ? "Cartas de la temporada debut de cada piloto en la Fórmula 1." : "Rookie cards, rookie autographs y RPA. Solo cartas de primer año."; }
+  if (params.preset === "autographs"){ { const F = c => c.auto; pool = pool.filter(F); spool = spool.filter(F); } title = "La sala de autógrafos"; eyebrow = "Autógrafos"; sub = ROOM.k === "f1" ? "Firmas de pilotos, certificadas por el fabricante." : "Firmas de leyendas, rookies y Hall of Fame."; }
   if (params.preset === "game-worn"){ { const F = c => c.memorabilia; pool = pool.filter(F); spool = spool.filter(F); } title = "Game-Worn"; eyebrow = "Memorabilia"; sub = "Cartas con jersey, patch o prime swatch."; }
   if (params.f === "patch") { const F = c => c.memorabilia; pool = pool.filter(F); spool = spool.filter(F); }
   if (params.f === "numbered") { const F = c => c.printRun; pool = pool.filter(F); spool = spool.filter(F); }
@@ -13439,7 +13446,7 @@ function pageShop(params){
   list = list.concat(S.q ? searchCards(S.q, applyFilters(spool)) : applyFilters(spool));
 
   const subTabs = params.preset === "autographs"
-    ? [["Todas","all"],["Rookie autos","rookie"],["Hall of Fame","hof"],["Numeradas bajo","low"]]
+    ? (ROOM.k === "f1" ? [["Todas","all"],["Numeradas bajo","low"]] : [["Todas","all"],["Rookie autos","rookie"],["Hall of Fame","hof"],["Numeradas bajo","low"]])
     : params.preset === "rookies"
     ? [["Todas","all"],["Rookie autos","auto"],["Numeradas bajo","low"],["Graded","graded"]]
     : null;
@@ -13499,7 +13506,7 @@ function pageShop(params){
             <option value="price-desc"${S.sort==="price-desc"?" selected":""}>Precio: mayor a menor</option>
             <option value="price-asc"${S.sort==="price-asc"?" selected":""}>Precio: menor a mayor</option>
             <option value="rarity"${S.sort==="rarity"?" selected":""}>Tirada más corta</option>
-            <option value="player"${S.sort==="player"?" selected":""}>Jugador A–Z</option>
+            <option value="player"${S.sort==="player"?" selected":""}>${RL.player()} A–Z</option>
             <option value="year"${S.sort==="year"?" selected":""}>Temporada más reciente</option>
           </select>
           <button class="btn btn-sm" data-vitrina="results">◈ Vitrina</button>
@@ -13547,7 +13554,7 @@ function pageProduct(slug){
     "Cartas parecidas disponibles") : "";
 
   const rows = [
-    ["Jugador", c.player], ["Equipo", c.team], ["Temporada", c.season], ["Fabricante", c.brand],
+    [RL.player(), c.player], [RL.team(), c.team], ["Temporada", c.season], ["Fabricante", c.brand],
     ["Producto", c.product], ["Set", c.set], ["Subset", c.subset || "—"], ["N° de carta", c.cardNo || "—"],
     ["Serial", ser || "Sin numerar"], ["Tirada", c.printRun ? plural(c.printRun, "copia", "copias") : "No disponible"],
     ["Rookie", c.rookie ? "Sí" : "No"], ["Autógrafo", c.auto ? "Sí" : "No"],
@@ -13740,9 +13747,9 @@ function pageTeams(){
   const rest = TEAMS.filter(t => !counts[t[2]] && !tc[t[2]]).sort((a,b) => a[0].localeCompare(b[0], "es"));
   return `
   <div class="wrap" id="teamsPage">
-    <p class="crumbs"><a href="#/">Inicio</a> / Equipos</p>
+    <p class="crumbs"><a href="#/">Inicio</a> / ${RL.teams()}</p>
     <div class="section-head"><div><p class="eyebrow gold">Por ${RL.team().toLowerCase()}</p><h2>${RL.teams()}</h2>
-      <p class="sub">${plural(withCards.length, "equipo", "equipos")} con cartas en stock, ordenados por cantidad.</p></div></div>
+      <p class="sub">${plural(withCards.length, RL.tm(), RL.tms())} con cartas en stock, ordenados por cantidad.</p></div></div>
     <div class="search-field" style="border-color:var(--hair); margin-bottom:28px">
       <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--silver);fill:none;stroke-width:1.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
       <input id="teamSearch" type="search" placeholder="Buscá un equipo..." aria-label="Buscar equipos" style="font-size:clamp(16px,2.4vw,22px)">
@@ -13778,9 +13785,9 @@ function pageTeam(slug){
   <section class="page-hero">
     <canvas id="teamCanvas" data-c1="${c1}" data-c2="${c2}" aria-hidden="true"></canvas>
     <div class="wrap ph-inner">
-      <p class="eyebrow gold">Colección de equipo</p>
+      <p class="eyebrow gold">Colección de ${RL.tm()}</p>
       <h1>${esc(name)}</h1>
-      <p class="ph-sub">${nAv ? "Todas las cartas de esta franquicia en stock." : tcs.length ? "Por ahora no hay cartas sueltas de esta franquicia, pero hay " + (tcs.length === 1 ? "un " + comboKindL(tcs[0]) : tcs.length + " " + kindsLbl(tcs)) + " del equipo." : "Todavía no hay cartas de esta franquicia. Si buscás una, escribinos y la salimos a buscar."}</p>
+      <p class="ph-sub">${nAv ? "Todas las cartas de esta " + (ROOM.k === "f1" ? "escudería" : "franquicia") + " en stock." : tcs.length ? "Por ahora no hay cartas sueltas de esta " + (ROOM.k === "f1" ? "escudería" : "franquicia") + ", pero hay " + (tcs.length === 1 ? "un " + comboKindL(tcs[0]) : tcs.length + " " + kindsLbl(tcs)) + " del equipo." : "Todavía no hay cartas de esta franquicia. Si buscás una, escribinos y la salimos a buscar."}</p>
       <p style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap; align-items:center">
         <span class="badge badge-num">${plural(nAv, "disponible", "disponibles")}</span>
         ${sets.autos.length ? `<span class="badge">${plural(sets.autos.length, "autógrafo", "autógrafos")}</span>` : ""}
@@ -13842,12 +13849,12 @@ function pagePlayers(){
   const arg = byCount.filter(p => ARGENTINA_SLUGS.includes(p.slug));
   return `
   <div class="wrap">
-    <p class="crumbs"><a href="#/">Inicio</a> / Jugadores</p>
+    <p class="crumbs"><a href="#/">Inicio</a> / ${RL.players()}</p>
     <div class="section-head"><div><p class="eyebrow gold">Por ${RL.player().toLowerCase()}</p><h2>${RL.players()}</h2>
-      <p class="sub">${plural(have.length, "jugador", "jugadores")} con cartas, sets o lotes en stock. Escribí un nombre o un equipo para filtrar.</p></div></div>
+      <p class="sub">${plural(have.length, RL.pl(), RL.pls())} con cartas, sets o lotes en stock. Escribí un nombre o ${ROOM.k === "f1" ? "una escudería" : "un equipo"} para filtrar.</p></div></div>
     <div class="search-field" style="border-color:var(--hair); margin-bottom:34px">
       <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:var(--silver);fill:none;stroke-width:1.4"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      <input id="playerSearch" type="search" placeholder="Buscá un jugador o un equipo..." aria-label="Buscar jugadores" style="font-size:clamp(18px,3vw,28px)">
+      <input id="playerSearch" type="search" placeholder="Buscá ${ROOM.k === "f1" ? "un piloto o una escudería" : "un jugador o un equipo"}..." aria-label="Buscar ${RL.pls()}" style="font-size:clamp(18px,3vw,28px)">
     </div>
     <div id="playerResults">
       ${byCount.length > 8 ? `<section class="psec" style="margin-bottom:40px">
@@ -13974,8 +13981,8 @@ function pageCollection(slug){
    Un combo puede estar en varias. Para forzar una, agregar cats:["stars"] (u otra clave) en el combo. */
 const COMBO_CATS = [
   ["argentinos", "Argentinos"],
-  ["jugador",    "De un jugador"],
-  ["equipo",     "De un equipo"],
+  ["jugador",    "De un jugador", "De un piloto"],
+  ["equipo",     "De un equipo", "De una escudería"],
   ["stars",      "Lotes Stars"],
   ["top",        "Lotes Top"],
   ["lotes",      "Lotes grandes (10+)"]
@@ -13997,14 +14004,14 @@ function pageCombos(){
     "price-desc": (a,b) => b.price - a.price
   };
   const sortKey = sortFns[S.comboSort] ? S.comboSort : "new";
-  const cats = COMBO_CATS.map(([k, l]) => [k, l, COMBOS.filter(co => comboCats(co).has(k)).length]).filter(c => c[2]);
+  const cats = COMBO_CATS.map(([k, l, lf]) => [k, (ROOM.k === "f1" && lf) || l, COMBOS.filter(co => comboCats(co).has(k)).length]).filter(c => c[2]);
   const cat = cats.some(c => c[0] === S.tab) ? S.tab : "all";
   const list = COMBOS.filter(co => cat === "all" || comboCats(co).has(cat)).sort(sortFns[sortKey]);
   return `
   <div class="wrap">
     <p class="crumbs"><a href="#/">Inicio</a> / Lotes</p>
     <div class="section-head"><div><p class="eyebrow gold">Lotes</p><h2>Lotes y sets armados</h2>
-      <p class="sub">Varias cartas juntas a mejor precio: del mismo jugador, del mismo equipo o mezcladas entre equipos.</p></div>
+      <p class="sub">Varias cartas juntas a mejor precio: del mismo ${RL.pl()}, ${RL.delTm()} o mezcladas entre ${RL.tms()}.</p></div>
       <p class="eyebrow">${plural(COMBOS.length, "lote", "lotes")}</p></div>
     ${COMBOS.length ? `
     <div class="search-field" style="border-color:var(--hair); margin-bottom:20px">
@@ -14086,7 +14093,7 @@ function pageCombo(slug){
       <div class="home-combos">${relCombos.map(comboTile).join("")}</div>
     </section>` : ""}
     ${!sold && relCards.length ? `<section class="section-tight">
-      <div class="section-head"><div><p class="eyebrow gold">Sueltas</p><h2>Cartas de los mismos jugadores</h2></div></div>
+      <div class="section-head"><div><p class="eyebrow gold">Sueltas</p><h2>Cartas de los mismos ${RL.pls()}</h2></div></div>
       ${cardGrid(relCards)}
     </section>` : ""}
   </div>`;
@@ -14106,7 +14113,7 @@ function comboWhy(combo){
   if (rookies) out.push(`Trae ${plural(rookies, "rookie", "rookies")} adentro del lote.`);
   const teams = new Set(items.map(i => (i.split("—")[1] || "").split(",").map(x => x.trim()).filter(x => x && x !== "RC")[0]).filter(Boolean));
   if (combo.why) combo.why.forEach(w => out.push(w));
-  if (teams.size > 1) out.push(`Equipos mezclados: buena forma de arrancar o sumar variedad a la colección de un tirón.`);
+  if (teams.size > 1) out.push(`${ROOM.k === "f1" ? "Escuderías mezcladas" : "Equipos mezclados"}: buena forma de arrancar o sumar variedad a la colección de un tirón.`);
   else if (teams.size === 1) out.push(`Lote enfocado en un solo plantel, ideal si seguís a ${[...teams][0]}.`);
   out.push(`Se vende entero: todo el ${comboKindL(combo)} junto, no carta por carta.`);
   return out;
@@ -14140,7 +14147,7 @@ function pageCompare(){
   const list = S.compare.map(byId).filter(Boolean);
   const rows = [
     ["Foto", c => `<img src="${c.imgs[0]}" alt="${esc(c.player)}">`],
-    ["Jugador", c => esc(c.player)],
+    [RL.player(), c => esc(c.player)],
     ["Temporada", c => esc(c.season)],
     ["Set", c => esc(prodSet(c))],
     ["Autógrafo", c => c.auto ? "Sí" : "No"],
