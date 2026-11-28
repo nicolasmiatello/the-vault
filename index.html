@@ -12040,6 +12040,21 @@ function spreadMix(list){
   Object.keys(by).forEach((o, k) => by[o].forEach((x, i) => keyed.push({ x, key:(i + .5) / by[o].length, k })));
   return keyed.sort((a, b) => a.key - b.key || a.k - b.k).map(o => o.x);
 }
+/* F1: Colapinto es el protagonista y Verstappen el segundo. starMix ordena en F1 con el patrón
+   Colapinto, Verstappen, Colapinto, Verstappen, otro piloto… (si se acaba uno, sigue con los demás). En las otras salas no toca nada. */
+const F1_STARS = ["franco-colapinto", "max-verstappen"];
+function starMix(list){
+  if (ROOM.k !== "f1") return list;
+  const q = [[], [], []];
+  list.forEach(x => { const r = F1_STARS.indexOf(x.playerSlug); q[r < 0 ? 2 : r].push(x); });
+  const pat = [0, 1, 0, 1, 2], out = [];
+  for (let i = 0; out.length < list.length; i++){
+    const want = pat[i % pat.length];
+    const from = [want, 0, 1, 2].find(k => q[k].length);
+    out.push(q[from].shift());
+  }
+  return out;
+}
 /* link directo a una carta o lote: siempre apunta a final-cards.com (también desde el artifact) */
 const SITE = /final-cards\.com$/i.test(location.hostname) ? location.origin : "https://final-cards.com";
 const cardUrl  = c  => SITE + "/#/cards/" + c.slug;
@@ -12993,7 +13008,7 @@ function pageHome(){
     return out;
   };
   // stage:true fija una carta en el carrusel de arriba (va primero en el turno de su dueño); noStage:true la saca
-  const stageCards = fairMix(byPrice.filter(c => !c.noStage).sort((a,b) => (b.stage?1:0) - (a.stage?1:0))).slice(0, 5);
+  const stageCards = (ROOM.k === "f1" ? starMix(byPrice.filter(c => !c.noStage)) : fairMix(byPrice.filter(c => !c.noStage).sort((a,b) => (b.stage?1:0) - (a.stage?1:0)))).slice(0, 5);
   // sección Premium del inicio: premium que no están girando arriba, para no repetir
   const premRest = premiumAll.filter(c => !stageCards.includes(c));
   const premShow = (premRest.length >= 2 ? premRest : premiumAll).filter(c => c.homePremium !== false);   // homePremium:false en una carta la saca de esta sección del inicio
@@ -13007,16 +13022,27 @@ function pageHome(){
   // se intercalan los dueños (una de cada socio por turno) para que nadie quede todo arriba o todo abajo
   // FRESH_PIN: cartas fijadas a mano en recién llegadas (van en el 2º y 4º lugar)
   // FRESH_PICK: si tiene cartas, recién llegadas muestra estas en este orden (las vendidas se saltean y se completa con el resto, 1 por jugador)
-  const FRESH_PICK = ["c67", "g23", "c123", "c108", "c72", "g14", "c86", "c98"];
+  const FRESH_N = 12;   // cuántas cartas muestra recién llegadas
+  const FRESH_PICK = ROOM.k === "nba" ? ["c67", "c223", "g23", "c176", "c199", "g14", "c198", "c230", "g36", "c204", "c235", "c208"] : [];
   const FRESH_PIN = [];
   const freshPin = FRESH_PIN.map(id => pool.find(c => c.id === id && c.status === "available")).filter(Boolean);
-  const freshList = fairMix(freshNew.concat(pool.filter(c => !isNew(c) && !FRESH_SKIP.includes(c.id)).sort(SORTS.new)).filter(c => !freshPin.some(x => x.playerSlug === c.playerSlug))).slice(0, 8 - freshPin.length);   // del jugador fijado solo van las fijadas
+  const freshList = fairMix(freshNew.concat(pool.filter(c => !isNew(c) && !FRESH_SKIP.includes(c.id)).sort(SORTS.new)).filter(c => !freshPin.some(x => x.playerSlug === c.playerSlug))).slice(0, FRESH_N - freshPin.length);   // del jugador fijado solo van las fijadas
   freshPin.forEach((c, i) => freshList.splice(Math.min(1 + i * 2, freshList.length), 0, c));
   if (FRESH_PICK.length){
     const pick = FRESH_PICK.map(id => pool.find(c => c.id === id && c.status === "available")).filter(Boolean);
     const seen = new Set(pick.map(c => c.playerSlug));
     const rest = freshList.filter(c => !seen.has(c.playerSlug) && (seen.add(c.playerSlug), true));
-    freshList.length = 0; freshList.push(...pick.concat(rest).slice(0, 8));
+    freshList.length = 0; freshList.push(...pick.concat(rest).slice(0, FRESH_N));
+  }
+  // si quedaron pocas (salas con pocos pilotos/jugadores, ej. F1), se completa hasta FRESH_N: primero hasta 2 por jugador, después cualquiera
+  if (!FRESH_PICK.length && !freshPin.length) freshList.length = 0;   // salas sin selección a mano: se arma con tope de 2 por jugador
+  if (freshList.length < FRESH_N){
+    const allNew = freshNew.concat(pool.filter(c => !isNew(c) && !FRESH_SKIP.includes(c.id)).sort(SORTS.new));
+    const cnt = {}; freshList.forEach(c => cnt[c.playerSlug] = (cnt[c.playerSlug] || 0) + 1);
+    const add = c => { if (freshList.length < FRESH_N && !freshList.includes(c)){ freshList.push(c); cnt[c.playerSlug] = (cnt[c.playerSlug] || 0) + 1; } };
+    if (ROOM.k === "f1") starMix(allNew).forEach(add);
+    fairMix(allNew).forEach(c => { if ((cnt[c.playerSlug] || 0) < 2) add(c); });
+    fairMix(allNew).forEach(add);
   }
   // las secciones de abajo empiezan con cartas que no se vieron arriba (carrusel, premium, recién llegadas);
   // las repetidas siguen en la lista pero van al final
@@ -13055,7 +13081,7 @@ function pageHome(){
   const soldOf = f => soldCards().filter(f).length;
   const papaCo = SETTINGS.papaPromo !== false && COMBOS.find(co => co.slug === "set-papas-francisco-y-leon-xiv-x2" && co.status !== "sold");   // banner especial del Papa (SETTINGS.papaPromo:false lo saca)
 
-  const tickerItems = (ROOM.k === "futbol" ? fairMix(pool.slice().sort(SORTS.new)) : pool.slice().sort(SORTS.new)).slice(0,6).map(c =>
+  const tickerItems = (ROOM.k === "futbol" ? fairMix(pool.slice().sort(SORTS.new)) : ROOM.k === "f1" ? starMix(pool.slice().sort((a,b) => b.price - a.price)) : pool.slice().sort(SORTS.new)).slice(0,6).map(c =>
       `<span class="tk"><span class="tdot"></span>Nueva en la bóveda <b>${esc(c.player)}</b> ${esc(c.set)} <span class="tprice">${money(c.price, c)}</span></span>`)
     .concat(soldCards().map(c =>
       `<span class="tk"><span class="tdot sold"></span>Vendida <b>${esc(c.player)}</b> ${serialOf(c)||""}</span>`))
@@ -13440,7 +13466,7 @@ function pageShop(params){
   let list = applyFilters(pool);
   if (S.q) list = searchCards(S.q, list);
   list = list.slice().sort(SORTS[S.sort] || SORTS.new);
-  if ((S.sort || "new") === "new") list = spreadMix(list);   // orden por defecto: socios mezclados
+  if ((S.sort || "new") === "new") list = ROOM.k === "f1" ? starMix(list.slice().sort((a,b) => b.price - a.price)) : spreadMix(list);   // orden por defecto: socios mezclados
   // al buscar, las vendidas que coinciden aparecen al final (sin precio)
   // las vendidas que coinciden van siempre al final (sin precio)
   list = list.concat(S.q ? searchCards(S.q, applyFilters(spool)) : applyFilters(spool));
@@ -13836,7 +13862,8 @@ function pagePlayers(){
   }));
   const have = Object.values(pl);
   const byCount = have.slice().sort((a,b) => (b.n + (b.c||0)) - (a.n + (a.c||0)) || a.name.localeCompare(b.name, "es"));
-  const byName = have.slice().sort((a,b) => a.name.localeCompare(b.name, "es"));
+  const starR = p => { const r = ROOM.k === "f1" ? F1_STARS.indexOf(p.slug) : -1; return r < 0 ? 9 : r; };
+  const byName = have.slice().sort((a,b) => starR(a) - starR(b) || a.name.localeCompare(b.name, "es"));
   const tile = p => {
     const m = PLAYERS_META[p.slug];
     return `<a class="player-tile" href="#/players/${p.slug}" data-name="${esc(norm(p.name + " " + Array.from(p.teams).join(" ")))}"><b>${esc(p.name)}</b>
@@ -13866,7 +13893,7 @@ function pagePlayers(){
         <div class="player-grid">${arg.map(tile).join("")}</div>
       </section>` : ""}
       <section class="psec" style="margin-bottom:40px">
-        <p class="eyebrow gold" style="margin-bottom:14px">Todos, de la A a la Z · ${byName.length}</p>
+        <p class="eyebrow gold" style="margin-bottom:14px">${ROOM.k === "f1" ? "Todos" : "Todos, de la A a la Z"} · ${byName.length}</p>
         <div class="player-grid">${byName.map(tile).join("") || `<p class="muted">Todavía no hay cartas cargadas.</p>`}</div>
       </section>
       ${wanted.length ? `<section class="psec">
